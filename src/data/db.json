@@ -1,6 +1,2826 @@
 {
-  "units": [],
-  "topics": [],
-  "blocks": [],
-  "specialisations": []
+  "units": [
+    {
+      "id": "300580",
+      "name": "Programming Fundamentals",
+      "mappedTopic": "5",
+      "delivery": "2",
+      "completionCriteria": {
+        "minimumValue": "50",
+        "allOf": [
+          {
+            "id": "96",
+            "weight": "30",
+            "minimumValue": ""
+          },
+          {
+            "id": "10",
+            "weight": "10"
+          },
+          {
+            "id": "19",
+            "weight": "10"
+          },
+          {
+            "id": "20",
+            "weight": "50"
+          }
+        ]
+      },
+      "outcome": "As a first unit in computer programming, Programming Fundamentals teaches the basics of developing software\nwith an emphasis on procedural programming. You will learn about basic data structures, concept of algorithms,\nfundamental programming constructs, common programming language features and functions, program design and\ngood programming style. A high level programming language is combined with a highly visual framework to teach\nproblem solving using software. \n\nThe art of programming is complex. It requires the exercise of several different skills.\nIt is at the same time analytical and synthetic. It demands both precision and imagination. The written form of a\nprogram must be suitable for consumption by both computers and humans. Program writing is similar in some ways\nto the composition of music commissioned for a specific purpose and just as a sheet of music is effectively a set of\ncommands to a musician, so too a program is a set of instructions to a computer. Programming is a special kind of\nreasoning. To become a programmer requires significant amount of practice in designing and in analysing programs.\nSo although programming goes on in your head and is mostly thinking, learning to program means spending a lot\nof time practicing to gain fluency and experience. When learning your first programming language, it is easy to get\nthe impression that the hardest part of solving a problem on a computer is translating your ideas into the specific\nlanguage that will be fed into the computer. This is definitely not the case. The most diffcult part of solving a\nproblem on a computer is coming up with the method of solution. After you have developed a method of solution,\nit is routine to translate your method into the required language; be it Java or any other programming language.\nWhen solving a problem with a computer, it is therefore helpful to temporarily ignore the language and to concentrate\ninstead on formulating the steps of the solution and write them down in plain English, as if the instructions were\nto be given to a human being. \n\nA set of instructions expressed in this way is frequently referred to as an algorithm.\nReading a book or listening to lectures is not enough to make you a programmer. In order to learn programming you\nmust practice. Reading textbooks should make the ideas plausible to you. That is the first stage of your learning,\nand the one, which requires the least effort. The second stage of understanding is to be able to follow other peoples’\nreasoning. Programming must be creative, but nobody can teach you creativity. You can learn it but only if you\nwork at it consistently. Practice and more practice is what you will need.\n\nOne of the diffculties you may face -\nand overcome - arises from the need for precision and the need for simplicity when writing programs. The need for\nprecision makes some programs large, but even the largest program must be kept simple enough to understand. The\nmost effective way to keep a program simple is to make it out of a small number of pieces, joined together to form\none of the standard programming structures. Understanding a program that is constructed in this way is a matter of\nunderstanding its various components separately and then understanding the way they fit together. No pre-requites\nare required for this unit.\n\nOutcomes:\n\n1. With a chosen programming language in mind , analyse a given problem and from a simple problem\ndescription, identify desired inputs, outputs, and the necessary processing operations to convert input into\noutput\n2. Develop an algorithm that applies structured programming techniques that solve the given problem\n3. Choose suitable data types to store relevant data for the given problem\n4. Design and code programs which use standard programming concepts: variables, sequence, loops, decision\nmaking constructs, mathematical and boolean operators, as well as functions\n5. Apply top-down modular design"
+    },
+    {
+      "id": "100483",
+      "name": "Principles of Professional Communication",
+      "mappedTopic": "",
+      "delivery": "1",
+      "completionCriteria": {},
+      "outcome": "At the successful completion of this unit, students will be able to:\n\n1. An understanding of the wide range of variables which constitute human communication\n2. Knowledge of the range of factors which affect both oral and written communication within professional contexts\n3. An understanding of argumentation, reasoning and persuasion as factors in written and oral communication\n4. Appreciation of communication across cultures\n5. A range of critical perspectives about issues relating to electronic communication from a written, interpersonal and organisational perspective\n6. Skills to write effectively using a variety of formats especially essays, reports and technical documents\n7. Skills of oral presentations\n8. Research skills including use of library catalogues, databases and the Internet\n9. Communication skills through participation in workshops and the importance of consideration of a variety of\npersonal views, perspectives and styles"
+    },
+    {
+      "id": "300095",
+      "name": "Computer Networks and Internets",
+      "mappedTopic": "",
+      "delivery": "1",
+      "completionCriteria": {}
+    },
+    {
+      "id": "300585",
+      "name": "Systems Analysis and Design",
+      "mappedTopic": "",
+      "delivery": "1",
+      "completionCriteria": {},
+      "outcome": "",
+      "outcomes": []
+    }
+  ],
+  "topics": [
+    {
+      "id": "5",
+      "name": "Programming",
+      "description": "",
+      "prerequisites": [],
+      "outcomes": [],
+      "completion": {
+        "allOf": [
+          {}
+        ]
+      },
+      "blocks": [
+        "0",
+        "1",
+        "3",
+        "2",
+        "4",
+        "9",
+        "8",
+        "7",
+        "6",
+        "5",
+        "10",
+        "11",
+        "20",
+        "19",
+        "17",
+        "18",
+        "16",
+        "14",
+        "15",
+        "13",
+        "12",
+        "11"
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "id": "0",
+      "name": "Introduction to the discipline. Developing your first program.",
+      "mappedUnitId": "300580",
+      "prerequisites": [],
+      "type": "knowledge",
+      "completionCriteria": {},
+      "lengthHours": 2
+    },
+    {
+      "id": "1",
+      "name": " Basic constructs and conditional statements",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "0",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "type": "knowledge",
+      "completionCriteria": {},
+      "lengthHours": 2
+    },
+    {
+      "id": "2",
+      "name": "Loops and typical programming errors ",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "3",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "type": "knowledge",
+      "completionCriteria": {},
+      "lengthHours": 2
+    },
+    {
+      "id": "3",
+      "name": "Portfolio - Basic constructs and conditional statements",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "1",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "type": "assignment",
+      "keywords": [
+        "Programming",
+        "Problem Solving"
+      ],
+      "completionCriteria": {},
+      "lengthHours": 2
+    },
+    {
+      "id": "4",
+      "name": "Portfolio - Loops and typical programming errors ",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "2",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "keywords": [
+        null,
+        "Programming",
+        "Problem Solving"
+      ],
+      "type": "assignment",
+      "completionCriteria": {},
+      "lengthHours": 2
+    },
+    {
+      "id": "5",
+      "name": "Good coding style, comments, problem decomposition ",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "4",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "type": "knowledge",
+      "completionCriteria": {},
+      "lengthHours": 2
+    },
+    {
+      "id": "6",
+      "name": "Portfolio - Good coding style, comments, problem decomposition ",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "5",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "type": "assignment",
+      "completionCriteria": {},
+      "lengthHours": 2
+    },
+    {
+      "id": "7",
+      "name": " Variables and data types",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "6",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "8",
+      "name": "Arithmetic operations, expressions",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "7",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "9",
+      "name": "Portfolio - Variables and data types, arithmetic operations, expressions",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "8",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "10",
+      "name": "Test",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "0",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "1",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "2",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "5",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "7",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "8",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "minimumValue": "50",
+        "credit": "1"
+      },
+      "type": "exam",
+      "lengthHours": 2
+    },
+    {
+      "id": "11",
+      "name": "Boolean expressions, nested loops, conditional statements, if-else-if, switch-case",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "8",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "10",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "12",
+      "name": "Debugging, Random Numbers, Keyboard Input",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "11",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "13",
+      "name": "Methods",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "12",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "14",
+      "name": "Portfolio - Debugging, Methods",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "13",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "15",
+      "name": "Objects and Classes",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "13",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "16",
+      "name": "Arrays",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "15",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "17",
+      "name": "Portfolio - Arrays, Objects and Classes",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "16",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "18",
+      "name": "Hardware, Files, Exam Preparation",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "16",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "19",
+      "name": "Major Assignment",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "17",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "20",
+      "name": "Exam",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "19",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "minimumValue": "50",
+        "credit": "6"
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [
+        {
+          "acsSkillId": "b0",
+          "bloomRating": 4
+        },
+        {
+          "acsSkillId": "b1",
+          "bloomRating": 6
+        },
+        {
+          "acsSkillId": "a1",
+          "bloomRating": 1
+        },
+        {
+          "acsSkillId": "a2",
+          "bloomRating": 1
+        },
+        {
+          "acsSkillId": "a4",
+          "bloomRating": 1
+        },
+        {
+          "acsSkillId": "a5",
+          "bloomRating": 1
+        },
+        {
+          "acsSkillId": "a3",
+          "bloomRating": 1
+        },
+        {
+          "acsSkillId": "c0",
+          "bloomRating": 3
+        },
+        {
+          "acsSkillId": "c1",
+          "bloomRating": 5
+        },
+        {
+          "acsSkillId": "d0",
+          "bloomRating": 6
+        },
+        {
+          "acsSkillId": "d1",
+          "bloomRating": 2
+        },
+        {
+          "acsSkillId": "d2",
+          "bloomRating": 6
+        },
+        {
+          "acsSkillId": "d3",
+          "bloomRating": 4
+        },
+        {
+          "acsSkillId": "e1",
+          "bloomRating": 1
+        }
+      ],
+      "type": "exam",
+      "lengthHours": 2
+    },
+    {
+      "id": "21",
+      "name": "What is communication - meaning or message?",
+      "mappedUnitId": "100483",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "22",
+      "name": "Portfolio - What is communication - meaning or message?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "21",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "23",
+      "name": "Perception - is the truth really ’out there’?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "21",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "24",
+      "name": "Portfolio - Perception - is the truth really ’out there’?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "23",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "25",
+      "name": "Language & communication - I know what you said but not what you mean",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "23",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "26",
+      "name": "Portfolio - Language & communication - I know what you said but not what you mean",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "25",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "27",
+      "name": "Non-verbal communication - more than just words",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "25",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "28",
+      "name": "Portfolio - Non-verbal communication - more than just words",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "27",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "29",
+      "name": "Oral Presentation",
+      "mappedUnitId": "100483",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "30",
+      "name": "Censorship - not just dirty pictures",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "27",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "32",
+      "name": "Portfolio - Censorship - not just dirty pictures",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "30",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "33",
+      "name": "Mediated Communication - the impact of technology on communication",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "30",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "35",
+      "name": "Portfolio - Mediated Communication - the impact of technology on communication",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "33",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "36",
+      "name": "Intercultural Communication",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "33",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "38",
+      "name": "Portfolio - Intercultural Communication",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "36",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "39",
+      "name": "Writing a business report I.",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "36",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "40",
+      "name": "Portfolio - Writing a business report I.",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "39",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "41",
+      "name": "Writing a business report II.",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "39",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "42",
+      "name": "Draft Report",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "41",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "43",
+      "name": "Portfolio - Writing a business report II.",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "41",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "44",
+      "name": "Issues in professional writing: what is a cliché anyway?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "41",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "45",
+      "name": "Issues in professional writing: what is a cliché anyway?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "44",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "46",
+      "name": "Oral Presentation - Issues in professional writing: what is a cliché anyway?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "44",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "47",
+      "name": "Portfolio - Issues in professional writing: what is a cliché anyway?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "44",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "48",
+      "name": "Quiz 1.",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "43",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "exam",
+      "lengthHours": 2
+    },
+    {
+      "id": "50",
+      "name": "Portfolio - Issues in professional writing: what is a cliché anyway?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "45",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "51",
+      "name": "Quiz 2",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "45",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "exam",
+      "lengthHours": 2
+    },
+    {
+      "id": "52",
+      "name": "Visual communication - a picture paints a thousand words",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "45",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "54",
+      "name": "Portfolio - Visual communication - a picture paints a thousand words",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "52",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "55",
+      "name": "Quiz 3",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "52",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "exam",
+      "lengthHours": 2
+    },
+    {
+      "id": "56",
+      "name": "Mediated Communication & Ethics",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "52",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "57",
+      "name": "Quiz 4",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "56",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "exam",
+      "lengthHours": 2
+    },
+    {
+      "id": "58",
+      "name": "Portfolio - Mediated Communication & Ethics",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "56",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "59",
+      "name": "Editing your report",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "56",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "60",
+      "name": "Final Report",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "59",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": "3",
+        "minimumValue": "50"
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "61",
+      "name": "Introduction/Welcome to the unit - Routing and Switching Essentials",
+      "mappedUnitId": "300095",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "62",
+      "name": "Routing Essentials - Static Routing",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "61",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "63",
+      "name": "Routing Essentials - Dynamic Routing",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "62",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "64",
+      "name": "Switching Essentials - Switched Networks ",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "63",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "65",
+      "name": "Switching Essentials - Switch Configuration",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "64",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "66",
+      "name": "Switching Essentials - VLANs",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "65",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "67",
+      "name": "Network Management - Access Control Lists & DHCP ",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "66",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "68",
+      "name": "Network Management - DHCP",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "67",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "69",
+      "name": "Network Management - NAT for IPv4",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "68",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "70",
+      "name": "Network Management -  Device Discovery, Management and Maintenance",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "69",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "71",
+      "name": "Skills Based Practical Test Review",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "70",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "72",
+      "name": "Practical - Introduction/Welcome to the unit - Routing and Switching Essentials",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "61",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "73",
+      "name": "Practical - Routing Essentials - Static Routing",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "62",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "74",
+      "name": "Practical - Routing Essentials - Dynamic Routing",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "63",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "75",
+      "name": "Practical - Switching Essentials - Switched Networks ",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "64",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "76",
+      "name": "Practical - Switching Essentials - Switch Configuration",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "65",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "77",
+      "name": "Practical - Switching Essentials - VLANs",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "66",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "78",
+      "name": "Practical - Network Management - Access Control Lists & DHCP ",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "67",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "79",
+      "name": "Practical - Network Management - DHCP",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "68",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "80",
+      "name": "Practical - Network Management - NAT for IPv4",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "69",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "81",
+      "name": "Practical - Network Management -  Device Discovery, Management and Maintenance",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "70",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "82",
+      "name": "Skills Based Practical Test",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "83",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "exam",
+      "lengthHours": 2
+    },
+    {
+      "id": "83",
+      "name": "Revision",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "71",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "84",
+      "name": "Exam",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "100",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "exam",
+      "lengthHours": 2
+    },
+    {
+      "id": "85",
+      "name": "Practical -  Basic constructs and conditional statements",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "1",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "86",
+      "name": "Practical - Loops and typical programming errors ",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "2",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "87",
+      "name": "Practical - Good coding style, comments, problem decomposition ",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "5",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "88",
+      "name": "Practical -  Variables and data types",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "7",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "89",
+      "name": "Practical - Arithmetic operations, expressions",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "8",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "90",
+      "name": "Practical - Boolean expressions, nested loops, conditional statements, if-else-if, switch-case",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "11",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "91",
+      "name": "Practical - Debugging, Random Numbers, Keyboard Input",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "12",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "92",
+      "name": "Practical - Methods",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "13",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "93",
+      "name": "Practical - Objects and Classes",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "15",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "94",
+      "name": "Practical - Arrays",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "16",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "95",
+      "name": "Practical - Hardware, Files, Exam Preparation",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "18",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "96",
+      "name": "Practicals",
+      "mappedUnitId": "300580",
+      "prerequisites": [
+        {
+          "id": "18",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "someOf": [
+          {
+            "id": "85"
+          },
+          {
+            "id": "86"
+          },
+          {
+            "id": "87"
+          },
+          {
+            "id": "88"
+          },
+          {
+            "id": "89"
+          },
+          {
+            "id": "90"
+          },
+          {
+            "id": "91"
+          },
+          {
+            "id": "92"
+          },
+          {
+            "id": "93"
+          },
+          {
+            "id": "94"
+          },
+          {
+            "id": "95"
+          }
+        ],
+        "minimumValue": "50",
+        "credit": "4"
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [
+        {
+          "acsSkillId": "b0",
+          "bloomRating": 4
+        },
+        {
+          "acsSkillId": "b1",
+          "bloomRating": 6
+        },
+        {
+          "acsSkillId": "a1",
+          "bloomRating": 1
+        },
+        {
+          "acsSkillId": "a2",
+          "bloomRating": 1
+        },
+        {
+          "acsSkillId": "a3",
+          "bloomRating": 1
+        },
+        {
+          "acsSkillId": "a4",
+          "bloomRating": 1
+        },
+        {
+          "acsSkillId": "a5",
+          "bloomRating": 2
+        },
+        {
+          "acsSkillId": "c0",
+          "bloomRating": 3
+        },
+        {
+          "acsSkillId": "c1",
+          "bloomRating": 5
+        },
+        {
+          "acsSkillId": "d0",
+          "bloomRating": 6
+        },
+        {
+          "acsSkillId": "d1",
+          "bloomRating": 2
+        },
+        {
+          "acsSkillId": "d2",
+          "bloomRating": 6
+        },
+        {
+          "acsSkillId": "d3",
+          "bloomRating": 4
+        },
+        {
+          "acsSkillId": "e1",
+          "bloomRating": 1
+        }
+      ],
+      "credit": 0,
+      "type": "exam",
+      "lengthHours": 2
+    },
+    {
+      "id": "97",
+      "name": "Practicals Notes - 1, 2, 3, 4",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "72",
+          "type": "block",
+          "recommended": false
+        },
+        {
+          "id": "73",
+          "type": "block",
+          "recommended": false
+        },
+        {
+          "id": "74",
+          "type": "block",
+          "recommended": false
+        },
+        {
+          "id": "75",
+          "type": "block",
+          "recommended": false
+        }
+      ],
+      "completionCriteria": {
+        "someOf": []
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "98",
+      "name": "Practicals Notes - 5, 6, 7 & 8",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "76",
+          "type": "block",
+          "recommended": false
+        },
+        {
+          "id": "77",
+          "type": "block",
+          "recommended": false
+        },
+        {
+          "id": "78",
+          "type": "block",
+          "recommended": false
+        },
+        {
+          "id": "79",
+          "type": "block",
+          "recommended": false
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "99",
+      "name": "Practicals Notes 9 & 10",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "80",
+          "type": "block",
+          "recommended": false
+        },
+        {
+          "id": "81",
+          "type": "block",
+          "recommended": false
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "assignment",
+      "lengthHours": 2
+    },
+    {
+      "id": "100",
+      "name": "Revision and Final Exam information",
+      "mappedUnitId": "300095",
+      "prerequisites": [
+        {
+          "id": "83",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "knowledge",
+      "lengthHours": 2
+    },
+    {
+      "id": "101",
+      "name": "Practical - What is communication - meaning or message?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "21",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "102",
+      "name": "Practical - Perception - is the truth really ’out there’?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "23",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "103",
+      "name": "Practical - Language & communication - I know what you said but not what you mean",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "25",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "104",
+      "name": "Practical - Non-verbal communication - more than just words",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "27",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credit": 0,
+      "type": "practical",
+      "lengthHours": 2
+    },
+    {
+      "id": "105",
+      "name": "Practical - Censorship - not just dirty pictures",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "30",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "106",
+      "name": "Practical - Mediated Communication - the impact of technology on communication",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "33",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "107",
+      "name": "Practical - Intercultural Communication",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "36",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "108",
+      "name": "Practical - Writing a business report I.",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "39",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "109",
+      "name": "Practical - Writing a business report II.",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "41",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "110",
+      "name": "Practical - Issues in professional writing: what is a cliché anyway?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "44",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "111",
+      "name": "Practical - Issues in professional writing: what is a cliché anyway?",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "45",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "112",
+      "name": "Practical - Visual communication - a picture paints a thousand words",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "52",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "113",
+      "name": "Practical - Mediated Communication & Ethics",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "56",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "114",
+      "name": "Practical - Editing your report",
+      "mappedUnitId": "100483",
+      "prerequisites": [
+        {
+          "id": "59",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "115",
+      "name": "Introduction to SAD",
+      "mappedUnitId": "300585",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge"
+    },
+    {
+      "id": "116",
+      "name": "System Development Methods",
+      "mappedUnitId": "300585",
+      "prerequisites": [
+        {
+          "id": "115",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "type": "knowledge"
+    },
+    {
+      "id": "117",
+      "name": "Practical - System Development Methods",
+      "mappedUnitId": "300585",
+      "prerequisites": [
+        {
+          "id": "116",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "practical"
+    },
+    {
+      "id": "118",
+      "name": "Portfolio - System Development Methods",
+      "mappedUnitId": "300585",
+      "prerequisites": [
+        {
+          "id": "116",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "assignment"
+    },
+    {
+      "id": "119",
+      "name": "Analysing the Business Case",
+      "mappedUnitId": "300585",
+      "prerequisites": [
+        {
+          "id": "116",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "lengthHours": 2,
+      "type": "knowledge"
+    }
+  ],
+  "specialisations": [
+    {
+      "id": "5",
+      "name": "Full Stack Developer",
+      "description": "",
+      "prerequisites": []
+    }
+  ],
+  "jobs": [
+    {
+      "id": "5",
+      "name": "Analyst Programmer",
+      "description": "Analyses user needs, produces requirements documentation and system plans, and encodes, tests, debugs, maintains\nand documents programs and applications.\n\n**Description of Employment Duties:**\n\n- researching, consulting, analysing and evaluating system program needs\n- identifying technology limitations and deficiencies in existing systems and associated processes, procedures\nand methods\n- testing, debugging, diagnosing and correcting errors and faults in an applications programming language\nwithin established testing protocols, guidelines and quality standards to ensure programs and applications\nperform to specification\n- writing and maintaining program code to meet system requirements, system designs and technical\nspecifications in accordance with quality accredited standards\n- writing, updating and maintaining technical program, end user documentation and operational procedures\n- providing advice, guidance and expertise in developing proposals and strategies for software design activities\nsuch as financial evaluation and costing for recommending software purchases and upgrades",
+      "skills": [
+        {
+          "bloomRating": 3,
+          "skillId": "c1"
+        },
+        {
+          "bloomRating": 5,
+          "skillId": "b1"
+        },
+        {
+          "bloomRating": 2,
+          "skillId": "a3"
+        },
+        {
+          "bloomRating": 2,
+          "skillId": "a0"
+        },
+        {
+          "bloomRating": 5,
+          "skillId": "c0"
+        },
+        {
+          "bloomRating": 2,
+          "skillId": "d1"
+        },
+        {
+          "bloomRating": 4,
+          "skillId": "b1"
+        },
+        {
+          "bloomRating": 5,
+          "skillId": "d0"
+        },
+        {
+          "bloomRating": 6,
+          "skillId": "d2"
+        },
+        {
+          "bloomRating": 3,
+          "skillId": "a2"
+        },
+        {
+          "bloomRating": 4,
+          "skillId": "a5"
+        }
+      ]
+    }
+  ],
+  "sfiaSkills": [
+    {
+      "id": "0",
+      "name": "Analytics",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "1",
+      "name": "Application Support",
+      "description": "",
+      "acsSkillId": "c0"
+    },
+    {
+      "id": "2",
+      "name": "IT Infrastructure (ITOP)",
+      "description": "",
+      "acsSkillId": "c0"
+    },
+    {
+      "id": "3",
+      "name": "Information Management (IRMG)",
+      "description": "",
+      "acsSkillId": "c1"
+    },
+    {
+      "id": "4",
+      "name": "Data Management (DATM)",
+      "description": "",
+      "acsSkillId": "c1"
+    },
+    {
+      "id": "5",
+      "name": "Network Support (NTAS)",
+      "description": "",
+      "acsSkillId": "c2"
+    },
+    {
+      "id": "6",
+      "name": "User Experience Design (HCEV)",
+      "description": "",
+      "acsSkillId": "d1"
+    },
+    {
+      "id": "7",
+      "name": "Programming/ Software Development (PROG)",
+      "description": "",
+      "acsSkillId": "d0"
+    },
+    {
+      "id": "8",
+      "name": "Systems Software",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "9",
+      "name": "IT Governance",
+      "description": "",
+      "acsSkillId": "e0"
+    },
+    {
+      "id": "10",
+      "name": "Project Management (PRMG)",
+      "description": "",
+      "acsSkillId": "e2"
+    },
+    {
+      "id": "11",
+      "name": "IT Management (ITMG)",
+      "description": "",
+      "acsSkillId": "e2"
+    },
+    {
+      "id": "12",
+      "name": "Information Security (SCTY)",
+      "description": "",
+      "acsSkillId": "e3"
+    },
+    {
+      "id": "13",
+      "name": "Benefits Management",
+      "description": "",
+      "acsSkillId": "e1"
+    },
+    {
+      "id": "14",
+      "name": "Hardware Design",
+      "description": "",
+      "acsSkillId": "c0"
+    },
+    {
+      "id": "15",
+      "name": "Network Design",
+      "description": "",
+      "acsSkillId": "c2"
+    },
+    {
+      "id": "16",
+      "name": "Requirement definition and Management",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "17",
+      "name": "Software Design",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "18",
+      "name": "Solution Architecture",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "19",
+      "name": "Systems Design",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "20",
+      "name": "Solution Architecture",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "21",
+      "name": "Data Modelling and Design",
+      "description": "",
+      "acsSkillId": "c1"
+    },
+    {
+      "id": "22",
+      "name": "Problem Management",
+      "description": "",
+      "acsSkillId": "e1"
+    },
+    {
+      "id": "23",
+      "name": "Systems Integration and Build",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "24",
+      "name": "Testing",
+      "description": "",
+      "acsSkillId": "d0"
+    },
+    {
+      "id": "25",
+      "name": "Business Modelling",
+      "description": "",
+      "acsSkillId": ""
+    },
+    {
+      "id": "26",
+      "name": "Network Support",
+      "description": "",
+      "acsSkillId": "c2"
+    },
+    {
+      "id": "27",
+      "name": "Specialist Advice",
+      "description": "",
+      "acsSkillId": "d1"
+    }
+  ],
+  "acsKnowledge": [
+    {
+      "id": "0",
+      "name": "ICT Professional Knowledge",
+      "description": "",
+      "items": [
+        {
+          "id": "a0",
+          "name": "Ethics",
+          "description": "- Fundamental ethical notions (virtues, duty,\nresponsibility, harm, benefit, rights, respect\nand consequences);\n- Basic ethics theories;\n- Integrity systems (including, the ACS Code\nof Professional Conduct ethics committees\nand whistle blowing);\n- Methods of ethical analysis;\n- Methods of ethical reflection\n- Methods and procedures of ethical repair\nand recovery;\n- ICT specific ethical issues (professional –\ne.g. compromising quality and conflict of\ninterest, and societal – e.g. phishing and\nprivacy)."
+        },
+        {
+          "id": "a1",
+          "name": "Professional Expectations",
+          "description": "Topics covered should include: expertise, certification, competence, autonomy, excellence, reflection, responsibility and accountability"
+        },
+        {
+          "id": "a2",
+          "name": "Teamwork Concepts & Issues",
+          "description": "Topics covered should include: collaboration,\ngroup dynamics, leadership styles, conflict\nresolution, team development and groupware"
+        },
+        {
+          "id": "a3",
+          "name": "Communication",
+          "description": "Topics covered should include: oral and\nwritten presentations, technical report\nwriting, writing user documentation and the\ndevelopment of effective interpersonal skills."
+        },
+        {
+          "id": "a4",
+          "name": "Societal Issues",
+          "description": "Topics covered should include: history of\ncomputing and the ICT discipline, privacy\nand civil liberties, cybercrime, intellectual\nproperty and legal issues."
+        },
+        {
+          "id": "a5",
+          "name": "Understand of ICT Profession",
+          "description": "Professionals should have some knowledge\nof where and when their discipline began\nand how it has evolved, in addition to\nunderstanding of ongoing issues in the\ndiscipline."
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "ICT Problem Solving",
+      "description": "",
+      "items": [
+        {
+          "id": "b0",
+          "name": "Problem Solving Abstraction",
+          "description": "This requires knowledge of how to use\nmodelling methods and processes to\nunderstand problems, handle abstraction and\ndesign solutions.\n\nThe methods and tools that are used for\nhandling abstraction could vary a great deal\nwith the branch of ICT, from circuit diagrams\nto data modelling tools to business process\nmodelling.\n\nIt is important to recognise this area\nbecause it captures some of the creativity\nand innovation that is required of ICT\nprofessionals, and the excitement that is\npresent in their jobs. Recognising this component also assists in identifying what is unique about ICT and what differentiates it\nfrom other disciplines. In no other discipline\nis there such an emphasis on developing\nartefacts (e.g., computer and information\nsystems) which are so abstract and complex\nand where modelling tools and methods are\nessential. The systems that ICT professionals\ndeal with cannot be seen or handled in the\nsame simple and direct manner as products\nof other applied disciplines (e.g., buildings,\nbridges, chairs, drugs). Consequently, highly\ndeveloped problem solving skills and the\nneed for methods to handle abstraction and\nmodelling are absolutely vital."
+        },
+        {
+          "id": "b1",
+          "name": "Problem Solving Design",
+          "description": "This requires knowledge of how to use\nmodelling methods and processes to\nunderstand problems, handle abstraction and\ndesign solutions.\n\nThe methods and tools that are used for\nhandling abstraction could vary a great deal\nwith the branch of ICT, from circuit diagrams\nto data modelling tools to business process\nmodelling.\n\nIt is important to recognise this area\nbecause it captures some of the creativity\nand innovation that is required of ICT\nprofessionals, and the excitement that is\npresent in their jobs. Recognising this component also assists in identifying what is unique about ICT and what differentiates it\nfrom other disciplines. In no other discipline\nis there such an emphasis on developing\nartefacts (e.g., computer and information\nsystems) which are so abstract and complex\nand where modelling tools and methods are\nessential. The systems that ICT professionals\ndeal with cannot be seen or handled in the\nsame simple and direct manner as products\nof other applied disciplines (e.g., buildings,\nbridges, chairs, drugs). Consequently, highly\ndeveloped problem solving skills and the\nneed for methods to handle abstraction and\nmodelling are absolutely vital."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Technology Resources ",
+      "description": "",
+      "items": [
+        {
+          "id": "c0",
+          "name": "Hardware and Software Fundamentals",
+          "description": "An understanding of the basic components of\ncomputer systems is required, including:\n- Computer architecture and organisation - including processors, memory, storage\nsystems and input/output devices;\n- Systems software – Operating systems and\napplication system software."
+        },
+        {
+          "id": "c1",
+          "name": "Data & Information Management",
+          "description": "An understanding is required of how data\nis captured, represented, organised and\nretrieved from files and databases. Topics\ninclude:\n\n- Data modelling and abstraction\n- Database Management Systems (DBMS)\n- Information assurance and security in a\nshared environment\n- Acquisition, custodianship and eventual\ndisposition of information\n- Nature of data, information and knowledge\ntransformation through technologies."
+        },
+        {
+          "id": "c2",
+          "name": "Networking",
+          "description": "This area requires an understanding of\ndata communications and networking\nfundamentals. Topics include:\n\n- Network concepts, protocols and standards\n- Network security\n- Wireless and mobile computing\n- Distributed systems."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Technology Building",
+      "description": "",
+      "items": [
+        {
+          "id": "d0",
+          "name": "Programming",
+          "description": "This involves an understanding of the\nfundamental concepts of a programming\nlanguage. It is expected that the requisite\nknowledge of programming fundamentals\nwould be best developed by engaging\nstudents in software developments tasks\n(programming). However, the range of\nprogramming languages and tools that could\nbe used to develop this knowledge is wide\nand will vary with the expected ICT job role of\nthe graduate."
+        },
+        {
+          "id": "d1",
+          "name": "Human Factors",
+          "description": "This area requires an understanding of the\nimportance of the user in developing ICT\napplications and systems, and involves\ndeveloping a mindset that recognises the\nimportance of users, their work practices and\norganisational contexts."
+        },
+        {
+          "id": "d2",
+          "name": "Systems Development",
+          "description": "An understanding is required of how to\ndevelop or acquire software (information)\nsystems that satisfy the requirements of\nusers and customers. All phases of the\nlifecycle of an information system should\nbe understood including: requirement\nanalysis (systems analysis) and specification,\ndesign, construction, testing, and operation\nand maintenance. There should also be\nknowledge of methodologies and processes\nfor developing systems."
+        },
+        {
+          "id": "d3",
+          "name": "Systems Acquisition",
+          "description": "An understanding is required of how to\ndevelop or acquire software (information)\nsystems that satisfy the requirements of\nusers and customers. All phases of the\nlifecycle of an information system should\nbe understood including: requirement\nanalysis (systems analysis) and specification,\ndesign, construction, testing, and operation\nand maintenance. There should also be\nknowledge of methodologies and processes\nfor developing systems."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "ICT Management",
+      "description": "",
+      "items": [
+        {
+          "id": "e0",
+          "name": "IT Governance & Organisational Issues",
+          "description": "Topics covered should include:\n\n- Fundamental governance principles (e.g.\nstructures to encourage moral behaviour\nwithin organisations and corporations,\nand moral behaviour by organisations and\ncorporations);\n- Organisational context, including business\nprocesses, organisational culture, change\nand risk management."
+        },
+        {
+          "id": "e1",
+          "name": "IT Project Management",
+          "description": "This area involves an understanding\nof the factors required to successfully\nmanage systems development projects.\nTopics include: team management,\nestimation techniques, cost/benefit\nanalysis, risk analysis, risk management,\nproject scheduling, quality assurance,\nsoftware configuration management,\nproject management tools, reporting and\npresentation techniques."
+        },
+        {
+          "id": "e2",
+          "name": "Service Management",
+          "description": "Service management deals with the ongoing\noperation of ICT in an organisational context\nand includes frameworks for structuring\nthe interactions of ICT technical personnel\nwith business customers and users. Many\nframeworks exist to guide ICT service\nmanagement, for example, the Information\nTechnology Infrastructure Library (ITIL)\nand Control Objectives for Information and\nRelated Technology (COBIT)."
+        },
+        {
+          "id": "e3",
+          "name": "Security Management",
+          "description": "Topics covered should include:\n\n- Computer system security: CPU,\nPeripherals, OS. This includes data security.\n- Physical security: The premises occupied\nby the ICT personnel and equipment.\n- Operational security: Environment control,\npower equipment, operation activities.\n- Procedural security: By IT, vendor,\nmanagement personnel, as well as\nordinary users.\n- Communications security:\nCommunications equipment, personnel,\ntransmission paths, and adjacent areas."
+        }
+      ]
+    }
+  ]
 }

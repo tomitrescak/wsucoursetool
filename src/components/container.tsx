@@ -1,8 +1,8 @@
-import React from "react";
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
-import { CourseAdmin } from "./course_admin";
+import { CourseAdmin } from './course_admin';
 
 const QUERY = gql`
   query LoadCourses {
@@ -10,12 +10,12 @@ const QUERY = gql`
   }
 `;
 
-export function AdminContainer() {
+export function AdminContainer({ readonly }) {
   const { loading, error, data, fetchMore, networkStatus } = useQuery(QUERY, {
     // Setting this value to true will make the component rerender when
     // the "networkStatus" changes, so we are able to know if it is fetching
     // more data
-    notifyOnNetworkStatusChange: true,
+    notifyOnNetworkStatusChange: true
   });
 
   if (error) return <div>Error loading</div>;
@@ -23,7 +23,7 @@ export function AdminContainer() {
 
   return (
     <>
-      <CourseAdmin data={JSON.parse(data.loadCourses)} />
+      <CourseAdmin readonly={readonly} data={JSON.parse(data.loadCourses)} />
     </>
   );
 }
