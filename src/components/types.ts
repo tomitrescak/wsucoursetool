@@ -15,12 +15,17 @@ export type Outcome = {
 export type Unit = {
   id: string;
   name: string;
-  topics: string[];
   delivery: '1' | '2' | '3';
   completionCriteria: CompletionCriteria;
   outcome: string;
   outcomes: Outcome[];
+
   blocks: string[];
+  topics: string[];
+  keywords: string[];
+
+  dynamic: boolean;
+  blockTopics: string[];
 };
 
 export type CompletionCriteria = {

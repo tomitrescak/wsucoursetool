@@ -1,5 +1,5 @@
 import React from 'react';
-import { observer, useLocalStore, Observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import {
   TextInputField,
   Pane,
@@ -7,24 +7,16 @@ import {
   Alert,
   Heading,
   Button,
-  SelectField,
-  Combobox,
   IconButton,
-  Text,
-  TextareaField,
-  Autocomplete,
-  TagInput,
   Badge,
-  Textarea,
   Icon,
   Select,
   TextInput
 } from 'evergreen-ui';
 import Router from 'next/router';
-import { State, Block, Topic, BlockType as ActivityType, Activity, Unit } from './types';
-import { buildForm, findMaxId, url } from 'lib/helpers';
+import { State, Block, BlockType as ActivityType, Activity, Unit } from './types';
+import { buildForm, findMaxId } from 'lib/helpers';
 import Link from 'next/link';
-import marked from 'marked';
 
 import { AddBlockModal } from './add_block_modal';
 import { SideTab, Tabs } from './tab';
@@ -32,119 +24,13 @@ import { OutcomeEditor } from './outcome_editor';
 import { PrerequisiteEditor } from './prerequisite_editor';
 import { TopicBlockEditor } from './topic_block_editor';
 import { TextEditor } from './text_editor';
+import { KeywordEditor, TopicEditor } from './tag_editors';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
     return block.completionCriteria.credit;
   }
 }
-
-type TagProps = {
-  block: Block;
-  keywords: string[];
-  state: State;
-};
-
-const KeywordEditor = observer(({ block, keywords }: TagProps) => {
-  return (
-    <Pane flex={1}>
-      <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
-        Keywords
-      </Text>
-      <Autocomplete
-        title="Keywords"
-        onChange={undefined}
-        onSelect={e => {
-          if (block.keywords == null) {
-            block.keywords = [];
-          }
-          block.keywords.push(e);
-        }}
-        items={keywords}
-      >
-        {props => {
-          const { getInputProps, getRef, inputValue } = props;
-          const { value, onChange, ...rest } = getInputProps();
-          return (
-            <Observer>
-              {() => (
-                <TagInput
-                  id="keywords"
-                  inputProps={{ placeholder: 'Add keywords...' }}
-                  values={block.keywords}
-                  width="100%"
-                  onChange={values => {
-                    block.keywords = values;
-                  }}
-                  onRemove={(_value, index) => {
-                    block.keywords = block.keywords.filter((b, i) => i !== index);
-                  }}
-                  onInputChange={onChange}
-                  innerRef={getRef}
-                  marginBottom={16}
-                  {...rest}
-                />
-              )}
-            </Observer>
-          );
-        }}
-      </Autocomplete>
-    </Pane>
-  );
-});
-
-const TopicEditor = observer(({ block, state }: TagProps) => {
-  const topics = (block.topics || [])
-    .map(id => state.courseConfig.topics.find(t => t.id === id))
-    .map(t => t.name);
-
-  return (
-    <Pane flex={1} marginRight={8}>
-      <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
-        Topics
-      </Text>
-      <Autocomplete
-        title="Topics"
-        onChange={undefined}
-        onSelect={e => {
-          if (block.topics == null) {
-            block.topics = [];
-          }
-          const tid = state.courseConfig.topics.find(t => t.name === e).id;
-          block.topics.push(tid);
-        }}
-        items={state.courseConfig.topics.map(t => t.name)}
-      >
-        {props => {
-          const { getInputProps, getRef, inputValue } = props;
-          const { value, onChange, ...rest } = getInputProps();
-          return (
-            <Observer>
-              {() => (
-                <TagInput
-                  id="keywords"
-                  inputProps={{ placeholder: 'Add topics...' }}
-                  values={topics}
-                  width="100%"
-                  // onChange={values => {
-                  //   block.keywords = values;
-                  // }}
-                  onRemove={(_value, index) => {
-                    block.topics = block.topics.filter((_, i) => i !== index);
-                  }}
-                  onInputChange={onChange}
-                  innerRef={getRef}
-                  marginBottom={16}
-                  {...rest}
-                />
-              )}
-            </Observer>
-          );
-        }}
-      </Autocomplete>
-    </Pane>
-  );
-});
 
 const ActivityDetail: React.FC<{ activity: Activity; block: Block; state: State }> = observer(
   ({ block, activity }) => {
@@ -254,9 +140,7 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
 
     // merge all keywords from blocks and topics
     let keywords = React.useMemo(() => {
-      let keywords = state.courseConfig.blocks
-        .flatMap(b => b.keywords)
-        .concat(state.courseConfig.topics.flatMap(b => b.keywords));
+      let keywords = state.courseConfig.blocks.flatMap(b => b.keywords);
       keywords = keywords.filter((item, index) => keywords.indexOf(item) === index).sort();
       return keywords;
     }, []);
@@ -346,13 +230,6 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
             marginBottom={8}
           />
 
-          <Pane display="flex">
-            {/* TOPICS */}
-            <TopicEditor block={block} keywords={keywords} state={state} />
-            {/* KEYWORDS */}
-            <KeywordEditor block={block} keywords={keywords} state={state} />
-          </Pane>
-
           {/* ACTIVITIES */}
 
           <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
@@ -372,7 +249,7 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
                 marginRight={8}
                 iconBefore="plus"
                 onClick={() => {
-                  addActivity('knowledge');
+                  addActivity('knowledge', 'Lecture');
                 }}
               >
                 Lecture
@@ -383,7 +260,7 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
                 iconBefore="plus"
                 marginRight={8}
                 onClick={() => {
-                  addActivity('practical', 'Practical - ' + block.name);
+                  addActivity('practical', 'Practical'); // - ' + block.name);
                 }}
               >
                 Practical
@@ -394,7 +271,7 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
                 iconBefore="plus"
                 marginRight={8}
                 onClick={() => {
-                  addActivity('assignment', 'Portfolio - ' + block.name);
+                  addActivity('assignment', 'Portfolio'); // - ' + block.name);
                 }}
               >
                 Assig.
@@ -468,7 +345,33 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
             </Heading>
 
             <TextEditor owner={block} field="description" label="Description" />
+
+            <Pane display="flex">
+              {/* TOPICS */}
+              <TopicEditor owner={block} state={state} />
+              {/* KEYWORDS */}
+              <KeywordEditor owner={block} keywords={keywords} />
+            </Pane>
           </Pane>
+
+          <Button
+            appearance="primary"
+            intent="danger"
+            onClick={() => {
+              if (confirm('Are you really sure?')) {
+                state.courseConfig.blocks.splice(state.courseConfig.blocks.indexOf(block), 1);
+                state.courseConfig.units.forEach(u => {
+                  let index = u.blocks.findIndex(id => id === block.id);
+                  if (index >= 0) {
+                    u.blocks.splice(index, 1);
+                  }
+                });
+              }
+            }}
+            iconBefore="trash"
+          >
+            Delete
+          </Button>
         </Pane>
       </div>
     );
@@ -518,11 +421,6 @@ const BlocksEditorView: React.FC<Props> = ({
                       isSelected={selectedBlock && block.id === selectedBlock.id}
                       aria-controls={`panel-${block.name}`}
                     >
-                      {blockCredits(block) && (
-                        <Badge color="red" marginLeft={-4} marginRight={8}>
-                          {blockCredits(block)}
-                        </Badge>
-                      )}
                       &nbsp;{index + 1}&nbsp;-&nbsp;
                       {block.name}
                     </SideTab>
@@ -530,6 +428,11 @@ const BlocksEditorView: React.FC<Props> = ({
                 </Link>
               </Pane>
               <Pane>
+                {blockCredits(block) && (
+                  <Badge color="orange" marginLeft={-4} marginRight={8}>
+                    {blockCredits(block)}
+                  </Badge>
+                )}
                 {(block.prerequisites || [])
                   .filter(p => p.type === 'block')
                   .map((p, i) => (

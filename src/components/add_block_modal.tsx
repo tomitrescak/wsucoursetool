@@ -13,10 +13,9 @@ type Props = {
 export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
   const localState = useLocalStore(() => ({
     isShown: false,
-    name: '',
-    type: 'knowledge' as any
+    name: ''
   }));
-  const form = buildForm(localState, ['name', 'type']);
+  const form = buildForm(localState, ['name']);
   return (
     <>
       <Dialog
@@ -40,9 +39,13 @@ export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
             topics: []
           };
           state.courseConfig.blocks.push(newBlock);
+          if (unit) {
+            unit.blocks.push(newBlock.id);
+          }
 
           state.save().then(() => {
             Router.push(
+              '/editor/[category]/[item]',
               unit
                 ? `/editor/units/${url(unit.name)}-${unit.id}--${url(localState.name)}-${
                     newBlock.id
@@ -64,21 +67,6 @@ export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
             marginRight={4}
           />
         </Pane>
-        <SelectField
-          flex={1}
-          value={localState.type}
-          label="Type"
-          id="type"
-          placeholder="Block Type"
-          onChange={form.type}
-          marginBottom={8}
-        >
-          <option value="">Please Select ...</option>
-          <option value="knowledge">Knowledge</option>
-          <option value="assignment">Assignment (Project)</option>
-          <option value="exam">Exam / Quiz</option>
-          <option value="wif">WIL</option>
-        </SelectField>
       </Dialog>
 
       <Button appearance="primary" iconBefore="plus" onClick={() => (localState.isShown = true)}>

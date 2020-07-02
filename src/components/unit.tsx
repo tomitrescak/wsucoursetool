@@ -11,12 +11,12 @@ import {
   Dialog,
   Button,
   SelectField,
-  Combobox,
   Text,
   TabNavigation,
   Tab,
   Badge,
-  Textarea
+  Textarea,
+  Checkbox
 } from 'evergreen-ui';
 import { Unit, State } from './types';
 import { url, buildForm } from 'lib/helpers';
@@ -26,13 +26,32 @@ import { useRouter } from 'next/router';
 import { BlocksEditor } from './block_editor';
 import { TopicBlockEditor } from './topic_block_editor';
 import { OutcomeEditor } from './outcome_editor';
+import { KeywordEditor, TopicEditor } from './tag_editors';
 
 const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = observer(
   ({ unit, state, readonly }) => {
     const form = React.useMemo(() => buildForm(unit, ['name', 'id', 'delivery', 'outcome']), [
       unit
     ]);
-    const blocks = unit.blocks.map(id => state.courseConfig.blocks.find(b => b.id === id));
+    // merge all keywords from blocks and topics
+    let keywords = React.useMemo(() => {
+      let keywords = state.courseConfig.blocks.flatMap(b => b.keywords);
+      keywords = keywords.filter((item, index) => keywords.indexOf(item) === index).sort();
+      return keywords;
+    }, []);
+    let blocks = unit.blocks.map(id => state.courseConfig.blocks.find(b => b.id === id));
+    if (unit.dynamic) {
+      blocks.push(
+        ...state.courseConfig.blocks.filter(b =>
+          (b.topics || []).some(t => unit.blockTopics.indexOf(t) >= 0)
+        )
+      );
+      blocks.push(
+        ...state.courseConfig.units
+          .filter(u => !u.dynamic && u.topics.some(t => unit.blockTopics.indexOf(t) >= 0))
+          .flatMap(u => u.blocks.map(ub => state.courseConfig.blocks.find(sb => sb.id === ub)))
+      );
+    }
 
     let selectedBlockId: string | undefined;
     const router = useRouter();
@@ -80,23 +99,63 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
           </Pane>
           {localState.tab === 'Description' && (
             <Pane>
-              <TextInputField
-                label="Code"
-                value={unit.id}
-                id="unitCode"
-                onChange={form.id}
-                disabled={true}
-                marginBottom={8}
-              />
-              <TextInputField
-                label="Name"
-                id="unitName"
-                placeholder="Unit Name"
-                value={unit.name}
-                onChange={form.name}
-                marginBottom={8}
-              />
+              <Pane display="flex" marginBottom={8} alignItems="flex-end">
+                <TextInputField
+                  label="Code"
+                  value={unit.id}
+                  id="unitCode"
+                  onChange={form.id}
+                  disabled={true}
+                  margin={0}
+                  marginRight={8}
+                />
+                <TextInputField
+                  flex="1"
+                  label="Name"
+                  id="unitName"
+                  placeholder="Unit Name"
+                  value={unit.name}
+                  margin={0}
+                  marginRight={8}
+                  onChange={form.name}
+                />
+                <SelectField
+                  value={unit.delivery}
+                  label="Delivery"
+                  id="unitDelivery"
+                  placeholder="Delivery"
+                  onChange={form.delivery}
+                  margin={0}
+                  marginRight={8}
+                >
+                  <option value="1">1 semester</option>
+                  <option value="2">2 semesters</option>
+                  <option value="3">3 semesters</option>
+                </SelectField>
+              </Pane>
+              <Pane display="flex">
+                {/* TOPICS */}
+                <TopicEditor owner={unit} state={state} />
+                {/* KEYWORDS */}
+                <KeywordEditor owner={unit} keywords={keywords} />
+              </Pane>
 
+              {/* IMPORTED TOPICS */}
+              {unit.dynamic && (
+                <TopicEditor
+                  owner={unit}
+                  state={state}
+                  label="Import Blocks with Following Topics"
+                  field="blockTopics"
+                />
+              )}
+
+              <Checkbox
+                margin={0}
+                label="Dynamic"
+                onChange={e => (unit.dynamic = e.currentTarget.checked)}
+                checked={unit.dynamic}
+              />
               {/* <Text is="label" htmlFor="topic" fontWeight={500} marginBottom={8} display="block">
                 Mapped Topic
               </Text>
@@ -112,18 +171,6 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                 onChange={selected => (unit.mappedTopic = selected.id)}
                 marginBottom={8}
               /> */}
-
-              <SelectField
-                value={unit.delivery}
-                label="Delivery"
-                id="unitDelivery"
-                placeholder="Delivery"
-                onChange={form.delivery}
-              >
-                <option value="1">1 semester</option>
-                <option value="2">2 semesters</option>
-                <option value="3">3 semesters</option>
-              </SelectField>
 
               {/* COMPLETION CRITERIA */}
 
@@ -239,6 +286,11 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
                   onSelect={() => {}}
                   aria-controls={`panel-${unit.name}`}
                 >
+                  {unit.dynamic && (
+                    <Badge color="orange" marginRight={8}>
+                      D
+                    </Badge>
+                  )}
                   {unit.name}
                 </SidebarTab>
               </a>
@@ -258,6 +310,9 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
               id: localState.newUnitId,
               name: localState.newUnitName,
               topics: [],
+              keywords: [],
+              blockTopics: [],
+              dynamic: false,
               delivery: '1',
               completionCriteria: {},
               outcome: '',

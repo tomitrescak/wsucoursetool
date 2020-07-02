@@ -43,7 +43,7 @@ export const PrerequisiteEditor: React.FC<Props> = observer(({ state, owner }) =
   return (
     <Pane flex={1}>
       <Heading size={500} marginBottom={16} borderBottom="dashed 1px #dedede">
-        Prerequisites
+        Prerequisites and Recommendations
       </Heading>
 
       <UnorderedList icon="tick" iconColor="success" alignItems="center">
