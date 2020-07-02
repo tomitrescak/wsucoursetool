@@ -1,17 +1,16 @@
 import React from 'react';
 import { Dialog, Pane, TextInputField, Button, SelectField } from 'evergreen-ui';
 import { useLocalStore, observer } from 'mobx-react';
-import { State, Block } from './types';
+import { State, Block, Unit } from './types';
 import { findMaxId, buildForm, url } from 'lib/helpers';
 import Router from 'next/router';
 
 type Props = {
-  unitId: string;
-  unitName: string;
+  unit: Unit;
   state: State;
 };
 
-export const AddBlockModalView: React.FC<Props> = ({ unitId, unitName, state }) => {
+export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
   const localState = useLocalStore(() => ({
     isShown: false,
     name: '',
@@ -30,21 +29,24 @@ export const AddBlockModalView: React.FC<Props> = ({ unitId, unitName, state }) 
           const newBlock: Block = {
             id: findMaxId(state.courseConfig.blocks),
             name: localState.name,
-            mappedUnitId: unitId,
             prerequisites: [],
             completionCriteria: {},
             description: '',
             keywords: [],
             outcome: '',
             outcomes: [],
-            type: localState.type
+            credits: 0,
+            activities: [],
+            topics: []
           };
           state.courseConfig.blocks.push(newBlock);
 
           state.save().then(() => {
             Router.push(
-              unitId
-                ? `/editor/units/${url(unitName)}-${unitId}--${url(localState.name)}-${newBlock.id}`
+              unit
+                ? `/editor/units/${url(unit.name)}-${unit.id}--${url(localState.name)}-${
+                    newBlock.id
+                  }`
                 : `/editor/blocks/${url(localState.name)}-${newBlock.id}`
             );
           });

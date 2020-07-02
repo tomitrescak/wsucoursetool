@@ -15,11 +15,12 @@ export type Outcome = {
 export type Unit = {
   id: string;
   name: string;
-  mappedTopic: string;
+  topics: string[];
   delivery: '1' | '2' | '3';
   completionCriteria: CompletionCriteria;
   outcome: string;
   outcomes: Outcome[];
+  blocks: string[];
 };
 
 export type CompletionCriteria = {
@@ -38,28 +39,30 @@ export type Topic = {
   id: string;
   name: string;
   description: string;
-  outcome: string;
-  completion: CompletionCriteria;
-  prerequisites: Prerequisite[];
-  outcomes: Outcome[];
-  keywords: string[];
-  blocks: string[];
 };
 
 export type BlockType = 'knowledge' | 'practical' | 'assignment' | 'exam' | 'wil';
 
-export type Block = {
+export type Activity = {
   id: string;
-  mappedUnitId: string;
   name: string;
   type: BlockType;
+  description: string;
+  lengthHours: number;
+};
+
+export type Block = {
+  id: string;
+  name: string;
   outcomes: Outcome[];
   outcome: string;
   description: string;
   keywords: string[];
+  topics: string[];
   prerequisites: Prerequisite[];
   completionCriteria: CompletionCriteria;
-  lengthHours: number;
+  credits: number;
+  activities: Activity[];
 };
 
 export type Specialisation = {
@@ -107,5 +110,5 @@ export type CourseConfig = {
 
 export type State = {
   courseConfig: CourseConfig;
-  save(): Any;
+  save(): any;
 };

@@ -15,10 +15,13 @@ import {
   Autocomplete,
   TagInput,
   Badge,
-  Textarea
+  Textarea,
+  Icon,
+  Select,
+  TextInput
 } from 'evergreen-ui';
 import Router from 'next/router';
-import { State, Block, Topic, BlockType } from './types';
+import { State, Block, Topic, BlockType as ActivityType, Activity, Unit } from './types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
 import Link from 'next/link';
 import marked from 'marked';
@@ -28,6 +31,7 @@ import { SideTab, Tabs } from './tab';
 import { OutcomeEditor } from './outcome_editor';
 import { PrerequisiteEditor } from './prerequisite_editor';
 import { TopicBlockEditor } from './topic_block_editor';
+import { TextEditor } from './text_editor';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
@@ -35,333 +39,446 @@ function blockCredits(block: Block) {
   }
 }
 
-const order = ['wil', 'exam', 'assignment', 'practical', 'knowledge'];
+type TagProps = {
+  block: Block;
+  keywords: string[];
+  state: State;
+};
 
-const BlockDetails: React.FC<{ block: Block; state: State }> = observer(({ block, state }) => {
-  const form = React.useMemo(
-    () => buildForm(block, ['name', 'type', 'description', 'outcome', 'lengthHours']),
-    [block]
+const KeywordEditor = observer(({ block, keywords }: TagProps) => {
+  return (
+    <Pane flex={1}>
+      <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
+        Keywords
+      </Text>
+      <Autocomplete
+        title="Keywords"
+        onChange={undefined}
+        onSelect={e => {
+          if (block.keywords == null) {
+            block.keywords = [];
+          }
+          block.keywords.push(e);
+        }}
+        items={keywords}
+      >
+        {props => {
+          const { getInputProps, getRef, inputValue } = props;
+          const { value, onChange, ...rest } = getInputProps();
+          return (
+            <Observer>
+              {() => (
+                <TagInput
+                  id="keywords"
+                  inputProps={{ placeholder: 'Add keywords...' }}
+                  values={block.keywords}
+                  width="100%"
+                  onChange={values => {
+                    block.keywords = values;
+                  }}
+                  onRemove={(_value, index) => {
+                    block.keywords = block.keywords.filter((b, i) => i !== index);
+                  }}
+                  onInputChange={onChange}
+                  innerRef={getRef}
+                  marginBottom={16}
+                  {...rest}
+                />
+              )}
+            </Observer>
+          );
+        }}
+      </Autocomplete>
+    </Pane>
   );
-  const topics = state.courseConfig.topics.filter(t => (t.blocks || []).some(b => b === block.id));
-  const localState = useLocalStore(() => ({
-    isDescriptionPreview: false,
-    isOutcomePreview: false
-  }));
-  const [selectedTopic, setTopic] = React.useState<Topic>(null);
+});
 
-  let keywords = React.useMemo(() => {
-    let keywords = state.courseConfig.blocks
-      .flatMap(b => b.keywords)
-      .concat(state.courseConfig.topics.flatMap(b => b.keywords));
-    keywords = keywords.filter((item, index) => keywords.indexOf(item) === index).sort();
-    return keywords;
-  }, []);
-
-  // back
-  if (block.completionCriteria == null) {
-    block.completionCriteria = {};
-  }
-
-  function addBlock(type: BlockType, name = '<New Block>') {
-    const newBlock: Block = {
-      id: findMaxId(state.courseConfig.blocks),
-      name,
-      mappedUnitId: block.mappedUnitId,
-      prerequisites: [
-        {
-          id: block.id,
-          type: 'block',
-          recommended: true
-        }
-      ],
-      completionCriteria: {},
-      description: '',
-      keywords: [],
-      outcome: '',
-      outcomes: [],
-      lengthHours: 2,
-      type: type
-    };
-    state.courseConfig.blocks.push(newBlock);
-
-    state.save().then(() => {
-      Router.push(
-        block.mappedUnitId
-          ? `/editor/units/unit-${block.mappedUnitId}--new-block-${newBlock.id}`
-          : `/editor/blocks/new-block-${newBlock.id}`
-      );
-    });
-  }
+const TopicEditor = observer(({ block, state }: TagProps) => {
+  const topics = (block.topics || [])
+    .map(id => state.courseConfig.topics.find(t => t.id === id))
+    .map(t => t.name);
 
   return (
-    <div style={{ flex: 1 }} key={block.id}>
-      <Pane background="tint3" borderRadius={6} marginLeft={24}>
-        <Pane display="flex" alignItems="center">
-          <Heading size={500} marginBottom={16} flex="1">
-            {block.name}
-          </Heading>
-          <Button
-            appearance="primary"
-            intent="success"
+    <Pane flex={1} marginRight={8}>
+      <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
+        Topics
+      </Text>
+      <Autocomplete
+        title="Topics"
+        onChange={undefined}
+        onSelect={e => {
+          if (block.topics == null) {
+            block.topics = [];
+          }
+          const tid = state.courseConfig.topics.find(t => t.name === e).id;
+          block.topics.push(tid);
+        }}
+        items={state.courseConfig.topics.map(t => t.name)}
+      >
+        {props => {
+          const { getInputProps, getRef, inputValue } = props;
+          const { value, onChange, ...rest } = getInputProps();
+          return (
+            <Observer>
+              {() => (
+                <TagInput
+                  id="keywords"
+                  inputProps={{ placeholder: 'Add topics...' }}
+                  values={topics}
+                  width="100%"
+                  // onChange={values => {
+                  //   block.keywords = values;
+                  // }}
+                  onRemove={(_value, index) => {
+                    block.topics = block.topics.filter((_, i) => i !== index);
+                  }}
+                  onInputChange={onChange}
+                  innerRef={getRef}
+                  marginBottom={16}
+                  {...rest}
+                />
+              )}
+            </Observer>
+          );
+        }}
+      </Autocomplete>
+    </Pane>
+  );
+});
+
+const ActivityDetail: React.FC<{ activity: Activity; block: Block; state: State }> = observer(
+  ({ block, activity }) => {
+    const form = React.useMemo(
+      () => buildForm(activity, ['name', 'type', 'description', 'lengthHours']),
+      [activity]
+    );
+
+    return (
+      <tr>
+        <td>
+          <Badge
             marginRight={8}
-            onClick={() => {
-              addBlock('knowledge');
-            }}
+            color={
+              activity.type === 'knowledge'
+                ? 'green'
+                : activity.type === 'exam'
+                ? 'red'
+                : activity.type === 'practical'
+                ? 'blue'
+                : activity.type === 'assignment'
+                ? 'yellow'
+                : 'teal'
+            }
           >
-            + Lecture
-          </Button>
-          <Button
-            appearance="primary"
-            intent="none"
-            marginRight={8}
+            {activity.type === 'knowledge'
+              ? 'K'
+              : activity.type === 'exam'
+              ? 'E'
+              : activity.type === 'practical'
+              ? 'P'
+              : activity.type === 'assignment'
+              ? 'A'
+              : 'W'}
+          </Badge>
+        </td>
+        <td>
+          <TextInput
+            placeholder="Unit Name"
+            value={activity.name}
+            onChange={form.name}
+            width="100%"
+          />
+        </td>
+        <td>
+          <Select value={activity.type} id="type" placeholder="Activity Type" onChange={form.type}>
+            <option value="">Please Select ...</option>
+            <option value="knowledge">Knowledge</option>
+            <option value="practical">Practical</option>
+            <option value="assignment">Assignment (Project)</option>
+            <option value="exam">Exam / Quiz</option>
+            <option value="wif">WIL</option>
+          </Select>
+        </td>
+        <td>
+          <TextInput
+            placeholder="Hours"
+            width={40}
+            value={activity.lengthHours}
+            onChange={form.lengthHours}
+          />
+        </td>
+        <td style={{ display: 'flex' }}>
+          <IconButton
+            icon="arrow-up"
+            iconSize={12}
+            marginRight={2}
+            width={20}
             onClick={() => {
-              addBlock('practical', 'Practical - ' + block.name);
+              const index = block.activities.indexOf(activity);
+              if (index >= 1) {
+                block.activities.splice(index, 1);
+                block.activities.splice(index - 1, 0, activity);
+              }
             }}
-          >
-            + Practical
-          </Button>
-          <Button
-            appearance="primary"
-            intent="warning"
-            marginRight={8}
+          />
+          <IconButton
+            icon="arrow-down"
+            iconSize={12}
+            marginRight={2}
+            width={20}
             onClick={() => {
-              addBlock('assignment', 'Portfolio - ' + block.name);
+              const index = block.activities.indexOf(activity);
+              if (index < block.activities.length - 1) {
+                block.activities.splice(index, 1);
+                block.activities.splice(index + 1, 0, activity);
+              }
             }}
-          >
-            + Assig.
-          </Button>
-          <Button
-            appearance="primary"
+          />
+          <IconButton
+            icon="trash"
+            iconSize={12}
+            width={24}
             intent="danger"
-            onClick={() => {
-              addBlock('exam', 'Exam');
-            }}
-          >
-            + Exam
-          </Button>
-        </Pane>
-        <Pane display="flex">
+            appearance="primary"
+            onClick={() => block.activities.splice(block.activities.indexOf(activity), 1)}
+          />
+        </td>
+      </tr>
+    );
+  }
+);
+
+const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = observer(
+  ({ block, state, unit }) => {
+    const form = React.useMemo(() => buildForm(block, ['name', 'description', 'outcome']), [block]);
+
+    // merge all keywords from blocks and topics
+    let keywords = React.useMemo(() => {
+      let keywords = state.courseConfig.blocks
+        .flatMap(b => b.keywords)
+        .concat(state.courseConfig.topics.flatMap(b => b.keywords));
+      keywords = keywords.filter((item, index) => keywords.indexOf(item) === index).sort();
+      return keywords;
+    }, []);
+
+    // back
+    if (block.completionCriteria == null) {
+      block.completionCriteria = {};
+    }
+
+    function addBlock(name = '<New Block>') {
+      const newBlock: Block = {
+        id: findMaxId(state.courseConfig.blocks),
+        name,
+        prerequisites: [
+          {
+            id: block.id,
+            type: 'block',
+            recommended: true
+          }
+        ],
+        completionCriteria: {},
+        description: '',
+        keywords: [],
+        outcome: '',
+        outcomes: [],
+        topics: [],
+        credits: 0,
+        activities: []
+      };
+      if (unit) {
+        unit.blocks.push(newBlock.id);
+      }
+      state.courseConfig.blocks.push(newBlock);
+
+      state.save().then(() => {
+        Router.push(
+          '/editor/[category]/[item]',
+          unit
+            ? `/editor/units/unit-${unit.id}--new-block-${newBlock.id}`
+            : `/editor/blocks/new-block-${newBlock.id}`
+          // { shallow: true }
+        );
+      });
+    }
+
+    function addActivity(type: ActivityType, name = '<New Activity>') {
+      const newActivity: Activity = {
+        id: findMaxId(state.courseConfig.blocks),
+        name,
+        description: '',
+        type,
+        lengthHours: 2
+      };
+      block.activities.push(newActivity);
+      state.save();
+    }
+
+    return (
+      <div style={{ flex: 1 }} key={block.id}>
+        <Pane background="tint3" borderRadius={6} marginLeft={24}>
+          <Pane display="flex" alignItems="center" marginBottom={8}>
+            <Heading size={500} flex="1">
+              <Icon marginRight={8} icon="build" size={14} />
+              {block.name}
+            </Heading>
+            <Button
+              appearance="primary"
+              intent="success"
+              marginRight={8}
+              iconBefore="plus"
+              onClick={() => {
+                addBlock();
+              }}
+            >
+              Block
+            </Button>
+          </Pane>
+
+          {/* BASIC INFO */}
+
           <TextInputField
             flex="1"
             label="Name"
-            placeholder="Unit Name"
+            placeholder="Block Name"
             value={block.name}
             onChange={form.name}
             marginBottom={8}
           />
-          <TextInputField
-            flex="0 0 80px"
-            label="Length (hrs)"
-            placeholder="Hours"
-            value={block.lengthHours}
-            onChange={form.lengthHours}
-            marginBottom={8}
-            marginLeft={8}
-          />
-        </Pane>
-        <SelectField
-          value={block.type}
-          label="Type"
-          id="type"
-          placeholder="Block Type"
-          onChange={form.type}
-          marginBottom={8}
-        >
-          <option value="">Please Select ...</option>
-          <option value="knowledge">Knowledge</option>
-          <option value="practical">Practical</option>
-          <option value="assignment">Assignment (Project)</option>
-          <option value="exam">Exam / Quiz</option>
-          <option value="wif">WIL</option>
-        </SelectField>
 
-        {/* PREREQUSTIES */}
-        <PrerequisiteEditor state={state} owner={block} />
+          <Pane display="flex">
+            {/* TOPICS */}
+            <TopicEditor block={block} keywords={keywords} state={state} />
+            {/* KEYWORDS */}
+            <KeywordEditor block={block} keywords={keywords} state={state} />
+          </Pane>
 
-        {/* OUTCOMES */}
-        {block.type !== 'knowledge' && block.type !== 'practical' && (
-          <Pane marginTop={16}>
-            <OutcomeEditor state={state} owner={block} />
+          {/* ACTIVITIES */}
 
-            {/* COMPLETION CRITERIA */}
+          <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+            <Pane
+              display="flex"
+              alignItems="center"
+              marginBottom={16}
+              paddingBottom={4}
+              borderBottom="dashed 1px #dedede"
+            >
+              <Heading size={500} flex="1">
+                Activities
+              </Heading>
+              <Button
+                appearance="primary"
+                intent="success"
+                marginRight={8}
+                iconBefore="plus"
+                onClick={() => {
+                  addActivity('knowledge');
+                }}
+              >
+                Lecture
+              </Button>
+              <Button
+                appearance="primary"
+                intent="none"
+                iconBefore="plus"
+                marginRight={8}
+                onClick={() => {
+                  addActivity('practical', 'Practical - ' + block.name);
+                }}
+              >
+                Practical
+              </Button>
+              <Button
+                appearance="primary"
+                intent="warning"
+                iconBefore="plus"
+                marginRight={8}
+                onClick={() => {
+                  addActivity('assignment', 'Portfolio - ' + block.name);
+                }}
+              >
+                Assig.
+              </Button>
+              <Button
+                appearance="primary"
+                intent="danger"
+                iconBefore="plus"
+                onClick={() => {
+                  addActivity('exam', 'Exam');
+                }}
+              >
+                Exam
+              </Button>
+            </Pane>
 
-            <Heading size={400} marginTop={16} marginBottom={16}>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th style={{ width: '100%' }}>
+                    <Heading size={400}>Name</Heading>
+                  </th>
+                  <th style={{ minWidth: '105px' }}>
+                    <Heading size={400}>Type</Heading>
+                  </th>
+                  <th>
+                    <Heading size={400}>Hrs.</Heading>
+                  </th>
+                  <th style={{ width: '70px' }}></th>
+                </tr>
+              </thead>
+              <tbody>
+                {block.activities.map(a => (
+                  <ActivityDetail block={block} activity={a} state={state} key={a.id} />
+                ))}
+              </tbody>
+            </table>
+          </Pane>
+
+          {/* PREREQUSTIES */}
+          <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+            <PrerequisiteEditor state={state} owner={block} />
+          </Pane>
+
+          {/* COMPLETION CRITERIA */}
+
+          <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+            <Heading size={500} marginBottom={16} borderBottom="dashed 1px #dedede">
               Completion Criteria
             </Heading>
+
             <TopicBlockEditor
               state={state}
-              unitId={block.mappedUnitId}
+              unitId={unit ? unit.id : undefined}
               block={block.completionCriteria}
             />
-
-            {/* OUTCOME DESCRIPTION */}
-            <Text
-              is="label"
-              htmlFor="outcome"
-              fontWeight={500}
-              marginBottom={8}
-              marginTop={16}
-              display="block"
-            >
-              Outcome Description{' '}
-              <Badge
-                cursor="pointer"
-                onClick={() => (localState.isOutcomePreview = !localState.isOutcomePreview)}
-              >
-                {localState.isOutcomePreview ? 'Editor' : 'Preview'}
-              </Badge>
-            </Text>
-            {localState.isOutcomePreview ? (
-              <Text dangerouslySetInnerHTML={{ __html: marked(block.outcome) }} />
-            ) : (
-              <Textarea id="outcome" value={block.outcome} onChange={form.outcome} />
-            )}
           </Pane>
-        )}
 
-        {/* DESCRIPITION */}
+          {/* OUTCOMES */}
 
-        <Text
-          is="label"
-          htmlFor="description"
-          fontWeight={500}
-          marginTop={16}
-          marginBottom={8}
-          display="block"
-        >
-          Description{' '}
-          <Badge
-            cursor="pointer"
-            onClick={() => (localState.isDescriptionPreview = !localState.isDescriptionPreview)}
-          >
-            {localState.isDescriptionPreview ? 'Editor' : 'Preview'}
-          </Badge>
-        </Text>
-        {localState.isDescriptionPreview ? (
-          <Text dangerouslySetInnerHTML={{ __html: marked(block.description) }} />
-        ) : (
-          <Textarea id="description" value={block.description} onChange={form.description} />
-        )}
-
-        {/* KEYWORDS */}
-
-        <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
-          Keywords
-        </Text>
-        <Autocomplete
-          title="Fruits"
-          onChange={undefined}
-          onSelect={e => {
-            if (block.keywords == null) {
-              block.keywords = [];
-            }
-            block.keywords.push(e);
-          }}
-          items={keywords}
-        >
-          {props => {
-            const { getInputProps, getRef, inputValue } = props;
-            const { value, onChange, ...rest } = getInputProps();
-            return (
-              <Observer>
-                {() => (
-                  <TagInput
-                    id="keywords"
-                    inputProps={{ placeholder: 'Add keywords...' }}
-                    values={block.keywords}
-                    width="100%"
-                    onChange={values => {
-                      block.keywords = values;
-                    }}
-                    onRemove={(_value, index) => {
-                      block.keywords = block.keywords.filter((b, i) => i !== index);
-                    }}
-                    onInputChange={onChange}
-                    innerRef={getRef}
-                    marginBottom={16}
-                    {...rest}
-                  />
-                )}
-              </Observer>
-            );
-          }}
-        </Autocomplete>
-
-        {/* TOPICS */}
-
-        <Text is="label" htmlFor="topic" fontWeight={500} marginBottom={8} display="block">
-          Belongs to Topic
-        </Text>
-
-        {topics.map((t, i) => (
-          <Pane key={t.id} display="flex" alignItems="center" marginBottom={8}>
-            <IconButton
-              flex="0 0 40px"
-              icon="trash"
-              intent="danger"
-              appearance="primary"
-              marginRight={8}
-              onClick={() => {
-                t.blocks.splice(
-                  t.blocks.findIndex(b => b === block.id),
-                  1
-                );
-              }}
-            />{' '}
-            <Text>{t.name}</Text>
+          <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+            <OutcomeEditor state={state} owner={block} />
+            <TextEditor owner={block} field="outcome" label="Outcome Description" />
           </Pane>
-        ))}
 
-        <Pane display="flex" marginBottom={16}>
-          <Combobox
-            flex="1"
-            width="100%"
-            id="topic"
-            items={state.courseConfig.topics}
-            itemToString={item => (item ? item.name : '')}
-            onChange={selected => setTopic(selected)}
-          />
-          <Button
-            marginLeft={8}
-            iconBefore="plus"
-            appearance="primary"
-            onClick={() => {
-              if (!selectedTopic.blocks) {
-                selectedTopic.blocks = [];
-              }
-              selectedTopic.blocks.push(block.id);
-            }}
-          >
-            Add
-          </Button>
+          {/* DESCRIPITION */}
+          <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+            <Heading size={500} marginBottom={16} borderBottom="dashed 1px #dedede">
+              Details
+            </Heading>
+
+            <TextEditor owner={block} field="description" label="Description" />
+          </Pane>
         </Pane>
-
-        <Button
-          intent="danger"
-          iconBefore="trash"
-          appearance="primary"
-          marginTop={8}
-          onClick={() => {
-            if (confirm('Are You Sure?')) {
-              state.courseConfig.blocks.splice(
-                state.courseConfig.blocks.findIndex(p => p === block),
-                1
-              );
-            }
-          }}
-        >
-          Delete
-        </Button>
-      </Pane>
-    </div>
-  );
-});
+      </div>
+    );
+  }
+);
 
 type Props = {
   state: State;
   blocks: Block[];
-  unitId: string;
-  unitName: string;
+  unit: Unit;
   selectedBlockId: string;
   url: (block: Block) => string;
   title?: string;
@@ -376,37 +493,10 @@ const BlocksEditorView: React.FC<Props> = ({
   selectedBlockId,
   url,
   state,
-  unitId,
-  unitName,
+  unit,
   title
 }) => {
   const selectedBlock = selectedBlockId ? blocks.find(b => b.id === selectedBlockId) : null;
-
-  const sorted: Block[] = [];
-  const original = [
-    ...blocks.sort((a, b) => {
-      const o1 = order.indexOf(a.type);
-      const o2 = order.indexOf(b.type);
-      return o1 < o2 ? -1 : 1;
-    })
-  ];
-  let i = 0;
-  while (sorted.length !== blocks.length) {
-    for (let i = original.length - 1; i >= 0; i--) {
-      const block = original[i];
-      if (
-        block.prerequisites == null ||
-        block.prerequisites.length === 0 ||
-        block.prerequisites.every(b => original.every(o => o.id !== b.id))
-      ) {
-        sorted.push(block);
-        original.splice(i, 1);
-      }
-    }
-    if (i++ > 1000) {
-      throw new Error('Infinite!');
-    }
-  }
 
   return (
     <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
@@ -417,8 +507,8 @@ const BlocksEditorView: React.FC<Props> = ({
           </Heading>
         )}
         <Tabs>
-          {sorted.map((block, index) => (
-            <Pane display="flex">
+          {blocks.map((block, index) => (
+            <Pane display="flex" key={block.id}>
               <Pane flex="1" width="130px" marginRight={8}>
                 <Link key={block.id} href="/editor/[category]/[item]" as={url(block)}>
                   <a>
@@ -428,37 +518,6 @@ const BlocksEditorView: React.FC<Props> = ({
                       isSelected={selectedBlock && block.id === selectedBlock.id}
                       aria-controls={`panel-${block.name}`}
                     >
-                      <Badge
-                        marginRight={8}
-                        marginLeft={
-                          block.prerequisites &&
-                          block.prerequisites.length > 0 &&
-                          block.type !== 'knowledge'
-                            ? 8
-                            : 0
-                        }
-                        color={
-                          block.type === 'knowledge'
-                            ? 'green'
-                            : block.type === 'exam'
-                            ? 'red'
-                            : block.type === 'practical'
-                            ? 'blue'
-                            : block.type === 'assignment'
-                            ? 'yellow'
-                            : 'teal'
-                        }
-                      >
-                        {block.type === 'knowledge'
-                          ? 'K'
-                          : block.type === 'exam'
-                          ? 'E'
-                          : block.type === 'practical'
-                          ? 'P'
-                          : block.type === 'assignment'
-                          ? 'A'
-                          : 'W'}
-                      </Badge>
                       {blockCredits(block) && (
                         <Badge color="red" marginLeft={-4} marginRight={8}>
                           {blockCredits(block)}
@@ -471,11 +530,11 @@ const BlocksEditorView: React.FC<Props> = ({
                 </Link>
               </Pane>
               <Pane>
-                {block.prerequisites
+                {(block.prerequisites || [])
                   .filter(p => p.type === 'block')
                   .map((p, i) => (
                     <Badge key={p.id + i} color={p.recommended ? 'green' : 'red'}>
-                      {sorted.findIndex(s => s.id === p.id) + 1}
+                      {blocks.findIndex(s => s.id === p.id) + 1}
                     </Badge>
                   ))}
               </Pane>
@@ -483,11 +542,11 @@ const BlocksEditorView: React.FC<Props> = ({
           ))}
         </Tabs>
         <Pane marginTop={16}>
-          <AddBlockModal state={state} unitId={unitId} unitName={unitName} />
+          <AddBlockModal state={state} unit={unit} />
         </Pane>
       </Tablist>
       {state.courseConfig.units.length === 0 && <Alert flex={1}>There are no units defined</Alert>}
-      {selectedBlock && <BlockDetails block={selectedBlock} state={state} />}
+      {selectedBlock && <BlockDetails block={selectedBlock} unit={unit} state={state} />}
     </Pane>
   );
 };

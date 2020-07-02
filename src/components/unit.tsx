@@ -32,7 +32,7 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
     const form = React.useMemo(() => buildForm(unit, ['name', 'id', 'delivery', 'outcome']), [
       unit
     ]);
-    const blocks = state.courseConfig.blocks.filter(b => b.mappedUnitId == unit.id);
+    const blocks = unit.blocks.map(id => state.courseConfig.blocks.find(b => b.id === id));
 
     let selectedBlockId: string | undefined;
     const router = useRouter();
@@ -97,7 +97,7 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                 marginBottom={8}
               />
 
-              <Text is="label" htmlFor="topic" fontWeight={500} marginBottom={8} display="block">
+              {/* <Text is="label" htmlFor="topic" fontWeight={500} marginBottom={8} display="block">
                 Mapped Topic
               </Text>
               <Combobox
@@ -111,7 +111,7 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                 }
                 onChange={selected => (unit.mappedTopic = selected.id)}
                 marginBottom={8}
-              />
+              /> */}
 
               <SelectField
                 value={unit.delivery}
@@ -167,8 +167,7 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
               blocks={blocks}
               selectedBlockId={selectedBlockId}
               state={state}
-              unitId={unit.id}
-              unitName={unit.name}
+              unit={unit}
               title="Blocks"
               url={block =>
                 `/editor/units/${url(unit.name)}-${unit.id}--${url(block.name)}-${block.id}`
@@ -223,6 +222,7 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
     <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
       <Tablist flexBasis={240} marginRight={8}>
         {state.courseConfig.units
+          .slice()
           .sort((a, b) => a.name.localeCompare(b.name))
           .map((unit, index) => (
             <Link
@@ -257,11 +257,12 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
             state.courseConfig.units.push({
               id: localState.newUnitId,
               name: localState.newUnitName,
-              mappedTopic: '',
+              topics: [],
               delivery: '1',
               completionCriteria: {},
               outcome: '',
-              outcomes: []
+              outcomes: [],
+              blocks: []
             });
 
             close();

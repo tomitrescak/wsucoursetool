@@ -22,7 +22,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
       blocks={state.courseConfig.blocks}
       selectedBlockId={selectedId}
       state={state}
-      unitId={''}
+      unit={null}
       title="Blocks"
       url={block => `/editor/blocks/${url(block.name)}-${block.id}`}
     />

@@ -11,7 +11,7 @@ function Editor() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AdminContainer />
+      <AdminContainer readonly={false} />
     </div>
   );
 }
@@ -29,5 +29,5 @@ function Viewer() {
   );
 }
 
-export const Admin = withApollo({ ssr: true })(Editor);
-export const View = withApollo({ ssr: true })(Viewer);
+export const Admin = withApollo({ ssr: false })(Editor);
+export const View = withApollo({ ssr: false })(Viewer);

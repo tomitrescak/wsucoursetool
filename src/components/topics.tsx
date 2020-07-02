@@ -24,6 +24,60 @@ import { PrerequisiteEditor } from './prerequisite_editor';
 import { OutcomeEditor } from './outcome_editor';
 import { TopicBlockEditor } from './topic_block_editor';
 
+type KeywordProps = {
+  item: Topic;
+  keywords: string;
+};
+const KeywordEditor = ({ item, keywords }: KeywordProps) => {
+  return (
+    <Pane>
+      {/* KEYWORDS */}
+
+      <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
+        Keywords
+      </Text>
+      <Autocomplete
+        title="Fruits"
+        onChange={undefined}
+        onSelect={e => {
+          if (item.keywords == null) {
+            item.keywords = [];
+          }
+          item.keywords.push(e);
+        }}
+        items={keywords}
+      >
+        {props => {
+          const { getInputProps, getRef, inputValue } = props;
+          const { value, onChange, ...rest } = getInputProps();
+          return (
+            <Observer>
+              {() => (
+                <TagInput
+                  id="keywords"
+                  inputProps={{ placeholder: 'Add keywords...' }}
+                  values={item.keywords}
+                  width="100%"
+                  onChange={values => {
+                    item.keywords = values;
+                  }}
+                  onRemove={(_value, index) => {
+                    item.keywords = item.keywords.filter((b, i) => i !== index);
+                  }}
+                  onInputChange={onChange}
+                  innerRef={getRef}
+                  marginBottom={16}
+                  {...rest}
+                />
+              )}
+            </Observer>
+          );
+        }}
+      </Autocomplete>
+    </Pane>
+  );
+};
+
 const Details: React.FC<{ item: Topic; state: State }> = observer(({ item, state }) => {
   const localState = useLocalStore(() => ({
     isPreview: false,
@@ -82,50 +136,6 @@ const Details: React.FC<{ item: Topic; state: State }> = observer(({ item, state
         ) : (
           <Textarea id="outcome" value={item.outcome} onChange={form.outcome} />
         )}
-
-        {/* KEYWORDS */}
-
-        <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
-          Keywords
-        </Text>
-        <Autocomplete
-          title="Fruits"
-          onChange={undefined}
-          onSelect={e => {
-            if (item.keywords == null) {
-              item.keywords = [];
-            }
-            item.keywords.push(e);
-          }}
-          items={keywords}
-        >
-          {props => {
-            const { getInputProps, getRef, inputValue } = props;
-            const { value, onChange, ...rest } = getInputProps();
-            return (
-              <Observer>
-                {() => (
-                  <TagInput
-                    id="keywords"
-                    inputProps={{ placeholder: 'Add keywords...' }}
-                    values={item.keywords}
-                    width="100%"
-                    onChange={values => {
-                      item.keywords = values;
-                    }}
-                    onRemove={(_value, index) => {
-                      item.keywords = item.keywords.filter((b, i) => i !== index);
-                    }}
-                    onInputChange={onChange}
-                    innerRef={getRef}
-                    marginBottom={16}
-                    {...rest}
-                  />
-                )}
-              </Observer>
-            );
-          }}
-        </Autocomplete>
 
         {/* BLOCKS */}
 
@@ -275,7 +285,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
               icon="plus"
               onClick={() => {
                 state.courseConfig.topics.push({
-                  id: findMaxId(state.courseConfig.acsKnowledge),
+                  id: findMaxId(state.courseConfig.topics),
                   name: localState.name,
                   description: '',
                   prerequisites: [],

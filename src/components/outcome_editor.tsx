@@ -53,7 +53,11 @@ export const OutcomeEditor: React.FC<Props> = observer(({ state, owner }) => {
           height={30}
           onClick={() => (localState.expanded = !localState.expanded)}
         >
-          <Icon marginRight={4} icon={localState.expanded ? 'chevron-up' : 'chevron-down'} />{' '}
+          <Icon
+            marginRight={4}
+            size={16}
+            icon={localState.expanded ? 'chevron-up' : 'chevron-down'}
+          />{' '}
           {localState.expanded ? 'Collapse' : 'Expand'}
         </Badge>
       </Heading>

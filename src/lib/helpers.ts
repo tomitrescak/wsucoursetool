@@ -1,4 +1,4 @@
-export function url(str: string) {
+export function url(str: string = '') {
   let result = str.replace(/:/g, '');
   result = result.replace(/ - /g, '-');
   result = result.replace(/\W/g, '-');

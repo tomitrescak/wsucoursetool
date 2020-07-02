@@ -3021,6 +3021,13 @@ cytoscape-fcose@^1.2.3:
   dependencies:
     cose-base "^1.0.0"
 
+cytoscape-spread@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/cytoscape-spread/-/cytoscape-spread-3.0.0.tgz#9d2cf43eee9a3b92dd518a4a2db8567584a1dd2e"
+  integrity sha512-ekuo4ByFRTZ4TOJylE2bPOMcVVyi8rD+qjvEjMWS2BHcyan40pmhlA4ramz/nTxZR+EtlxEa1asnmfiN8R5HyQ==
+  dependencies:
+    weaverjs "^1.2.0"
+
 cytoscape@^3.15.1:
   version "3.15.1"
   resolved "https://registry.yarnpkg.com/cytoscape/-/cytoscape-3.15.1.tgz#bb5724306c61dfb1500d20ce11cd90ef768fc32b"
@@ -6939,6 +6946,11 @@ watchpack@^1.6.1:
   optionalDependencies:
     chokidar "^3.4.0"
     watchpack-chokidar2 "^2.0.0"
+
+weaverjs@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/weaverjs/-/weaverjs-1.2.0.tgz#654c15cc735b660a1dae4c7c263cd7c746512fa0"
+  integrity sha1-ZUwVzHNbZgodrkx8JjzXx0ZRL6A=
 
 web-vitals@0.2.1:
   version "0.2.1"

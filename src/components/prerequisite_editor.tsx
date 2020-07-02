@@ -41,8 +41,8 @@ export const PrerequisiteEditor: React.FC<Props> = observer(({ state, owner }) =
     recommended: false
   }));
   return (
-    <Pane flex={1} marginRight={16}>
-      <Heading size={400} marginBottom={16}>
+    <Pane flex={1}>
+      <Heading size={500} marginBottom={16} borderBottom="dashed 1px #dedede">
         Prerequisites
       </Heading>
 
