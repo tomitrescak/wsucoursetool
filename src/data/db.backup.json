@@ -24,7 +24,45 @@
       ],
       "completionCriteria": {
         "minimumValue": "50",
-        "allOf": []
+        "allOf": [],
+        "type": "allOf",
+        "criteria": [
+          {
+            "type": "allOf",
+            "criteria": [
+              {
+                "id": "0"
+              },
+              {
+                "id": "1"
+              },
+              {
+                "id": "2"
+              },
+              {
+                "id": "3"
+              },
+              {
+                "id": "7"
+              },
+              {
+                "id": "8"
+              },
+              {
+                "id": "9"
+              }
+            ],
+            "weight": 20
+          },
+          {
+            "weight": 30,
+            "id": "10"
+          },
+          {
+            "weight": 50,
+            "id": "11"
+          }
+        ]
       },
       "outcome": "As a first unit in computer programming, Programming Fundamentals teaches the basics of developing software\nwith an emphasis on procedural programming. You will learn about basic data structures, concept of algorithms,\nfundamental programming constructs, common programming language features and functions, program design and\ngood programming style. A high level programming language is combined with a highly visual framework to teach\nproblem solving using software. \n\nThe art of programming is complex. It requires the exercise of several different skills.\nIt is at the same time analytical and synthetic. It demands both precision and imagination. The written form of a\nprogram must be suitable for consumption by both computers and humans. Program writing is similar in some ways\nto the composition of music commissioned for a specific purpose and just as a sheet of music is effectively a set of\ncommands to a musician, so too a program is a set of instructions to a computer. Programming is a special kind of\nreasoning. To become a programmer requires significant amount of practice in designing and in analysing programs.\nSo although programming goes on in your head and is mostly thinking, learning to program means spending a lot\nof time practicing to gain fluency and experience. When learning your first programming language, it is easy to get\nthe impression that the hardest part of solving a problem on a computer is translating your ideas into the specific\nlanguage that will be fed into the computer. This is definitely not the case. The most diffcult part of solving a\nproblem on a computer is coming up with the method of solution. After you have developed a method of solution,\nit is routine to translate your method into the required language; be it Java or any other programming language.\nWhen solving a problem with a computer, it is therefore helpful to temporarily ignore the language and to concentrate\ninstead on formulating the steps of the solution and write them down in plain English, as if the instructions were\nto be given to a human being. \n\nA set of instructions expressed in this way is frequently referred to as an algorithm.\nReading a book or listening to lectures is not enough to make you a programmer. In order to learn programming you\nmust practice. Reading textbooks should make the ideas plausible to you. That is the first stage of your learning,\nand the one, which requires the least effort. The second stage of understanding is to be able to follow other peoples’\nreasoning. Programming must be creative, but nobody can teach you creativity. You can learn it but only if you\nwork at it consistently. Practice and more practice is what you will need.\n\nOne of the diffculties you may face -\nand overcome - arises from the need for precision and the need for simplicity when writing programs. The need for\nprecision makes some programs large, but even the largest program must be kept simple enough to understand. The\nmost effective way to keep a program simple is to make it out of a small number of pieces, joined together to form\none of the standard programming structures. Understanding a program that is constructed in this way is a matter of\nunderstanding its various components separately and then understanding the way they fit together. No pre-requites\nare required for this unit.\n\nOutcomes:\n\n1. With a chosen programming language in mind , analyse a given problem and from a simple problem\ndescription, identify desired inputs, outputs, and the necessary processing operations to convert input into\noutput\n2. Develop an algorithm that applies structured programming techniques that solve the given problem\n3. Choose suitable data types to store relevant data for the given problem\n4. Design and code programs which use standard programming concepts: variables, sequence, loops, decision\nmaking constructs, mathematical and boolean operators, as well as functions\n5. Apply top-down modular design",
       "dynamic": false
@@ -105,7 +143,7 @@
         },
         {
           "id": "5",
-          "name": "Practical",
+          "name": "Practical - Basic constructs and conditional statements",
           "description": "",
           "type": "practical",
           "lengthHours": 2
@@ -477,7 +515,9 @@
         }
       ],
       "completionCriteria": {
-        "credit": "8"
+        "credit": "8",
+        "id": "12",
+        "minimumValue": 50
       },
       "description": "",
       "keywords": [],

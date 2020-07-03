@@ -326,8 +326,8 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
 
             <TopicBlockEditor
               state={state}
-              unitId={unit ? unit.id : undefined}
               block={block.completionCriteria}
+              items={block.activities}
             />
           </Pane>
 

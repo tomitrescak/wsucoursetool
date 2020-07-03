@@ -177,7 +177,7 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
               <Heading size={400} marginTop={16} marginBottom={16}>
                 Completion Criteria
               </Heading>
-              <TopicBlockEditor state={state} block={unit.completionCriteria} unitId={unit.id} />
+              <TopicBlockEditor state={state} block={unit.completionCriteria} items={blocks} />
 
               {/* OUTCOME DESCRIPTION */}
               <Text

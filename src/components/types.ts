@@ -29,10 +29,8 @@ export type Unit = {
 };
 
 export type CompletionCriteria = {
-  oneOf?: CompletionCriteria[];
-  anyOf?: CompletionCriteria[];
-  someOf?: CompletionCriteria[];
-  allOf?: CompletionCriteria[];
+  type?: '' | 'simple' | 'allOf' | 'someOf';
+  criteria?: CompletionCriteria[];
   id?: string;
   minimumValue?: number;
   minimumCount?: number;
