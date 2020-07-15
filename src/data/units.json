@@ -1,4 +1,8 @@
 {
+  "100483": {
+    "name": "Unknown",
+    "code": "100483"
+  },
   "200022": {
     "name": "Mathematical Modelling",
     "code": "200022",
@@ -7,9 +11,7 @@
     "coordinator": "Stephen Weissenhofer",
     "about": "Mathematical Modelling is about solving real world problems. The real world is a complicated place which we often need or want to understand better. One way to do this is to set up a mathematical model which we hope can provide insights, predictions and a greater understanding of a complex system. Selected real-world problems are approximated by mathematical models that are amenable to being written in terms of linear and non-linear equations or differential equations.  Once equations are solved emphasis is placed on interpreting solutions, modifying models as required and using  models for prediction.",
     "assumed": "Matrix algebra and how to find eigenvalues and eigenvectors.",
-    "prerequisite": [
-      "200030"
-    ]
+    "prerequisite": ["200030"]
   },
   "200023": {
     "name": "Analysis",
@@ -18,12 +20,8 @@
     "credits": "10",
     "coordinator": "Rehez Ahlip",
     "about": "Analysis provides the theoretical basis of real and complex numbers, including differentiation and integration. Topics include: field axioms and completeness, sequences, series, convergence, compactness, continuity, differentiability, integrability, and related theorems in both the real and complex number systems.",
-    "prerequisite": [
-      "200028"
-    ],
-    "equivalent": [
-      "14388"
-    ]
+    "prerequisite": ["200028"],
+    "equivalent": ["14388"]
   },
   "200025": {
     "name": "Discrete Mathematics",
@@ -33,12 +31,8 @@
     "coordinator": "Leanne Rylands",
     "about": "This unit introduces set theory, symbolic logic, graph theory and some counting problems.  It provides a solid foundation for further study in mathematics or computing.",
     "assumed": "HSC Mathematics or equivalent",
-    "equivalent": [
-      "700010"
-    ],
-    "incompatible": [
-      "300699"
-    ]
+    "equivalent": ["700010"],
+    "incompatible": ["300699"]
   },
   "200027": {
     "name": "Linear Algebra",
@@ -56,17 +50,9 @@
     "credits": "10",
     "coordinator": "Stephen Weissenhofer",
     "about": "This unit is designed for students undertaking studies in mathematics, statistics, operations research and mathematical finance. It provides further mathematical training in the areas of multivariable and vector calculus, which is essential to the understanding of many areas of both pure and applied mathematics.",
-    "prerequisite": [
-      "300673"
-    ],
-    "equivalent": [
-      "14379",
-      "14504",
-      "J2764"
-    ],
-    "incompatible": [
-      "200238"
-    ]
+    "prerequisite": ["300673"],
+    "equivalent": ["14379", "14504", "J2764"],
+    "incompatible": ["200238"]
   },
   "200030": {
     "name": "Differential Equations",
@@ -76,9 +62,7 @@
     "coordinator": "Alexander Lee",
     "about": "Differential equations arise naturally both in abstract mathematics and in the study of many phenomena.  This unit provides the theory of ordinary differential equations and an introduction to partial differential equations together with methods of solution.  Examples are drawn from a wide range of biological, chemical, physical and economic applications.",
     "assumed": "Algebra - competency in manipulation of algebraic terms including powers, sigma notation\r\nElementary functions - polynomial, power, exponential, logarithmic, circular and hyperbolic, inverse functions\r\nDifferentiation - derivatives of standard functions, product/quotient/composite function rules\r\nIntegration - integrals of standard functions, change of variable, integration by parts",
-    "incompatible": [
-      "200238"
-    ]
+    "incompatible": ["200238"]
   },
   "200032": {
     "name": "Statistics for Business",
@@ -88,16 +72,7 @@
     "coordinator": "Neil Hopkins",
     "about": "Statistics for Business introduces the basic concepts and techniques of statistics that are particularly relevant to problem solving in business. It also provides a sound base for more advanced study in statistics and forecasting in subsequent sessions. Topics include: presentation of data; descriptive statistics; the role of uncertainty in business decision making; hypothesis testing; and basic forecasting.",
     "assumed": "HSC Mathematics/Mathematics Extension 1 is desirable.",
-    "equivalent": [
-      "200192",
-      "300700",
-      "200263",
-      "200052",
-      "301123",
-      "700007",
-      "700033",
-      "700041"
-    ]
+    "equivalent": ["200192", "300700", "200263", "200052", "301123", "700007", "700033", "700041"]
   },
   "200045": {
     "name": "Quantitative Project",
@@ -118,13 +93,8 @@
     "credits": "10",
     "coordinator": "Roozbeh Hazrat",
     "about": "This unit develops algebraic thought to a high level. The abstract concepts involved in the main topics (group theory and number theory) have many applications in science and technology, and the unit includes an application to cryptography.",
-    "prerequisite": [
-      "200025"
-    ],
-    "equivalent": [
-      "14702",
-      "14383"
-    ]
+    "prerequisite": ["200025"],
+    "equivalent": ["14702", "14383"]
   },
   "200237": {
     "name": "Mathematics for Engineers 1",
@@ -137,12 +107,8 @@
     "rawPrerequisite": [
       "Students enrolled in 3740 Bachelor of Engineering (Honours) or 3689 Bachelor of Engineering must have passed 300743 Mathematics for Engineers Preliminary otherwise permission is required."
     ],
-    "equivalent": [
-      "14505"
-    ],
-    "incompatible": [
-      "200031"
-    ]
+    "equivalent": ["14505"],
+    "incompatible": ["200031"]
   },
   "200238": {
     "name": "Mathematics for Engineers 2",
@@ -151,12 +117,8 @@
     "credits": "10",
     "coordinator": "Wei Xing Zheng",
     "about": "This unit is the second of two mathematics units to be completed by students enrolled in an Engineering degree during their first year of study.  The content covers a number of topics that build on the calculus knowledge from Mathematics for Engineers 1. The subject matter includes:  ordinary differential equations, Laplace transforms and multi-variable calculus.",
-    "prerequisite": [
-      "200237"
-    ],
-    "equivalent": [
-      "700022"
-    ]
+    "prerequisite": ["200237"],
+    "equivalent": ["700022"]
   },
   "200242": {
     "name": "Mathematics for Engineers 3",
@@ -165,12 +127,8 @@
     "credits": "10",
     "coordinator": "Volker Gebhardt",
     "about": "Students enrolled in Bachelor of Engineering who are yet to successfully complete 200242 Mathematics for Engineers 3, are to seek advice from Dr Jamal Rizk to enable them to complete the course.  This unit is a core unit in the Computer, Electrical, or Telecommunications key programmes of the Bachelor of Engineering course.  It builds on the first two mathematics units in that course and provides mathematical tools and techniques needed for the above key programmes.  The unit covers topics from advanced calculus including vector calculus, complex analysis, Fourier series, heat and wave equations, Fourier integrals and transforms; discrete mathematics including logic and set theory; random variables and random processes including mean, correlation and covariance functions, ergodicity, ensemble averages, and Gaussian processes.",
-    "prerequisite": [
-      "14506"
-    ],
-    "equivalent": [
-      "200194"
-    ]
+    "prerequisite": ["14506"],
+    "equivalent": ["200194"]
   },
   "200263": {
     "name": "Biometry",
@@ -180,18 +138,8 @@
     "coordinator": "Preethi Kottegoda",
     "about": "Biometry introduces students to various statistical techniques necessary in scientific endeavours. Presentation of the content will emphasize the correct principles and procedures for collecting and analysing scientific data, using a hands-on approach. Topics include effective methods of gathering data, statistical principles of designing experiments, error analysis, describing different sets of data, probability distributions, statistical inference, non-parametric methods, simple linear regression and analysis of categorical data.",
     "assumed": "HSC Mathematics or equivalent",
-    "equivalent": [
-      "200192",
-      "300700",
-      "200032",
-      "200052",
-      "700033",
-      "700041",
-      "30123"
-    ],
-    "incompatible": [
-      "200182"
-    ]
+    "equivalent": ["200192", "300700", "200032", "200052", "700033", "700041", "30123"],
+    "incompatible": ["200182"]
   },
   "200413": {
     "name": "Mathematics Honours Thesis",
@@ -218,9 +166,7 @@
     "credits": "10",
     "coordinator": "Quang Vinh Nguyen",
     "about": "Computer Graphics will examine elementary graphics concepts, algorithms and programming skills for producing graphical applications, in both two-dimension (2D) and three-dimension (3D) using Open GL. Techniques and algorithms will be programmed in Processing, which is a very easy-to-learn programming language yet powerful and comprehensive.",
-    "prerequisite": [
-      "300147"
-    ]
+    "prerequisite": ["300147"]
   },
   "300095": {
     "name": "Computer Networks and Internets",
@@ -230,9 +176,7 @@
     "coordinator": "Sharon Griffith",
     "about": "This unit extends on the work undertaken in the prerequisite unit and provides students with an in-depth explanation on the role of the architecture, components, and operations of routers and switches in a small network. Students will configure and troubleshoot routers and switches and resolve common issues with common routing protocols, virtual LANs, and inter-VLAN routing in both IPv4 and IPv6 networks. This is the second of three units that prepares the student for industry-based networking certification (CCNA).",
     "assumed": "Fundamentals of data communications and computer networking, such as that covered in the prerequisite unit.",
-    "prerequisite": [
-      "300565"
-    ]
+    "prerequisite": ["300565"]
   },
   "300096": {
     "name": "Computer Organisation",
@@ -255,9 +199,7 @@
     "credits": "10",
     "coordinator": "Dongmo Zhang",
     "about": "This unit introduces students to fundamental data structures and algorithms used in computing. The material covered forms the basis for further studies in programming and software engineering in later units and for further training in programming skills. The unit focuses on the ideas of data abstraction and algorithm efficiency. The issues of computational complexity of algorithms are addressed throughout the semester. The topics covered include the fundamental abstract data types (lists, stacks, queues, trees, hash tables, graphs), recursion, complexity of algorithms, sorting and searching algorithms, binary search trees and graphs.",
-    "prerequisite": [
-      "300147"
-    ]
+    "prerequisite": ["300147"]
   },
   "300104": {
     "name": "Database Design and Development",
@@ -267,12 +209,8 @@
     "coordinator": "Zhuhan Jiang",
     "about": "The main purpose of this unit is to provide students with an opportunity to gain a basic knowledge of database design and development including data modelling methods, techniques for database design using a set of business rules that are derived from a case study and finally implementation of the database using a commercial relational database management system. Through group work and tutorial practicals, students examine a number of important database concepts such as database administration, concurrency, backup and recovery and security whilst developing their professional communication and team work skills.",
     "assumed": "Basic programming skills, including variable declaration, variable assignment, selection statement and loop structure.",
-    "equivalent": [
-      "700011"
-    ],
-    "incompatible": [
-      "200129"
-    ]
+    "equivalent": ["700011"],
+    "incompatible": ["200129"]
   },
   "300111": {
     "name": "Developing Web Applications with XML",
@@ -302,9 +240,7 @@
     "coordinator": "Yun Bai",
     "about": "Information Security is concerned with the protection and privacy of information in computer systems. The focus is primarily on introducing cryptography concept, algorithm and protocol in information security and applying such knowledge in the design and implementation of secure computer and network systems. The unit also addresses conventional and public key encryption, number theory and algebra and their application in public key encryption and signature. Students will learn the application of cryptography algorithm in current computer systems and information security management. This unit also provides students with the practical experience around security programming.",
     "assumed": "Basic understanding of data structures, number theory and probability theory. Basic programming skills in C, C++, java, etc.",
-    "prerequisite": [
-      "200025"
-    ]
+    "prerequisite": ["200025"]
   },
   "300130": {
     "name": "Internet Programming",
@@ -314,12 +250,8 @@
     "coordinator": "Chun Ruan",
     "about": "This unit offers students basic concepts and latest technologies of internet programming and web-based application development.  Utilising one of the popular internet programming languages, such as Java, it aims to develop the programming skills and methodologies required for both client-side and server-side programming as well as general purpose programming.  The range of topics covered by the unit includes HTML, XML, Java applets, desktop application in Java, servlets, JavaServer Pages and JDBC.",
     "assumed": "Basic knowledge on internet browsing and any object-oriented programming language.",
-    "prerequisite": [
-      "300147"
-    ],
-    "equivalent": [
-      "300246"
-    ]
+    "prerequisite": ["300147"],
+    "equivalent": ["300246"]
   },
   "300134": {
     "name": "Introduction to Information Technology",
@@ -328,11 +260,7 @@
     "credits": "10",
     "coordinator": "Jianhua Yang",
     "about": "This introductory unit gives students an insight into the history, structure, operations and uses of computers, and their impact on society. This will be complemented by hands-on use of computers and popular application software packages in a graphical user interface environment. Students gain a basic understanding of the uses of computers, and the skills necessary to use popular applications software, including word processing, spreadsheet and database packages, and Internet tools and services.",
-    "equivalent": [
-      "B1582",
-      "J1742",
-      "61211"
-    ]
+    "equivalent": ["B1582", "J1742", "61211"]
   },
   "300136": {
     "name": "I.T. Support Practicum",
@@ -341,9 +269,7 @@
     "credits": "10",
     "coordinator": "Chun Ruan",
     "about": "This unit provides students real-world experience in the area of Information Technology (IT) support. Students are located with industry partners in the Greater Western Sydney region in IT support positions for 10 hours per week over a 12 week period. In addition, students receive instruction and tuition in aspects of professional practice such as code of ethics.",
-    "prerequisite": [
-      "300150"
-    ]
+    "prerequisite": ["300150"]
   },
   "300138": {
     "name": "LAN Workshop",
@@ -353,9 +279,7 @@
     "coordinator": "Jiansheng Huang",
     "about": "This unit provides students with the knowledge and skills necessary to install, test, tune, customise, repair and maintain networking hardware and software necessary to create a Local Area Network (LAN).  Students also learn how to administer a LAN by setting up user accounts, access privileges, security procedures and back-up/recovery procedures.",
     "assumed": "Ability to list, discuss and compare the elements of information coding and signal transmission.  List, describe and explain the elements and functional relationships of communications hardware and software.  Identify, locate, distinguish and describe the individual hardware components of a personal computer (PC) and explain their purpose, functions and operations.  Install PC components, devices and peripherals in accordance with installation procedures and operational standards.",
-    "equivalent": [
-      "300576"
-    ]
+    "equivalent": ["300576"]
   },
   "300143": {
     "name": "Network Security",
@@ -365,9 +289,7 @@
     "coordinator": "Hon Cheung",
     "about": "This unit is concerned with the protection of information transferred over computer networks. It includes discussion of techniques for securing data transported over local and wide area networks. At the conclusion of the unit students will have a good understanding of the practical aspects of securing a computer network against internal and external attacks.",
     "assumed": "Good understanding of the principles of information security, and computer networks and internets.",
-    "prerequisite": [
-      "300094"
-    ]
+    "prerequisite": ["300094"]
   },
   "300144": {
     "name": "Object Oriented Analysis",
@@ -377,12 +299,8 @@
     "coordinator": "Jiansheng Huang",
     "about": "The core strength of this unit is to analyse and model business objectives and critical requirements of software systems to be developed using object-oriented (OO) approaches. The system analysis is taken to greater depths within the context of Object Orientation. The Unified Modelling Language version 2.0 (notably use cases, user case diagrams, activity diagrams, class diagrams and sequence diagrams) is used as the modelling standard for creating OO models in the problem space. The unit also covers the rational unified process methodology and applications of design patterns for software development through practical case studies.",
     "assumed": "General understanding of what an information system is and how information systems development is undertaken and\r\n•\t Introductory knowledge about system analysis and design, including \r\n- basic problem solving experience in computerised information systems\r\n- ability to derive systems requirements from problem definitions\r\n- ability to produce system models using process, data, object and network modelling.\r\n- understanding design and implementation issues include, (but may not be limited to), elementary database design, input, output and user interface design and prototyping.\r\n•\t General knowledge on programming languages\r\n- Understanding difference between procedure programming  and object oriented programming   \r\n- Introductory knowledge of classes and objects and the class construction\r\n- Introductory knowledge on object orientation, including encapsulation, inheritance",
-    "prerequisite": [
-      "300585"
-    ],
-    "equivalent": [
-      "700039"
-    ]
+    "prerequisite": ["300585"],
+    "equivalent": ["700039"]
   },
   "300147": {
     "name": "Object Oriented Programming",
@@ -391,9 +309,7 @@
     "credits": "10",
     "coordinator": "Dongmo Zhang",
     "about": "This unit presents the concepts and principles of programming languages with the emphasis on object oriented paradigm. It addresses the importance of the separation of behaviour and implementation as well as effective use of encapsulation, inheritance and polymorphism. The students will gain intensive training in programming skills with supervised laboratory sessions and task oriented assignments.",
-    "prerequisite": [
-      "300580"
-    ]
+    "prerequisite": ["300580"]
   },
   "300150": {
     "name": "PC Workshop",
@@ -412,12 +328,8 @@
     "coordinator": "Golenur Huq",
     "about": "This unit covers programming techniques and tools used to administer standalone and networked computer systems. The unit focuses on the use of high level interpretive scripting languages to automate everyday administrative tasks, and to monitor and control running systems. Techniques to extend scripting language\r\ncapabilities by dynamic linking to compiled code are examined, particularly in terms of access to operating system level functions. The unit also examines the use of administrative programs and tools to monitor and adjust system performance and capacity.",
     "assumed": "Students should have a thorough grounding in systems programming and operating systems basics.",
-    "prerequisite": [
-      "300167"
-    ],
-    "incompatible": [
-      "300577"
-    ]
+    "prerequisite": ["300167"],
+    "incompatible": ["300577"]
   },
   "300166": {
     "name": "Systems and Network Management",
@@ -427,9 +339,7 @@
     "coordinator": "Weisheng Si",
     "about": "With the advent of the era of Internet of Things, the Internet has become a huge infrastructure in which various kinds of systems are running to deliver a plethora of network services. To ensure the efficient utilization of network resources (e.g., bandwidth) and the convenient access to network services, systems and networks must be managed in a proper way. Facing this demand, this unit covers the standards, protocols and skills pertinent to the management of systems and networks. Moreover, this unit introduces Software Defined Networking (SDN), a new paradigm for conducting network management with programmability, flexibility and scalability.",
     "assumed": "Students should be familiar with the fundamentals of computer networking and data communications. In particular, they should have a good understanding of the TCP/IP protocol suite, the OSI model, and current networking and internetworking technologies.",
-    "prerequisite": [
-      "300095"
-    ]
+    "prerequisite": ["300095"]
   },
   "300167": {
     "name": "Systems Programming 1",
@@ -439,9 +349,7 @@
     "coordinator": "Chun Ruan",
     "about": "This unit provides an introduction to the knowledge and skills required for the design, writing and support of technical software and other such functions normally falling within the role of the systems programmer. It provides for detailed study of a systems programming environment and its application to systems programming tasks.",
     "assumed": "This unit requires a knowledge base of at least the level of a completed first year in a professional Computing degree.   Ability to apply fundamental concepts in data structures, algorithms, programming principles will be assumed.",
-    "prerequisite": [
-      "300581"
-    ]
+    "prerequisite": ["300581"]
   },
   "300252": {
     "name": "Advanced Topics in Networking",
@@ -460,9 +368,7 @@
     "coordinator": "Seyed Shahrestani",
     "about": "The performance of any modern organization is heavily dependent on their networked systems and how these systems are managed. The increasing demand for ICT services and the huge growth of the Internet have resulted in large heterogeneous networks. This unit addresses the issues relevant to management of such networks and the services that run on them. It covers the principles and current practices pertinent to integrated management of networks, systems, and services. The unit helps the students to understand relevant protocols, standards, and standards organizations. It also introduces them to trends and key research areas in management of networked systems.",
     "assumed": "Familiar with the fundamentals of computer networking and data communications.  In particular, a good understanding of the OSI model, the internet protocol suite and current internet technologies.",
-    "equivalent": [
-      "54947"
-    ]
+    "equivalent": ["54947"]
   },
   "300256": {
     "name": "Multimedia Communication Systems",
@@ -498,9 +404,7 @@
     "credits": "10",
     "coordinator": "Yan Zhang",
     "about": "This unit is concerned with the design, development and maintenance of computer software systems. The unit focuses on current formal specification and system verification technologies and methodologies. Foundations of model checking such as LTL and CTL, as well as a particular practical model checker SPIN will be thoroughly studied in this unit. The SPIN model checker with programming language PROMELA will be used for all software development and verification practices throughout this unit.",
-    "prerequisite": [
-      "200025"
-    ]
+    "prerequisite": ["200025"]
   },
   "300443": {
     "name": "Web Engineering",
@@ -510,9 +414,7 @@
     "coordinator": "Athula Ginige",
     "about": "Today organizations extensively rely on web based information systems to market, sell, manage customer relations, and for most of the internal operations. Users are increasingly using mobile devices to interact with this information. Due to rapidly changing business environment these systems need to be designed in away to accommodate the frequent changes. New technologies and frameworks have been developed to support development of large, complex, mobile based, maintainable and evolutionary web systems. In this unit students will study some of these technologies, design methods and frameworks that can be successfully used to engineer such web systems. They will get hands on experience by developing such a system.",
     "assumed": "Ability to develop simple static web sites.  Knowledge about server-side and browser-side scripting.",
-    "equivalent": [
-      "300251"
-    ]
+    "equivalent": ["300251"]
   },
   "300491": {
     "name": "Games Technology",
@@ -522,9 +424,7 @@
     "coordinator": "Sharon Griffith",
     "about": "This unit provides an introduction to the game industry as well as introducing students to the techniques of game design and construction.  Students will be exposed to the history of game development and the key aspects of different genres of computer games.",
     "assumed": "A basic understanding of the principles of programming equivalent to Programming Principles 1.",
-    "equivalent": [
-      "300162"
-    ]
+    "equivalent": ["300162"]
   },
   "300565": {
     "name": "Computer Networking",
@@ -534,11 +434,7 @@
     "coordinator": "Sharon Griffith",
     "about": "Computer Networking is an introductory unit in computer systems networking. It covers basic networking technologies, Ethernet fundamentals, ISO OSI model, routing, switching and subnetting, the Internet architecture, networking protocols including TCP/IP, important OSI layer 2 and 3 networking device fundamentals, basic network management and security issues. This unit is also the first of three units, which will prepare students for industry based networking certification (CCNA).",
     "assumed": "Fundamentals of computer architecture, binary and hexadecimal numbering systems, and programming principles. They should also have a working knowledge of the World Wide Web.",
-    "equivalent": [
-      "300094",
-      "300086",
-      "700012"
-    ]
+    "equivalent": ["300094", "300086", "700012"]
   },
   "300566": {
     "name": "Introduction to Health Informatics",
@@ -548,9 +444,7 @@
     "coordinator": "Heidi Bjering",
     "about": "This introductory unit aims to give the student an insight into the key knowledge and skill set required in the emerging domain of Health Informatics. Critical topics include: The Australian healthcare system, health care improvement modelling, health information systems and management, paper-based v's electronic health records, clinical documentation and data quality, health information management, consumer information security, privacy and ethics, decision support and clinical delivery support systems, healthcare data representation and interchange standards, telehealth and Information Communication technologies (ICT). This will be complemented by practical exercises and assessment support sessions. Through these experiences students will gain an understanding of the application of ICT to the healthcare domain and the skills necessary to play a pivotal role in the design and delivery of healthcare systems and  health information management.",
     "assumed": "Familiarity with use of common business software, eg word proceesing, spreadsheets, database.",
-    "equivalent": [
-      "700258"
-    ]
+    "equivalent": ["700258"]
   },
   "300569": {
     "name": "Computer Security",
@@ -568,9 +462,7 @@
     "credits": "10",
     "coordinator": "Omar Mubin",
     "about": "A key component to the discipline of Information Systems is the understanding and the advocacy of the user in the development of IT applications and systems. IT graduates must develop a mind-set that recognizes the importance of users and organisational contexts. They must employ user centered methodologies in the development, evaluation, and deployment of IT applications and systems. This unit examines human-computer interaction in order to develop and evaluate software, websites and information systems that not only look professional but are usable, functional and accessible.",
-    "equivalent": [
-      "300160"
-    ]
+    "equivalent": ["300160"]
   },
   "300572": {
     "name": "Information Systems Deployment and Management",
@@ -580,12 +472,8 @@
     "coordinator": "Ana Hol",
     "about": "This unit provides a detailed overview of system implementation and deployment stages taking into consideration the steps that are necessary to place a newly developed system into production. In this unit students learn the skills required for accurate requirements gathering, timely and effective system development, and successful implementation that would result in effective system performance. For this to be achieved successfully this unit also addresses the importance of project management skills. The unit also highlights the issues of transition processes after the development phase, the activities required in systems support and maintenance in the system's operational stage.",
     "assumed": "A general understanding of various Information Systems in the eBusiness environment - familiarity with information system development processes",
-    "prerequisite": [
-      "300580"
-    ],
-    "equivalent": [
-      "300272"
-    ]
+    "prerequisite": ["300580"],
+    "equivalent": ["300272"]
   },
   "300573": {
     "name": "Information Systems in Context",
@@ -595,12 +483,8 @@
     "coordinator": "Ana Hol",
     "about": "This unit aims to give students the ability to recognise and explain business information systems with regard to type, function, purpose, and the frameworks within which these systems are used.  Topics in this unit include computing fundamentals; computer hardware and software; computers and society; use of business application packages - spreadsheets,  word processing, database, graphics; organisational information systems;   information systems development and acquisition; data and knowledge management; electronic commerce, internets, extranets;  networking; enterprise-wide information systems; the internet and information systems security; privacy, ethics and computer crime.",
     "assumed": "2 Unit Mathematics and 2 Unit English (General)",
-    "equivalent": [
-      "700000"
-    ],
-    "incompatible": [
-      "200128"
-    ]
+    "equivalent": ["700000"],
+    "incompatible": ["200128"]
   },
   "300575": {
     "name": "Networked Systems Design",
@@ -609,12 +493,8 @@
     "credits": "10",
     "coordinator": "Ain De Horta",
     "about": "This unit builds on and consolidates the skills and knowledge gained in  Computer Networking and Computer Networks and Internets. Students successfully completing this unit will acquire the necessary design skills and knowledge required to build and configure enterprise scale networks. The unit provides students with an opportunity to develop problem-solving techniques and decision-making skills to resolve networking issues. Students completing this unit and its prerequisites should also now be prepared to attempt world recognized network industry certification (CCNA).",
-    "prerequisite": [
-      "300095"
-    ],
-    "equivalent": [
-      "300088"
-    ]
+    "prerequisite": ["300095"],
+    "equivalent": ["300088"]
   },
   "300578": {
     "name": "Professional Development",
@@ -624,9 +504,7 @@
     "coordinator": "Heidi Bjering",
     "about": "This is a final year unit that builds on foundation and intermediate computing units to prepare students for professional experience. The unit covers the content in three modules as 1) Ethics and Professional Code of Conduct,  2) Project Management, and 3) Legal, Social, Environmental issues, Quality Assurance and IT Compliance. The content covered in these three modules are carefully designed to fill in the gaps in knowledge that is not so far covered in previous units in preparing students for the challenging projects units and professional working life ahead. This unit is a pre-requisite to the capstone project, covered in Professional Experience Project unit.",
     "assumed": "Understanding of systems analysis and design.",
-    "equivalent": [
-      "300372"
-    ]
+    "equivalent": ["300372"]
   },
   "300579": {
     "name": "Professional Experience",
@@ -636,12 +514,8 @@
     "coordinator": "Anupama Ginige",
     "about": "Professional Experience is a final year 'capstone' project unit. This unit provides opportunities for students to gain hands-on experience in software systems requirements definition, analysis, design and implementation, in a real-world setting. Students work in groups, guided by an academic supervisor or an industry mentor, in achieving the goals set by the client that provides the project. Suitable projects are sourced from external organisations or within Western Sydney University by way of giving the students professional experience in independent learning and reflective practice.",
     "assumed": "Software development methodologies; Software analysis and design modelling tools and techniques; Programming languages; Implementing databases management systems; Software construction and testing.",
-    "prerequisite": [
-      "300104"
-    ],
-    "equivalent": [
-      "300097"
-    ]
+    "prerequisite": ["300104"],
+    "equivalent": ["300097"]
   },
   "300580": {
     "name": "Programming Fundamentals",
@@ -651,12 +525,7 @@
     "coordinator": "Anton Bogdanovych",
     "about": "As a first unit in computer programming, Programming Fundamentals covers the basics of developing software with an emphasis on procedural programming. Students will learn about basic data structures, the concept of algorithms, fundamental programming constructs, common programming language features and functions, program design and good programming style. A high level programming language is combined with a highly visual framework to teach problem solving using software.",
     "assumed": "High school mathematics at Year 10 level.",
-    "equivalent": [
-      "300405",
-      "300155",
-      "200122",
-      "700008"
-    ]
+    "equivalent": ["300405", "300155", "200122", "700008"]
   },
   "300581": {
     "name": "Programming Techniques",
@@ -665,16 +534,9 @@
     "credits": "10",
     "coordinator": "Paul Davies",
     "about": "This unit is intended as a second unit of study in programming. It builds on a basic understanding of procedural programming as would be developed in a first unit. This unit continues the development of programming skills and methodologies required for professional programming and for further study in later computing units. Topics covered include multi-dimensional arrays, file I/O, searching and sorting, and an introduction to object-oriented programming involving classes and inheritance.",
-    "prerequisite": [
-      "300580"
-    ],
-    "equivalent": [
-      "300156",
-      "700257"
-    ],
-    "incompatible": [
-      "300903"
-    ]
+    "prerequisite": ["300580"],
+    "equivalent": ["300156", "700257"],
+    "incompatible": ["300903"]
   },
   "300582": {
     "name": "Technologies for Web Applications",
@@ -684,15 +546,9 @@
     "coordinator": "Paul Davies",
     "about": "Building on material covered in Programming Fundamentals this unit introduces students to some of the key technologies for developing interactive and dynamic web applications from both the client and server perspective. The unit covers web site design, web site development, web page accessibility and usability, HTML, CSS, client side and server side scripting, database interaction, web site promotion (Search Engine Optimisation) and web security.",
     "assumed": "Basic programming principles and program control structures equivalent to that covered in Programming Fundamentals. Basic file management and PC operation including how to access and search the World Wide Web.",
-    "prerequisite": [
-      "300580"
-    ],
-    "equivalent": [
-      "300129"
-    ],
-    "incompatible": [
-      "300101"
-    ]
+    "prerequisite": ["300580"],
+    "equivalent": ["300129"],
+    "incompatible": ["300101"]
   },
   "300583": {
     "name": "Web Systems Development",
@@ -702,12 +558,8 @@
     "coordinator": "Weisheng Si",
     "about": "In this unit students further develop their theoretical and practical skills in designing and developing web based information systems using systems analysis, programming, database, human computer interaction and web technologies skills that they have learnt in previous units. Current web development technologies and/or frameworks will be utilised to build a complex web information system in a collaborative web development team. Techniques of porting web systems to mobile platforms will also be explored.",
     "assumed": "- Fundamental web development skills such as HTML, CSS, Javascript and PHP.\r\n- Principles of relational database design and development, practical skills in SQL.\r\n- Principles of systems analysis and design including the specification of end-user requirements and a good knowledge of the SDLC and its application to solving computer system related problems.",
-    "prerequisite": [
-      "300582"
-    ],
-    "equivalent": [
-      "300085"
-    ]
+    "prerequisite": ["300582"],
+    "equivalent": ["300085"]
   },
   "300584": {
     "name": "Emerging Trends in Information Systems",
@@ -716,9 +568,7 @@
     "credits": "10",
     "coordinator": "Ana Hol",
     "about": "This unit provides a means for students to self-reflect on their future career and their possible involvement in the field of Information Systems and explore the changing nature of information systems in organisations via one of the following:  engagements with local businesses, specifically crafted study tours or focused internships.  In this unit students will study the role that emerging technologies play in selection, design and development of information systems. Students will be able to research and assess new technologies while networking and engaging with real life businesses, as well as develop and introduce effective strategies for achieving change and improvement that can be delivered by successfully implementing emerging technologies.",
-    "prerequisite": [
-      "300573"
-    ]
+    "prerequisite": ["300573"]
   },
   "300585": {
     "name": "Systems Analysis and Design",
@@ -728,9 +578,7 @@
     "coordinator": "Simi Kamini Bajaj",
     "about": "This unit introduces the concepts of System Analysis and Design. The study of methodologies and techniques for problem recognition, requirement analysis, process modelling and/or data modelling are essential elements of this unit. The Systems Development Life Cycle model is employed as the prime approach to teach the unit, providing students with the basic skills required for analysis and design of logical solutions to information systems problems. The use of Computer Aided System Engineering tools will be discussed in practical sessions.",
     "assumed": "Students should have knowledge of the fundamentals of information systems, computer systems, computer applications and information processing",
-    "equivalent": [
-      "300131"
-    ]
+    "equivalent": ["300131"]
   },
   "300586": {
     "name": "Advanced Computer Science Activities 1",
@@ -764,13 +612,8 @@
     "coordinator": "Charles Zworestine",
     "about": "This Level 1 unit provides a solid foundation in the theory and applications of differential calculus, as well as some introductory work on complex numbers.  It is the first of two units developing aspects of calculus.",
     "assumed": "Mathematics achieved at Bands 5-6, or knowledge equivalent to 300830 Analysis of Change.",
-    "equivalent": [
-      "200189"
-    ],
-    "incompatible": [
-      "200031",
-      "200237"
-    ]
+    "equivalent": ["200189"],
+    "incompatible": ["200031", "200237"]
   },
   "300673": {
     "name": "Mathematics 1B",
@@ -779,16 +622,9 @@
     "credits": "10",
     "coordinator": "Alexander Lee",
     "about": "This Level 1 unit provides a solid foundation in the theory and applications of integral calculus, as well as some introductory work on linear algebra and infinite sequences and series.  It is the second of two units developing aspects of calculus.",
-    "prerequisite": [
-      "300672"
-    ],
-    "equivalent": [
-      "200189"
-    ],
-    "incompatible": [
-      "200031",
-      "200237"
-    ]
+    "prerequisite": ["300672"],
+    "equivalent": ["200189"],
+    "incompatible": ["200031", "200237"]
   },
   "300693": {
     "name": "Web Technologies",
@@ -805,9 +641,7 @@
     "credits": "10",
     "coordinator": "Tomas Trescak",
     "about": "The information and communications technologies are advancing at an ever-increasing rate. The whole world is now interconnected. The World Wide Web community is actively engaged in developing the next generation of the Web. Social networking on the Internet is facilitated by the latest developments such as Facebook, YouTube and MySpace. Artificial Intelligence is increasingly intertwined with the decisions we make every day. Large scale storage technologies are leading to Cloud Computing where data and applications may reside anywhere in the world. Research in how to access meaningful data from the vast amounts on the Web has led to initiatives such as Semantic Web and Linked Data. Mashups mix data from disparate sources to enable users to work more efficiently. Wireless and mobile computing are changing the market place. All of these trends are still in their early stages. To make sense of all these developments, the top echelons of the World Wide Web Consortium are actively engaged in creating a new discipline called Web Science. Advanced Topics in ICT will enable the students to appreciate the scale of new developments and create prototypes of applications in their desired ambit. This unit consists of three Topics selected each semester. Assessment will be by a series of discussion paper assignments  here students will show they have met the unit learning outcomes.",
-    "prerequisite": [
-      "301005"
-    ]
+    "prerequisite": ["301005"]
   },
   "300695": {
     "name": "Network Technologies",
@@ -817,9 +651,7 @@
     "coordinator": "Aruna Jamdagni",
     "about": "Computer networking is one of the fastest growing technologies of our time. The Internet interconnects billions of computers providing many new exciting opportunities and challenges. The Internet and the World Wide Web have provided the communication and infrastructure needed for global collaboration and information exchange. As a result of the rapid growth of networked systems and the diverse applications that run on them, success in many professions depends on a sound understanding of the technologies underlying these systems and applications. This unit explores these issues and provides the students with such an understanding. It covers the principles and current practices pertinent to computer networking and communications. It describes some of the important technologies and devices used in modern networks for information distribution and data sharing. The unit helps the students to understand important models, protocols and standards in networking and internetworking.",
     "assumed": "The students should be familiar with the fundamentals of computer architecture and programming principles. They should also have a working knowledge of the World Wide Web.",
-    "equivalent": [
-      "300254"
-    ]
+    "equivalent": ["300254"]
   },
   "300696": {
     "name": "Systems and Network Security",
@@ -829,9 +661,7 @@
     "coordinator": "Hon Cheung",
     "about": "This unit is concerned with the protection of information in computing systems and when transferred over networks.  It addresses techniques for securing networking applications and their security arrangements. Students gain an understanding of the fundamentals of the provision of security in networks and systems, as well as an appreciation of some of the problems that arise in devising practical security solutions.",
     "assumed": "Basic knowledge of networked and computer systems.  Basic understanding of cryptography.",
-    "equivalent": [
-      "300253"
-    ]
+    "equivalent": ["300253"]
   },
   "300697": {
     "name": "Content Management Systems and Web Analytics",
@@ -841,9 +671,7 @@
     "coordinator": "Hanh Nguyen Vo",
     "about": "Content management systems (CMS) is a collective name for a wide range of web applications used by organisations/institutions/enterprises and social communities in establishing a continuing web presence.  They may connect to backend systems and can provide complete web application services.  This unit builds on both the conceptual and practical skills/knowledge to develop and utilise CMS's; in their management; in technical, legal, ethical and security issues; and in utilising web analytics to obtain business intelligence of their operation and impact.",
     "assumed": "Web development and HTML basics.",
-    "equivalent": [
-      "300264"
-    ]
+    "equivalent": ["300264"]
   },
   "300698": {
     "name": "Operating Systems Programming",
@@ -853,15 +681,9 @@
     "coordinator": "Evan Crawford",
     "about": "This unit provides the knowledge of the internal structure and functionality of Operating Systems.  An operating system defines an abstraction of hardware behavior and provides a range of services more suitable for ICT application development than what raw hardware could deliver, in terms of convenience, efficiency and security. It is important that ICT Professionals have some understanding of how these services are realized. For ICT Professionals whose role includes supporting the operating system this unit provides the introduction to the relevant theory and practice.",
     "assumed": "Students are expected to have a general understanding on computer systems; computer fundamentals, and programming techniques.",
-    "prerequisite": [
-      "300581"
-    ],
-    "equivalent": [
-      "300149"
-    ],
-    "incompatible": [
-      "300943"
-    ]
+    "prerequisite": ["300581"],
+    "equivalent": ["300149"],
+    "incompatible": ["300943"]
   },
   "300699": {
     "name": "Discrete Structures and Complexity",
@@ -871,12 +693,8 @@
     "coordinator": "Volker Gebhardt",
     "about": "The fact that computers work at all in the way they do is due to the formal mathematical structure that is used in their design. The same holds for establishing important matters such as the reliability of our computer networks. This unit presents, in their computing context, a range of mathematical concepts that are essential for understanding a number of topics concerning computers: the ways they work, they ways they interact, and the ways we interact with them.",
     "assumed": "Basic programming such as that in 300580 - Programming Fundamentals.",
-    "prerequisite": [
-      "300700"
-    ],
-    "incompatible": [
-      "200025"
-    ]
+    "prerequisite": ["300700"],
+    "incompatible": ["200025"]
   },
   "300700": {
     "name": "Statistical Decision Making",
@@ -885,19 +703,8 @@
     "credits": "10",
     "coordinator": "Volker Gebhardt",
     "about": "Statistical Decision Making introduces students to various statistical techniques supporting the study of computing and science.  Presentation of the content will emphasize the correct principles and procedures for collecting and analysing scientific data, using information and communication technologies.    Topics include describing different sets of data, probability distributions, statistical inference,  and simple linear regression and correlation.",
-    "equivalent": [
-      "200192",
-      "200263",
-      "200032",
-      "200052",
-      "301123",
-      "700007",
-      "700033",
-      "700041"
-    ],
-    "incompatible": [
-      "200182"
-    ]
+    "equivalent": ["200192", "200263", "200032", "200052", "301123", "700007", "700033", "700041"],
+    "incompatible": ["200182"]
   },
   "300743": {
     "name": "Mathematics for Engineers Preliminary",
@@ -906,16 +713,8 @@
     "credits": "10",
     "coordinator": "Donald Shearman",
     "about": "This unit is specifically designed for students enrolling in the Bachelor of Engineering (Honours) and Bachelor of Engineering Science degree courses, who do not have a mathematical background in differential and integral calculus.  The content of the unit consists of topics in arithmetic and algebra, trigonometry and trigonometric functions, logarithmic and exponential functions, differential and integral calculus.",
-    "equivalent": [
-      "700100",
-      "700103"
-    ],
-    "incompatible": [
-      "200195",
-      "200191",
-      "200237",
-      "700019"
-    ]
+    "equivalent": ["700100", "700103"],
+    "incompatible": ["200195", "200191", "200237", "700019"]
   },
   "300770": {
     "name": "Software Testing and Automation",
@@ -934,12 +733,8 @@
     "coordinator": "Shatha Aziz",
     "about": "This Level 1 unit introduces students to the mathematical modelling techniques that are used to formulate and solve problems in the physical and biological sciences. To use these techniques successfully, students must develop the ability to formulate a problem mathematically and then be able to use the appropriate knowledge to test conclusions by analytical and numerical means. These skills will be emphasized as each technique in introduced. Apart from some introductory work on logarithms and exponentials (essential concepts in the sciences), the main techniques developed involve aspects of differential calculus, culminating in the use of differential equations to model real phenomena in the sciences.",
     "assumed": "General Mathematics background achieved at bands 5 or 6, or Mathematics, achieved at band 4, or equivalent or 300831 Quantitative Thinking.",
-    "equivalent": [
-      "200191"
-    ],
-    "incompatible": [
-      "300672"
-    ]
+    "equivalent": ["200191"],
+    "incompatible": ["300672"]
   },
   "300831": {
     "name": "Quantitative Thinking",
@@ -949,9 +744,7 @@
     "coordinator": "Stephen Weissenhofer",
     "about": "This level 1 unit develops the quantitative skills that underpin many fields of study in the sciences. The content covered includes basic algebra, functions, graphs, equations, linear and quadratic, introductory probability and descriptive statistics. These mathematical/statistical concepts will be revised and developed using scientific concepts such as molarity and dilution, optical density, population growth, and predator-prey models. In all aspects of this unit, students will be developing and using critical thinking skills to solve mathematical/statistical problems set in a scientific context.",
     "assumed": "Basic competence in algebraic manipulation and some familiarity with elementary probability and statistical concepts.",
-    "equivalent": [
-      "200191"
-    ]
+    "equivalent": ["200191"]
   },
   "300862": {
     "name": "Video Games Development",
@@ -961,12 +754,8 @@
     "coordinator": "Anton Bogdanovych",
     "about": "This unit provides students with an in-depth understanding of the development and structure of game engines. It provides the student with a unifying overview of the many modules that are incorporated in a game engine as well as a detailed examination of game-play and engine programming.",
     "assumed": "Understanding of programming concepts and details of programming. Good programming skills in C#, Java or C++. Knowledge of systems analysis methods including object orientated analysis and design. Basic knowledge of vector algebra, matrixes and fundamentals of mathematics.",
-    "prerequisite": [
-      "300580"
-    ],
-    "equivalent": [
-      "300492"
-    ]
+    "prerequisite": ["300580"],
+    "equivalent": ["300492"]
   },
   "300888": {
     "name": "Object Oriented Analysis (Advanced)",
@@ -976,12 +765,8 @@
     "coordinator": "Jiansheng Huang",
     "about": "The core strength of this unit, as the advanced version of 300144 Object Oriented Analysis, is to analyse and model business objectives and critical requirements of software systems to be developed using object-oriented (OO) approaches. The system analysis is taken to greater depths within the context of Object Orientation. The Unified Modelling Language version 2.0 (notably use cases, user case diagrams, activity diagrams, class diagrams and sequence diagrams) is used as the modelling standard for creating OO models in the problem, solution and background modeling spaces. The unit also covers the rational unified process methodology and applications of design patterns for software development through real world case studies.",
     "assumed": "General understanding of what an information system is and how information systems development is undertaken and\r\n•\t Introductory knowledge about system analysis and design, including \r\n- basic problem solving experience in computerised information systems\r\n- ability to derive systems requirements from problem definitions\r\n- ability to produce system models using process, data, object and network modelling.\r\n- understanding design and implementation issues include, (but may not be limited to), elementary database design, input, output and user interface design and prototyping.\r\n•\t General knowledge on programming languages\r\n- Understanding difference between procedure programming  and object oriented programming   \r\n- Introductory knowledge of classes and objects and class construction\r\n- Introductory knowledge on object orientation, including encapsulation, inheritance and polymorphism.",
-    "prerequisite": [
-      "300585"
-    ],
-    "incompatible": [
-      "300144"
-    ]
+    "prerequisite": ["300585"],
+    "incompatible": ["300144"]
   },
   "300900": {
     "name": "Professional Experience (Advanced)",
@@ -991,12 +776,8 @@
     "coordinator": "Anupama Ginige",
     "about": "Professional Experience (Advanced) is a final year 'capstone' work-placement unit. This  advanced  unit  provides  the  opportunity  for  students  to  gain  hands-on experience in software systems requirements definition, analysis, design, implementation and project management, in an external organisation under the supervision of industry experts. During the work placement students work in a real- life project applying the theories and technical skills learned in previous units in an industry setting. Students are allowed to propose a work-placement of their choice within an external organisation. School will assess the suggested work-placement for its suitability in meeting the set unit outcomes, prior to approval.",
     "assumed": "Software development methodologies; Software analysis and design modelling tools and techniques; Programming languages; Implementing databases management systems; Software construction and testing; System documentation; Project Management",
-    "prerequisite": [
-      "300104"
-    ],
-    "incompatible": [
-      "300098"
-    ]
+    "prerequisite": ["300104"],
+    "incompatible": ["300098"]
   },
   "300901": {
     "name": "Human-Computer Interaction (Advanced)",
@@ -1005,10 +786,7 @@
     "credits": "10",
     "coordinator": "Omar Mubin",
     "about": "IT graduates must be able to develop and evaluate software, websites and mobile apps that not only look professional but are usable, functional and accessible. However, the study of HCI is often restricted to its use as a tool in the software development process. This advanced unit also examines HCI as a field of research and how to conduct research into human user factors. Students in this advanced unit will be required to complete a research project and produce a final research report, which is of a standard capable of being considered for publication in a HCI conference or journal.",
-    "incompatible": [
-      "300570",
-      "300160"
-    ]
+    "incompatible": ["300570", "300160"]
   },
   "300902": {
     "name": "Web Systems Development (Advanced)",
@@ -1018,12 +796,8 @@
     "coordinator": "Weisheng Si",
     "about": "This unit teaches state-of-the-art web frameworks for developing complex web systems. This unit utilises the skills of basic web programming, database design, and systems analysis that students have learnt in previous units. Major topics in this unit include Cascading Style Sheet (CSS) framework, Razor pages, Model-View-Controller (MVC) programming, object to relational database mapping, and authentication and authorization. Moreover, this unit trains students' collaborative skills by asking students to build a complex website in a small team. As an advanced unit, deeper topics such as custom data validation and error handling will be discussed.",
     "assumed": "- Fundamental web development skills such as HTML, CSS, Javascript and PHP.\r\n- Principles of relational database design and development, practical skills in SQL.\r\n- Principles of systems analysis and design including the specification of end-user requirements and a good knowledge of the SDLC and its application to solving computer system related problems.",
-    "prerequisite": [
-      "300582"
-    ],
-    "incompatible": [
-      "300583"
-    ]
+    "prerequisite": ["300582"],
+    "incompatible": ["300583"]
   },
   "300903": {
     "name": "Programming Techniques (Advanced)",
@@ -1032,12 +806,8 @@
     "credits": "10",
     "coordinator": "Paul Davies",
     "about": "This unit is intended as a second unit of study in programming. It builds on a basic understanding of procedural programming as would be developed in a first unit. This unit continues the development of programming skills and methodologies required for professional programming and for further study in later computing units. Topics covered include multi-dimensional arrays, file I/O, searching and sorting, and an introduction to object-oriented programming involving classes and inheritance. Students in this advanced unit will also investigate and apply advanced concepts such as function overloading and recursion.",
-    "prerequisite": [
-      "300580"
-    ],
-    "incompatible": [
-      "300581"
-    ]
+    "prerequisite": ["300580"],
+    "incompatible": ["300581"]
   },
   "300941": {
     "name": "Database Design and Development (Advanced)",
@@ -1047,10 +817,7 @@
     "coordinator": "Zhuhan Jiang",
     "about": "This unit covers the principles, methodologies and technologies for the database design and development, exploring in particular the data modelling methods and the use of the language SQL for the database applications. The unit also examines a number of important database concepts such as database administration, concurrency, backup and recovery, and security. Students in this advanced unit are furthermore required to investigate new technological and theory advances in the database industry and apply them to the solution of concrete database problems.",
     "assumed": "Basic programming skills, including variable declaration, variable assignment, selection statement and loop structure.",
-    "incompatible": [
-      "200129",
-      "300104"
-    ]
+    "incompatible": ["200129", "300104"]
   },
   "300942": {
     "name": "Emerging Trends in Information Systems (Advanced)",
@@ -1059,12 +826,8 @@
     "credits": "10",
     "coordinator": "Ana Hol",
     "about": "This unit provides a means for students to self-reflect on their future career and their possible involvement in the field of Information Systems. In this advanced unit students will be required to undertake an individual but closely supervised research project.  Students will explore the changing nature of information systems in organisations via one of the following:  engagements with local businesses, specifically crafted study tours or focused internships.  In this unit students will study the role that emerging technologies play in selection, design and development of information systems. Students will be able to research and assess new technologies while networking and engaging with real life businesses, as well as develop and introduce effective strategies for achieving change and improvement that can be delivered by successfully implementing emerging technologies.  In addition, students in this unit will be required to present their findings in a form of an academic paper with a possibility of publishing.",
-    "prerequisite": [
-      "300573"
-    ],
-    "incompatible": [
-      "300584"
-    ]
+    "prerequisite": ["300573"],
+    "incompatible": ["300584"]
   },
   "300943": {
     "name": "Operating Systems Programming (Advanced)",
@@ -1073,13 +836,8 @@
     "credits": "10",
     "coordinator": "Evan Crawford",
     "about": "This unit provides the knowledge of the internal structure and functionality of Operating Systems. Through the use of case studies the abstraction that Operating Systems provide will be investigated, and techniques for programming with these abstractions will be developed.",
-    "prerequisite": [
-      "300903"
-    ],
-    "incompatible": [
-      "300689",
-      "300149"
-    ]
+    "prerequisite": ["300903"],
+    "incompatible": ["300689", "300149"]
   },
   "300946": {
     "name": "Computer Networking (Advanced)",
@@ -1089,11 +847,7 @@
     "coordinator": "Sharon Griffith",
     "about": "This unit introduces students to computer systems networking. It covers basic networking technologies, Ethernet fundamentals, ISO OSI model, routing, switching and subnetting, the Internet architecture, networking protocols including TCP/IP, important OSI layer 2 and 3 networking device fundamentals, basic network management and security issues. This unit is also the first of three units, which will prepare students for industry based networking certification (CCNA). Students in this advanced unit will be required to undertake individual assessment activities demonstrating a high level of technical and applied theoretical competency.",
     "assumed": "Fundamentals of computer architecture, binary and hexadecimal numbering systems, and programming principles. A working knowledge of the World Wide Web.",
-    "incompatible": [
-      "300094",
-      "300086",
-      "300565"
-    ]
+    "incompatible": ["300094", "300086", "300565"]
   },
   "300950": {
     "name": "Fundamentals of Medical Concepts and Terminology",
@@ -1102,9 +856,7 @@
     "credits": "10",
     "coordinator": "Jim Basilakis",
     "about": "This unit is designed to provide the student with the knowledge necessary to understand the information contained in the health record, to function in a medical environment through an understanding of the fundamentals of medicine and to effectively use disease classification systems. Within each body system, the student will study anatomy and physiology, disease processes and their treatment, and medical terminology (disease titles, symptomatic terms, surgical terms and investigations). The unit will also focus on specialist topics such as mental health, obstetrics, paediatrics, infectious diseases, oncology, radiotherapy, nuclear medicine, diagnostic and surgical interventions.",
-    "prerequisite": [
-      "300566"
-    ]
+    "prerequisite": ["300566"]
   },
   "300951": {
     "name": "Clinical Classification and Coding",
@@ -1113,9 +865,7 @@
     "credits": "10",
     "coordinator": "Anupama Ginige",
     "about": "This unit is designed to enable the student to classify diseases and interventions using the current version of the International Statistical Classification of Diseases and Related Health Problems, Tenth Revision, Australian Modification, the Australian Classification of Health Interventions and the Australian Coding Standards (ICD-10-AM/ACHI/ACS). The unit will also include the historical development of clinical classification systems as well as the purpose and value of classifying diseases and interventions within the health system. The student will become familiar with the structure and content of ICD-10-AM ACHI/ACS and be introduced to the rules and conventions associated within ICD-10-AM/ACHI. The primary ACS for ICD-10-AM/ACHI will be studied and applied when coding from line diagnoses/interventions, case studies, simple discharge summaries and clinical record reports. They will gain skills in data abstraction for clinical coding, specifically, the selection of principal and additional diagnoses and interventions.",
-    "prerequisite": [
-      "300950"
-    ]
+    "prerequisite": ["300950"]
   },
   "300952": {
     "name": "Wireless and Mobile Networks",
@@ -1124,12 +874,8 @@
     "credits": "10",
     "coordinator": "Rodrigo Neves Calheiros",
     "about": "This unit helps the students gain in depth knowledge in the core concepts and principles in the areas of wireless and cellular networks. It provides them with the technical skills needed to do requirement analysis and evaluate a range of wireless networked systems to plan their institution or expansion. The unit covers the communication characteristics and architecture of wireless systems along with various types of wireless networks, including wireless LANs, personal area networks, sensor networks, mesh networks, and broadband wireless networks. Given the widespread use of mobile phones and devices, a substantial part of the unit is devoted to the study of cellular networks. The unit also covers mobility management and wireless security issues and solutions. Upon completion of this unit, the students will have the capabilities needed for long term and independent learning in the rapidly evolving area of wireless and mobile networking.",
-    "prerequisite": [
-      "300565"
-    ],
-    "equivalent": [
-      "300088"
-    ]
+    "prerequisite": ["300565"],
+    "equivalent": ["300088"]
   },
   "300953": {
     "name": "Advanced Clinical Classification",
@@ -1138,9 +884,7 @@
     "credits": "10",
     "coordinator": "Anupama Ginige",
     "about": "In this unit, the student will be introduced to disease notification and registration procedures. Mortality or cause of death coding will also be examined.Concepts of organising health information in a logical way to interface with an electronic information system will be investigated. The design and role of various health classification systems including the World Health Organizations Family of International Classifications (WHO FIC), specifically ICD 11 and casemix classification systems (e.g. AR DRGs, AN SNAP) will also be discussed. The practical component of this unit will focus on the student further developing their classification skills in the more complex areas of clinical coding including endocrine disorders, specifically diabetes mellitus, circulatory diseases and interventions, genitourinary disorders, specifically chronic kidney disease, obstetrics, paediatrics and congenital anomalies and trauma and procedural complications. The ACS will be applied in detail when classifying from complex discharge summaries and full clinical episodes of care. The student will also be exposed to electronic clinical coding tools that can be used in the classification process.",
-    "prerequisite": [
-      "300951"
-    ]
+    "prerequisite": ["300951"]
   },
   "300954": {
     "name": "Activity Based Funding/Casemix and Data Quality",
@@ -1150,9 +894,7 @@
     "coordinator": "Jim Basilakis",
     "about": "This unit will introduce students to Activity Based Funding and Casemix within the Australian healthcare system. It is designed to cover a variety of casemix classification systems for acute, non-admitted, sub-acute and mental health patients. Attention will be given to Diagnosis Related Groups (DRGs) with specific reference to the Australian Refined Diagnosis Related Groups (AR-DRGs) and the relationship to Activity Based Funding and purchasing models. Measuring performance with activity data and clinical costing methods will be explored. Emphasis will be placed on the impact of data quality as a critical component in achieving excellence in clinical costing, casemix and patient safety.",
     "assumed": "Medical terminology and clinical classification",
-    "prerequisite": [
-      "300951"
-    ]
+    "prerequisite": ["300951"]
   },
   "300955": {
     "name": "Healthcare Data Environments",
@@ -1161,12 +903,8 @@
     "credits": "10",
     "coordinator": "Anupama Ginige",
     "about": "This unit extends the student’s knowledge of Health Informatics by introducing concepts relating to electronic communications within the health industry. It exposes students to a variety of environments used to create, store, transfer and deliver healthcare data. Areas include minimum data sets, data linkage, messaging concepts/standards, terminologies, healthcare evaluation, electronic health records and related standards, security, privacy and trust, medico legal, epidemiology and population health together with TeleHealth/ TeleMedicine approaches, methodologies, tools and techniques.",
-    "prerequisite": [
-      "300566"
-    ],
-    "equivalent": [
-      "300567"
-    ]
+    "prerequisite": ["300566"],
+    "equivalent": ["300567"]
   },
   "300956": {
     "name": "Healthcare Software and Systems",
@@ -1175,12 +913,8 @@
     "credits": "10",
     "coordinator": "Jim Basilakis",
     "about": "In this unit students will learn the concepts underpinning the services computing paradigm of \"bridging the gap between Business Services and IT Services\". Services Computing technology includes Web services and serviceoriented architecture (SOA), business consulting methodology and utilities, business process modelling, transformation and integration. Students will learn, through the development of practical examples, how to utilise these technologies within a healthcare context",
-    "prerequisite": [
-      "300566"
-    ],
-    "equivalent": [
-      "300568"
-    ]
+    "prerequisite": ["300566"],
+    "equivalent": ["300568"]
   },
   "300958": {
     "name": "Social Web Analytics",
@@ -1240,9 +974,7 @@
     "credits": "10",
     "coordinator": "Evan Crawford",
     "about": "This unit introduces students to the technologies used to develop and deploy mobile applications. The unit covers evaluating organisational needs in the mobile space, responsive web design, web technologies, interface challenges, location awareness, cloud services and data storage.",
-    "prerequisite": [
-      "300580"
-    ]
+    "prerequisite": ["300580"]
   },
   "300977": {
     "name": "Systems Analysis and Database Management Systems",
@@ -1292,9 +1024,7 @@
     "coordinator": "Roozbeh Hazrat",
     "about": "This unit will introduce the popular computational software Mathematica, through which students will explore and investigate real-world mathematical problems. The unit promotes an experimental side of mathematics and will employ symbolic computation to gain insight and intuition into problems, to discover mathematical patterns and relationships, and create impressive graphics to expose mathematical structures.",
     "assumed": "Students should be comfortable with high school level of Mathematics and have passed Mathematics 1A. This is required to carry out more advanced projects in the unit.",
-    "prerequisite": [
-      "300672"
-    ]
+    "prerequisite": ["300672"]
   },
   "301032": {
     "name": "Making Sense of Data",
@@ -1304,9 +1034,7 @@
     "coordinator": "Neil Hopkins",
     "about": "The unit builds on the basic statistical concepts introduced in first year, and also prepares students for broader application of statistics for those majoring in science or business. Topics include hypothesis testing; analysis of categorical data; analysis of variance; non-parametric methods; re-sampling (cross validation/bootstrapping); Introduction to visual data analysis; simple Multivariate statistics and sampling and design.",
     "assumed": "Basic Statistics.",
-    "prerequisite": [
-      "300700"
-    ]
+    "prerequisite": ["300700"]
   },
   "301033": {
     "name": "Introduction to Data Science",
@@ -1338,9 +1066,7 @@
     "credits": "10",
     "coordinator": "Stephen Weissenhofer",
     "about": "Today, the environment is becoming more and more in the public eye. Methods of environmental monitoring and data analysis are an important source of information for science, business and government regulation. This unit aims to give students a good introduction to environmental informatics and the analysis of spatio-temporal data.",
-    "prerequisite": [
-      "300700"
-    ]
+    "prerequisite": ["300700"]
   },
   "301037": {
     "name": "Scientific Informatics",
@@ -1396,9 +1122,7 @@
     "credits": "10",
     "coordinator": "Omar Mubin",
     "about": "The domain of User System Interaction or also known as Human Computer Interaction (HCI) dictates that IT graduates must be able to develop and evaluate interfaces that not only look professional but are usable, functional and accessible. This post graduate unit also examines HCI as a field of research and discusses novel areas of research in the area. Students in this unit will be required to complete a research project alongside a literature review document both of which comprise of content that is of a standard of being able to be considered for publication and/or presentation in a HCI conference or journal.",
-    "incompatible": [
-      "300570"
-    ]
+    "incompatible": ["300570"]
   },
   "301046": {
     "name": "Big Data",
@@ -1417,9 +1141,7 @@
     "coordinator": "Simi Kamini Bajaj",
     "about": "Students will undertake 120 hours full-time or part-time equivalent industry placements as a Work Integrated Learning (WIL) component required to be completed by students for successful completion of the Master of ICT and Master of ICT (Advanced) courses. Students must seek the approval of the Unit Coordinator for all placements before the commencement of the industry placement. Students will work in an external organisation in Australia or within a department/division within Western Sydney University carrying out tasks related to ICT. This provides students real-world experience in the ICT industry in Australia. Students can nominate an external organisation of their choice however the approval of the Unit Coordinator must be sought before the placement. Students with substantial post-qualification work experience in Australia maybe eligible for advanced standing for this unit.",
     "assumed": "A broad background knowledge in ICT discipline (i.e. equivalent to that obtained after completing two-three years of ICT/Computing)",
-    "prerequisite": [
-      "301005"
-    ]
+    "prerequisite": ["301005"]
   },
   "301106": {
     "name": "Mathematical Investigations",
@@ -1465,9 +1187,7 @@
     "coordinator": "Nicholas Tothill",
     "about": "Many techniques and tools have been developed over the past decade to cope with the ever-growing needs for the processing and analysis of big data. This unit will cover the key techniques that have been widely used in big data applications, such as relational and Not Only Structured Query Language (NoSQL) databases, Web Services, parallel and cloud computing, MapReduce, Hadoop and its eco-system. It aims to introduce the emerging technologies and applications in big data to students, and keep up with the latest trends in the industry.",
     "assumed": "Knowledge of computer software, databases, and entry-level statistics.",
-    "prerequisite": [
-      "301107"
-    ]
+    "prerequisite": ["301107"]
   },
   "301111": {
     "name": "Discovery Project",
@@ -1477,9 +1197,7 @@
     "coordinator": "Paul Hurley",
     "about": "In this unit students will gain experience in applying data science skills and using knowledge gained during their bachelor's course of their primary discipline. Students will carry out a real life project transforming data to knowledge under the supervision of an academic mentor. Students will develop a knowledge discovery project proposal and carry out a literature review highlighting the current status of the problem. Assisted by a mentor they will apply the data science skills learned through-out the degree and produce a final discovery project report and/or interactive project tool and give an oral presentation.",
     "assumed": "Completed the bachelor's degree units in the students primary discipline.",
-    "prerequisite": [
-      "301033"
-    ]
+    "prerequisite": ["301033"]
   },
   "301112": {
     "name": "Visualisation",
@@ -1489,9 +1207,7 @@
     "coordinator": "Zhonglin Qu",
     "about": "This unit introduces the fundamentals and technologies of information visualisation. It covers the major concepts of information visualisation, human-computer perception and methods for visual data analysis. Students will learn the knowledge and skills required for identifying suitable visualisation techniques and tools appropriate for various data types and applications. The unit provides students with opportunities to explore recent research in the visualisation field.",
     "assumed": "Familiarity with computer software programs, such as Microsoft Office.",
-    "incompatible": [
-      "301109"
-    ]
+    "incompatible": ["301109"]
   },
   "301113": {
     "name": "Programming for Data Science",
@@ -1518,9 +1234,7 @@
     "credits": "10",
     "coordinator": "Laurence Park",
     "about": "There has been a significant trend away from simple statistical models for complex and Big Data.  Advanced Statistical Methods is a technical unit that looks at computer intensive statistical techniques for modelling complex data. Students will learn about methods including Density Estimation, the Expectation-Maximisation (EM) algorithm, Bayesian, Markovian and Hidden Markov Models, enabling them to apply sophisticated statistical tools in a Data Science setting.",
-    "prerequisite": [
-      "301113"
-    ]
+    "prerequisite": ["301113"]
   },
   "301116": {
     "name": "Social Media Intelligence",
@@ -1538,9 +1252,7 @@
     "credits": "10",
     "coordinator": "Oliver Obst",
     "about": "Predictive analytics is the use of data, statistical algorithms and machine-learning techniques to model outcomes based on past data. Industry can use predictive analytics to help optimize their operations and performance. This unit introduces statistical ideas and machine learning techniques covering the predictive analytics process. Some example problems that will be discussed include identifying trends, understanding customers and predicting behaviour, fraud detection, and identifying credit risk.",
-    "prerequisite": [
-      "301114"
-    ]
+    "prerequisite": ["301114"]
   },
   "301118": {
     "name": "Genomic Data Science",
@@ -1559,9 +1271,7 @@
     "coordinator": "Oliver Obst",
     "about": "Advanced Machine Learning explores modern methods of classification, clustering and regression to make predictions and analyse different forms of data. Issues that face all machine learning methods, such as model evaluation, assessment and generalisation will also be analysed.",
     "assumed": "Fundamentals of computer programming and basic linear algebra.",
-    "prerequisite": [
-      "301113"
-    ]
+    "prerequisite": ["301113"]
   },
   "301123": {
     "name": "Management Analytics",
@@ -1571,15 +1281,7 @@
     "coordinator": "Neil Hopkins",
     "about": "Management Analytics provides students with introductory knowledge and skills in identifying, analysing and interpreting data relevant to Business, Human Resources and Management. In order to develop evidence-based decision-making skills, students will learn how to work with data. Students will organise and summarise data, present data visually and design surveys for new data collection and use. Students will develop skills in understanding decision-making models and forecasting as a means of improving business processes and HR, management and business metrics.",
     "assumed": "HSC maths (2 unit desirable) or equivalent.",
-    "equivalent": [
-      "200032",
-      "200052",
-      "300700",
-      "200263",
-      "200192",
-      "700007",
-      "700041"
-    ]
+    "equivalent": ["200032", "200052", "300700", "200263", "200192", "700007", "700041"]
   },
   "301124": {
     "name": "Ethical Hacking Principles and Practice",
@@ -1589,9 +1291,7 @@
     "coordinator": "Weisheng Si",
     "about": "This unit teaches students ethical hacking principles and skills with the ultimate goal of defence. It covers practical skills in different stages of ethical hacking, including reconnaissance on public information, port and vulnerability scanning, exploitation of vulnerabilities, post exploitation, and writing a comprehensive report to document detected vulnerabilities and proposed solutions. Students will not only practice with major tools in ethical hacking, but also learn the principles of how these tools work and hence how to defend against them.",
     "assumed": "Students should have a solid understanding of computer networking (especially with the TCP/IP protocol suite), possess basic programming skills in developing computer applications and web applications, and command basic knowledge and skills in databases and operating systems.",
-    "prerequisite": [
-      "300565"
-    ]
+    "prerequisite": ["300565"]
   },
   "301125": {
     "name": "Masters Thesis",
@@ -1601,9 +1301,7 @@
     "coordinator": "Yi Zhou",
     "about": "This year long unit provides an opportunity for masters students to carry out a comprehensive investigation and practical work on a cutting edge research topic in the area of Information and Communication Technologies.  Students are encouraged to select topics they envisage to be of value to their future careers. Students will undertake individual research-intensive project-based study under the guidance of an academic supervisory panel.",
     "assumed": "Prior knowledge deemed appropriate by the project supervisor.",
-    "prerequisite": [
-      "301005"
-    ]
+    "prerequisite": ["301005"]
   },
   "301162": {
     "name": "Information Security Management",
@@ -1622,10 +1320,7 @@
     "coordinator": "Rodrigo Neves Calheiros",
     "about": "Enterprise software architecture comprises a decomposed view of a software system in layers and components that interact and manipulate data to achieve business objectives. Enterprise in this context includes small, medium and large organizations operating in diverse sectors (private, NGO, government). Several architectural patterns have emerged to enable responsive, efficient, secure, and reliable enterprise software. This unit provides a deep understanding of these architectural patterns, examining the motivation, strengths, and limitations of different choices. To demonstrate the broader application of the concepts introduced in the unit, a practical case study is deeply examined.",
     "assumed": "Student must know how to write Objected-Oriented code.",
-    "equivalent": [
-      "300437",
-      "301041"
-    ]
+    "equivalent": ["300437", "301041"]
   },
   "301164": {
     "name": "3D Modelling Fundamentals",
@@ -1707,12 +1402,8 @@
     "coordinator": "Vernon Asuncion",
     "about": "This unit provides basic studies in the major areas of artificial intelligence: search, knowledge representation, logic programming, machine learning and knowledge based systems, agent planning and learning. The first part of this unit will focus on the foundation of artificial intelligence: search algorithms and their implementations, game playing, logics and knowledge representation, and inference in reasoning systems. The second part will cover the principles of knowledge based systems (intelligent systems), planning, and machine learning.",
     "assumed": "Basic understanding of data structures and algorithms and basic programming skills in Pascal C/C++ or Java etc",
-    "prerequisite": [
-      "200025"
-    ],
-    "equivalent": [
-      "300087"
-    ]
+    "prerequisite": ["200025"],
+    "equivalent": ["300087"]
   },
   "301175": {
     "name": "Internet of Things",
@@ -1758,9 +1449,7 @@
     "coordinator": "Dongmo Zhang",
     "about": "This unit introduces the most fundamental techniques of artificial intelligence (AI), including knowledge representation, searching, machine learning and intelligent agents. Students will learn the basic theories and algorithms that are essential in the design and development of intelligent systems. The unit will focus on two typical AI applications: game playing and e-trading. Students will have the chance of using existing multiagent system platforms to design and develop intelligent software for game playing and automated trading in e-markets.",
     "assumed": "This unit requires basic skills in programming with either JAVA or C++ as the programming language.",
-    "incompatible": [
-      "300245"
-    ]
+    "incompatible": ["300245"]
   },
   "301203": {
     "name": "Introduction to Cloud Computing",
@@ -1769,9 +1458,7 @@
     "credits": "10",
     "coordinator": "Bahman Javadi Jahantigh",
     "about": "This unit, the first half of Amazon Web Services (AWS) Academy Cloud Computing Architecture curriculum, provides deep understanding of fundamental cloud computing concepts and how it can be applied to build cost-effective; highly available and fault tolerant systems. Students will learn concepts including system virtualisation; virtual machines; cloud networks; basic cloud storage and cloud databases; security in clouds; and auto-scaling, load balancing, and monitoring. All these aspects are explored in practice with AWS services.",
-    "prerequisite": [
-      "300565"
-    ]
+    "prerequisite": ["300565"]
   },
   "301204": {
     "name": "Cloud Computing Architecture",
@@ -1780,9 +1467,7 @@
     "credits": "10",
     "coordinator": "Rodrigo Neves Calheiros",
     "about": "This unit, the second part of the Amazon Web Services (AWS) Academy Cloud Computing Architecture curriculum, provides deeper understanding about advanced cloud computing services and how to architect cloud applications that are scalable, reliable, and efficient in terms of cost and performance. Students will learn advanced cloud computing concepts including notification and messaging, serverless computing, API gateways, NoSQL databases, content delivery networks, stream processing, and long-term storage. The unit also covers advanced cloud security and infrastructure automation. All these aspects are explored in practice with AWS services. Upon completion of this unit, students will be prepared for the AWS Certified Solutions Architect – Associate exam.",
-    "prerequisite": [
-      "301203"
-    ]
+    "prerequisite": ["301203"]
   },
   "301205": {
     "name": "Robotic Programming",
@@ -1803,9 +1488,7 @@
     "credits": "10",
     "coordinator": "Anton Bogdanovych",
     "about": "There are unavoidable legal situations and ethical dilemmas in all professions. As an entrepreneur, facing these legal and ethical circumstances is much more formidable. This unit aims to prepare students to understand the legal and ethical landscape that applies to start-up (or any) organisation. As such, unit aims to cover the topics such as: creating a business plan, negotiating employment contracts, etc. The unit will be delivered through a number of modules. As an integral part of the unit, students are expected to engage and work in “start-up co-working space” on a regular basis. At the successful completion of this unit, students would have developed a thorough understanding of the local and international legal and ethical landscape within which modern start-up organisations operate.",
-    "equivalent": [
-      "301166"
-    ]
+    "equivalent": ["301166"]
   },
   "301235": {
     "name": "Applied Cybersecurity",
@@ -1814,9 +1497,7 @@
     "credits": "10",
     "coordinator": "Jim Basilakis",
     "about": "This unit covers the current approaches, technologies, and applied practices pertinent to cybersecurity and helps the student to understand important related protocols and standards. It describes the features needed for the mitigation of cyber vulnerabilities for improving the reliability of the underlying systems, privacy preservation, and achieving protections against cybercrime and internet fraud. It also examines the basics of ethical hacking, network assurance, cyber risk management, and incident analysis. The unit discusses the trends in applied cybersecurity and introduces some of the relevant current key research issues and features of the field.",
-    "prerequisite": [
-      "300695"
-    ]
+    "prerequisite": ["300695"]
   },
   "301236": {
     "name": "Advanced Topics in Cybersecurity",
@@ -1896,9 +1577,7 @@
     "credits": "10",
     "coordinator": "Rodrigo Neves Calheiros",
     "about": "This unit offers the Amazon Web Services (AWS) Academy “Academy Cloud Architecting” (ACA) curriculum and provides deeper understanding of advanced cloud computing services and how to architect cloud solutions. Students will learn advanced cloud computing concepts including notification and messaging, serverless computing, API gateways, NoSQL databases, and content delivery networks. The unit also explores strategies to enable high scalability, reliability, cost-efficiency, performance, and operational excellence in a cloud-based system. All these aspects are explored in practice with AWS services. Upon completion of this unit, students will be prepared for the AWS Certified Solutions Architect – Associate exam.",
-    "prerequisite": [
-      "301042"
-    ]
+    "prerequisite": ["301042"]
   },
   "700000": {
     "name": "Information Systems in Context (WSTC)",
@@ -1910,9 +1589,7 @@
     "rawPrerequisite": [
       "Students enrolled in 7138 Diploma in Information and Communications Technology Extended - ICT, 7139 Diploma in Information and Communications Technology Extended or 7140 Diploma in Information and Communications Technology Extended – Information Systems must pass 700276 Academic and Professional Communication (WSTC  Prep) and 700205 Academic Skills for ICT (WSTC Prep)."
     ],
-    "equivalent": [
-      "300573"
-    ]
+    "equivalent": ["300573"]
   },
   "700007": {
     "name": "Statistics for Business (WSTC)",
@@ -1922,15 +1599,8 @@
     "coordinator": "Michael CASEY",
     "about": "This unit introduces the basic concepts and techniques of statistics that are particularly relevant to problem solving in business. It also provides a sound base for more advanced study in statistics and forecasting in subsequent sessions. Topics include: presentation of data; descriptive statistics; the role of uncertainty in business decision making; hypothesis testing.",
     "assumed": "Mathematics, equivalent to the Mathematics subject in the NSW HSC",
-    "equivalent": [
-      "200032"
-    ],
-    "incompatible": [
-      "200192",
-      "200052",
-      "200182",
-      "200263"
-    ]
+    "equivalent": ["200032"],
+    "incompatible": ["200192", "200052", "200182", "200263"]
   },
   "700008": {
     "name": "Programming Fundamentals (WSTC)",
@@ -1942,12 +1612,7 @@
     "rawPrerequisite": [
       "Students enrolled in 7067 Diploma in Information and Communications Technology Extended  must pass 700199 Academic Communication 2 (WSTC Prep) or 700208 English for Tertiary Study 2 (WSTC Prep) or 700210 Introduction to Academic Communication 2 (WSTC Prep), and must pass 700201 Computer Studies (WSTC Prep), and must pass 700047 Programming Design (WSTC Prep), and must pass 700146 Mathematics 2 (WSTC Prep) before enrolling in this unit. \r\n\r\nStudents enrolled in 6035 Diploma/Bachelor of Information and Communications Technology, 6036 Diploma in Information and Communications Technology/Bachelor of Information Systems and 7005 Diploma in Information and Communications Technology must pass 700047 Programming Design (WSTC Prep) before enrolling in this unit.\r\n\r\nStudents enrolled in 6038 Dip in Information and Communications Technology /BICT(HIM), 6039 Diploma in Information and Communications Technology/BICT, 6040 Diploma in Information and Communications Technology/BIS , 7067 Diploma in Information and Communications Technology Extended, 7134 Diploma in Information and Communications Technology Extended - ICT, 7138 Diploma in Information and Communications Technology Extended-ICT, 7139 Diploma in Information and Communications Technology Extended, 7140 Diploma in Information and Communications Technology Extended–IS, 7141 Diploma in Information and Communications Technology Extended-HIM, 7163 Diploma in Information and Communications Technology(International) and 7164 Dip Information and Communications Technology (HIM) (International) must pass 700047 Programming Design (WSTC Prep) and must pass 700146 Mathematics 2 (WSTC Prep) before enrolling in this unit."
     ],
-    "equivalent": [
-      "300405",
-      "300155",
-      "200122",
-      "300580"
-    ]
+    "equivalent": ["300405", "300155", "200122", "300580"]
   },
   "700011": {
     "name": "Database Design and Development (WSTC)",
@@ -1962,9 +1627,7 @@
       "Students enrolled in 7138 Diploma in Information and Communications Technology Extended-ICT, 7139 Diploma in Information and Communications Technology Extended, 7140 Diploma in Information and Communications Technology Extended–IS, and 7141 Diploma in Information and Communications Technology Extended-HIM must pass 700276 Academic and Professional Communication (WSTC Prep) and must pass 700278 Information Technology in Business (WSTC Prep) and must pass 700047 Programming Design (WSTC Prep).",
       "Students enrolled in 6038 Diploma in Information and Communications Technology /Bachelor of Information and Communications Technology (HIM), 6039 Diploma in Information and Communications Technology/Bachelor of Information and Communications Technology, 6040 Diploma in Information and Communications Technology/Bachelor of Information Systems, 7163 Diploma in Information and Communications Technology and 7164 Diploma in Information and Communications Technology (HIM)  must pass 700047 Programming Design (WSTC Prep)."
     ],
-    "equivalent": [
-      "300104"
-    ]
+    "equivalent": ["300104"]
   },
   "700012": {
     "name": "Computer Networking (WSTC)",
@@ -1977,11 +1640,7 @@
     "rawPrerequisite": [
       "Students enrolled in 7067 Diploma in Information and Communications Technology Extended and 7134 Diploma in Information and Communications Technology Extended – ICT must pass 700199 Academic Communication 2 (WSTC Prep) or 700208 English for Tertiary Study 2 (WSTC Prep) or 700210 Introduction to Academic Communication 2 (WSTC Prep), and must pass 700201 Computer Studies (WSTC Prep) before enrolling in this unit.\r\n\r\nStudents enrolled in 7138 Diploma in Information and Communications Technology Extended-ICT, 7139 Diploma in Information and Communications Technology Extended, 7140 Diploma in Information and Communications Technology Extended–IS and 7141 Diploma in Information and Communications Technology Extended-HIM must pass 700276 Academic & Professional Communication (WSTC Prep) and must pass 700205 Academic Skills for ICT (WSTC Prep) before enrolling in this unit."
     ],
-    "equivalent": [
-      "300094",
-      "300086",
-      "300565"
-    ]
+    "equivalent": ["300094", "300086", "300565"]
   },
   "700013": {
     "name": "Systems Analysis and Design (WSTC)",
@@ -1994,10 +1653,7 @@
     "rawPrerequisite": [
       "Students enrolled in 7067 Diploma in Information and Communications Technology Extended must pass 700199 Academic Communication 2 (WSTC Prep) or 700208 English for Tertiary Study 2 (WSTC Prep) or 700210 Introduction to Academic Communication 2 (WSTC Prep), and must pass 700201 Computer Studies (WSTC Prep) before enrolling in this unit.\r\n\r\nStudents enrolled in 7138 Diploma in Information and Communications Technology Extended-ICT, 7139 Diploma in Information and Communications Technology Extended, 7140 Diploma in Information and Communications Technology Extended–IS and 7141 Diploma in Information and Communications Technology Extended-HIM must pass 700276 Academic & Professional Communication (WSTC Prep) and must pass 700205 Academic Skills for ICT (WSTC Prep) and must pass 700278 Information Technology in Business (WSTC Prep) before enrolling in this unit."
     ],
-    "equivalent": [
-      "300131",
-      "300585"
-    ]
+    "equivalent": ["300131", "300585"]
   },
   "700019": {
     "name": "Mathematics for Engineers 1 (WSTC)",
@@ -2006,18 +1662,9 @@
     "credits": "10",
     "coordinator": "Zdenka Misanovic",
     "about": "The content of this unit covers a number of topics that underpin the later-stage engineering mathematics units.  The subject matter includes:  differential and integral calculus of a single variable, complex numbers, aspects of matrix algebra, vectors and some elementary statistics and probability theory.",
-    "prerequisite": [
-      "700100"
-    ],
-    "equivalent": [
-      "200237",
-      "700101"
-    ],
-    "incompatible": [
-      "300672",
-      "300673",
-      "200191"
-    ]
+    "prerequisite": ["700100"],
+    "equivalent": ["200237", "700101"],
+    "incompatible": ["300672", "300673", "200191"]
   },
   "700033": {
     "name": "Biometry (WSTC)",
@@ -2027,18 +1674,8 @@
     "coordinator": "Michael CASEY",
     "about": "This unit introduces students to various statistical techniques necessary in scientific endeavours.  Presentation of the content will emphasize the correct principles and procedures for collecting and analysing scientific data, using a ‘hands-on’ approach.    Topics include effective methods of gathering data, statistical principles of designing experiments, error analysis, describing different sets of data, probability distributions, statistical inference, non-parametric methods, and simple linear regression and correlation.",
     "assumed": "Basic computer use.  Basic understanding of mathematical algebra.",
-    "equivalent": [
-      "200032",
-      "200052",
-      "200192",
-      "200263",
-      "300700",
-      "700007",
-      "700041"
-    ],
-    "incompatible": [
-      "200182"
-    ]
+    "equivalent": ["200032", "200052", "200192", "200263", "300700", "700007", "700041"],
+    "incompatible": ["200182"]
   },
   "700039": {
     "name": "Object Oriented Analysis (WSTC)",
@@ -2051,9 +1688,7 @@
     "rawPrerequisite": [
       "Students enrolled in 7004 Diploma in Information and Communications Technology Fast Track, 7005 Diploma in Information and Communications Technology, 7067 Diploma in Information and Communications Technology Extended, 7134 Diploma in Information and Communications Technology Extended – ICT, 7138 Diploma in Information and Communications Technology Extended - ICT, 7139 Diploma in Information and Communications Technology Extended, 7140 Diploma in Information and Communications Technology Extended - Information Systems, 7163 Diploma in Information and Communications Technology, 6035 Diploma/Bachelor of Information and Communications Technology, 6036 Diploma in Information and Communications Technology/Bachelor of Information Systems, 6039 Diploma/Bachelor of Information and Communications Technology and 6040 Diploma in Information and Communications Technology / Bachelor of Information Systems, must pass 700013 Systems Analysis and Design before enrolling in this unit."
     ],
-    "equivalent": [
-      "300144"
-    ]
+    "equivalent": ["300144"]
   },
   "700041": {
     "name": "Statistical Decision Making (WSTC)",
@@ -2065,18 +1700,8 @@
     "rawPrerequisite": [
       "Students enrolled in 7005 Diploma in Information and Communications Technology, 7067 Diploma in Information and Communications Technology Extended, 7104 Diploma in Information and Communications Technology (Health Information Management), 7106 Diploma in Information and Communications Technology (Health Information Management) Extended must pass 700045 Statistics for Academic Purposes (WSTC Prep) before enrolling in this unit."
     ],
-    "equivalent": [
-      "200192",
-      "200263",
-      "200032",
-      "200052",
-      "300700",
-      "700007",
-      "700033"
-    ],
-    "incompatible": [
-      "200182"
-    ]
+    "equivalent": ["200192", "200263", "200032", "200052", "300700", "700007", "700033"],
+    "incompatible": ["200182"]
   },
   "700123": {
     "name": "Quantitative Thinking (WSTC)",
@@ -2086,10 +1711,7 @@
     "coordinator": "Michael CASEY",
     "about": "This Level 1 unit develops the quantitative skills that underpin many fields of study in the sciences.  The content covered includes basic algebra, functions, graphs, equations – linear and quadratic, introductory probability and descriptive statistics.  These mathematical/statistical concepts will be revised and developed using scientific concepts such as molarity and dilution, optical density, population growth, and predator-prey models.  In all aspects of this unit, students will be developing and using critical thinking skills to solve mathematical/statistical problems set in a scientific context.",
     "assumed": "Basic competence in algebraic manipulation and some familiarity with elementary probability and statistical concepts.",
-    "equivalent": [
-      "200191",
-      "300831"
-    ]
+    "equivalent": ["200191", "300831"]
   },
   "700126": {
     "name": "Design Science (WSTC)",
@@ -2102,9 +1724,7 @@
     "rawPrerequisite": [
       "Students enrolled in 7015 Diploma in Construction Management or 7065 Diploma in Construction Management Extended or 7042 Bachelor of Construction Management (WSTC FYP) or 7081 Bachelor of Construction Management Extended (WSTC FYP) must pass 700264 Scientific Methods for Construction Management (WSTC Prep) before enrolling in this unit."
     ],
-    "equivalent": [
-      "300016\t"
-    ]
+    "equivalent": ["300016\t"]
   },
   "700257": {
     "name": "Programming Techniques (WSTC)",
@@ -2113,15 +1733,9 @@
     "credits": "10",
     "coordinator": "Buddhima De Silva",
     "about": "This unit is intended as a second unit of study in programming. It builds on a basic understanding of procedural programming as would be developed in a first unit. This unit continues the development of programming skills and methodologies required for professional programming and for further study in later computing units. Topics covered include multi-dimensional arrays, file I/O, searching and sorting, and an introduction to object-oriented programming involving classes and inheritance",
-    "prerequisite": [
-      "700008"
-    ],
-    "equivalent": [
-      "300581"
-    ],
-    "incompatible": [
-      "300903"
-    ]
+    "prerequisite": ["700008"],
+    "equivalent": ["300581"],
+    "incompatible": ["300903"]
   },
   "700258": {
     "name": "Introduction to Health Informatics (WSTC)",
@@ -2130,8 +1744,6 @@
     "credits": "10",
     "coordinator": "Frank Gutierrez",
     "about": "This introductory unit aims to give the student an insight into the key knowledge and skill set required in the emerging domain of Health Informatics. Critical topics include: The Australian healthcare system, health care improvement modelling, health information systems and management, paper-based v's electronic health records, clinical documentation and data quality, health information management, consumer information security, privacy and ethics, decision support and clinical delivery support systems, healthcare data representation and interchange standards, telehealth and ICT technologies. This will be complemented by practical exercises and assessment support sessions. Through these experiences students will gain an understanding of the application of ICT to the healthcare domain and the skills necessary to play a pivotal role in the design and delivery of healthcare systems and health information management.",
-    "equivalent": [
-      "300566"
-    ]
+    "equivalent": ["300566"]
   }
 }

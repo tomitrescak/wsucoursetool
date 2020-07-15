@@ -11,10 +11,10 @@ import {
   IconButton,
   Text,
   Badge,
-  Icon
+  Icon,
+  TextInputField
 } from 'evergreen-ui';
-
-import { bloom } from './bloom';
+import { action } from 'mobx';
 import { State, Outcome } from './types';
 
 export type Props = {
@@ -22,12 +22,34 @@ export type Props = {
   owner: { outcomes: Outcome[] };
 };
 
+export const skills = [
+  'b0',
+  'b1',
+  'a0',
+  'a1',
+  'a2',
+  'a3',
+  'a4',
+  'a5',
+  'c0',
+  'c1',
+  'c2',
+  'd0',
+  'd1',
+  'd2',
+  'd3',
+  'e0',
+  'e1',
+  'e2',
+  'e3'
+];
+
 export const OutcomeEditor: React.FC<Props> = observer(({ state, owner }) => {
   const localState = useLocalStore(() => ({
     outcomeId: '',
-    outcomeRating: -1,
-    expanded: false
+    outcomeRating: -1
   }));
+  const [expanded, setExpanded] = React.useState((owner.outcomes || []).length > 0);
 
   function setOutcome(id: string, value: number) {
     if (owner.outcomes == null) {
@@ -40,26 +62,28 @@ export const OutcomeEditor: React.FC<Props> = observer(({ state, owner }) => {
       owner.outcomes.push({ acsSkillId: id, bloomRating: value });
     }
   }
+
+  let parsedValue = skills
+    .map(s => (owner.outcomes || []).find(o => o.acsSkillId === s)?.bloomRating || ' ')
+    .join('\t');
+
   return (
     <Pane flex={1}>
-      <Heading display="flex" alignItems="center" size={400} marginBottom={16}>
-        Outcomes{' '}
-        <Badge
-          display="flex"
-          alignItems="center"
+      <Heading
+        size={500}
+        marginBottom={expanded ? 8 : 0}
+        borderBottom={expanded ? 'dashed 1px #dedede' : ''}
+        display="flex"
+        alignItems="center"
+      >
+        <Icon
+          size={16}
+          marginRight={8}
+          icon={expanded ? 'chevron-down' : 'chevron-right'}
           cursor="pointer"
-          is="a"
-          marginLeft={16}
-          height={30}
-          onClick={() => (localState.expanded = !localState.expanded)}
-        >
-          <Icon
-            marginRight={4}
-            size={16}
-            icon={localState.expanded ? 'chevron-up' : 'chevron-down'}
-          />{' '}
-          {localState.expanded ? 'Collapse' : 'Expand'}
-        </Badge>
+          onClick={() => setExpanded(!expanded)}
+        />
+        Outcomes
       </Heading>
 
       {/* <UnorderedList icon="tick" iconColor="success" alignItems="center">
@@ -84,49 +108,64 @@ export const OutcomeEditor: React.FC<Props> = observer(({ state, owner }) => {
         ))}
       </UnorderedList> */}
 
-      {state.courseConfig.acsKnowledge.map((acs, i) =>
-        localState.expanded ||
-        (owner.outcomes || []).some(o =>
-          acs.items.some(a => o.acsSkillId === a.id && o.bloomRating != 0)
-        ) ? (
+      {expanded && (
+        <TextInputField
+          label="Parse Outcomes"
+          placeholder="Please paste the outcomes, separated by tab"
+          value={parsedValue}
+          onChange={action(e => {
+            const line = e.currentTarget.value.split('\t');
+
+            owner.outcomes = [];
+
+            skills.forEach((f, i) => {
+              if (line[i] && line[i] !== ' ') {
+                owner.outcomes.push({
+                  acsSkillId: f,
+                  bloomRating: line[i] === 'x' ? 1 : isNaN(line[i]) ? 1 : parseInt(line[i])
+                });
+              }
+            });
+          })}
+        />
+      )}
+
+      {expanded &&
+        state.courseConfig.acsKnowledge.map((acs, i) => (
           <Pane key={i}>
             <Heading size={400} marginTop={8} marginBottom={4}>
               {acs.name}
             </Heading>
 
-            {acs.items.map((s, i) =>
-              localState.expanded ||
-              (owner.outcomes || []).some(o => o.acsSkillId === s.id && o.bloomRating != 0) ? (
-                <Pane display="flex" key={i} marginTop={4}>
-                  <Pane flex="0 0 240px">
-                    <Text size={300}>{s.name}</Text>
-                  </Pane>
-
-                  <Select
-                    marginLeft={8}
-                    marginRight={8}
-                    flex="0 0 140px"
-                    value={
-                      (owner.outcomes || [])
-                        .find(o => o.acsSkillId === s.id)
-                        ?.bloomRating.toString() || '0'
-                    }
-                    onChange={e => setOutcome(s.id, parseInt(e.currentTarget.value))}
-                  >
-                    <option value="0">None</option>
-                    <option value="1">1 - Knowledge</option>
-                    <option value="2">2 - Comprehension</option>
-                    <option value="3">3 - Application</option>
-                    <option value="4">4 - Analysis</option>
-                    <option value="5">5 - Synthesis</option>
-                    <option value="6">6 - Evaluation</option>
-                  </Select>
+            {acs.items.map((s, i) => (
+              <Pane display="flex" key={i} marginTop={4}>
+                <Pane flex="0 0 240px">
+                  <Text size={300}>{s.name}</Text>
                 </Pane>
-              ) : null
-            )}
+
+                <Select
+                  marginLeft={8}
+                  marginRight={8}
+                  flex="0 0 140px"
+                  value={
+                    (owner.outcomes || [])
+                      .find(o => o.acsSkillId === s.id)
+                      ?.bloomRating.toString() || '0'
+                  }
+                  onChange={e => setOutcome(s.id, parseInt(e.currentTarget.value))}
+                >
+                  <option value="0">None</option>
+                  <option value="1">1 - Knowledge</option>
+                  <option value="2">2 - Comprehension</option>
+                  <option value="3">3 - Application</option>
+                  <option value="4">4 - Analysis</option>
+                  <option value="5">5 - Synthesis</option>
+                  <option value="6">6 - Evaluation</option>
+                </Select>
+              </Pane>
+            ))}
           </Pane>
-        ) : null
-      )}
+        ))}
     </Pane>
   );
 });

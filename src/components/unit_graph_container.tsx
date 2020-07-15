@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { UnitGraph } from './unit_graph';
+import { UnitGraph } from './units_graph';
 
 const QUERY = gql`
   query LoadUnits {
@@ -21,15 +21,16 @@ export function UnitContainer() {
   if (loading) return <div>Loading ...</div>;
 
   const units = JSON.parse(data.loadUnits);
+  const unitArr = Object.keys(units).map(k => units[k]);
 
   return (
     <div style={{ display: 'flex' }}>
-      <div>
+      {/* <div>
         {Object.keys(units).map(k => (
           <div key={k}>{k}</div>
         ))}
-      </div>
-      <UnitGraph units={units} />
+      </div> */}
+      <UnitGraph unitArr={unitArr} />
     </div>
   );
 }

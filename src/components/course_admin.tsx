@@ -20,6 +20,8 @@ import { TopicEditor } from './topics';
 import { AllBlocksEditor } from './blocks_editor';
 import { SpecialisationEditor } from './specialisations';
 import { Graph } from './block_graph';
+import { CoursesEditor } from './courses';
+import { VerticalPane } from './vertical_pane';
 
 const BreadCrumbs = styled(Text)`
   background: white;
@@ -41,6 +43,7 @@ const Admin = styled.div`
 
 const tabs = [
   'Units',
+  'Courses',
   'Topics',
   'Blocks',
   'Specialisations',
@@ -49,6 +52,8 @@ const tabs = [
   'SFIA Skills',
   'Graph'
 ];
+
+let to: any;
 
 const CourseAdminComponent: React.FC<{ data: CourseConfig; readonly: boolean }> = ({
   data,
@@ -68,18 +73,43 @@ const CourseAdminComponent: React.FC<{ data: CourseConfig; readonly: boolean }> 
   });
 
   function save() {
-    return addTodo({
-      variables: {
-        courses: JSON.stringify(toJS(state.courseConfig), null, 2)
-      }
-    });
+    // return addTodo({
+    //   variables: {
+    //     courses: JSON.stringify(toJS(state.courseConfig), null, 2)
+    //   }
+    // });
+    return fetch('http://localhost:3000/api/save', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(toJS(state.courseConfig), null, 2)
+    })
+      .then(function (response) {
+        toaster.notify('Saved');
+      })
+      .catch(function (error) {
+        console.log(error);
+        toaster.notify('Save Error: ' + error);
+      });
+  }
+
+  function delaySave() {
+    if (to) {
+      clearTimeout(to);
+    }
+    to = setTimeout(() => {
+      save();
+    }, 2000);
   }
 
   const state = React.useMemo(
     () =>
       observable({
         courseConfig: data,
-        save
+        save,
+        delaySave
       }),
     []
   );
@@ -101,29 +131,42 @@ const CourseAdminComponent: React.FC<{ data: CourseConfig; readonly: boolean }> 
         background="blueTint"
         top={0}
         left={0}
+        zIndex={10}
       >
         <Menu.Item icon="floppy-disk" width={40} onSelect={save} />
         <BreadCrumbs>{tabs[selectedIndex]} &gt;</BreadCrumbs>
       </Pane>
-      <Pane display="flex" paddingTop={48} paddingLeft={8} paddingRight={8}>
-        <Tablist marginBottom={16} flexBasis={140} marginRight={8}>
-          {tabs.map((tab, index) => (
-            <Link key={tab} href={`/${view}/[category]`} as={`/${view}/${url(tab)}`}>
-              <a>
-                <SidebarTab
-                  key={tab}
-                  id={tab}
-                  isSelected={index === selectedIndex}
-                  aria-controls={`panel-${tab}`}
-                >
-                  {tab}
-                </SidebarTab>
-              </a>
-            </Link>
-          ))}
-        </Tablist>
+      <Pane
+        position="absolute"
+        top="40px"
+        bottom="0px"
+        left="0px"
+        right="0px"
+        overflow="hidden"
+        display="flex"
+        padding={8}
+      >
+        <VerticalPane title="Main Menu">
+          <Tablist marginBottom={16} flexBasis={140} marginRight={8}>
+            {tabs.map((tab, index) => (
+              <Link key={tab} href={`/${view}/[category]`} as={`/${view}/${url(tab)}`}>
+                <a>
+                  <SidebarTab
+                    key={tab}
+                    id={tab}
+                    isSelected={index === selectedIndex}
+                    aria-controls={`panel-${tab}`}
+                  >
+                    {tab}
+                  </SidebarTab>
+                </a>
+              </Link>
+            ))}
+          </Tablist>
+        </VerticalPane>
 
         {selectedTab == 'Units' && <UnitsEditor state={state} readonly={readonly} />}
+        {selectedTab == 'Courses' && <CoursesEditor state={state} readonly={readonly} />}
         {selectedTab == 'Jobs' && <JobsEditor state={state} readonly={readonly} />}
         {selectedTab == 'Blocks' && <AllBlocksEditor state={state} readonly={readonly} />}
         {selectedTab == 'Topics' && <TopicEditor state={state} readonly={readonly} />}

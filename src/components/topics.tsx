@@ -9,6 +9,7 @@ import { SideTab, Tabs, TextField } from './tab';
 import marked from 'marked';
 import { useRouter } from 'next/router';
 import { TextEditor } from './text_editor';
+import { VerticalPane } from './vertical_pane';
 
 type KeywordProps = {
   item: Topic;
@@ -93,61 +94,68 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
   const view = readonly ? 'view' : 'editor';
 
   return (
-    <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
-      <Tablist flexBasis={200} width={200} marginRight={8}>
-        <Tabs>
-          {state.courseConfig.topics.map(topic => (
-            <Link
-              key={topic.id}
-              href={`/${view}/[category]/[item]`}
-              as={`/${view}/topics/${url(topic.name)}-${topic.id}`}
-            >
-              <a>
-                <SideTab
+    <>
+      <VerticalPane title="Topic List">
+        <Tablist flexBasis={200} width={200} marginRight={8}>
+          <Tabs>
+            {state.courseConfig.topics
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map(topic => (
+                <Link
                   key={topic.id}
-                  id={topic.id}
-                  isSelected={selectedItem && topic.id === selectedItem.id}
-                  aria-controls={`panel-${topic.name}`}
+                  href={`/${view}/[category]/[item]`}
+                  as={`/${view}/topics/${url(topic.name)}-${topic.id}`}
                 >
-                  {topic.name}
-                </SideTab>
-              </a>
-            </Link>
-          ))}
-        </Tabs>
-        {!readonly && (
-          <Pane marginTop={16} display="flex" alignItems="center">
-            <TextInputField
-              flex={1}
-              label="Name"
-              value={localState.name}
-              placeholder="Please specify name ..."
-              onChange={form.name}
-              marginRight={4}
-            />
-            <IconButton
-              appearance="primary"
-              intent="success"
-              icon="plus"
-              onClick={() => {
-                state.courseConfig.topics.push({
-                  id: findMaxId(state.courseConfig.topics),
-                  name: localState.name,
-                  description: ''
-                });
-              }}
-            />
-          </Pane>
-        )}
-      </Tablist>
+                  <a>
+                    <SideTab
+                      key={topic.id}
+                      id={topic.id}
+                      isSelected={selectedItem && topic.id === selectedItem.id}
+                      aria-controls={`panel-${topic.name}`}
+                    >
+                      {topic.name}
+                    </SideTab>
+                  </a>
+                </Link>
+              ))}
+          </Tabs>
 
-      {selectedItem &&
-        (readonly ? (
-          <DetailsReadonly item={selectedItem} />
-        ) : (
-          <Details item={selectedItem} state={state} />
-        ))}
-    </Pane>
+          {!readonly && (
+            <Pane marginTop={16} display="flex" alignItems="center">
+              <TextInputField
+                flex={1}
+                label="Name"
+                value={localState.name}
+                placeholder="Please specify name ..."
+                onChange={form.name}
+                marginRight={4}
+              />
+              <IconButton
+                appearance="primary"
+                intent="success"
+                icon="plus"
+                onClick={() => {
+                  state.courseConfig.topics.push({
+                    id: findMaxId(state.courseConfig.topics),
+                    name: localState.name,
+                    description: ''
+                  });
+                }}
+              />
+            </Pane>
+          )}
+        </Tablist>
+      </VerticalPane>
+
+      <VerticalPane title="Topic" shrink={true}>
+        {selectedItem &&
+          (readonly ? (
+            <DetailsReadonly item={selectedItem} />
+          ) : (
+            <Details item={selectedItem} state={state} />
+          ))}
+      </VerticalPane>
+    </>
   );
 };
 

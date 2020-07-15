@@ -76,7 +76,7 @@ const AttendanceEditor = observer(({ completionCriteria }: SiProps) => {
 });
 const WeightEditor = observer(({ completionCriteria }: SiProps) => {
   return (
-    <Pane display="flex">
+    <Pane display="flex" alignItems="center">
       <TextInput
         type="number"
         width="100%"

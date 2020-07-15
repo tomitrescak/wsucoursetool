@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, Observer } from 'mobx-react';
-import { Pane, Text, Autocomplete, TagInput } from 'evergreen-ui';
+import { Pane, Text, Autocomplete, TagInput, SelectMenu, Button } from 'evergreen-ui';
 import Router from 'next/router';
 import { State } from './types';
 
@@ -66,8 +66,11 @@ type TopicEditorProps = {
 
 export const TopicEditor = observer(
   ({ owner, state, label = 'Topics', field = 'topics' }: TopicEditorProps) => {
-    const topicOwner = owner[field];
-    const topics = (topicOwner || [])
+    if (!owner[field]) {
+      owner[field] = [];
+    }
+    const topicOwner = owner[field] || [];
+    const topics = topicOwner
       .map(id => state.courseConfig.topics.find(t => t.id === id))
       .map(t => t.name);
 
@@ -76,7 +79,34 @@ export const TopicEditor = observer(
         <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
           {label}
         </Text>
-        <Autocomplete
+        <SelectMenu
+          isMultiSelect
+          title="Select Topics"
+          options={state.courseConfig.topics
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(t => ({ label: t.name, value: t.id }))}
+          selected={topicOwner}
+          onSelect={item => {
+            topicOwner.push(item.value);
+          }}
+          onDeselect={item => {
+            topicOwner.splice(topicOwner.indexOf(item.value), 1);
+          }}
+        >
+          <TagInput
+            id="keywords"
+            inputProps={{ placeholder: 'Add topics...' }}
+            values={topics}
+            width="100%"
+            onRemove={(_value, index) => {
+              owner[field] = topicOwner.filter((_, i) => i !== index);
+            }}
+            onKeyDown={e => e.preventDefault()}
+            marginBottom={16}
+          />
+          {/* <Button>{topics.length ? topics.join(', ') : 'Select multiple...'}</Button> */}
+        </SelectMenu>
+        {/* <Autocomplete
           title={label}
           onChange={undefined}
           onSelect={e => {
@@ -114,7 +144,7 @@ export const TopicEditor = observer(
               </Observer>
             );
           }}
-        </Autocomplete>
+        </Autocomplete> */}
       </Pane>
     );
   }

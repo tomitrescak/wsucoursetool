@@ -69,9 +69,17 @@ const ActivityDetail: React.FC<{ activity: Activity; block: Block; state: State 
         </td>
         <td>
           <TextInput
-            placeholder="Unit Name"
+            placeholder="Activity Name"
             value={activity.name}
             onChange={form.name}
+            width="100%"
+          />
+        </td>
+        <td>
+          <TextInput
+            placeholder="Activity Description Name"
+            value={activity.description}
+            onChange={form.description}
             width="100%"
           />
         </td>
@@ -137,6 +145,9 @@ const ActivityDetail: React.FC<{ activity: Activity; block: Block; state: State 
 const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = observer(
   ({ block, state, unit }) => {
     const form = React.useMemo(() => buildForm(block, ['name', 'description', 'outcome']), [block]);
+    const [expanded, setExpanded] = React.useState(
+      block.completionCriteria != null && Object.keys(block.completionCriteria).length > 0
+    );
 
     // merge all keywords from blocks and topics
     let keywords = React.useMemo(() => {
@@ -195,7 +206,7 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
         lengthHours: 2
       };
       block.activities.push(newActivity);
-      state.save();
+      state.delaySave();
     }
 
     return (
@@ -206,6 +217,37 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
               <Icon marginRight={8} icon="build" size={14} />
               {block.name}
             </Heading>
+            {unit && (
+              <>
+                <IconButton
+                  icon="arrow-up"
+                  iconSize={12}
+                  marginRight={2}
+                  width={20}
+                  onClick={() => {
+                    const index = unit.blocks.findIndex(id => id === block.id);
+                    if (index >= 1) {
+                      unit.blocks.splice(index, 1);
+                      unit.blocks.splice(index - 1, 0, block.id);
+                    }
+                  }}
+                />
+                <IconButton
+                  icon="arrow-down"
+                  iconSize={12}
+                  marginRight={2}
+                  width={20}
+                  onClick={() => {
+                    const index = unit.blocks.findIndex(id => id === block.id);
+                    if (index < block.activities.length - 1) {
+                      unit.blocks.splice(index, 1);
+                      unit.blocks.splice(index + 1, 0, block.id);
+                    }
+                  }}
+                />
+              </>
+            )}
+
             <Button
               appearance="primary"
               intent="success"
@@ -295,6 +337,9 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
                   <th style={{ width: '100%' }}>
                     <Heading size={400}>Name</Heading>
                   </th>
+                  <th style={{ width: '100%' }}>
+                    <Heading size={400}>Description</Heading>
+                  </th>
                   <th style={{ minWidth: '105px' }}>
                     <Heading size={400}>Type</Heading>
                   </th>
@@ -314,28 +359,43 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
 
           {/* PREREQUSTIES */}
           <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-            <PrerequisiteEditor state={state} owner={block} />
+            <PrerequisiteEditor state={state} owner={block} unit={unit} />
           </Pane>
 
           {/* COMPLETION CRITERIA */}
 
           <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-            <Heading size={500} marginBottom={16} borderBottom="dashed 1px #dedede">
+            <Heading
+              size={500}
+              marginBottom={expanded ? 8 : 0}
+              borderBottom={expanded ? 'dashed 1px #dedede' : ''}
+              display="flex"
+              alignItems="center"
+            >
+              <Icon
+                size={16}
+                marginRight={8}
+                icon={expanded ? 'chevron-down' : 'chevron-right'}
+                cursor="pointer"
+                onClick={() => setExpanded(!expanded)}
+              />
               Completion Criteria
             </Heading>
 
-            <TopicBlockEditor
-              state={state}
-              block={block.completionCriteria}
-              items={block.activities}
-            />
+            {expanded && (
+              <TopicBlockEditor
+                state={state}
+                block={block.completionCriteria}
+                items={block.activities}
+              />
+            )}
           </Pane>
 
           {/* OUTCOMES */}
 
           <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
             <OutcomeEditor state={state} owner={block} />
-            <TextEditor owner={block} field="outcome" label="Outcome Description" />
+            {/* <TextEditor owner={block} field="outcome" label="Outcome Description" /> */}
           </Pane>
 
           {/* DESCRIPITION */}
@@ -344,7 +404,7 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
               Details
             </Heading>
 
-            <TextEditor owner={block} field="description" label="Description" />
+            <TextEditor owner={block} field="outcome" label="Description" />
 
             <Pane display="flex">
               {/* TOPICS */}
@@ -391,6 +451,59 @@ type Props = {
 // href="/editor/[category]/[item]"
 // as={`/editor/units/${url(block.name)}-${block.id}`}
 
+function createRanges(arr: number[]) {
+  let start = null;
+  let end = null; // track start and end
+  end = start = arr[0];
+  let result: string[] = [];
+  for (let i = 1; i < arr.length; i++) {
+    // as long as entries are consecutive, move end forward
+    if (arr[i] == arr[i - 1] + 1) {
+      end = arr[i];
+    } else {
+      // when no longer consecutive, add group to result
+      // depending on whether start=end (single item) or not
+      if (start == end) result.push(start);
+      else result.push(start + '-' + end);
+
+      start = end = arr[i];
+    }
+  }
+
+  // handle the final group
+  if (start == end) result.push(start);
+  else result.push(start + '-' + end);
+
+  return result;
+}
+
+function requisiteRanges(blocks: Block[], block: Block, recommended: boolean) {
+  const prerequisites = (block.prerequisites || [])
+    .filter(p => p.type === 'block' && p.recommended === recommended)
+    .sort((a, b) =>
+      blocks.findIndex(s => s.id === a.id) < blocks.findIndex(s => s.id === b.id) ? -1 : 1
+    );
+
+  const indices = prerequisites.map(b => blocks.findIndex(s => s.id === b.id) + 1);
+  if (indices.length > 0) {
+    return createRanges(indices);
+  }
+  return [];
+}
+
+function blockColor(block: Block) {
+  if (!block.activities || block.activities.length === 0) {
+    return undefined;
+  }
+  if (block.activities.some(a => a.type === 'exam')) {
+    return 'red';
+  }
+  if (block.activities.some(a => a.type === 'assignment')) {
+    return 'yellow';
+  }
+  return undefined;
+}
+
 const BlocksEditorView: React.FC<Props> = ({
   blocks,
   selectedBlockId,
@@ -403,7 +516,7 @@ const BlocksEditorView: React.FC<Props> = ({
 
   return (
     <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
-      <Tablist flexBasis={400} width={200} marginRight={8}>
+      <Tablist flexBasis={300} width={200} marginRight={8}>
         {title && (
           <Heading size={500} marginBottom={16}>
             {title}
@@ -421,7 +534,10 @@ const BlocksEditorView: React.FC<Props> = ({
                       isSelected={selectedBlock && block.id === selectedBlock.id}
                       aria-controls={`panel-${block.name}`}
                     >
-                      &nbsp;{index + 1}&nbsp;-&nbsp;
+                      <Badge color={blockColor(block)} marginRight={8}>
+                        {index + 1}
+                      </Badge>
+
                       {block.name}
                     </SideTab>
                   </a>
@@ -429,17 +545,24 @@ const BlocksEditorView: React.FC<Props> = ({
               </Pane>
               <Pane>
                 {blockCredits(block) && (
-                  <Badge color="orange" marginLeft={-4} marginRight={8}>
-                    {blockCredits(block)}
+                  <Badge
+                    color={block.activities.some(a => a.type === 'exam') ? 'red' : 'orange'}
+                    marginLeft={-4}
+                    marginRight={8}
+                  >
+                    {blockCredits(block)}¢
                   </Badge>
                 )}
-                {(block.prerequisites || [])
-                  .filter(p => p.type === 'block')
-                  .map((p, i) => (
-                    <Badge key={p.id + i} color={p.recommended ? 'green' : 'red'}>
-                      {blocks.findIndex(s => s.id === p.id) + 1}
-                    </Badge>
-                  ))}
+                {requisiteRanges(blocks, block, false).map(r => (
+                  <Badge key={r} color={'red'}>
+                    {r}
+                  </Badge>
+                ))}
+                {requisiteRanges(blocks, block, true).map(r => (
+                  <Badge key={r} color={'green'}>
+                    {r}
+                  </Badge>
+                ))}
               </Pane>
             </Pane>
           ))}

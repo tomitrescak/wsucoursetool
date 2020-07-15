@@ -1,6 +1,9 @@
 // pages/_app.js
-import React from "react";
-import App from "next/app";
+import React from 'react';
+import App from 'next/app';
+
+import 'react-vis/dist/style.css';
+import './global.css';
 
 function Layout(props) {
   return (
@@ -11,9 +14,8 @@ function Layout(props) {
         body {
           padding: 0;
           margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+            Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
         }
 
         * {

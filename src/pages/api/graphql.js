@@ -48,4 +48,12 @@ export const config = {
   }
 };
 
+// export const config = {
+//   api: {
+//     bodyParser: {
+//       sizeLimit: '10mb'
+//     }
+//   }
+// };
+
 export default apolloServer.createHandler({ path: '/api/graphql' });

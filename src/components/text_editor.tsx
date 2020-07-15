@@ -1,9 +1,17 @@
 import React from 'react';
 import { Text, Badge, Textarea } from 'evergreen-ui';
 import marked from 'marked';
+import { observer } from 'mobx-react';
 
-export const TextEditor = ({ label, owner, field }) => {
-  const [isPreview, setPreview] = React.useState(false);
+type Props = {
+  label: string;
+  owner: any;
+  field: string;
+  parser?: Function;
+};
+
+export const TextEditor = observer(({ label, owner, field, parser }: Props) => {
+  const [isPreview, setPreview] = React.useState(true);
 
   return (
     <>
@@ -21,7 +29,21 @@ export const TextEditor = ({ label, owner, field }) => {
         </Badge>
       </Text>
       {isPreview ? (
-        <Text dangerouslySetInnerHTML={{ __html: marked(owner[field]) }} />
+        parser ? (
+          parser(owner[field] || '')
+        ) : (
+          <Text
+            dangerouslySetInnerHTML={{
+              __html: marked(
+                (owner[field] || '')
+                  .replace(/-(\w)/g, '- $1')
+                  .replace(/•/g, '*')
+                  .replace(/(\S)<br>-/g, '$1\n\n-')
+                  .replace(/<br>/g, '')
+              )
+            }}
+          />
+        )
       ) : (
         <Textarea
           id="outcome"
@@ -31,4 +53,4 @@ export const TextEditor = ({ label, owner, field }) => {
       )}
     </>
   );
-};
+});

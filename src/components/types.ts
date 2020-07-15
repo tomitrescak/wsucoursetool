@@ -1,15 +1,34 @@
-export type PrerequisiteType = 'block' | 'skill' | 'topic';
+export type PrerequisiteType = 'block' | 'skill' | 'topic' | 'or' | 'and' | 'container';
 
 export type Prerequisite = {
   type: PrerequisiteType;
-  id: string;
+  id?: string;
   value?: number;
-  recommended: boolean;
+  recommended?: boolean;
+  prerequisites?: Prerequisite[];
 };
 
 export type Outcome = {
   acsSkillId: string;
   bloomRating: number;
+};
+
+export type CourseUnit = {
+  id: string;
+  semester: number;
+};
+
+export type Major = {
+  name: string;
+  id: string;
+  units: CourseUnit[];
+};
+
+export type Course = {
+  name: string;
+  id: string;
+  core: CourseUnit[];
+  majors: Major[];
 };
 
 export type Unit = {
@@ -19,6 +38,8 @@ export type Unit = {
   completionCriteria: CompletionCriteria;
   outcome: string;
   outcomes: Outcome[];
+  assumedKnowledge: string;
+  lgId?: string;
 
   blocks: string[];
   topics: string[];
@@ -26,6 +47,16 @@ export type Unit = {
 
   dynamic: boolean;
   blockTopics: string[];
+
+  unitPrerequisites?: string;
+  prerequisite?: string[];
+  corequisites?: string;
+  incompatible?: string;
+  credits?: number;
+  level?: number;
+  approachToLearning?: string;
+
+  prerequisites?: Prerequisite[];
 };
 
 export type CompletionCriteria = {
@@ -64,7 +95,6 @@ export type Block = {
   topics: string[];
   prerequisites: Prerequisite[];
   completionCriteria: CompletionCriteria;
-  credits: number;
   activities: Activity[];
 };
 
@@ -102,6 +132,7 @@ export type SfiaSkill = Entity & {
 };
 
 export type CourseConfig = {
+  courses: Course[];
   units: Unit[];
   topics: Topic[];
   blocks: Block[];
@@ -114,4 +145,5 @@ export type CourseConfig = {
 export type State = {
   courseConfig: CourseConfig;
   save(): any;
+  delaySave(): any;
 };

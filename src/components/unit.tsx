@@ -16,7 +16,10 @@ import {
   Tab,
   Badge,
   Textarea,
-  Checkbox
+  Checkbox,
+  Select,
+  TextInput,
+  Link as EGLink
 } from 'evergreen-ui';
 import { Unit, State } from './types';
 import { url, buildForm } from 'lib/helpers';
@@ -27,6 +30,69 @@ import { BlocksEditor } from './block_editor';
 import { TopicBlockEditor } from './topic_block_editor';
 import { OutcomeEditor } from './outcome_editor';
 import { KeywordEditor, TopicEditor } from './tag_editors';
+import { TextEditor } from './text_editor';
+import { action } from 'mobx';
+import { Expander } from './expander';
+import { UnitGraph } from './unit_graph';
+import { PrerequisiteEditor } from './prerequisite_editor';
+import { VerticalPane } from './vertical_pane';
+
+function urlParse(text: string) {
+  var reg = /\d\d\d\d\d\d/g;
+  var result: RegExpExecArray;
+  let i = 0;
+  let els = [];
+
+  if (text.match(/\d\d\d\d\d\d/) == null) {
+    return text;
+  }
+
+  let index = 0;
+  while ((result = reg.exec(text)) !== null) {
+    els.push(<Text key={i++}>{text.substring(index, result.index)}</Text>);
+    els.push(
+      <Link key={i++} href="/editor/[category]/[item]" as={`/editor/units/unit-${result[0]}`}>
+        <a>
+          <Text>{result[0]}</Text>
+        </a>
+      </Link>
+    );
+    index = reg.lastIndex;
+  }
+
+  els.push(<Text key={i++}>{text.substring(index)}</Text>);
+
+  return els;
+}
+
+const selfColor = 'rgb(251, 230, 162)';
+const depenedantColor = alpha => `rgb(${47 + alpha}, ${75 + alpha}, ${180 - alpha})`;
+const dependOnColor = 'rgb(191, 14, 8)';
+
+function findDependencies(
+  unit: Unit,
+  state: State,
+  dependencies: Unit[],
+  colorMap: { [id: string]: string },
+  level: number,
+  maxLevel
+) {
+  if (dependencies.indexOf(unit) >= 0) {
+    return;
+  }
+  dependencies.push(unit);
+
+  // find units depending on this unit
+  let depenendants = state.courseConfig.units.filter(
+    u => u.prerequisite && u.prerequisite.some(p => p === unit.id)
+  );
+  for (let d of depenendants) {
+    colorMap[d.id] = depenedantColor(level * 50);
+    if (level < maxLevel) {
+      findDependencies(d, state, dependencies, colorMap, level + 1, maxLevel);
+    }
+  }
+}
 
 const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = observer(
   ({ unit, state, readonly }) => {
@@ -53,6 +119,13 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
       );
     }
 
+    let selectionBlocks = [...blocks];
+    // add practicals
+    selectionBlocks.unshift({
+      id: 'practicalAssignments',
+      name: '[AGGREGATE] Practical Assignments'
+    } as any);
+
     let selectedBlockId: string | undefined;
     const router = useRouter();
     const item = router.query.item as string;
@@ -66,12 +139,35 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
     }
     const localState = useLocalStore(() => ({
       tab: selectedBlockId ? 'Blocks' : 'Description',
-      isOutcomePreview: false
+      isOutcomePreview: false,
+      level: 1
     }));
 
     if (unit.completionCriteria == null) {
       unit.completionCriteria = {};
     }
+
+    // find all depenedencies
+    let dependencies = [];
+    let colorMap: { [id: string]: string } = { [unit.id]: selfColor };
+    let ownDependencies = 0;
+    // add own dependencies
+    if (unit.prerequisite && unit.prerequisite.length) {
+      ownDependencies = unit.prerequisite.length;
+      for (let u of unit.prerequisite) {
+        let found = state.courseConfig.units.find(un => un.id === u);
+        if (!found) {
+          found = { id: u, name: u } as any;
+        }
+        dependencies.push(found);
+        colorMap[found.id] = dependOnColor;
+      }
+    }
+
+    findDependencies(unit, state, dependencies, colorMap, 0, localState.level);
+
+    let nextDependencies = [];
+    findDependencies(unit, state, nextDependencies, colorMap, 0, localState.level + 1);
 
     return (
       <div style={{ flex: 1 }}>
@@ -80,7 +176,7 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
             <Heading size={500} marginRight={16}>
               {unit.name}
             </Heading>
-            <TabNavigation>
+            <TabNavigation flex="1">
               {['Description', 'Blocks'].map((tab, index) => (
                 <Tab
                   onSelect={() => {
@@ -95,6 +191,24 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                   {tab}
                 </Tab>
               ))}
+            </TabNavigation>
+            <TabNavigation>
+              <Tab target="_blank" href={`https://lgms.westernsydney.edu.au/lg/${unit.lgId}`}>
+                LG
+              </Tab>
+              <Tab
+                is="a"
+                target="_blank"
+                href={`https://lgms.westernsydney.edu.au/lg/${unit.lgId}/details`}
+              >
+                Details
+              </Tab>
+              <Tab
+                target="_blank"
+                href={`https://lgms.westernsydney.edu.au/lg/${unit.lgId}/edit/activities`}
+              >
+                Activities
+              </Tab>
             </TabNavigation>
           </Pane>
           {localState.tab === 'Description' && (
@@ -119,7 +233,34 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                   marginRight={8}
                   onChange={form.name}
                 />
-                <SelectField
+                <TextInputField
+                  label="Level"
+                  flex="0 0 50px"
+                  value={unit.level}
+                  id="level"
+                  disabled={true}
+                  margin={0}
+                  marginRight={8}
+                />
+                <TextInputField
+                  label="Cred."
+                  flex="0 0 50px"
+                  value={unit.credits}
+                  id="credit"
+                  disabled={true}
+                  margin={0}
+                  marginRight={8}
+                />
+                <TextInputField
+                  label="LG"
+                  flex="0 0 60px"
+                  value={unit.lgId}
+                  id="lgId"
+                  disabled={true}
+                  margin={0}
+                  marginRight={8}
+                />
+                {/* <SelectField
                   value={unit.delivery}
                   label="Delivery"
                   id="unitDelivery"
@@ -131,7 +272,7 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                   <option value="1">1 semester</option>
                   <option value="2">2 semesters</option>
                   <option value="3">3 semesters</option>
-                </SelectField>
+                </SelectField> */}
               </Pane>
               <Pane display="flex">
                 {/* TOPICS */}
@@ -139,7 +280,6 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                 {/* KEYWORDS */}
                 <KeywordEditor owner={unit} keywords={keywords} />
               </Pane>
-
               {/* IMPORTED TOPICS */}
               {unit.dynamic && (
                 <TopicEditor
@@ -149,7 +289,6 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                   field="blockTopics"
                 />
               )}
-
               <Checkbox
                 margin={0}
                 label="Dynamic"
@@ -171,39 +310,94 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                 onChange={selected => (unit.mappedTopic = selected.id)}
                 marginBottom={8}
               /> */}
-
               {/* COMPLETION CRITERIA */}
-
-              <Heading size={400} marginTop={16} marginBottom={16}>
-                Completion Criteria
-              </Heading>
-              <TopicBlockEditor state={state} block={unit.completionCriteria} items={blocks} />
+              <Expander title="Completion Criteria" id="unitCompletionCriteria">
+                <TopicBlockEditor
+                  state={state}
+                  block={unit.completionCriteria}
+                  items={selectionBlocks}
+                />
+              </Expander>
 
               {/* OUTCOME DESCRIPTION */}
-              <Text
-                is="label"
-                htmlFor="outcome"
-                fontWeight={500}
-                marginBottom={8}
-                marginTop={16}
-                display="block"
-              >
-                Outcome Description{' '}
-                <Badge
-                  cursor="pointer"
-                  onClick={() => (localState.isOutcomePreview = !localState.isOutcomePreview)}
-                >
-                  {localState.isOutcomePreview ? 'Editor' : 'Preview'}
-                </Badge>
-              </Text>
-              {localState.isOutcomePreview ? (
-                <Text dangerouslySetInnerHTML={{ __html: marked(unit.outcome) }} />
-              ) : (
-                <Textarea id="outcome" value={unit.outcome} onChange={form.outcome} />
-              )}
+              <Expander title="Description" id="unitDescription">
+                <TextEditor owner={unit} field="outcome" label="Decription" />
+                {/* PASS CRITERIA */}
+                <TextEditor owner={unit} field="passCriteria" label="Pass Criteria" />
+                {/* ASSUMED KNOWLEDGE */}
+                {unit.assumedKnowledge && (
+                  <TextEditor owner={unit} field="assumedKnowledge" label="Assumed Knowledge" />
+                )}
+                {/* APPROACH TO LEARNING */}
+                {unit.approachToLearning && (
+                  <TextEditor
+                    owner={unit}
+                    field="approachToLearning"
+                    label="Approach to Learning"
+                  />
+                )}
+              </Expander>
 
+              {/* BLOCK PREREQUISITES */}
+              <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
+                <PrerequisiteEditor state={state} owner={unit} unit={unit} />
+              </Pane>
+
+              {/* Prerequisited CRITERIA */}
+              <Expander title="Unit Constraints" id="unitConstraints">
+                {unit.unitPrerequisites && (
+                  <TextEditor
+                    owner={unit}
+                    field="unitPrerequisites"
+                    label="Unit Prerequisites"
+                    parser={urlParse}
+                  />
+                )}
+                {unit.corequisites && (
+                  <TextEditor
+                    owner={unit}
+                    field="corequisites"
+                    label="Corequisites"
+                    parser={urlParse}
+                  />
+                )}
+                {unit.incompatible && (
+                  <TextEditor
+                    owner={unit}
+                    field="incompatible"
+                    label="Incompatible"
+                    parser={urlParse}
+                  />
+                )}
+
+                <UnitGraph
+                  units={dependencies}
+                  colorMap={colorMap}
+                  height="300px"
+                  buttons={
+                    <>
+                      <Button
+                        onClick={() => localState.level++}
+                        marginLeft={8}
+                        iconBefore="plus"
+                        disabled={nextDependencies.length + ownDependencies === dependencies.length}
+                      >
+                        Level
+                      </Button>
+                      <Button
+                        onClick={() => localState.level--}
+                        marginLeft={8}
+                        iconBefore="minus"
+                        disabled={localState.level === 1}
+                      >
+                        Level
+                      </Button>
+                    </>
+                  }
+                />
+              </Expander>
               {/* OUTCOMES */}
-              <Pane marginTop={16}>
+              <Pane marginTop={16} elevation={2} padding={16} borderRadius={8}>
                 <OutcomeEditor state={state} owner={unit} />
               </Pane>
             </Pane>
@@ -247,9 +441,14 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
   const localState = useLocalStore(() => ({
     newUnitName: '',
     newUnitId: '',
-    isShown: false
+    isShown: false,
+    selection: [],
+    course: '',
+    major: '',
+    filterName: '',
+    filterCode: ''
   }));
-  const form = buildForm(localState, ['newUnitName', 'newUnitId']);
+  const form = buildForm(localState, ['newUnitName', 'newUnitId', 'filterCode', 'filterName']);
 
   const router = useRouter();
   const item = router.query.item as string;
@@ -265,101 +464,216 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
     unit = state.courseConfig.units.find(u => u.id === unitId);
   }
 
+  let selectedCourse = localState.course
+    ? state.courseConfig.courses.find(c => c.id === localState.course)
+    : null;
+  let selectedMajor = localState.major
+    ? selectedCourse.majors.find(m => m.id === localState.major)
+    : null;
+
   return (
-    <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
-      <Tablist flexBasis={240} marginRight={8}>
-        {state.courseConfig.units
-          .slice()
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .map((unit, index) => (
-            <Link
-              key={unit.id}
-              href="/editor/[category]/[item]"
-              as={`/editor/units/${url(unit.name)}-${unit.id}`}
+    <>
+      <VerticalPane title="Unit List">
+        <Pane paddingRight={8}>
+          <Pane marginBottom={8} paddingRight={22}>
+            <Pane display="flex" width="100%" marginBottom={8}>
+              <TextInput
+                flex={3}
+                placeholder="Name ..."
+                value={localState.filterName}
+                onChange={form.filterName}
+                marginRight={8}
+                width="100%"
+              />
+              <TextInput
+                flex={1}
+                placeholder="Code ..."
+                value={localState.filterCode}
+                onChange={form.filterCode}
+                width="100%"
+              />
+            </Pane>
+            <Select
+              value={localState.course}
+              onChange={e => (localState.course = e.currentTarget.value)}
+              marginRight={8}
             >
-              <a>
-                <SidebarTab
-                  whiteSpace="nowrap"
-                  key={unit.id}
-                  id={unit.id}
-                  isSelected={unit.id === unitId}
-                  onSelect={() => {}}
-                  aria-controls={`panel-${unit.name}`}
-                >
-                  {unit.dynamic && (
-                    <Badge color="orange" marginRight={8}>
-                      D
-                    </Badge>
-                  )}
-                  {unit.name}
-                </SidebarTab>
-              </a>
-            </Link>
-          ))}
+              <option value="">Select Course ...</option>
+              {state.courseConfig.courses.map((c, i) => (
+                <option value={c.id} key={i}>
+                  {c.name}
+                </option>
+              ))}
+            </Select>
 
-        <Dialog
-          isShown={localState.isShown}
-          title="Dialog title"
-          onCloseComplete={() => (localState.isShown = false)}
-          onConfirm={close => {
-            if (state.courseConfig.units.some(u => u.id === localState.newUnitId)) {
-              alert('Unit Already exists');
-              return false;
-            }
-            state.courseConfig.units.push({
-              id: localState.newUnitId,
-              name: localState.newUnitName,
-              topics: [],
-              keywords: [],
-              blockTopics: [],
-              dynamic: false,
-              delivery: '1',
-              completionCriteria: {},
-              outcome: '',
-              outcomes: [],
-              blocks: []
-            });
-
-            close();
-          }}
-          confirmLabel="Add Unit"
-        >
-          <Pane display="flex" alignItems="flex-baseline">
-            <TextInputField
-              label="Unit Code"
-              placeholder="Unit Id"
-              onChange={form.newUnitId}
-              marginRight={4}
-            />
-            <TextInputField
-              label="Unit Name"
-              placeholder="Unit Name"
-              onChange={form.newUnitName}
-              marginRight={4}
-              flex={1}
-            />
+            {selectedCourse && (
+              <Select
+                value={localState.major}
+                onChange={e => (localState.major = e.currentTarget.value)}
+              >
+                <option value="">Select Major ...</option>
+                {selectedCourse.majors.map((c, i) => (
+                  <option value={c.id} key={i}>
+                    {c.name}
+                  </option>
+                ))}
+              </Select>
+            )}
           </Pane>
-        </Dialog>
 
-        <Pane
-          display="flex"
-          alignItems="center"
-          marginTop={16}
-          paddingTop={8}
-          borderTop="dotted 1px #dedede"
+          <Tablist>
+            {state.courseConfig.units
+              .slice()
+              .filter(f => {
+                let isOk = true;
+                if (selectedCourse) {
+                  isOk =
+                    selectedCourse.core.findIndex(c => c.id === f.id) >= 0 ||
+                    (selectedMajor && selectedMajor.units.findIndex(u => u.id === f.id) >= 0);
+                }
+                if (localState.filterName) {
+                  isOk = localState.filterName
+                    .toLowerCase()
+                    .split(' ')
+                    .every(d => f.name.toLowerCase().indexOf(d) >= 0);
+                }
+                if (localState.filterCode) {
+                  isOk = f.id.indexOf(localState.filterCode) >= 0;
+                }
+
+                return isOk;
+              })
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((unit, index) => (
+                <Link
+                  key={unit.id}
+                  href="/editor/[category]/[item]"
+                  as={`/editor/units/${url(unit.name)}-${unit.id}`}
+                >
+                  <a>
+                    <SidebarTab
+                      whiteSpace="nowrap"
+                      key={unit.id}
+                      id={unit.id}
+                      isSelected={unit.id === unitId}
+                      onSelect={() => {}}
+                      aria-controls={`panel-${unit.name}`}
+                    >
+                      {/* <input
+                    type="checkbox"
+                    checked={localState.selection.indexOf(unit.id) >= 0}
+                    onClick={e => e.stopPropagation()}
+                    onChange={e =>
+                      e.currentTarget.checked
+                        ? localState.selection.push(unit.id)
+                        : localState.selection.splice(localState.selection.indexOf(unit.id), 1)
+                    }
+                  /> */}
+                      <Badge size={300} marginRight={8}>
+                        {unit.id}
+                      </Badge>
+                      {unit.dynamic && (
+                        <Badge color="orange" marginRight={8}>
+                          D
+                        </Badge>
+                      )}
+                      {selectedCourse && selectedCourse.core.some(s => s.id === unit.id) && (
+                        <Badge color="yellow" marginRight={8}>
+                          C
+                        </Badge>
+                      )}
+                      {unit.name}
+
+                      <Badge color={unit.blocks.length > 0 ? 'green' : 'neutral'} marginLeft={8}>
+                        {unit.blocks.length}
+                      </Badge>
+                    </SidebarTab>
+                  </a>
+                </Link>
+              ))}
+
+            {/* <Button
+          onClick={action(() => {
+            debugger;
+            for (let u of localState.selection) {
+              state.courseConfig.units.remove(state.courseConfig.units.find(f => f.id === u));
+            }
+            localState.selection = [];
+          })}
         >
-          <Button
-            appearance="primary"
-            iconBefore="plus"
-            onClick={() => (localState.isShown = true)}
-          >
-            Add Unit
-          </Button>
+          Delete Selection
+        </Button> */}
+
+            <Dialog
+              isShown={localState.isShown}
+              title="Dialog title"
+              onCloseComplete={() => (localState.isShown = false)}
+              onConfirm={close => {
+                if (state.courseConfig.units.some(u => u.id === localState.newUnitId)) {
+                  alert('Unit Already exists');
+                  return false;
+                }
+                state.courseConfig.units.push({
+                  id: localState.newUnitId,
+                  name: localState.newUnitName,
+                  topics: [],
+                  keywords: [],
+                  blockTopics: [],
+                  dynamic: false,
+                  delivery: '1',
+                  completionCriteria: {},
+                  assumedKnowledge: '',
+                  outcome: '',
+                  outcomes: [],
+                  blocks: []
+                });
+
+                close();
+              }}
+              confirmLabel="Add Unit"
+            >
+              <Pane display="flex" alignItems="flex-baseline">
+                <TextInputField
+                  label="Unit Code"
+                  placeholder="Unit Id"
+                  onChange={form.newUnitId}
+                  marginRight={4}
+                />
+                <TextInputField
+                  label="Unit Name"
+                  placeholder="Unit Name"
+                  onChange={form.newUnitName}
+                  marginRight={4}
+                  flex={1}
+                />
+              </Pane>
+            </Dialog>
+
+            <Pane
+              display="flex"
+              alignItems="center"
+              marginTop={16}
+              paddingTop={8}
+              borderTop="dotted 1px #dedede"
+            >
+              <Button
+                appearance="primary"
+                iconBefore="plus"
+                onClick={() => (localState.isShown = true)}
+              >
+                Add Unit
+              </Button>
+            </Pane>
+          </Tablist>
         </Pane>
-      </Tablist>
-      {state.courseConfig.units.length === 0 && <Alert flex={1}>There are no units defined</Alert>}
-      {unit && <UnitDetails key={unit.id} unit={unit} state={state} readonly={readonly} />}
-    </Pane>
+      </VerticalPane>
+      <VerticalPane shrink={true}>
+        {state.courseConfig.units.length === 0 && (
+          <Alert flex={1}>There are no units defined</Alert>
+        )}
+        {unit && <UnitDetails key={unit.id} unit={unit} state={state} readonly={readonly} />}
+      </VerticalPane>
+    </>
   );
 };
 

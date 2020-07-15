@@ -3,35 +3,48 @@ import React from 'react';
 import cytoscape from 'cytoscape';
 import cola from 'cytoscape-cola';
 import fcose from 'cytoscape-fcose';
+import spread from 'cytoscape-spread';
 
 import { State, Block } from './types';
 
 cytoscape.use(cola);
 cytoscape.use(fcose);
+cytoscape.use(spread);
 
-type Props = {
-  state: State;
+type Unit = {
+  id: string;
+  name: string;
+  code: string;
+  level: string;
+  credits: string;
+  coordinator: string;
+  about: string;
+  assumed: string;
+  prerequisite: string[];
+  rawPrerequisite: string[];
 };
 
-function nodeColor(block: Block) {
-  return 'rgb(251, 230, 162)';
-  // switch (block.type) {
-  //   case 'assignment':
-  //     return 'rgb(251, 230, 162)';
-  //   case 'exam':
-  //     return 'rgb(250, 226, 226)';
-  //   case 'knowledge':
-  //     return 'rgb(212, 238, 226)';
-  //   case 'practical':
-  //     return 'rgb(221, 235, 247)';
-  //   case 'wil':
-  //     return 'teal';
-  // }
+type Units = { [index: string]: Unit };
+
+type Props = {
+  unitArr: Unit[];
+  height?: string;
+};
+
+function nodeColor(unit: Unit) {
+  if (unit.rawPrerequisite) {
+    return 'rgb(255, 0, 0)';
+  } else if (unit.id[0] === '2') {
+    return 'rgb(251, 230, 162)';
+  } else if (unit.id[0] === '3') {
+    return 'rgb(250, 226, 226)';
+  } else if (unit.id[0] === '7') {
+    return 'rgb(221, 235, 247)';
+  }
 }
 
 function textColor(block: Block) {
-  return 'rgb(66, 90, 112);';
-
+  return 'rgb(66, 90, 112)';
   // switch (block.type) {
   //   case 'assignment':
   //     return 'rgb(66, 90, 112);';
@@ -46,42 +59,60 @@ function textColor(block: Block) {
   // }
 }
 
-export const Graph: React.FC<Props> = ({ state }) => {
+export const UnitGraph: React.FC<Props> = ({ unitArr, height = '800px' }) => {
   const ref = React.useRef(null);
   const cy = React.useRef(null);
 
-  const elements: any = [];
-  for (let unit of state.courseConfig.units) {
-    elements.push({
-      style: {
-        label: unit.name,
-        background: 'white'
-      },
-      data: { id: 'u_' + unit.id }
-    });
+  // datasets even out
+  unitArr.forEach(u => (u.id = u.id || u.code));
 
-    for (let blockId of unit.blocks) {
-      let b = state.courseConfig.blocks.find(b => b.id === blockId);
+  debugger;
+
+  const elements: any = unitArr
+    .filter(u => u.name.indexOf('WSTC') === -1)
+    .map(b => ({
+      style: {
+        'background-color': nodeColor(b),
+        // color: textColor(b),
+        label: b.name
+      },
+      data: { id: 'n_' + b.id }
+    }));
+
+  function addPrerequisite(unit: Unit, pre: string) {
+    if (unitArr.every(u => u.id !== pre)) {
       elements.push({
         style: {
-          'background-color': nodeColor(b),
-          color: textColor(b),
-          label: b.name
+          'background-color': '#dedede',
+          // color: textColor(b),
+          label: pre
         },
-        data: { id: 'n_' + b.id, parent: 'u_' + unit.id }
+        data: { id: 'n_' + pre }
       });
     }
+    elements.push({
+      data: { id: unit.id + pre, source: 'n_' + unit.id, target: 'n_' + pre }
+    });
   }
 
-  elements.push(
-    ...state.courseConfig.blocks.flatMap(b =>
-      (b.prerequisites || [])
-        .filter(o => o.id)
-        .map(p => ({
-          data: { id: b.id + p.id, source: 'n_' + b.id, target: 'n_' + p.id }
-        }))
-    )
-  );
+  for (let unit of unitArr) {
+    if (unit.name.indexOf('WSTC') > 0) {
+      continue;
+    }
+
+    if (unit.prerequisite) {
+      for (let pre of unit.prerequisite) {
+        addPrerequisite(unit, pre);
+      }
+    }
+    // if (unit.rawPrerequisite) {
+    //   for (let rp of unit.rawPrerequisite) {
+    //     for (let match of Array.from(rp.matchAll(/\d\d\d\d\d\d/g))) {
+    //       addPrerequisite(unit, match[0]);
+    //     }
+    //   }
+    // }
+  }
 
   React.useEffect(() => {
     cy.current = cytoscape({
@@ -139,14 +170,14 @@ export const Graph: React.FC<Props> = ({ state }) => {
         style={{ height: '30px' }}
         onClick={() => {
           const layout = cy.current.layout({
-            name: 'fcose'
+            name: 'cola'
           });
           layout.run();
         }}
       >
         Layout
       </button>
-      <div ref={ref} id="graph" style={{ height: '800px', width: '100%' }} />
+      <div ref={ref} id="graph" style={{ height, width: '100%' }} />
     </>
   );
 };

@@ -1,0 +1,11 @@
+.scroll1::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroll1::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+.scroll1::-webkit-scrollbar-thumb {
+  background: #ddd;
+}
