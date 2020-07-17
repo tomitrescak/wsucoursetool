@@ -1,5 +1,5 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, useLocalStore } from 'mobx-react';
 import {
   TextInputField,
   Pane,
@@ -11,11 +11,19 @@ import {
   Badge,
   Icon,
   Select,
-  TextInput
+  TextInput,
+  Checkbox
 } from 'evergreen-ui';
 import Router from 'next/router';
-import { State, Block, BlockType as ActivityType, Activity, Unit } from './types';
-import { buildForm, findMaxId } from 'lib/helpers';
+import {
+  State,
+  Block,
+  BlockType as ActivityType,
+  Activity,
+  Unit,
+  CompletionCriteria
+} from './types';
+import { buildForm, findMaxId, findNumericMaxId } from 'lib/helpers';
 import Link from 'next/link';
 
 import { AddBlockModal } from './add_block_modal';
@@ -25,6 +33,7 @@ import { PrerequisiteEditor } from './prerequisite_editor';
 import { TopicBlockEditor } from './topic_block_editor';
 import { TextEditor } from './text_editor';
 import { KeywordEditor, TopicEditor } from './tag_editors';
+import { action } from 'mobx';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
@@ -75,14 +84,14 @@ const ActivityDetail: React.FC<{ activity: Activity; block: Block; state: State 
             width="100%"
           />
         </td>
-        <td>
+        {/* <td>
           <TextInput
             placeholder="Activity Description Name"
             value={activity.description}
             onChange={form.description}
             width="100%"
           />
-        </td>
+        </td> */}
         <td>
           <Select value={activity.type} id="type" placeholder="Activity Type" onChange={form.type}>
             <option value="">Please Select ...</option>
@@ -178,7 +187,7 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
         outcome: '',
         outcomes: [],
         topics: [],
-        credits: 0,
+        // credits: 0,
         activities: []
       };
       if (unit) {
@@ -337,9 +346,9 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
                   <th style={{ width: '100%' }}>
                     <Heading size={400}>Name</Heading>
                   </th>
-                  <th style={{ width: '100%' }}>
+                  {/* <th style={{ width: '100%' }}>
                     <Heading size={400}>Description</Heading>
-                  </th>
+                  </th> */}
                   <th style={{ minWidth: '105px' }}>
                     <Heading size={400}>Type</Heading>
                   </th>
@@ -359,7 +368,12 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
 
           {/* PREREQUSTIES */}
           <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-            <PrerequisiteEditor state={state} owner={block} unit={unit} />
+            <PrerequisiteEditor
+              state={state}
+              owner={block}
+              unit={unit}
+              activities={block.activities}
+            />
           </Pane>
 
           {/* COMPLETION CRITERIA */}
@@ -514,14 +528,77 @@ const BlocksEditorView: React.FC<Props> = ({
 }) => {
   const selectedBlock = selectedBlockId ? blocks.find(b => b.id === selectedBlockId) : null;
 
+  const mergeWithNext = direction =>
+    action(() => {
+      if (!selectedBlockId) {
+        return;
+      }
+      const blockIndex = blocks.findIndex(b => b.id === selectedBlockId);
+      const nextBlock = blocks[blockIndex + direction];
+
+      if (!nextBlock) {
+        return;
+      }
+      const currentBlock = blocks[blockIndex];
+
+      // reasign ids
+      let activities = nextBlock.activities.map(a => ({
+        ...a,
+        id: findNumericMaxId(currentBlock.activities)
+      }));
+
+      if (unit.completionCriteria && unit.completionCriteria.criteria) {
+        let cc = unit.completionCriteria.criteria.find(c => c.id === nextBlock.id);
+        if (cc) {
+          // fill in the current block
+          if (currentBlock.completionCriteria == null) {
+            currentBlock.completionCriteria = {
+              type: 'allOf'
+            };
+          } else {
+            currentBlock.completionCriteria.type = 'allOf';
+          }
+          if (currentBlock.completionCriteria.criteria == null) {
+            currentBlock.completionCriteria.criteria = [];
+          }
+          currentBlock.completionCriteria.criteria.push({
+            ...cc,
+            id: activities[0]?.id as any
+          });
+
+          // remove from original
+          unit.completionCriteria.criteria.splice(unit.completionCriteria.criteria.indexOf(cc), 1);
+        }
+      }
+
+      // assign new id
+
+      currentBlock.activities.push(...activities);
+      blocks.splice(blockIndex + direction, 1);
+
+      unit.blocks.splice(unit.blocks.indexOf(nextBlock.id), 1);
+    });
+
   return (
     <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
       <Tablist flexBasis={300} width={200} marginRight={8}>
-        {title && (
-          <Heading size={500} marginBottom={16}>
-            {title}
-          </Heading>
-        )}
+        <Pane display="flex">
+          {title && (
+            <Heading size={500} marginBottom={16} flex="1">
+              {title}
+            </Heading>
+          )}
+          <IconButton
+            icon="symbol-triangle-up"
+            title="Merge with previous block"
+            onClick={mergeWithNext(-1)}
+          />
+          <IconButton
+            icon="symbol-triangle-down"
+            title="Merge with next block"
+            onClick={mergeWithNext(1)}
+          />
+        </Pane>
         <Tabs>
           {blocks.map((block, index) => (
             <Pane display="flex" key={block.id}>
@@ -533,6 +610,8 @@ const BlocksEditorView: React.FC<Props> = ({
                       id={block.id}
                       isSelected={selectedBlock && block.id === selectedBlock.id}
                       aria-controls={`panel-${block.name}`}
+                      display="flex"
+                      alignItems="center"
                     >
                       <Badge color={blockColor(block)} marginRight={8}>
                         {index + 1}

@@ -243,6 +243,30 @@
   ],
   "units": [
     {
+      "id": "200001",
+      "name": "Fundamentals of Mathematics",
+      "topics": [
+        "7"
+      ],
+      "keywords": [],
+      "blockTopics": [],
+      "dynamic": false,
+      "delivery": "1",
+      "completionCriteria": {},
+      "outcome": "",
+      "outcomes": [],
+      "blocks": [
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32"
+      ]
+    },
+    {
       "id": "100483",
       "blocks": [
         "100483_1",
@@ -3761,37 +3785,7 @@
     {
       "id": "300580",
       "blocks": [
-        "300580_1",
-        "300580_2",
-        "300580_16",
-        "300580_22",
-        "300580_3",
-        "300580_17",
-        "300580_23",
-        "300580_4",
-        "300580_24",
-        "300580_5",
-        "300580_18",
-        "300580_6",
-        "300580_25",
-        "300580_7",
-        "300580_29",
-        "300580_8",
-        "300580_19",
-        "300580_26",
-        "300580_9",
-        "300580_10",
-        "300580_11",
-        "300580_27",
-        "300580_12",
-        "300580_20",
-        "300580_13",
-        "300580_28",
-        "300580_14",
-        "300580_30",
-        "300580_15",
-        "300580_21",
-        "300580_31"
+        "300580_1"
       ],
       "description": "As a first unit in computer programming, Programming Fundamentals covers the basics of developing software with an emphasis on procedural programming. Students will learn about basic data structures, the concept of algorithms, fundamental programming constructs, common programming language features and functions, program design and good programming style. A high level programming language is combined with a highly visual framework to teach problem solving using software.",
       "assumedKnowledge": "High School Mathematics at Year 10 level",
@@ -3806,29 +3800,10 @@
         "type": "allOf",
         "criteria": [
           {
-            "weight": "0",
+            "weight": 100,
             "type": "block",
-            "id": "300580_15"
-          },
-          {
-            "weight": "30",
-            "type": "block",
-            "id": "300580_21"
-          },
-          {
-            "weight": "10",
-            "type": "block",
-            "id": "300580_29"
-          },
-          {
-            "weight": "10",
-            "type": "block",
-            "id": "300580_30"
-          },
-          {
-            "weight": "50",
-            "type": "block",
-            "id": "300580_31"
+            "id": "300580_1",
+            "subId": 16
           }
         ]
       },
@@ -10192,6 +10167,110 @@
     }
   ],
   "blocks": [
+    {
+      "id": "25",
+      "name": "Arithmetics",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Fractions\n* Decimals\n* Percentages\n* Powers and Roots\n* Surds\n* Absolute values\n* Scientific notation",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "26",
+      "name": "Algebra",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Factorisation\n* Expansion\n* Simplification\n* Changing the subject of a formula\n* Exponent\n* Logs",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "27",
+      "name": "Series",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Arithmetic Series\n* Geometric Series",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "28",
+      "name": "Probability",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Permutations\n* Combinations\n* Probability\n* Basics concepts of probability\n* Conditional probability\n* Independent events",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "29",
+      "name": "Graphical Skills and Functions",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Definition of a function\n* Functional notation\n* Plotting points\n* Plotting lines\n* Plotting quadratic equations\n* Plotting logarithmic and exponential functions",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "30",
+      "name": "Solving Equations",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Linear equations\n* Simultanoues linear equations\n* Matrices\n* Quadratic functions and equations\n* Exponential and logarithmic equations",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "31",
+      "name": "Differential Calculus",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Limits\n* Shape of a tangent\n* Gradient of a curve\n* Differentiations\n* Rules of differentiation\n* Product and quotient rule\n* Chain rule\n* Stationary points",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "32",
+      "name": "Integral Calculus",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Area\n* Integral of a functions\n* Fundamental theorem of calculus\n* Approximate integration",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
     {
       "id": "100483_1",
       "name": "What is communication – meaning or message?",
@@ -33805,7 +33884,7 @@
     },
     {
       "id": "300580_1",
-      "name": "Introduction to the discipline.\nDeveloping your first program.",
+      "name": "Programming Fundamentals",
       "description": "",
       "week": 1,
       "activities": [
@@ -33813,8 +33892,264 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 1",
+          "name": "Lecture: Introduction to the discipline. Developing your first program.",
           "lengthHours": 2
+        },
+        {
+          "id": 1,
+          "name": "Practical 1",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Workshop Portfolio 1.",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Basic constructs and conditional statements",
+          "lengthHours": 2
+        },
+        {
+          "id": 4,
+          "name": "Practical 2",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 5,
+          "type": "assignment",
+          "name": "Workshop Portfolio 2.",
+          "lengthHours": 2
+        },
+        {
+          "id": 6,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Loops and typical programming errors",
+          "lengthHours": 2
+        },
+        {
+          "id": 7,
+          "name": "Practical 3",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 8,
+          "type": "assignment",
+          "name": "Workshop Portfolio 3.",
+          "lengthHours": 2
+        },
+        {
+          "id": 9,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Good coding style, comments, problem decomposition",
+          "lengthHours": 2
+        },
+        {
+          "id": 10,
+          "name": "Practical 4",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 11,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Variables and data types",
+          "lengthHours": 2
+        },
+        {
+          "id": 12,
+          "name": "Practical 5",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 13,
+          "type": "assignment",
+          "name": "Workshop Portfolio 4.",
+          "lengthHours": 2
+        },
+        {
+          "id": 14,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Arithmetic operations, expressions",
+          "lengthHours": 2
+        },
+        {
+          "id": 15,
+          "name": "Practical 6",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 16,
+          "type": "exam",
+          "name": "Mid-Semester Test",
+          "lengthHours": 2
+        },
+        {
+          "id": 17,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Boolean expressions, nested loops, conditional statements, if-else-if, switch-case",
+          "lengthHours": 2
+        },
+        {
+          "id": 18,
+          "name": "Practical 7",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 19,
+          "type": "assignment",
+          "name": "Workshop Portfolio 5.",
+          "lengthHours": 2
+        },
+        {
+          "id": 20,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Debugging, Random Numbers, Keyboard Input",
+          "lengthHours": 2
+        },
+        {
+          "id": 21,
+          "name": "Practical 8",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 22,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Methods",
+          "lengthHours": 2
+        },
+        {
+          "id": 23,
+          "name": "Practical 9",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 24,
+          "type": "assignment",
+          "name": "Workshop Portfolio 6.",
+          "lengthHours": 2
+        },
+        {
+          "id": 25,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Objects and Classes",
+          "lengthHours": 2
+        },
+        {
+          "id": 26,
+          "name": "Practical 10",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 27,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Arrays",
+          "lengthHours": 2
+        },
+        {
+          "id": 28,
+          "name": "Practical 11",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 29,
+          "type": "assignment",
+          "name": "Workshop Portfolio 7.",
+          "lengthHours": 2
+        },
+        {
+          "id": 30,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Hardware, Files, Exam preparation",
+          "lengthHours": 2
+        },
+        {
+          "id": 31,
+          "type": "assignment",
+          "name": "Programming Solution Assignment",
+          "lengthHours": 2
+        },
+        {
+          "id": 32,
+          "type": "assignment",
+          "name": "Workshop Portfolio [Aggregate]",
+          "lengthHours": 2
+        },
+        {
+          "id": 33,
+          "name": "Exam",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "completionCriteria": {
+        "type": "allOf",
+        "criteria": [
+          {
+            "weight": "10",
+            "type": "block",
+            "id": 31
+          },
+          {
+            "weight": "30",
+            "type": "block",
+            "id": 32
+          },
+          {
+            "weight": "50",
+            "type": "block",
+            "id": 33,
+            "minimumValue": 50
+          },
+          {
+            "weight": 10,
+            "id": 16
+          }
+        ],
+        "credit": 10
+      },
+      "topics": [],
+      "prerequisites": [
+        {
+          "id": "25",
+          "type": "block",
+          "recommended": false,
+          "activityId": 5
         }
       ]
     },
@@ -33828,24 +34163,19 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 2",
+          "name": "Lecture: Basic constructs and conditional statements",
           "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "300580_16",
-      "ass_id": "51756",
-      "name": "Maths Test 1.",
-      "week": 2,
-      "activities": [
+        },
         {
-          "id": 1,
-          "type": "exam",
-          "name": "Maths Test 1.",
+          "id": "301317",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_22",
@@ -33871,24 +34201,12 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 3",
+          "name": "Lecture: Loops and typical programming errors",
           "lengthHours": 2
         }
-      ]
-    },
-    {
-      "id": "300580_17",
-      "ass_id": "51756",
-      "name": "Maths Test 2.",
-      "week": 3,
-      "activities": [
-        {
-          "id": 2,
-          "type": "exam",
-          "name": "Maths Test 2.",
-          "lengthHours": 2
-        }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_23",
@@ -33914,10 +34232,12 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 4",
+          "name": "Lecture: Good coding style, comments, problem decomposition",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_24",
@@ -33943,24 +34263,12 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 5",
+          "name": "Lecture: Variables and data types",
           "lengthHours": 2
         }
-      ]
-    },
-    {
-      "id": "300580_18",
-      "ass_id": "51756",
-      "name": "Maths Test 3.",
-      "week": 5,
-      "activities": [
-        {
-          "id": 3,
-          "type": "exam",
-          "name": "Maths Test 3.",
-          "lengthHours": 2
-        }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_6",
@@ -33972,10 +34280,12 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 6",
+          "name": "Lecture: Arithmetic operations, expressions",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_25",
@@ -33987,21 +34297,6 @@
           "id": 4,
           "type": "assignment",
           "name": "Workshop Portfolio 4.",
-          "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "300580_7",
-      "name": "Mid-Semester Test is scheduled during the lecture.",
-      "description": "",
-      "week": 7,
-      "activities": [
-        {
-          "id": 0,
-          "type": "knowledge",
-          "description": "",
-          "name": "Lecture: Mid-Semester Test",
           "lengthHours": 2
         }
       ]
@@ -34034,24 +34329,12 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 7",
+          "name": "Lecture: Boolean expressions, nested loops, conditional statements, if-else-if, switch-case",
           "lengthHours": 2
         }
-      ]
-    },
-    {
-      "id": "300580_19",
-      "ass_id": "51756",
-      "name": "Maths Test 4.",
-      "week": 8,
-      "activities": [
-        {
-          "id": 4,
-          "type": "exam",
-          "name": "Maths Test 4.",
-          "lengthHours": 2
-        }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_26",
@@ -34068,21 +34351,6 @@
       ]
     },
     {
-      "id": "300580_9",
-      "name": "Break",
-      "description": "",
-      "week": 9,
-      "activities": [
-        {
-          "id": 0,
-          "type": "knowledge",
-          "description": "",
-          "name": "Lecture: No Lecture",
-          "lengthHours": 2
-        }
-      ]
-    },
-    {
       "id": "300580_10",
       "name": "Debugging, Random Numbers, Keyboard Input",
       "description": "",
@@ -34092,10 +34360,19 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 8",
+          "name": "Lecture: Debugging, Random Numbers, Keyboard Input",
+          "lengthHours": 2
+        },
+        {
+          "id": "301317",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_11",
@@ -34107,10 +34384,19 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 9",
+          "name": "Lecture: Methods",
+          "lengthHours": 2
+        },
+        {
+          "id": "301317",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_27",
@@ -34136,24 +34422,19 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 10",
+          "name": "Lecture: Objects and Classes",
           "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "300580_20",
-      "ass_id": "51756",
-      "name": "Maths Test 5.",
-      "week": 12,
-      "activities": [
+        },
         {
-          "id": 5,
-          "type": "exam",
-          "name": "Maths Test 5.",
+          "id": "301317",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_13",
@@ -34165,10 +34446,19 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 11",
+          "name": "Lecture: Arrays",
+          "lengthHours": 2
+        },
+        {
+          "id": "301317",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_28",
@@ -34194,10 +34484,12 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Lecture 12",
+          "name": "Lecture: Hardware, Files, Exam preparation",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300580_30",
@@ -34273,48 +34565,6 @@
         {
           "acsSkillId": "e1",
           "bloomRating": 1
-        }
-      ]
-    },
-    {
-      "id": "300580_15",
-      "ass_id": "51756",
-      "name": "Maths Test",
-      "weight": "0",
-      "ulos": "Simple mathematics underlying 1-4",
-      "threshold": "1",
-      "due_date": "Students are provided with 5 opportunities to pass the Maths Test throughout the semester.  For the specific dates and times of each opportunity, please see the details listed below.",
-      "week": 15,
-      "activities": [
-        {
-          "id": 1,
-          "type": "exam",
-          "name": "Maths Test 1.",
-          "lengthHours": 2
-        },
-        {
-          "id": 2,
-          "type": "exam",
-          "name": "Maths Test 2.",
-          "lengthHours": 2
-        },
-        {
-          "id": 3,
-          "type": "exam",
-          "name": "Maths Test 3.",
-          "lengthHours": 2
-        },
-        {
-          "id": 4,
-          "type": "exam",
-          "name": "Maths Test 4.",
-          "lengthHours": 2
-        },
-        {
-          "id": 5,
-          "type": "exam",
-          "name": "Maths Test 5.",
-          "lengthHours": 2
         }
       ]
     },

@@ -14,13 +14,17 @@ export function url(str: string = '') {
 }
 
 export function findMaxId(collection: any[]) {
+  return findNumericMaxId(collection).toString();
+}
+
+export function findNumericMaxId(collection: any[]) {
   let id = 0;
   for (let item of collection) {
     if (parseInt(item.id) >= id) {
       id = parseInt(item.id) + 1;
     }
   }
-  return id.toString();
+  return id;
 }
 
 type Mapped<T> = {

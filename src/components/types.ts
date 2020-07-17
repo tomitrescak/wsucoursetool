@@ -3,6 +3,7 @@ export type PrerequisiteType = 'block' | 'skill' | 'topic' | 'or' | 'and' | 'con
 export type Prerequisite = {
   type: PrerequisiteType;
   id?: string;
+  activityId?: string;
   value?: number;
   recommended?: boolean;
   prerequisites?: Prerequisite[];

@@ -23,7 +23,13 @@ type Props = {
   items?: Item[];
 };
 
-const ItemEditor = observer(({ items, completionCriteria, state }) => {
+type ItemEditorProps = {
+  completionCriteria: CompletionCriteria;
+  state: State;
+  items?: Item[];
+};
+
+const ItemEditor = observer(({ items, completionCriteria, state }: ItemEditorProps) => {
   return (
     <Combobox
       flex="1"
@@ -46,6 +52,7 @@ const MarkEditor = observer(({ completionCriteria }: SiProps) => {
       <TextInput
         type="number"
         width="100%"
+        minWidth={65}
         placeholder={'Mark'}
         onChange={e => (completionCriteria.minimumValue = parseFloat(e.currentTarget.value))}
         value={completionCriteria.minimumValue}
@@ -182,6 +189,11 @@ const AllOfEditor = observer(({ items, completionCriteria, state, sub }: EditorP
                   Item
                 </Heading>
               </th>
+              <th style={{ textAlign: 'left', width: '100%' }}>
+                <Heading size={300} marginBottom={4}>
+                  Mark
+                </Heading>
+              </th>
               {!sub && <th style={{ minWidth: '80px', textAlign: 'left' }}></th>}
               <th></th>
             </tr>
@@ -220,6 +232,19 @@ const AllOfEditor = observer(({ items, completionCriteria, state, sub }: EditorP
                   ) : (
                     <ItemEditor items={items} completionCriteria={c} state={state} />
                   )}
+                </td>
+                <td
+                  style={
+                    sub
+                      ? {}
+                      : {
+                          borderBottom: 'dashed 1px #cdcdcd',
+                          paddingBottom: '4px',
+                          paddingTop: '4px'
+                        }
+                  }
+                >
+                  <MarkEditor completionCriteria={c} />
                 </td>
                 {!sub && (
                   <td
