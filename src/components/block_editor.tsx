@@ -34,12 +34,19 @@ import { TopicBlockEditor } from './topic_block_editor';
 import { TextEditor } from './text_editor';
 import { KeywordEditor, TopicEditor } from './tag_editors';
 import { action } from 'mobx';
+import { Dnd, DragContainer } from './dnd';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
     return block.completionCriteria.credit;
   }
 }
+
+const Handler = ({ dnd }) => (
+  <Pane width={10} height={20} marginRight="2" pointer="drag" color="#999" {...dnd.handlerProps}>
+    <Icon icon="drag-handle-vertical" />
+  </Pane>
+);
 
 const ActivityDetail: React.FC<{ activity: Activity; block: Block; state: State }> = observer(
   ({ block, activity }) => {
@@ -527,6 +534,7 @@ const BlocksEditorView: React.FC<Props> = ({
   title
 }) => {
   const selectedBlock = selectedBlockId ? blocks.find(b => b.id === selectedBlockId) : null;
+  const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'blocks' }), []);
 
   const mergeWithNext = direction =>
     action(() => {
@@ -579,6 +587,8 @@ const BlocksEditorView: React.FC<Props> = ({
       unit.blocks.splice(unit.blocks.indexOf(nextBlock.id), 1);
     });
 
+  debugger;
+
   return (
     <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
       <Tablist flexBasis={300} width={200} marginRight={8}>
@@ -600,51 +610,59 @@ const BlocksEditorView: React.FC<Props> = ({
           />
         </Pane>
         <Tabs>
-          {blocks.map((block, index) => (
-            <Pane display="flex" key={block.id}>
-              <Pane flex="1" width="130px" marginRight={8}>
-                <Link key={block.id} href="/editor/[category]/[item]" as={url(block)}>
-                  <a>
-                    <SideTab
-                      key={block.id}
-                      id={block.id}
-                      isSelected={selectedBlock && block.id === selectedBlock.id}
-                      aria-controls={`panel-${block.name}`}
-                      display="flex"
-                      alignItems="center"
-                    >
-                      <Badge color={blockColor(block)} marginRight={8}>
-                        {index + 1}
-                      </Badge>
+          <DragContainer>
+            {blocks.map((block, index) => (
+              <Pane
+                display="flex"
+                alignItems="center"
+                key={block.id}
+                {...dnd.props(block.id, unit.blocks, true)}
+              >
+                <Handler dnd={dnd} />
+                <Pane flex="1" width="130px" marginRight={8}>
+                  <Link key={block.id} href="/editor/[category]/[item]" as={url(block)}>
+                    <a>
+                      <SideTab
+                        key={block.id}
+                        id={block.id}
+                        isSelected={selectedBlock && block.id === selectedBlock.id}
+                        aria-controls={`panel-${block.name}`}
+                        display="flex"
+                        alignItems="center"
+                      >
+                        <Badge color={blockColor(block)} marginRight={8}>
+                          {index + 1}
+                        </Badge>
 
-                      {block.name}
-                    </SideTab>
-                  </a>
-                </Link>
+                        {block.name}
+                      </SideTab>
+                    </a>
+                  </Link>
+                </Pane>
+                <Pane>
+                  {blockCredits(block) && (
+                    <Badge
+                      color={block.activities.some(a => a.type === 'exam') ? 'red' : 'orange'}
+                      marginLeft={-4}
+                      marginRight={8}
+                    >
+                      {blockCredits(block)}¢
+                    </Badge>
+                  )}
+                  {requisiteRanges(blocks, block, false).map(r => (
+                    <Badge key={r} color={'red'}>
+                      {r}
+                    </Badge>
+                  ))}
+                  {requisiteRanges(blocks, block, true).map(r => (
+                    <Badge key={r} color={'green'}>
+                      {r}
+                    </Badge>
+                  ))}
+                </Pane>
               </Pane>
-              <Pane>
-                {blockCredits(block) && (
-                  <Badge
-                    color={block.activities.some(a => a.type === 'exam') ? 'red' : 'orange'}
-                    marginLeft={-4}
-                    marginRight={8}
-                  >
-                    {blockCredits(block)}¢
-                  </Badge>
-                )}
-                {requisiteRanges(blocks, block, false).map(r => (
-                  <Badge key={r} color={'red'}>
-                    {r}
-                  </Badge>
-                ))}
-                {requisiteRanges(blocks, block, true).map(r => (
-                  <Badge key={r} color={'green'}>
-                    {r}
-                  </Badge>
-                ))}
-              </Pane>
-            </Pane>
-          ))}
+            ))}
+          </DragContainer>
         </Tabs>
         <Pane marginTop={16}>
           <AddBlockModal state={state} unit={unit} />

@@ -3872,11 +3872,8 @@
     {
       "id": "300581",
       "blocks": [
-        "300581_1",
-        "300581_2",
-        "300581_3",
-        "300581_4",
         "300581_16",
+        "300581_4",
         "300581_5",
         "300581_17",
         "300581_6",
@@ -3890,7 +3887,6 @@
         "300581_12",
         "300581_13",
         "300581_20",
-        "300581_14",
         "300581_21",
         "300581_15"
       ],
@@ -34777,8 +34773,36 @@
           "type": "practical",
           "name": "Practical: No practical sessions this week.",
           "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Review of procedural programming constructs in Java: Selection and Iteration structures",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "practical",
+          "name": "Practical: Practical sessions start this week.\nWeek 2 practical pre-work before class.\n\nWeek 2 practical exercises in class.",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Java: Methods and Problem Decomposition",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "practical",
+          "name": "Practical: Week 3 practical pre-work before class.\n\nWeek 3 practical exercises in class.",
+          "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300581_2",
@@ -34846,7 +34870,7 @@
     {
       "id": "300581_16",
       "ass_id": "44890",
-      "name": "Practical Exercises 1.",
+      "name": "Java: Syntax and Methods",
       "week": 4,
       "activities": [
         {
@@ -34854,8 +34878,49 @@
           "type": "assignment",
           "name": "Practical Exercises 1.",
           "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Review of procedural programming constructs in Java: Data types, I/O statements, Calculations",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Review of procedural programming constructs in Java: Selection and Iteration structures",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Java: Methods and Problem Decomposition",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300581_5",
@@ -35130,27 +35195,6 @@
         {
           "acsSkillId": "d2",
           "bloomRating": 2
-        }
-      ]
-    },
-    {
-      "id": "300581_14",
-      "name": "",
-      "description": "",
-      "week": 14,
-      "activities": [
-        {
-          "id": 0,
-          "type": "knowledge",
-          "description": "",
-          "name": "Lecture: ",
-          "lengthHours": 2
-        },
-        {
-          "id": 1,
-          "type": "practical",
-          "name": "Practical: Complete the Practical Programming Test in your registered (Allocate+) practical class.",
-          "lengthHours": 2
         }
       ]
     },

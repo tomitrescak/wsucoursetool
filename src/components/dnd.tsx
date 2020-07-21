@@ -1,4 +1,6 @@
+import React from 'react';
 import { action } from 'mobx';
+import styled from '@emotion/styled';
 
 type DndElement = {
   element: HTMLElement;
@@ -18,7 +20,24 @@ type Options = {
   accepts?: Array<{ id: string; parse?: (element: any) => any }>;
   acceptsSelf?: boolean;
   allowHorizontalMove?: boolean;
+  splitColor?: string;
 };
+
+const Drag = styled.div`
+  &.animated {
+    div {
+      transition: box-shadow 0.3s linear;
+      transition: opacity 1s linear;
+      transition: border-width 0.2s linear;
+      border-top: 0px solid #efefef;
+      border-bottom: 0px solid #efefef;
+    }
+  }
+`;
+
+export const DragContainer: React.FC<React.HTMLAttributes<HTMLDivElement>> = props => (
+  <Drag data-dnd="container">{props.children}</Drag>
+);
 
 export class Dnd {
   _rootElement: HTMLDivElement = null as any;
@@ -73,6 +92,9 @@ export class Dnd {
       options.accepts.push({ id: options.id });
     }
     this.options = options;
+    if (options.splitColor) {
+      this.splitColor = options.splitColor;
+    }
   }
 
   get rootElement() {
@@ -142,29 +164,27 @@ export class Dnd {
 
           // REPLACE IN ORIGINAL ARRAY
 
-          action(() => {
-            // remove from original position
-            if (dragItemParent) {
-              const fromIndex = dragItemParent!.findIndex(e => e === dragItem);
-              dragItemParent!.splice(fromIndex, 1);
-            }
+          // remove from original position
+          if (dragItemParent) {
+            const fromIndex = dragItemParent!.findIndex(e => e === dragItem);
+            dragItemParent!.splice(fromIndex, 1);
+          }
 
-            if (Dnd.position === 'middle') {
-              if (this.options.add == null) {
-                throw new Error('If you allow parenting, you have to define the add function');
-              }
-              // add to item
-              this.options.add(overItem, dragItem);
-            } else {
-              // add to the new position
-              const toIndex =
-                overItemParent.findIndex((e: any) => e === overItem) +
-                (position === 'bottom' ? 1 : 0);
-              overItemParent.splice(toIndex, 0, dragItem);
+          if (Dnd.position === 'middle') {
+            if (this.options.add == null) {
+              throw new Error('If you allow parenting, you have to define the add function');
             }
+            // add to item
+            this.options.add(overItem, dragItem);
+          } else {
+            // add to the new position
+            const toIndex =
+              overItemParent.findIndex((e: any) => e === overItem) +
+              (position === 'bottom' ? 1 : 0);
+            overItemParent.splice(toIndex, 0, dragItem);
+          }
 
-            this.cleanup();
-          })();
+          this.cleanup();
         },
         Dnd.avatar ? 250 : 0
       );
@@ -272,6 +292,9 @@ export class Dnd {
         const avatar = event.currentTarget.cloneNode(true) as HTMLDivElement;
         avatar.style.width = event.currentTarget.offsetWidth + 'px';
         avatar.style.height = event.currentTarget.offsetHeight + 'px';
+        avatar.style.whiteSpace = 'nowrap';
+        avatar.style.overflow = 'hidden';
+        avatar.style.textOverflow = 'ellipsis';
 
         let originalX = event.currentTarget.getBoundingClientRect().left;
         let shiftX = event.clientX - originalX;
@@ -362,7 +385,7 @@ export class Dnd {
     const rect = child.getBoundingClientRect();
     const y = Math.floor(event.clientY - rect.top); //y position within the element.
     const height = child.clientHeight;
-    const border = height < 10 ? height / 2 : 5;
+    const border = !this.options.allowParenting || height < 10 ? height / 2 : 5;
 
     if (y < border) {
       if (!this.options.allowParenting || Dnd.position !== 'top') {
