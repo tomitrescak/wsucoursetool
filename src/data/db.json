@@ -270,44 +270,18 @@
       "id": "100483",
       "blocks": [
         "100483_1",
-        "100483_27",
-        "100483_2",
-        "100483_28",
         "100483_3",
-        "100483_29",
         "100483_4",
-        "100483_16",
-        "100483_30",
         "100483_5",
-        "100483_17",
-        "100483_31",
         "100483_6",
-        "100483_18",
-        "100483_32",
         "100483_7",
-        "100483_19",
-        "100483_37",
         "100483_8",
-        "100483_38",
-        "100483_9",
-        "100483_10",
-        "100483_25",
-        "100483_33",
         "100483_11",
-        "100483_20",
-        "100483_23",
-        "100483_34",
         "100483_12",
-        "100483_21",
-        "100483_35",
         "100483_13",
-        "100483_36",
         "100483_14",
-        "100483_24",
         "100483_15",
-        "100483_22",
-        "100483_26",
-        "301314"
+        "100483_22"
       ],
       "description": "The unit provides students with an introductory understanding of a range of communication theories and practices necessary for academic work and professional success.",
       "assumedKnowledge": null,
@@ -334,7 +308,7 @@
           {
             "weight": "40",
             "type": "block",
-            "id": "100483_26"
+            "id": "practicalAssignments"
           }
         ]
       },
@@ -1576,31 +1550,11 @@
       "id": "300104",
       "blocks": [
         "300104_1",
-        "300104_2",
-        "300104_18",
         "300104_3",
-        "300104_19",
-        "300104_4",
-        "300104_20",
         "300104_5",
-        "300104_21",
-        "300104_6",
-        "300104_22",
-        "300104_7",
-        "300104_23",
-        "300104_8",
         "300104_15",
-        "300104_24",
-        "300104_9",
-        "300104_10",
-        "300104_25",
-        "300104_11",
-        "300104_26",
+        "300104_8",
         "300104_12",
-        "300104_27",
-        "300104_13",
-        "300104_28",
-        "300104_14",
         "300104_16",
         "300104_29",
         "300104_17",
@@ -1632,7 +1586,7 @@
           {
             "weight": "20",
             "type": "block",
-            "id": "300104_17"
+            "id": "practicalAssignments"
           },
           {
             "weight": "50",
@@ -3874,21 +3828,8 @@
       "blocks": [
         "300581_16",
         "300581_4",
-        "300581_5",
-        "300581_17",
-        "300581_6",
-        "300581_7",
-        "300581_8",
-        "300581_18",
-        "300581_9",
-        "300581_10",
-        "300581_19",
-        "300581_11",
-        "300581_12",
-        "300581_13",
         "300581_20",
-        "300581_21",
-        "300581_15"
+        "300581_21"
       ],
       "description": "This unit is intended as a second unit of study in programming. It builds on a basic understanding of procedural programming as would be developed in a first unit. This unit continues the development of programming skills and methodologies required for professional programming and for further study in later computing units. Topics covered include multi-dimensional arrays, file I/O, searching and sorting, and an introduction to object-oriented programming involving classes and inheritance.",
       "assumedKnowledge": null,
@@ -3911,7 +3852,7 @@
           {
             "weight": "30",
             "type": "block",
-            "id": "300581_15"
+            "id": "practicalAssignments"
           },
           {
             "weight": "40",
@@ -4243,32 +4184,12 @@
       "id": "300585",
       "blocks": [
         "300585_1",
-        "300585_2",
-        "300585_3",
-        "300585_16",
-        "300585_4",
-        "300585_17",
-        "300585_5",
-        "300585_18",
-        "300585_6",
-        "300585_19",
-        "300585_7",
-        "300585_20",
         "300585_8",
-        "300585_21",
-        "300585_28",
-        "300585_9",
         "300585_10",
-        "300585_22",
-        "300585_27",
         "300585_11",
-        "300585_23",
         "300585_12",
-        "300585_24",
         "300585_13",
-        "300585_25",
-        "300585_14",
-        "300585_15",
+        "301317",
         "300585_26",
         "300585_29"
       ],
@@ -4287,7 +4208,7 @@
           {
             "weight": "30",
             "type": "block",
-            "id": "300585_15"
+            "id": "practicalAssignments"
           },
           {
             "weight": "20",
@@ -10269,7 +10190,7 @@
     },
     {
       "id": "100483_1",
-      "name": "What is communication – meaning or message?",
+      "name": "Communication & Perception",
       "description": "",
       "week": 1,
       "activities": [
@@ -10279,8 +10200,29 @@
           "description": "",
           "name": "Lecture: What is communication – meaning or message?",
           "lengthHours": 2
+        },
+        {
+          "id": 1,
+          "type": "assignment",
+          "name": "Class Exercise Portfolio 1.",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Perception – is the truth really ‘out there’?",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "assignment",
+          "name": "Class Exercise Portfolio 2.",
+          "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_27",
@@ -10294,7 +10236,9 @@
           "name": "Class Exercise Portfolio 1.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_2",
@@ -10327,7 +10271,7 @@
     },
     {
       "id": "100483_3",
-      "name": "Language &amp; communication – I know what you said but not what you mean",
+      "name": "Language & communication",
       "description": "",
       "week": 3,
       "activities": [
@@ -10335,10 +10279,18 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Language &amp; communication – I know what you said but not what you mean",
+          "name": "Lecture: Language & communication – I know what you said but not what you mean",
+          "lengthHours": 2
+        },
+        {
+          "id": 1,
+          "type": "assignment",
+          "name": "Class Exercise Portfolio 3.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_29",
@@ -10366,8 +10318,16 @@
           "description": "",
           "name": "Lecture: Non-verbal communication – more than just words",
           "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Class Exercise Portfolio 4.",
+          "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_16",
@@ -10399,7 +10359,7 @@
     },
     {
       "id": "100483_5",
-      "name": "Censorship – not just dirty pictures ",
+      "name": "Censorship",
       "description": "",
       "week": 5,
       "activities": [
@@ -10409,22 +10369,16 @@
           "description": "",
           "name": "Lecture: Censorship – not just dirty pictures ",
           "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "100483_17",
-      "ass_id": "52513",
-      "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 2.",
-      "week": 5,
-      "activities": [
+        },
         {
-          "id": 2,
+          "id": 1,
           "type": "assignment",
-          "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 2.",
+          "name": "Class Exercise Portfolio 5.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_31",
@@ -10452,22 +10406,16 @@
           "description": "",
           "name": "Lecture: Mediated Communication – the impact of technology on communication",
           "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "100483_18",
-      "ass_id": "52513",
-      "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 3.",
-      "week": 6,
-      "activities": [
+        },
         {
-          "id": 3,
+          "id": 1,
           "type": "assignment",
-          "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 3.",
+          "name": "Class Exercise Portfolio 6.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_32",
@@ -10485,7 +10433,7 @@
     },
     {
       "id": "100483_7",
-      "name": "Intercultural Communication\n\nLAST FACE-TO-FACE LECTURE",
+      "name": "Intercultural Communication",
       "description": "",
       "week": 7,
       "activities": [
@@ -10493,24 +10441,18 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Intercultural Communication\n\nLAST FACE-TO-FACE LECTURE",
+          "name": "Lecture: Intercultural Communication",
           "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "100483_19",
-      "ass_id": "52513",
-      "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 4.",
-      "week": 7,
-      "activities": [
+        },
         {
-          "id": 4,
+          "id": 1,
           "type": "assignment",
-          "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 4.",
+          "name": "Class Exercise Portfolio 11.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_37",
@@ -10528,7 +10470,7 @@
     },
     {
       "id": "100483_8",
-      "name": "Writing a business report </p>\n<p>\n\nLECTURE PODS:\nWhat is a report – pts. 1 &amp; 2 (RA)</p>",
+      "name": "Writing a business report",
       "description": "",
       "week": 8,
       "activities": [
@@ -10536,10 +10478,37 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Writing a business report </p>\n<p>\n\nLECTURE PODS:\nWhat is a report – pts. 1 &amp; 2 (RA)</p>",
+          "name": "Lecture: Writing a business report I.",
+          "lengthHours": 2
+        },
+        {
+          "id": 1,
+          "type": "assignment",
+          "name": "Class Exercise Portfolio",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Writing a business report II.",
+          "lengthHours": 2
+        },
+        {
+          "id": 4,
+          "type": "assignment",
+          "name": "Class Exercise Portfolio",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "assignment",
+          "name": "Written Report 3.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_38",
@@ -10556,23 +10525,8 @@
       ]
     },
     {
-      "id": "100483_9",
-      "name": "BREAK",
-      "description": "",
-      "week": 9,
-      "activities": [
-        {
-          "id": 0,
-          "type": "knowledge",
-          "description": "",
-          "name": "Lecture: BREAK",
-          "lengthHours": 2
-        }
-      ]
-    },
-    {
       "id": "100483_10",
-      "name": "Writing a business report </p>\n<p>\n\nLECTURE PODS:\n1. Researching your report\n2. Parts of a report (MG)\n</p>",
+      "name": "Writing a business report II.",
       "description": "",
       "week": 10,
       "activities": [
@@ -10580,10 +10534,12 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: Writing a business report </p>\n<p>\n\nLECTURE PODS:\n1. Researching your report\n2. Parts of a report (MG)\n</p>",
+          "name": "Lecture: Writing a business report",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_25",
@@ -10615,7 +10571,7 @@
     },
     {
       "id": "100483_11",
-      "name": "Issues in professional writing: what is a cliché anyway?\n\nLECTURE POD: \nWriting the intro and method sections (MG)",
+      "name": "Issues in professional writing",
       "description": "",
       "week": 11,
       "activities": [
@@ -10625,36 +10581,16 @@
           "description": "",
           "name": "Lecture: Issues in professional writing: what is a cliché anyway?\n\nLECTURE POD: \nWriting the intro and method sections (MG)",
           "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "100483_20",
-      "ass_id": "52513",
-      "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 5.",
-      "week": 11,
-      "activities": [
-        {
-          "id": 5,
-          "type": "assignment",
-          "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 5.",
-          "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "100483_23",
-      "ass_id": "52514",
-      "name": "Written Report 1.",
-      "week": 11,
-      "activities": [
+        },
         {
           "id": 1,
           "type": "assignment",
-          "name": "Written Report 1.",
+          "name": "Class Exercise Portfolio 8.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_34",
@@ -10672,7 +10608,7 @@
     },
     {
       "id": "100483_12",
-      "name": "Visual communication – a picture paints a thousand words\n</p>\n<p>\nLECTURE PODS:\n1. Why are visuals important? (MG)\n2 &amp; 3: Preparing effective tables and graphs (RA)\n</p>",
+      "name": "Visual communication",
       "description": "",
       "week": 12,
       "activities": [
@@ -10682,22 +10618,16 @@
           "description": "",
           "name": "Lecture: Visual communication – a picture paints a thousand words\n</p>\n<p>\nLECTURE PODS:\n1. Why are visuals important? (MG)\n2 &amp; 3: Preparing effective tables and graphs (RA)\n</p>",
           "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "100483_21",
-      "ass_id": "52513",
-      "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 6.",
-      "week": 12,
-      "activities": [
+        },
         {
-          "id": 6,
+          "id": 1,
           "type": "assignment",
-          "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 6.",
+          "name": "Class Exercise Portfolio 9.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_35",
@@ -10715,7 +10645,7 @@
     },
     {
       "id": "100483_13",
-      "name": "Mediated Communication &amp; Ethics\n</p>\n<p>\nLECTURE PODS:\n1. What are ‘ethics’ (RA)\n2. IT ethics (RA)</p>",
+      "name": "Mediated Communication & Ethics",
       "description": "",
       "week": 13,
       "activities": [
@@ -10725,8 +10655,16 @@
           "description": "",
           "name": "Lecture: Mediated Communication &amp; Ethics\n</p>\n<p>\nLECTURE PODS:\n1. What are ‘ethics’ (RA)\n2. IT ethics (RA)</p>",
           "lengthHours": 2
+        },
+        {
+          "id": 1,
+          "type": "assignment",
+          "name": "Class Exercise Portfolio 10.",
+          "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_36",
@@ -10744,7 +10682,7 @@
     },
     {
       "id": "100483_14",
-      "name": "Editing your report\n\nLECTURE POD\n1. Editing tips (MG)",
+      "name": "Editing your report",
       "description": "",
       "week": 14,
       "activities": [
@@ -10754,22 +10692,17 @@
           "description": "",
           "name": "Lecture: Editing your report\n\nLECTURE POD\n1. Editing tips (MG)",
           "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "100483_24",
-      "ass_id": "52514",
-      "name": "Written Report 2.",
-      "week": 14,
-      "activities": [
+        },
         {
-          "id": 2,
+          "id": "301318",
+          "name": "Portfolio",
+          "description": "",
           "type": "assignment",
-          "name": "Written Report 2.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_15",
@@ -10817,7 +10750,9 @@
           "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 6.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "100483_22",
@@ -10846,121 +10781,6 @@
           "type": "assignment",
           "name": "Written Report 3.",
           "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "100483_26",
-      "ass_id": "52515",
-      "name": "Class Exercise Portfolio",
-      "weight": "40",
-      "ulos": "1, 2, 3, 4, 5, 6, 8",
-      "threshold": "0",
-      "due_date": "See 'Instructions' below",
-      "week": 15,
-      "activities": [
-        {
-          "id": 1,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 1.",
-          "lengthHours": 2
-        },
-        {
-          "id": 2,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 2.",
-          "lengthHours": 2
-        },
-        {
-          "id": 3,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 3.",
-          "lengthHours": 2
-        },
-        {
-          "id": 4,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 4.",
-          "lengthHours": 2
-        },
-        {
-          "id": 5,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 5.",
-          "lengthHours": 2
-        },
-        {
-          "id": 6,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 6.",
-          "lengthHours": 2
-        },
-        {
-          "id": 7,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 7.",
-          "lengthHours": 2
-        },
-        {
-          "id": 8,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 8.",
-          "lengthHours": 2
-        },
-        {
-          "id": 9,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 9.",
-          "lengthHours": 2
-        },
-        {
-          "id": 10,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 10.",
-          "lengthHours": 2
-        },
-        {
-          "id": 11,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 11.",
-          "lengthHours": 2
-        },
-        {
-          "id": 12,
-          "type": "assignment",
-          "name": "Class Exercise Portfolio 12.",
-          "lengthHours": 2
-        }
-      ],
-      "completionCriteria": {},
-      "outcomes": [
-        {
-          "acsSkillId": "b0",
-          "bloomRating": 4
-        },
-        {
-          "acsSkillId": "b1",
-          "bloomRating": 4
-        },
-        {
-          "acsSkillId": "a0",
-          "bloomRating": 4
-        },
-        {
-          "acsSkillId": "a1",
-          "bloomRating": 6
-        },
-        {
-          "acsSkillId": "a2",
-          "bloomRating": 2
-        },
-        {
-          "acsSkillId": "a3",
-          "bloomRating": 6
-        },
-        {
-          "acsSkillId": "a4",
-          "bloomRating": 6
         }
       ]
     },
@@ -18611,7 +18431,7 @@
     },
     {
       "id": "300104_1",
-      "name": "introduction to databases; file systems vs DBMS",
+      "name": "Introduction to Databases and Microsoft Access",
       "description": "",
       "week": 1,
       "activities": [
@@ -18625,10 +18445,31 @@
         {
           "id": 1,
           "type": "practical",
-          "name": "Practical: Practical lab activities are in general concerned with the topics covered in the lecture the week before, with potential extensions.  There is no practical class in this first week.",
+          "name": "Practical - Microsfot Access",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: components of DBMS; ANSI/SPARC 3 level architecture, database environment",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "practical",
+          "name": "Practical:  - Microsoft Access with more sophisticated queries",
+          "lengthHours": 2
+        },
+        {
+          "id": 4,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 1.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_2",
@@ -18667,7 +18508,7 @@
     },
     {
       "id": "300104_3",
-      "name": "overview of (and insights in) database design, intuitive table breaking, SQLite (optional)",
+      "name": "Database Design and ER Modelling Basics",
       "description": "",
       "week": 3,
       "activities": [
@@ -18681,10 +18522,37 @@
         {
           "id": 1,
           "type": "practical",
-          "name": "Practical: Practical 2 - Microsoft Access with more sophisticated queries",
+          "name": "Practical: Design relatively trivial database tables for Access; logon to Microsoft SQL Server; install SQL Server Express (optional)",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 2.",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: basics of ER modelling, relational model, sets and Cartesian products",
+          "lengthHours": 2
+        },
+        {
+          "id": 4,
+          "type": "practical",
+          "name": "Practical: Table constructions with GUI as well as with SQL directly",
+          "lengthHours": 2
+        },
+        {
+          "id": 5,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 3.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_19",
@@ -18737,7 +18605,7 @@
     },
     {
       "id": "300104_5",
-      "name": "relational model, relational algebra, SQL to create tables and insert records",
+      "name": "Relational Models and SQL Basics",
       "description": "",
       "week": 5,
       "activities": [
@@ -18753,8 +18621,54 @@
           "type": "practical",
           "name": "Practical: Practical 4 - Table constructions with GUI as well as with SQL directly",
           "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 4.",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: ER modelling; enhanced ER models; SQL to query (basics on SELECT, IN, LIKE, logical operators)",
+          "lengthHours": 2
+        },
+        {
+          "id": 4,
+          "type": "practical",
+          "name": "Practical: Practical 5 - Table construction with foreign keys and data insertion with GUI as well as with SQL directly",
+          "lengthHours": 2
+        },
+        {
+          "id": 5,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 5.",
+          "lengthHours": 2
+        },
+        {
+          "id": 6,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: database design methodology; simple table joins in SQL",
+          "lengthHours": 2
+        },
+        {
+          "id": 7,
+          "type": "practical",
+          "name": "Practical: Practical 6 - Table data updating and simple queries with GUI as well as with SQL directly",
+          "lengthHours": 2
+        },
+        {
+          "id": 8,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 6.",
+          "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_21",
@@ -18768,7 +18682,9 @@
           "name": "Tutorials and Practicals 4.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_6",
@@ -18789,7 +18705,9 @@
           "name": "Practical: Practical 5 - Table construction with foreign keys and data insertion with GUI as well as with SQL directly",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_22",
@@ -18824,7 +18742,9 @@
           "name": "Practical: Practical 6 - Table data updating and simple queries with GUI as well as with SQL directly",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_23",
@@ -18838,11 +18758,13 @@
           "name": "Tutorials and Practicals 6.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_8",
-      "name": "update anomalies; functional dependencies; lossless-join, aggregate functions and multiple table joins in SQL",
+      "name": "Advanced SQL, Optimisations and DB Normalisation",
       "description": "",
       "week": 8,
       "activities": [
@@ -18858,8 +18780,54 @@
           "type": "practical",
           "name": "Practical: Practical 7 - Queries with simple joins and grouping; use aggregate functions",
           "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 7.",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: normalisation process; 1NF to 3NF; create views in SQL",
+          "lengthHours": 2
+        },
+        {
+          "id": 4,
+          "type": "practical",
+          "name": "Practical: Practical 8 - Use SQL for complete database generation of queries; use of Date data type",
+          "lengthHours": 2
+        },
+        {
+          "id": 5,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 8.",
+          "lengthHours": 2
+        },
+        {
+          "id": 6,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: case study: problem to 3NF relations; use of subqueries; Transact SQL (optional)",
+          "lengthHours": 2
+        },
+        {
+          "id": 7,
+          "type": "practical",
+          "name": "Practical: Practical 9 - Build database tables for a small case study; link Microsoft SQL Server to Microsoft Access",
+          "lengthHours": 2
+        },
+        {
+          "id": 8,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 9.",
+          "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_15",
@@ -18913,27 +18881,6 @@
       ]
     },
     {
-      "id": "300104_9",
-      "name": "",
-      "description": "",
-      "week": 9,
-      "activities": [
-        {
-          "id": 0,
-          "type": "knowledge",
-          "description": "",
-          "name": "Lecture: ",
-          "lengthHours": 2
-        },
-        {
-          "id": 1,
-          "type": "practical",
-          "name": "Practical: ",
-          "lengthHours": 2
-        }
-      ]
-    },
-    {
       "id": "300104_10",
       "name": "normalisation process; 1NF to 3NF; create views in SQL",
       "description": "",
@@ -18952,7 +18899,9 @@
           "name": "Practical: Practical 8 - Use SQL for complete database generation of queries; use of Date data type",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_25",
@@ -18987,7 +18936,9 @@
           "name": "Practical: Practical 9 - Build database tables for a small case study; link Microsoft SQL Server to Microsoft Access",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_26",
@@ -19005,7 +18956,7 @@
     },
     {
       "id": "300104_12",
-      "name": "database security and threats; RAID; data and database administration; constraints, inner/outer joins, and set operations in SQL ",
+      "name": "Master SQL, Security and Transactions",
       "description": "",
       "week": 12,
       "activities": [
@@ -19021,8 +18972,48 @@
           "type": "practical",
           "name": "Practical: Practical 10 - Table normalisation; subqueries; Transact SQL for the advanced students",
           "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 10.",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: transaction support; concurrency anomalies; serialisability; recoverable schedules; concurrency control techniques; locking and timestamping",
+          "lengthHours": 2
+        },
+        {
+          "id": 4,
+          "type": "practical",
+          "name": "Practical: Practical 11 - Block insertion of table data; inner and outer joins with GUI as well as with SQL directly; procedures in T-SQL for the advanced students",
+          "lengthHours": 2
+        },
+        {
+          "id": 5,
+          "type": "assignment",
+          "name": "Tutorials and Practicals 11.",
+          "lengthHours": 2
+        },
+        {
+          "id": 6,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: unit revision and sample exercises",
+          "lengthHours": 2
+        },
+        {
+          "id": 7,
+          "type": "practical",
+          "name": "Practical: Practical 12 - Discuss transactions, schedules, reliability, and record locking; complete Assignment 2",
+          "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_27",
@@ -19092,7 +19083,9 @@
           "name": "Practical: Practical 12 - Discuss transactions, schedules, reliability, and record locking; complete Assignment 2",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300104_16",
@@ -34782,20 +34775,20 @@
           "lengthHours": 2
         },
         {
-          "id": 2,
+          "id": 3,
           "type": "practical",
           "name": "Practical: Practical sessions start this week.\nWeek 2 practical pre-work before class.\n\nWeek 2 practical exercises in class.",
           "lengthHours": 2
         },
         {
-          "id": 3,
+          "id": 4,
           "type": "knowledge",
           "description": "",
           "name": "Lecture: Java: Methods and Problem Decomposition",
           "lengthHours": 2
         },
         {
-          "id": 3,
+          "id": 5,
           "type": "practical",
           "name": "Practical: Week 3 practical pre-work before class.\n\nWeek 3 practical exercises in class.",
           "lengthHours": 2
@@ -34848,7 +34841,7 @@
     },
     {
       "id": "300581_4",
-      "name": "Classes & Objects",
+      "name": "Java: Classes & Objects",
       "description": "",
       "week": 4,
       "activities": [
@@ -34862,8 +34855,142 @@
         {
           "id": 1,
           "type": "practical",
-          "name": "Practical: Week 4 practical pre-work before class.\n\nWeek 4 practical exercises in class.\nPractical Set 1 checkpoint marked in class",
+          "name": "Practical",
           "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Classes & Objects cont'd",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 4,
+          "type": "assignment",
+          "name": "Practical Exercises 2.",
+          "lengthHours": 2
+        },
+        {
+          "id": 5,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Data Files and File Processing",
+          "lengthHours": 2
+        },
+        {
+          "id": 6,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 7,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Arrays",
+          "lengthHours": 2
+        },
+        {
+          "id": 8,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 9,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Arrays cont'd - Important Algorithms & Arrays of Objects",
+          "lengthHours": 2
+        },
+        {
+          "id": 10,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 11,
+          "type": "assignment",
+          "name": "Practical Exercises 3.",
+          "lengthHours": 2
+        },
+        {
+          "id": 14,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Processing Files with Delimiters. Searching & Sorting Arrays",
+          "lengthHours": 2
+        },
+        {
+          "id": 15,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 17,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: More Classes & Objects",
+          "lengthHours": 2
+        },
+        {
+          "id": 18,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 19,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Strings and String Processing.\n\nMonday 2nd October Public Holiday",
+          "lengthHours": 2
+        },
+        {
+          "id": 20,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 21,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: Inheritance & Review of unit material/\nProgramming Test prep.",
+          "lengthHours": 2
+        },
+        {
+          "id": 22,
+          "type": "practical",
+          "name": "Practical",
+          "lengthHours": 2
+        },
+        {
+          "id": 16,
+          "type": "assignment",
+          "name": "Practical Exercises 4.",
+          "lengthHours": 2
+        }
+      ],
+      "completionCriteria": {
+        "credit": 1
+      },
+      "topics": [],
+      "prerequisites": [
+        {
+          "id": "300581_16",
+          "type": "block",
+          "recommended": false,
+          "activityId": null
         }
       ]
     },
@@ -34874,12 +35001,6 @@
       "week": 4,
       "activities": [
         {
-          "id": 1,
-          "type": "assignment",
-          "name": "Practical Exercises 1.",
-          "lengthHours": 2
-        },
-        {
           "id": 2,
           "type": "knowledge",
           "description": "",
@@ -34887,39 +35008,47 @@
           "lengthHours": 2
         },
         {
-          "id": 2,
+          "id": 3,
           "type": "practical",
           "name": "Practical",
           "lengthHours": 2
         },
         {
-          "id": 2,
+          "id": 4,
           "type": "knowledge",
           "description": "",
           "name": "Lecture: Review of procedural programming constructs in Java: Selection and Iteration structures",
           "lengthHours": 2
         },
         {
-          "id": 2,
+          "id": 5,
           "type": "practical",
           "name": "Practical",
           "lengthHours": 2
         },
         {
-          "id": 2,
+          "id": 6,
           "type": "knowledge",
           "description": "",
           "name": "Lecture: Java: Methods and Problem Decomposition",
           "lengthHours": 2
         },
         {
-          "id": 2,
+          "id": 7,
           "type": "practical",
           "name": "Practical",
           "lengthHours": 2
+        },
+        {
+          "id": 1,
+          "type": "assignment",
+          "name": "Practical Exercises 1.",
+          "lengthHours": 2
         }
       ],
-      "completionCriteria": {},
+      "completionCriteria": {
+        "credit": 1
+      },
       "topics": []
     },
     {
@@ -35156,7 +35285,7 @@
     {
       "id": "300581_20",
       "ass_id": "44891",
-      "name": "Programming Project",
+      "name": "Java: Programming Project",
       "weight": "40",
       "ulos": "1, 2, 3, 4, 5",
       "threshold": "0",
@@ -35170,7 +35299,11 @@
           "lengthHours": 2
         }
       ],
-      "completionCriteria": {},
+      "completionCriteria": {
+        "id": 0,
+        "minimumValue": 50,
+        "credit": 4
+      },
       "outcomes": [
         {
           "acsSkillId": "b0",
@@ -35196,12 +35329,27 @@
           "acsSkillId": "d2",
           "bloomRating": 2
         }
+      ],
+      "topics": [],
+      "prerequisites": [
+        {
+          "id": "300581_4",
+          "type": "block",
+          "recommended": true,
+          "activityId": null
+        },
+        {
+          "id": "300581_16",
+          "type": "block",
+          "recommended": true,
+          "activityId": null
+        }
       ]
     },
     {
       "id": "300581_21",
       "ass_id": "44892",
-      "name": "Practical Programming Test",
+      "name": "Java: Practical Programming Test",
       "weight": "30",
       "ulos": "1, 2, 3, 4, 5",
       "threshold": "1",
@@ -35215,7 +35363,10 @@
           "lengthHours": 2
         }
       ],
-      "completionCriteria": {},
+      "completionCriteria": {
+        "minimumValue": 50,
+        "credit": 3
+      },
       "outcomes": [
         {
           "acsSkillId": "b0",
@@ -35236,69 +35387,21 @@
         {
           "acsSkillId": "d1",
           "bloomRating": 2
-        }
-      ]
-    },
-    {
-      "id": "300581_15",
-      "ass_id": "44890",
-      "name": "Practical Exercises",
-      "weight": "30",
-      "ulos": "1, 2, 4, 5",
-      "threshold": "0",
-      "due_date": "  <latex> \\begin{enumerate} \\item Prac Set 1 Checkpoint: in week 4 prac class \\item Prac Set 1: 7pm Friday 23rd August 2019 \\item Prac Set 2 Checkpoint: in week 8 prac class \\item Prac Set 2: 7pm Friday 27th September 2019 \\end{enumerate} </latex>",
-      "week": 15,
-      "activities": [
-        {
-          "id": 1,
-          "type": "assignment",
-          "name": "Practical Exercises 1.",
-          "lengthHours": 2
-        },
-        {
-          "id": 2,
-          "type": "assignment",
-          "name": "Practical Exercises 2.",
-          "lengthHours": 2
-        },
-        {
-          "id": 3,
-          "type": "assignment",
-          "name": "Practical Exercises 3.",
-          "lengthHours": 2
-        },
-        {
-          "id": 4,
-          "type": "assignment",
-          "name": "Practical Exercises 4.",
-          "lengthHours": 2
         }
       ],
-      "completionCriteria": {},
-      "outcomes": [
+      "topics": [],
+      "prerequisites": [
         {
-          "acsSkillId": "b0",
-          "bloomRating": 3
+          "id": "300581_16",
+          "type": "block",
+          "recommended": true,
+          "activityId": null
         },
         {
-          "acsSkillId": "b1",
-          "bloomRating": 3
-        },
-        {
-          "acsSkillId": "c1",
-          "bloomRating": 3
-        },
-        {
-          "acsSkillId": "d0",
-          "bloomRating": 3
-        },
-        {
-          "acsSkillId": "d1",
-          "bloomRating": 2
-        },
-        {
-          "acsSkillId": "d2",
-          "bloomRating": 2
+          "id": "300581_4",
+          "type": "block",
+          "recommended": true,
+          "activityId": null
         }
       ]
     },
@@ -36752,7 +36855,7 @@
     },
     {
       "id": "300585_1",
-      "name": "Introduction to SAD",
+      "name": "Systems Analysis",
       "description": "",
       "week": 1,
       "activities": [
@@ -36760,20 +36863,123 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: 2 hour face to face in\nyour respective\ncampus on the topic\nof the week",
+          "name": "Lecture: Introduction to SAD",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: No workshop in week 1",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "knowledge",
+          "description": "",
+          "name": "Lecture: System Development Methods",
+          "lengthHours": 2
+        },
+        {
+          "id": 3,
+          "type": "practical",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 4,
+          "type": "assignment",
+          "name": "Workshop Portfolio - Progressive Assessment 1.",
+          "lengthHours": 2
+        },
+        {
+          "id": 5,
+          "type": "knowledge",
+          "description": "Workshop 1 due Monday 11.59pm",
+          "name": "Lecture: Analysing the Business Case",
+          "lengthHours": 2
+        },
+        {
+          "id": 6,
+          "type": "practical",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 7,
+          "type": "assignment",
+          "name": "Workshop Portfolio - Progressive Assessment 2.",
+          "lengthHours": 2
+        },
+        {
+          "id": 8,
+          "type": "knowledge",
+          "description": "Workshop 2 due Monday 11.59pm",
+          "name": "Lecture: Deciding Development Strategy",
+          "lengthHours": 2
+        },
+        {
+          "id": 9,
+          "type": "practical",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 10,
+          "type": "assignment",
+          "name": "Workshop Portfolio - Progressive Assessment 3.",
+          "lengthHours": 2
+        },
+        {
+          "id": 11,
+          "type": "knowledge",
+          "description": "Workshop 3 due Monday 11.59pm",
+          "name": "Lecture: Identifying System Requirements",
+          "lengthHours": 2
+        },
+        {
+          "id": 12,
+          "type": "practical",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 13,
+          "type": "assignment",
+          "name": "Workshop Portfolio - Progressive Assessment 4.",
+          "lengthHours": 2
+        },
+        {
+          "id": 14,
+          "type": "knowledge",
+          "description": "Workshop 4 due Monday 11.59pm",
+          "name": "Lecture: More Identifying System Requirements",
+          "lengthHours": 2
+        },
+        {
+          "id": 15,
+          "type": "practical",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 16,
+          "type": "assignment",
+          "name": "Workshop Portfolio - Progressive Assessment 5.",
+          "lengthHours": 2
+        },
+        {
+          "id": 17,
+          "type": "exam",
+          "name": "Quiz 1.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_2",
-      "name": "System Development\nMethods",
+      "name": "System Development Methods",
       "description": "",
       "week": 2,
       "activities": [
@@ -36781,20 +36987,22 @@
           "id": 0,
           "type": "knowledge",
           "description": "",
-          "name": "Lecture: 2 hour face to face in\nyour respective\ncampus on the topic\nof the week",
+          "name": "Lecture: System Development Methods",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the previous week",
+          "name": "Workshop",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_3",
-      "name": "Analysing the Business\nCase",
+      "name": "Analysing the Business Case",
       "description": "Workshop 1 due Monday 11.59pm",
       "week": 3,
       "activities": [
@@ -36802,16 +37010,18 @@
           "id": 0,
           "type": "knowledge",
           "description": "Workshop 1 due Monday 11.59pm",
-          "name": "Lecture: 2 hour face to face in\nyour respective\ncampus on the topic\nof the week",
+          "name": "Lecture: Analysing the Business Case",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the previous week</p>",
+          "name": "Workshop",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_16",
@@ -36825,11 +37035,13 @@
           "name": "Workshop Portfolio - Progressive Assessment 1.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_4",
-      "name": "Deciding Development\nStrategy",
+      "name": "Deciding Development Strategy",
       "description": "Workshop 2 due Monday 11.59pm",
       "week": 4,
       "activities": [
@@ -36837,16 +37049,18 @@
           "id": 0,
           "type": "knowledge",
           "description": "Workshop 2 due Monday 11.59pm",
-          "name": "Lecture: 2 hour face to face in\nParramatta and Campbelltown \ncampus on the topic\nof the week. Penrith students listen to online lecture recording.",
+          "name": "Lecture: Deciding Development Strategy",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the previous week</p>",
+          "name": "Workshop",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_17",
@@ -36864,7 +37078,7 @@
     },
     {
       "id": "300585_5",
-      "name": "Identifying System\nRequirements",
+      "name": "Identifying System Requirements",
       "description": "Workshop 3 due Monday 11.59pm",
       "week": 5,
       "activities": [
@@ -36872,16 +37086,18 @@
           "id": 0,
           "type": "knowledge",
           "description": "Workshop 3 due Monday 11.59pm",
-          "name": "Lecture: 2 hour face to face in\nParramatta and Penrith \ncampus on the topic\nof the week. Campbelltown students listen to online lecture recording.",
+          "name": "Lecture: Identifying System Requirements",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the previous week</p>",
+          "name": "Workshop",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_18",
@@ -36899,7 +37115,7 @@
     },
     {
       "id": "300585_6",
-      "name": "More Identifying System\nRequirements",
+      "name": "More Identifying System Requirements",
       "description": "Workshop 4 due Monday 11.59pm",
       "week": 6,
       "activities": [
@@ -36907,16 +37123,18 @@
           "id": 0,
           "type": "knowledge",
           "description": "Workshop 4 due Monday 11.59pm",
-          "name": "Lecture: 2 hour face to face in\nyour respective\ncampus on the topic\nof the week",
+          "name": "Lecture: More Identifying System Requirements",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the previous week</p>",
+          "name": "Workshop",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_19",
@@ -36928,27 +37146,6 @@
           "id": 4,
           "type": "assignment",
           "name": "Workshop Portfolio - Progressive Assessment 4.",
-          "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "300585_7",
-      "name": "No lecture",
-      "description": "Workshop 5 due Monday 11.59pm\nPortfolio 1 marks released Friday 11.59pm",
-      "week": 7,
-      "activities": [
-        {
-          "id": 0,
-          "type": "knowledge",
-          "description": "Workshop 5 due Monday 11.59pm\nPortfolio 1 marks released Friday 11.59pm",
-          "name": "Lecture: No lecture",
-          "lengthHours": 2
-        },
-        {
-          "id": 1,
-          "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the previous week</p>",
           "lengthHours": 2
         }
       ]
@@ -36969,7 +37166,7 @@
     },
     {
       "id": "300585_8",
-      "name": "Systems Design</p>",
+      "name": "Introduction to Systems Design",
       "description": "Workshop 6 due Monday 11.59pm.</p><p>Please remember Online quiz covering topics 1-5 (inclusive) would be held during your workshop sessions this week.",
       "week": 8,
       "activities": [
@@ -36977,16 +37174,24 @@
           "id": 0,
           "type": "knowledge",
           "description": "Workshop 6 due Monday 11.59pm.</p><p>Please remember Online quiz covering topics 1-5 (inclusive) would be held during your workshop sessions this week.",
-          "name": "Lecture: 2 hour face to face in your respective campus on the topic of the week</p>",
+          "name": "Lecture: Systems Design",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the feedback on Portfolio 1. Online Quiz in your nominated workshop session.",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Workshop Portfolio - Progressive Assessment 6.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_21",
@@ -37017,27 +37222,6 @@
       ]
     },
     {
-      "id": "300585_9",
-      "name": "",
-      "description": "",
-      "week": 9,
-      "activities": [
-        {
-          "id": 0,
-          "type": "knowledge",
-          "description": "",
-          "name": "Lecture: ",
-          "lengthHours": 2
-        },
-        {
-          "id": 1,
-          "type": "practical",
-          "name": "Workshop: ",
-          "lengthHours": 2
-        }
-      ]
-    },
-    {
       "id": "300585_10",
       "name": "Designing Interfaces",
       "description": " No workshop submission.</p><p>Portfolio 2 marks released Friday 11.59pm</p>",
@@ -37047,16 +37231,24 @@
           "id": 0,
           "type": "knowledge",
           "description": " No workshop submission.</p><p>Portfolio 2 marks released Friday 11.59pm</p>",
-          "name": "Lecture: 2 hour face to face in\nyour respective\ncampus on the topic\nof the week",
+          "name": "Lecture: Designing Interfaces",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the previous week</p>",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Workshop Portfolio - Progressive Assessment 7.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_22",
@@ -37088,7 +37280,7 @@
     },
     {
       "id": "300585_11",
-      "name": "Data Design",
+      "name": "Designing Data",
       "description": "Workshop 7 due Monday 11.59pm.",
       "week": 11,
       "activities": [
@@ -37096,16 +37288,24 @@
           "id": 0,
           "type": "knowledge",
           "description": "Workshop 7 due Monday 11.59pm.",
-          "name": "Lecture: hour face to face in\nyour respective\ncampus on the topic\nof the week",
+          "name": "Lecture: Data Design",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the previous week</p><p>Portfolio 2 feedback discussed.</p>",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Workshop Portfolio - Progressive Assessment 8.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_23",
@@ -37123,7 +37323,7 @@
     },
     {
       "id": "300585_12",
-      "name": "Systems Architecture and\nImplementation",
+      "name": "Designing Systems Architecture and Implementation",
       "description": "Workshop 8 due Monday 11.59pm",
       "week": 12,
       "activities": [
@@ -37131,16 +37331,24 @@
           "id": 0,
           "type": "knowledge",
           "description": "Workshop 8 due Monday 11.59pm",
-          "name": "Lecture: hour face to face in\nyour respective\ncampus on the topic\nof the week",
+          "name": "Lecture: Systems Architecture and Implementation",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the previous week </p>",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Workshop Portfolio - Progressive Assessment 9.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_24",
@@ -37158,7 +37366,7 @@
     },
     {
       "id": "300585_13",
-      "name": "Systems Support and\nSecurity",
+      "name": "Designing Systems Support and Security",
       "description": "Workshop 9 due Monday 11.59pm",
       "week": 13,
       "activities": [
@@ -37166,16 +37374,24 @@
           "id": 0,
           "type": "knowledge",
           "description": "Workshop 9 due Monday 11.59pm",
-          "name": "Lecture: hour face to face in\nyour respective\ncampus on the topic\nof the week",
+          "name": "Lecture: Systems Support and Security",
           "lengthHours": 2
         },
         {
           "id": 1,
           "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the previous  and current week",
+          "name": "Workshop",
+          "lengthHours": 2
+        },
+        {
+          "id": 2,
+          "type": "assignment",
+          "name": "Workshop Portfolio - Progressive Assessment 10.",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_25",
@@ -37192,153 +37408,9 @@
       ]
     },
     {
-      "id": "300585_14",
-      "name": "Final Exam discussion\nand Mock Exam",
-      "description": "Workshop 10 due Monday 11.59pm",
-      "week": 14,
-      "activities": [
-        {
-          "id": 0,
-          "type": "knowledge",
-          "description": "Workshop 10 due Monday 11.59pm",
-          "name": "Lecture: hour face to face in\nyour respective\ncampus on the topic\nof the week",
-          "lengthHours": 2
-        },
-        {
-          "id": 1,
-          "type": "practical",
-          "name": "Workshop: 2 hour face to face in\nyour respective\ncampus on the topic\nof the week</p>",
-          "lengthHours": 2
-        }
-      ]
-    },
-    {
-      "id": "300585_15",
-      "ass_id": "51247",
-      "name": "Workshop Portfolio - Progressive Assessment",
-      "weight": "30",
-      "ulos": "3, 4, 5, 6",
-      "threshold": "0",
-      "due_date": "Weekly submissions of the workshop Part B listed in Activities section, Participation - Progressive during workshop sessions",
-      "week": 15,
-      "activities": [
-        {
-          "id": 1,
-          "type": "assignment",
-          "name": "Workshop Portfolio - Progressive Assessment 1.",
-          "lengthHours": 2
-        },
-        {
-          "id": 2,
-          "type": "assignment",
-          "name": "Workshop Portfolio - Progressive Assessment 2.",
-          "lengthHours": 2
-        },
-        {
-          "id": 3,
-          "type": "assignment",
-          "name": "Workshop Portfolio - Progressive Assessment 3.",
-          "lengthHours": 2
-        },
-        {
-          "id": 4,
-          "type": "assignment",
-          "name": "Workshop Portfolio - Progressive Assessment 4.",
-          "lengthHours": 2
-        },
-        {
-          "id": 5,
-          "type": "assignment",
-          "name": "Workshop Portfolio - Progressive Assessment 5.",
-          "lengthHours": 2
-        },
-        {
-          "id": 6,
-          "type": "assignment",
-          "name": "Workshop Portfolio - Progressive Assessment 6.",
-          "lengthHours": 2
-        },
-        {
-          "id": 7,
-          "type": "assignment",
-          "name": "Workshop Portfolio - Progressive Assessment 7.",
-          "lengthHours": 2
-        },
-        {
-          "id": 8,
-          "type": "assignment",
-          "name": "Workshop Portfolio - Progressive Assessment 8.",
-          "lengthHours": 2
-        },
-        {
-          "id": 9,
-          "type": "assignment",
-          "name": "Workshop Portfolio - Progressive Assessment 9.",
-          "lengthHours": 2
-        },
-        {
-          "id": 10,
-          "type": "assignment",
-          "name": "Workshop Portfolio - Progressive Assessment 10.",
-          "lengthHours": 2
-        }
-      ],
-      "completionCriteria": {},
-      "outcomes": [
-        {
-          "acsSkillId": "b0",
-          "bloomRating": 6
-        },
-        {
-          "acsSkillId": "b1",
-          "bloomRating": 6
-        },
-        {
-          "acsSkillId": "a1",
-          "bloomRating": 5
-        },
-        {
-          "acsSkillId": "a2",
-          "bloomRating": 5
-        },
-        {
-          "acsSkillId": "a3",
-          "bloomRating": 5
-        },
-        {
-          "acsSkillId": "a5",
-          "bloomRating": 5
-        },
-        {
-          "acsSkillId": "c1",
-          "bloomRating": 5
-        },
-        {
-          "acsSkillId": "d1",
-          "bloomRating": 5
-        },
-        {
-          "acsSkillId": "d2",
-          "bloomRating": 2
-        },
-        {
-          "acsSkillId": "d3",
-          "bloomRating": 4
-        },
-        {
-          "acsSkillId": "e0",
-          "bloomRating": 2
-        },
-        {
-          "acsSkillId": "e1",
-          "bloomRating": 2
-        }
-      ]
-    },
-    {
       "id": "300585_26",
       "ass_id": "51248",
-      "name": "Quiz",
+      "name": "Quizzes",
       "weight": "20",
       "ulos": "1, 2, 3",
       "threshold": "0",
@@ -37348,16 +37420,18 @@
         {
           "id": 1,
           "type": "exam",
-          "name": "Quiz 1.",
+          "name": "Systems Analysis Quiz",
           "lengthHours": 2
         },
         {
           "id": 2,
           "type": "exam",
-          "name": "Quiz 2.",
+          "name": "Systems Design Quiz",
           "lengthHours": 2
         }
-      ]
+      ],
+      "completionCriteria": {},
+      "topics": []
     },
     {
       "id": "300585_29",
@@ -76366,56 +76440,6 @@
       ]
     },
     {
-      "id": "301314",
-      "name": "Tutorial Presence",
-      "prerequisites": [],
-      "completionCriteria": {},
-      "description": "",
-      "keywords": [],
-      "outcome": "",
-      "outcomes": [
-        {
-          "acsSkillId": "b0",
-          "bloomRating": 4
-        },
-        {
-          "acsSkillId": "b1",
-          "bloomRating": 4
-        },
-        {
-          "acsSkillId": "a0",
-          "bloomRating": 4
-        },
-        {
-          "acsSkillId": "a1",
-          "bloomRating": 6
-        },
-        {
-          "acsSkillId": "a2",
-          "bloomRating": 2
-        },
-        {
-          "acsSkillId": "a3",
-          "bloomRating": 6
-        },
-        {
-          "acsSkillId": "a4",
-          "bloomRating": 6
-        }
-      ],
-      "credits": 0,
-      "activities": [
-        {
-          "id": "301315",
-          "name": "Portfolio",
-          "description": "",
-          "type": "assignment",
-          "lengthHours": 2
-        }
-      ],
-      "topics": []
-    },
-    {
       "id": "301315",
       "name": "Assignments",
       "prerequisites": [],
@@ -76509,6 +76533,27 @@
       ],
       "credits": 0,
       "activities": [],
+      "topics": []
+    },
+    {
+      "id": "301317",
+      "name": "Systems Design Quiz",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "301318",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
       "topics": []
     }
   ],

@@ -266,6 +266,10 @@ export class Dnd {
       },
 
       onMouseDown: (event: React.MouseEvent<HTMLDivElement>) => {
+        if (handler && !Dnd.handlerPressed) {
+          return;
+        }
+
         event.stopPropagation();
         event.preventDefault();
 

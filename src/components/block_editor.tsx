@@ -48,50 +48,63 @@ const Handler = ({ dnd }) => (
   </Pane>
 );
 
-const ActivityDetail: React.FC<{ activity: Activity; block: Block; state: State }> = observer(
-  ({ block, activity }) => {
-    const form = React.useMemo(
-      () => buildForm(activity, ['name', 'type', 'description', 'lengthHours']),
-      [activity]
-    );
+const ActivityDetail: React.FC<{
+  activity: Activity;
+  block: Block;
+  state: State;
+  dnd: Dnd;
+}> = observer(({ block, activity, dnd }) => {
+  const form = React.useMemo(
+    () => buildForm(activity, ['name', 'type', 'description', 'lengthHours']),
+    [activity]
+  );
 
-    return (
-      <tr>
-        <td>
-          <Badge
-            marginRight={8}
-            color={
-              activity.type === 'knowledge'
-                ? 'green'
-                : activity.type === 'exam'
-                ? 'red'
-                : activity.type === 'practical'
-                ? 'blue'
-                : activity.type === 'assignment'
-                ? 'yellow'
-                : 'teal'
-            }
-          >
-            {activity.type === 'knowledge'
-              ? 'K'
-              : activity.type === 'exam'
-              ? 'E'
-              : activity.type === 'practical'
-              ? 'P'
-              : activity.type === 'assignment'
-              ? 'A'
-              : 'W'}
-          </Badge>
-        </td>
-        <td>
-          <TextInput
-            placeholder="Activity Name"
-            value={activity.name}
-            onChange={form.name}
-            width="100%"
-          />
-        </td>
-        {/* <td>
+  console.log('rendering: ' + activity.id);
+
+  return (
+    <div
+      {...dnd.props(activity, block.activities, true)}
+      style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}
+    >
+      <div style={{ flex: '0 0 10px', marginRight: '8px' }}>
+        <Handler dnd={dnd} />
+      </div>
+
+      <Badge
+        marginRight={8}
+        color={
+          activity.type === 'knowledge'
+            ? 'green'
+            : activity.type === 'exam'
+            ? 'red'
+            : activity.type === 'practical'
+            ? 'blue'
+            : activity.type === 'assignment'
+            ? 'yellow'
+            : 'teal'
+        }
+      >
+        {activity.type === 'knowledge'
+          ? 'K'
+          : activity.type === 'exam'
+          ? 'E'
+          : activity.type === 'practical'
+          ? 'P'
+          : activity.type === 'assignment'
+          ? 'A'
+          : 'W'}
+      </Badge>
+
+      <TextInput
+        flex="1"
+        placeholder="Activity Name"
+        value={activity.name}
+        onChange={form.name}
+        width="100%"
+        marginRight={4}
+      />
+
+      {/* <td>
           <TextInput
             placeholder="Activity Description Name"
             value={activity.description}
@@ -99,68 +112,49 @@ const ActivityDetail: React.FC<{ activity: Activity; block: Block; state: State 
             width="100%"
           />
         </td> */}
-        <td>
-          <Select value={activity.type} id="type" placeholder="Activity Type" onChange={form.type}>
-            <option value="">Please Select ...</option>
-            <option value="knowledge">Knowledge</option>
-            <option value="practical">Practical</option>
-            <option value="assignment">Assignment (Project)</option>
-            <option value="exam">Exam / Quiz</option>
-            <option value="wif">WIL</option>
-          </Select>
-        </td>
-        <td>
-          <TextInput
-            placeholder="Hours"
-            width={40}
-            value={activity.lengthHours}
-            onChange={form.lengthHours}
-          />
-        </td>
-        <td style={{ display: 'flex' }}>
-          <IconButton
-            icon="arrow-up"
-            iconSize={12}
-            marginRight={2}
-            width={20}
-            onClick={() => {
-              const index = block.activities.indexOf(activity);
-              if (index >= 1) {
-                block.activities.splice(index, 1);
-                block.activities.splice(index - 1, 0, activity);
-              }
-            }}
-          />
-          <IconButton
-            icon="arrow-down"
-            iconSize={12}
-            marginRight={2}
-            width={20}
-            onClick={() => {
-              const index = block.activities.indexOf(activity);
-              if (index < block.activities.length - 1) {
-                block.activities.splice(index, 1);
-                block.activities.splice(index + 1, 0, activity);
-              }
-            }}
-          />
-          <IconButton
-            icon="trash"
-            iconSize={12}
-            width={24}
-            intent="danger"
-            appearance="primary"
-            onClick={() => block.activities.splice(block.activities.indexOf(activity), 1)}
-          />
-        </td>
-      </tr>
-    );
-  }
-);
+
+      <Select
+        flex="0 0 100px"
+        value={activity.type}
+        id="type"
+        placeholder="Activity Type"
+        onChange={form.type}
+        marginRight={4}
+      >
+        <option value="">Please Select ...</option>
+        <option value="knowledge">Knowledge</option>
+        <option value="practical">Practical</option>
+        <option value="assignment">Assignment (Project)</option>
+        <option value="exam">Exam / Quiz</option>
+        <option value="wif">WIL</option>
+      </Select>
+
+      <TextInput
+        flex="0 0 50px"
+        placeholder="Hours"
+        width={40}
+        marginRight={4}
+        value={activity.lengthHours}
+        onChange={form.lengthHours}
+      />
+
+      <IconButton
+        icon="trash"
+        iconSize={12}
+        width={24}
+        intent="danger"
+        appearance="primary"
+        onClick={() => block.activities.splice(block.activities.indexOf(activity), 1)}
+      />
+    </div>
+  );
+});
 
 const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = observer(
   ({ block, state, unit }) => {
     const form = React.useMemo(() => buildForm(block, ['name', 'description', 'outcome']), [block]);
+    const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'activity' }), []);
+
     const [expanded, setExpanded] = React.useState(
       block.completionCriteria != null && Object.keys(block.completionCriteria).length > 0
     );
@@ -346,31 +340,27 @@ const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = obser
               </Button>
             </Pane>
 
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th style={{ width: '100%' }}>
-                    <Heading size={400}>Name</Heading>
-                  </th>
-                  {/* <th style={{ width: '100%' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+              <div style={{ flex: '0 0 50px' }} />
+              <div style={{ flex: 1 }}>
+                <Heading size={400}>Name</Heading>
+              </div>
+              {/* <th style={{ width: '100%' }}>
                     <Heading size={400}>Description</Heading>
                   </th> */}
-                  <th style={{ minWidth: '105px' }}>
-                    <Heading size={400}>Type</Heading>
-                  </th>
-                  <th>
-                    <Heading size={400}>Hrs.</Heading>
-                  </th>
-                  <th style={{ width: '70px' }}></th>
-                </tr>
-              </thead>
-              <tbody>
-                {block.activities.map(a => (
-                  <ActivityDetail block={block} activity={a} state={state} key={a.id} />
-                ))}
-              </tbody>
-            </table>
+              <div style={{ flex: ' 0 0 100px' }}>
+                <Heading size={400}>Type</Heading>
+              </div>
+              <div style={{ flex: '0 0 78px' }}>
+                <Heading size={400}>Hrs.</Heading>
+              </div>
+            </div>
+
+            <DragContainer>
+              {block.activities.map(a => (
+                <ActivityDetail block={block} activity={a} state={state} key={a.id} dnd={dnd} />
+              ))}
+            </DragContainer>
           </Pane>
 
           {/* PREREQUSTIES */}
@@ -549,10 +539,12 @@ const BlocksEditorView: React.FC<Props> = ({
       }
       const currentBlock = blocks[blockIndex];
 
+      let maxId = findNumericMaxId(currentBlock.activities);
+
       // reasign ids
       let activities = nextBlock.activities.map(a => ({
         ...a,
-        id: findNumericMaxId(currentBlock.activities)
+        id: maxId++
       }));
 
       if (unit.completionCriteria && unit.completionCriteria.criteria) {
@@ -586,8 +578,6 @@ const BlocksEditorView: React.FC<Props> = ({
 
       unit.blocks.splice(unit.blocks.indexOf(nextBlock.id), 1);
     });
-
-  debugger;
 
   return (
     <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
