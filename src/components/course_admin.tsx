@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { CourseConfig } from './types';
 import { UnitsEditor } from './unit';
 import { url } from 'lib/helpers';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { SAVE } from 'lib/data';
 import { AcsEditor } from './acs_knowledge_areas';
 import { JobsEditor } from './jobs';
