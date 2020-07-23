@@ -1,3 +1,6 @@
+import { UndoManager } from 'mobx-keystone';
+import { CourseConfigModel } from './classes';
+
 export type PrerequisiteType = 'block' | 'skill' | 'topic' | 'or' | 'and' | 'container';
 
 export type Prerequisite = {
@@ -60,10 +63,12 @@ export type Unit = {
   prerequisites?: Prerequisite[];
 };
 
+export type CompletionCriteriaType = '' | 'simple' | 'allOf' | 'someOf';
+
 export type CompletionCriteria = {
-  type?: '' | 'simple' | 'allOf' | 'someOf';
-  criteria?: CompletionCriteria[];
   id?: string;
+  type?: CompletionCriteriaType;
+  criteria?: CompletionCriteria[];
   minimumValue?: number;
   minimumCount?: number;
   weight?: number;
@@ -81,8 +86,8 @@ export type BlockType = 'knowledge' | 'practical' | 'assignment' | 'exam' | 'wil
 export type Activity = {
   id: string;
   name: string;
-  type: BlockType;
   description: string;
+  type: BlockType;
   lengthHours: number;
 };
 
@@ -144,7 +149,8 @@ export type CourseConfig = {
 };
 
 export type State = {
-  courseConfig: CourseConfig;
+  courseConfig: CourseConfigModel;
   save(): any;
   delaySave(): any;
+  undoManager: UndoManager;
 };

@@ -544,7 +544,7 @@ const BlocksEditorView: React.FC<Props> = ({
       // reasign ids
       let activities = nextBlock.activities.map(a => ({
         ...a,
-        id: maxId++
+        id: (maxId++).toString()
       }));
 
       if (unit.completionCriteria && unit.completionCriteria.criteria) {

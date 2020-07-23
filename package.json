@@ -10,6 +10,7 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
     "@apollo/react-ssr": "^3.1.5",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@types/react-vis": "^1.11.1",
@@ -26,6 +27,7 @@
     "graphql-tag": "^2.10.3",
     "marked": "^1.1.0",
     "mobx": "^5.15.4",
+    "mobx-keystone": "^0.45.0",
     "mobx-react": "^6.2.2",
     "next": "9.4.3",
     "react": "16.13.1",

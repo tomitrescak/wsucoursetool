@@ -22,6 +22,7 @@ import { SpecialisationEditor } from './specialisations';
 import { Graph } from './block_graph';
 import { CoursesEditor } from './courses';
 import { VerticalPane } from './vertical_pane';
+import { CourseConfigModel, createConfig } from './classes';
 
 const BreadCrumbs = styled(Text)`
   background: white;
@@ -104,15 +105,16 @@ const CourseAdminComponent: React.FC<{ data: CourseConfig; readonly: boolean }> 
     }, 2000);
   }
 
-  const state = React.useMemo(
-    () =>
-      observable({
-        courseConfig: data,
-        save,
-        delaySave
-      }),
-    []
-  );
+  const state = React.useMemo(() => {
+    const { course, undoManager } = createConfig(data);
+
+    return {
+      courseConfig: course,
+      undoManager,
+      save,
+      delaySave
+    };
+  }, []);
 
   if (selectedIndex === -1) {
     return <Pane padding={16}>404: ¯\_(ツ)_/¯ Do not modify the url!</Pane>;
@@ -134,6 +136,16 @@ const CourseAdminComponent: React.FC<{ data: CourseConfig; readonly: boolean }> 
         zIndex={10}
       >
         <Menu.Item icon="floppy-disk" width={40} onSelect={save} />
+        <Menu.Item
+          icon="undo"
+          width={40}
+          onSelect={() => state.undoManager.canUndo && state.undoManager.undo()}
+        />
+        <Menu.Item
+          icon="redo"
+          width={40}
+          onSelect={() => state.undoManager.canRedo && state.undoManager.redo()}
+        />
         <BreadCrumbs>{tabs[selectedIndex]} &gt;</BreadCrumbs>
       </Pane>
       <Pane
