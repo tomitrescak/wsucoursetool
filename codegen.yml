@@ -1,0 +1,31 @@
+overwrite: true
+schema: src/pages/api/graphql.ts
+documents:
+  - src/components/**/*.graphql
+config:
+  # contextType: ./context#Context
+  resolverTypeWrapperSignature: T
+  noSchemaStitching: true
+  constEnums: true
+  enumsAsTypes: true
+  skipTypename: true
+generates:
+  src/config/resolvers.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-resolvers'
+    config:
+      # avoidOptionals:
+      #   #inputValue: false
+      #   object: true
+  src/config/graphql.tsx:
+    config:
+      enumsAsTypes: true
+      withComponent: false
+      withHOC: false
+      withHooks: true
+      apolloReactHooksImportFrom: '@apollo/client'
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'

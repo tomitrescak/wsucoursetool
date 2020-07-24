@@ -1,5 +1,3 @@
-import { withApollo } from 'config/apollo';
-
 import Head from 'next/head';
 import { UnitContainer } from 'components/unit_graph_container';
 
@@ -16,4 +14,4 @@ function Viewer() {
   );
 }
 
-export default withApollo({ ssr: false })(Viewer);
+export default Viewer;

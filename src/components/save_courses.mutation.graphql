@@ -1,0 +1,3 @@
+mutation SaveCourses($courses: String!) {
+  saveCourses(courses: $courses)
+}

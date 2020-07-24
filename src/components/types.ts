@@ -1,6 +1,11 @@
 import { UndoManager } from 'mobx-keystone';
 import { CourseConfigModel } from './classes';
 
+export type User = {
+  id: string;
+  name: string;
+};
+
 export type PrerequisiteType = 'block' | 'skill' | 'topic' | 'or' | 'and' | 'container';
 
 export type Prerequisite = {
