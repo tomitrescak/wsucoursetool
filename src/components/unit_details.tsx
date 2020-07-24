@@ -4,24 +4,14 @@ import { observer, useLocalStore } from 'mobx-react';
 import {
   TextInputField,
   Pane,
-  Tablist,
-  SidebarTab,
-  Alert,
   Heading,
-  Dialog,
   Button,
-  SelectField,
   Text,
   TabNavigation,
   Tab,
-  Badge,
-  Textarea,
-  Checkbox,
-  Select,
-  TextInput,
-  Link as EGLink
+  Checkbox
 } from 'evergreen-ui';
-import { Unit, State } from './types';
+import { Unit, State, Block } from './types';
 import { url, buildForm } from 'lib/helpers';
 import Link from 'next/link';
 
@@ -36,6 +26,14 @@ import { Expander } from './expander';
 import { UnitGraph } from './unit_graph';
 import { PrerequisiteEditor } from './prerequisite_editor';
 import { VerticalPane } from './vertical_pane';
+import { useUnitQuery } from 'config/graphql';
+import { ProgressView } from './progress_view';
+import { model, Model, prop } from 'mobx-keystone';
+import { BlockModel, UnitModel, createBlocks, createUnit } from './classes';
+
+const selfColor = 'rgb(251, 230, 162)';
+const depenedantColor = alpha => `rgb(${47 + alpha}, ${75 + alpha}, ${180 - alpha})`;
+const dependOnColor = 'rgb(191, 14, 8)';
 
 function urlParse(text: string) {
   var reg = /\d\d\d\d\d\d/g;
@@ -65,59 +63,53 @@ function urlParse(text: string) {
   return els;
 }
 
-const selfColor = 'rgb(251, 230, 162)';
-const depenedantColor = alpha => `rgb(${47 + alpha}, ${75 + alpha}, ${180 - alpha})`;
-const dependOnColor = 'rgb(191, 14, 8)';
+@model('Editor/Unit')
+class UnitEditorModel extends Model({
+  unit: prop<UnitModel>(),
+  blocks: prop<BlockModel[]>()
+}) {}
 
-function findDependencies(
-  unit: Unit,
-  state: State,
-  dependencies: Unit[],
-  colorMap: { [id: string]: string },
-  level: number,
-  maxLevel
-) {
-  if (dependencies.indexOf(unit) >= 0) {
-    return;
-  }
-  dependencies.push(unit);
-
-  // find units depending on this unit
-  let depenendants = state.courseConfig.units.filter(
-    u => u.prerequisite && u.prerequisite.some(p => p === unit.id)
-  );
-  for (let d of depenendants) {
-    colorMap[d.id] = depenedantColor(level * 50);
-    if (level < maxLevel) {
-      findDependencies(d, state, dependencies, colorMap, level + 1, maxLevel);
+export const UnitDetailContainer = ({ id, readonly, state }) => {
+  const { loading, error, data } = useUnitQuery({
+    variables: {
+      id
     }
-  }
-}
+  });
 
-const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = observer(
-  ({ unit, state, readonly }) => {
+  const model = React.useMemo(() => {
+    if (data) {
+      return new UnitEditorModel({
+        unit: createUnit(data.unit.unit),
+        blocks: createBlocks(data.unit.blocks)
+      });
+    }
+    return undefined;
+  }, [data]);
+
+  // const [createUnit] = useCreateUnitMutation({
+  //   onCompleted() {
+  //     refetch();
+  //   }
+  // });
+
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
+
+  return <UnitDetails model={model} readonly={readonly} />;
+};
+
+const UnitDetails: React.FC<{ model: UnitEditorModel; readonly: boolean }> = observer(
+  ({ model: { unit, blocks }, readonly }) => {
     const form = React.useMemo(() => buildForm(unit, ['name', 'id', 'delivery', 'outcome']), [
       unit
     ]);
     // merge all keywords from blocks and topics
     let keywords = React.useMemo(() => {
-      let keywords = state.courseConfig.blocks.flatMap(b => b.keywords);
+      let keywords = blocks.flatMap(b => b.keywords);
       keywords = keywords.filter((item, index) => keywords.indexOf(item) === index).sort();
       return keywords;
     }, []);
-    let blocks = unit.blocks.map(id => state.courseConfig.blocks.find(b => b.id === id));
-    if (unit.dynamic) {
-      blocks.push(
-        ...state.courseConfig.blocks.filter(b =>
-          (b.topics || []).some(t => unit.blockTopics.indexOf(t) >= 0)
-        )
-      );
-      blocks.push(
-        ...state.courseConfig.units
-          .filter(u => !u.dynamic && u.topics.some(t => unit.blockTopics.indexOf(t) >= 0))
-          .flatMap(u => u.blocks.map(ub => state.courseConfig.blocks.find(sb => sb.id === ub)))
-      );
-    }
 
     let selectionBlocks = [...blocks];
     // add practicals
@@ -147,27 +139,8 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
       unit.completionCriteria = {};
     }
 
-    // find all depenedencies
-    let dependencies = [];
+    // dependencies
     let colorMap: { [id: string]: string } = { [unit.id]: selfColor };
-    let ownDependencies = 0;
-    // add own dependencies
-    if (unit.prerequisite && unit.prerequisite.length) {
-      ownDependencies = unit.prerequisite.length;
-      for (let u of unit.prerequisite) {
-        let found = state.courseConfig.units.find(un => un.id === u);
-        if (!found) {
-          found = { id: u, name: u } as any;
-        }
-        dependencies.push(found);
-        colorMap[found.id] = dependOnColor;
-      }
-    }
-
-    findDependencies(unit, state, dependencies, colorMap, 0, localState.level);
-
-    let nextDependencies = [];
-    findDependencies(unit, state, nextDependencies, colorMap, 0, localState.level + 1);
 
     return (
       <div style={{ flex: 1 }}>
@@ -276,19 +249,19 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
               </Pane>
               <Pane display="flex">
                 {/* TOPICS */}
-                <TopicEditor owner={unit} state={state} />
+                {/* TODO <TopicEditor owner={unit} /> */}
+
                 {/* KEYWORDS */}
                 <KeywordEditor owner={unit} keywords={keywords} />
               </Pane>
               {/* IMPORTED TOPICS */}
-              {unit.dynamic && (
+              {/* TODO {unit.dynamic && (
                 <TopicEditor
                   owner={unit}
-                  state={state}
                   label="Import Blocks with Following Topics"
                   field="blockTopics"
                 />
-              )}
+              )} */}
               <Checkbox
                 margin={0}
                 label="Dynamic"
@@ -312,11 +285,11 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
               /> */}
               {/* COMPLETION CRITERIA */}
               <Expander title="Completion Criteria" id="unitCompletionCriteria">
-                <TopicBlockEditor
+                {/* TODO <TopicBlockEditor
                   state={state}
                   block={unit.completionCriteria}
                   items={selectionBlocks}
-                />
+                /> */}
               </Expander>
 
               {/* OUTCOME DESCRIPTION */}
@@ -340,7 +313,7 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
 
               {/* BLOCK PREREQUISITES */}
               <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
-                <PrerequisiteEditor state={state} owner={unit} unit={unit} />
+                {/* TODO <PrerequisiteEditor owner={unit} unit={unit} /> */}
               </Pane>
 
               {/* Prerequisited CRITERIA */}
@@ -370,7 +343,7 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                   />
                 )}
 
-                <UnitGraph
+                {/* TODO <UnitGraph
                   units={dependencies}
                   colorMap={colorMap}
                   height="300px"
@@ -394,18 +367,18 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                       </Button>
                     </>
                   }
-                />
+                /> */}
               </Expander>
               {/* OUTCOMES */}
-              <Pane marginTop={16} elevation={2} padding={16} borderRadius={8}>
+              {/* TODO <Pane marginTop={16} elevation={2} padding={16} borderRadius={8}>
                 <OutcomeEditor state={state} owner={unit} />
-              </Pane>
+              </Pane> */}
             </Pane>
           )}
-          {localState.tab === 'Blocks' && (
+          {/* TODO {localState.tab === 'Blocks' && (
             <BlocksEditor
               readonly={readonly}
-              blocks={blocks}
+              blocks={unitBlocks}
               selectedBlockId={selectedBlockId}
               state={state}
               unit={unit}
@@ -414,9 +387,9 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
                 `/editor/units/${url(unit.name)}-${unit.id}--${url(block.name)}-${block.id}`
               }
             />
-          )}
+          )} */}
         </Pane>
-        <Button
+        {/* TODO <Button
           intent="danger"
           iconBefore="trash"
           appearance="primary"
@@ -431,250 +404,8 @@ const UnitDetails: React.FC<{ unit: Unit; state: State; readonly: boolean }> = o
           }}
         >
           Delete
-        </Button>
+        </Button> */}
       </div>
     );
   }
 );
-
-const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state, readonly }) => {
-  const localState = useLocalStore(() => ({
-    newUnitName: '',
-    newUnitId: '',
-    isShown: false,
-    selection: [],
-    course: '',
-    major: '',
-    filterName: '',
-    filterCode: ''
-  }));
-  const form = buildForm(localState, ['newUnitName', 'newUnitId', 'filterCode', 'filterName']);
-
-  const router = useRouter();
-  const item = router.query.item as string;
-  let unitId = '';
-  let unit: Unit | undefined;
-
-  if (item) {
-    const mainSplit = item.split('--');
-
-    // find unit
-    const split = mainSplit[0].split('-');
-    unitId = split[split.length - 1];
-    unit = state.courseConfig.units.find(u => u.id === unitId);
-  }
-
-  let selectedCourse = localState.course
-    ? state.courseConfig.courses.find(c => c.id === localState.course)
-    : null;
-  let selectedMajor = localState.major
-    ? selectedCourse.majors.find(m => m.id === localState.major)
-    : null;
-
-  return (
-    <>
-      <VerticalPane title="Unit List">
-        <Pane paddingRight={8}>
-          <Pane marginBottom={8} paddingRight={22}>
-            <Pane display="flex" width="100%" marginBottom={8}>
-              <TextInput
-                flex={3}
-                placeholder="Name ..."
-                value={localState.filterName}
-                onChange={form.filterName}
-                marginRight={8}
-                width="100%"
-              />
-              <TextInput
-                flex={1}
-                placeholder="Code ..."
-                value={localState.filterCode}
-                onChange={form.filterCode}
-                width="100%"
-              />
-            </Pane>
-            <Select
-              value={localState.course}
-              onChange={e => (localState.course = e.currentTarget.value)}
-              marginRight={8}
-            >
-              <option value="">Select Course ...</option>
-              {state.courseConfig.courses.map((c, i) => (
-                <option value={c.id} key={i}>
-                  {c.name}
-                </option>
-              ))}
-            </Select>
-
-            {selectedCourse && (
-              <Select
-                value={localState.major}
-                onChange={e => (localState.major = e.currentTarget.value)}
-              >
-                <option value="">Select Major ...</option>
-                {selectedCourse.majors.map((c, i) => (
-                  <option value={c.id} key={i}>
-                    {c.name}
-                  </option>
-                ))}
-              </Select>
-            )}
-          </Pane>
-
-          <Tablist>
-            {state.courseConfig.units
-              .slice()
-              .filter(f => {
-                let isOk = true;
-                if (selectedCourse) {
-                  isOk =
-                    selectedCourse.core.findIndex(c => c.id === f.id) >= 0 ||
-                    (selectedMajor && selectedMajor.units.findIndex(u => u.id === f.id) >= 0);
-                }
-                if (localState.filterName) {
-                  isOk = localState.filterName
-                    .toLowerCase()
-                    .split(' ')
-                    .every(d => f.name.toLowerCase().indexOf(d) >= 0);
-                }
-                if (localState.filterCode) {
-                  isOk = f.id.indexOf(localState.filterCode) >= 0;
-                }
-
-                return isOk;
-              })
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((unit, index) => (
-                <Link
-                  key={unit.id}
-                  href="/editor/[category]/[item]"
-                  as={`/editor/units/${url(unit.name)}-${unit.id}`}
-                >
-                  <a>
-                    <SidebarTab
-                      whiteSpace="nowrap"
-                      key={unit.id}
-                      id={unit.id}
-                      isSelected={unit.id === unitId}
-                      onSelect={() => {}}
-                      aria-controls={`panel-${unit.name}`}
-                    >
-                      {/* <input
-                    type="checkbox"
-                    checked={localState.selection.indexOf(unit.id) >= 0}
-                    onClick={e => e.stopPropagation()}
-                    onChange={e =>
-                      e.currentTarget.checked
-                        ? localState.selection.push(unit.id)
-                        : localState.selection.splice(localState.selection.indexOf(unit.id), 1)
-                    }
-                  /> */}
-                      <Badge size={300} marginRight={8}>
-                        {unit.id}
-                      </Badge>
-                      {unit.dynamic && (
-                        <Badge color="orange" marginRight={8}>
-                          D
-                        </Badge>
-                      )}
-                      {selectedCourse && selectedCourse.core.some(s => s.id === unit.id) && (
-                        <Badge color="yellow" marginRight={8}>
-                          C
-                        </Badge>
-                      )}
-                      {unit.name}
-
-                      <Badge color={unit.blocks.length > 0 ? 'green' : 'neutral'} marginLeft={8}>
-                        {unit.blocks.length}
-                      </Badge>
-                    </SidebarTab>
-                  </a>
-                </Link>
-              ))}
-
-            {/* <Button
-          onClick={action(() => {
-            debugger;
-            for (let u of localState.selection) {
-              state.courseConfig.units.remove(state.courseConfig.units.find(f => f.id === u));
-            }
-            localState.selection = [];
-          })}
-        >
-          Delete Selection
-        </Button> */}
-
-            <Dialog
-              isShown={localState.isShown}
-              title="Dialog title"
-              onCloseComplete={() => (localState.isShown = false)}
-              onConfirm={close => {
-                if (state.courseConfig.units.some(u => u.id === localState.newUnitId)) {
-                  alert('Unit Already exists');
-                  return false;
-                }
-                state.courseConfig.units.push({
-                  id: localState.newUnitId,
-                  name: localState.newUnitName,
-                  topics: [],
-                  keywords: [],
-                  blockTopics: [],
-                  dynamic: false,
-                  delivery: '1',
-                  completionCriteria: {},
-                  assumedKnowledge: '',
-                  outcome: '',
-                  outcomes: [],
-                  blocks: []
-                });
-
-                close();
-              }}
-              confirmLabel="Add Unit"
-            >
-              <Pane display="flex" alignItems="flex-baseline">
-                <TextInputField
-                  label="Unit Code"
-                  placeholder="Unit Id"
-                  onChange={form.newUnitId}
-                  marginRight={4}
-                />
-                <TextInputField
-                  label="Unit Name"
-                  placeholder="Unit Name"
-                  onChange={form.newUnitName}
-                  marginRight={4}
-                  flex={1}
-                />
-              </Pane>
-            </Dialog>
-
-            <Pane
-              display="flex"
-              alignItems="center"
-              marginTop={16}
-              paddingTop={8}
-              borderTop="dotted 1px #dedede"
-            >
-              <Button
-                appearance="primary"
-                iconBefore="plus"
-                onClick={() => (localState.isShown = true)}
-              >
-                Add Unit
-              </Button>
-            </Pane>
-          </Tablist>
-        </Pane>
-      </VerticalPane>
-      <VerticalPane shrink={true}>
-        {state.courseConfig.units.length === 0 && (
-          <Alert flex={1}>There are no units defined</Alert>
-        )}
-        {unit && <UnitDetails key={unit.id} unit={unit} state={state} readonly={readonly} />}
-      </VerticalPane>
-    </>
-  );
-};
-
-export const UnitsEditor = observer(UnitsEditorView);

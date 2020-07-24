@@ -4,14 +4,10 @@ import { useLoadCoursesQuery } from 'config/graphql';
 import { CourseAdmin } from './course_admin';
 
 export function AdminContainer({ readonly }) {
-  const { loading, error, data } = useLoadCoursesQuery();
+  // const { loading, error, data } = useLoadCoursesQuery();
 
-  if (error) return <div>Error loading</div>;
-  if (loading) return <div>Loading ...</div>;
+  // if (error) return <div>Error loading</div>;
+  // if (loading) return <div>Loading ...</div>;
 
-  return (
-    <>
-      <CourseAdmin readonly={readonly} data={JSON.parse(data.loadCourses)} />
-    </>
-  );
+  return <CourseAdmin readonly={readonly} />;
 }

@@ -3,5 +3,21 @@ query CourseList {
     blockCount
     id
     name
+    dynamic
+  }
+
+  courseList {
+    id
+    name
+    core {
+      id
+    }
+    majors {
+      id
+      name
+      units {
+        id
+      }
+    }
   }
 }

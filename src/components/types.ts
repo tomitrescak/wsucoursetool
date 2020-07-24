@@ -119,7 +119,7 @@ export type Specialisation = {
 export type Entity = {
   id: string;
   name: string;
-  description: string;
+  description?: string;
 };
 
 type SkillLevel = {
@@ -154,7 +154,7 @@ export type CourseConfig = {
 };
 
 export type State = {
-  courseConfig: CourseConfigModel;
+  // courseConfig: CourseConfigModel;
   save(): any;
   delaySave(): any;
   undoManager: UndoManager;

@@ -63,7 +63,7 @@ function createCourse(model: Course) {
 }
 
 @model('Course/Unit')
-class UnitModel extends ExtendedModel(EntityModel, {
+export class UnitModel extends ExtendedModel(EntityModel, {
   approachToLearning: prop<string>({ setterAction: true }),
   assumedKnowledge: prop<string>({ setterAction: true }),
   blocks: prop<string[]>({ setterAction: true }),
@@ -85,7 +85,7 @@ class UnitModel extends ExtendedModel(EntityModel, {
   unitPrerequisites: prop<string>({ setterAction: true })
 }) {}
 
-function createUnit(model: Unit) {
+export function createUnit(model: Unit) {
   return new UnitModel({
     ...model,
     completionCriteria: new CompletionCriteriaModel(model.completionCriteria || {}),
@@ -126,7 +126,7 @@ function createActivities(activities?: Activity[]) {
 }
 
 @model('Course/Block')
-class BlockModel extends ExtendedModel(EntityModel, {
+export class BlockModel extends ExtendedModel(EntityModel, {
   outcomes: prop<OutcomeModel[]>({ setterAction: true }),
   outcome: prop<string>({ setterAction: true }),
   keywords: prop<string[]>({ setterAction: true }),
@@ -136,7 +136,7 @@ class BlockModel extends ExtendedModel(EntityModel, {
   activities: prop<ActivityModel[]>({ setterAction: true })
 }) {}
 
-function createBlock(block: Block) {
+export function createBlock(block: Block) {
   return new BlockModel({
     ...block,
     prerequisites: createPrerequisites(block.prerequisites),
@@ -146,7 +146,7 @@ function createBlock(block: Block) {
   });
 }
 
-function createBlocks(blocks?: Block[]) {
+export function createBlocks(blocks?: Block[]) {
   return (blocks || []).map(b => createBlock(b));
 }
 

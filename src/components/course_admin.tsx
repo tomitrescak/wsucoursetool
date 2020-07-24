@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import { CourseConfig } from './types';
-import { UnitsEditor } from './unit';
+import { UnitsEditor } from './unit_list';
 import { url } from 'lib/helpers';
 import { useMutation } from '@apollo/client';
 import { SAVE } from 'lib/data';
@@ -56,22 +56,19 @@ const tabs = [
 
 let to: any;
 
-const CourseAdminComponent: React.FC<{ data: CourseConfig; readonly: boolean }> = ({
-  data,
-  readonly
-}) => {
+const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => {
   const router = useRouter();
   const { category = url(tabs[0]) } = router.query;
   const selectedIndex = tabs.findIndex(t => url(t) === category);
 
-  const [addTodo] = useMutation(SAVE, {
-    onError() {
-      toaster.notify('Save Error');
-    },
-    onCompleted() {
-      toaster.notify('Saved');
-    }
-  });
+  // const [addTodo] = useMutation(SAVE, {
+  //   onError() {
+  //     toaster.notify('Save Error');
+  //   },
+  //   onCompleted() {
+  //     toaster.notify('Saved');
+  //   }
+  // });
 
   function save() {
     // return addTodo({
@@ -106,14 +103,14 @@ const CourseAdminComponent: React.FC<{ data: CourseConfig; readonly: boolean }> 
   }
 
   const state = React.useMemo(() => {
-    const { course, undoManager } = createConfig(data);
+    // const { course, undoManager } = createConfig(data);
 
     return {
-      courseConfig: course,
-      undoManager,
-      save,
-      delaySave
-    };
+      // courseConfig: course,
+      // undoManager,
+      // save,
+      // delaySave
+    } as any;
   }, []);
 
   if (selectedIndex === -1) {
@@ -134,17 +131,22 @@ const CourseAdminComponent: React.FC<{ data: CourseConfig; readonly: boolean }> 
         top={0}
         left={0}
         zIndex={10}
+        maxHeight="40px"
       >
-        <Menu.Item icon="floppy-disk" width={40} onSelect={save} />
+        <Menu.Item icon="floppy-disk" width={40} maxWidth="40px" onSelect={save} />
         <Menu.Item
           icon="undo"
           width={40}
-          onSelect={() => state.undoManager.canUndo && state.undoManager.undo()}
+          onSelect={() =>
+            state.undoManager && state.undoManager.canUndo && state.undoManager.undo()
+          }
         />
         <Menu.Item
           icon="redo"
           width={40}
-          onSelect={() => state.undoManager.canRedo && state.undoManager.redo()}
+          onSelect={() =>
+            state.undoManager && state.undoManager.canRedo && state.undoManager.redo()
+          }
         />
         <BreadCrumbs>{tabs[selectedIndex]} &gt;</BreadCrumbs>
       </Pane>

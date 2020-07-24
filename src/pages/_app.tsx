@@ -1,7 +1,6 @@
 // pages/_app.js
 import React from 'react';
-import { ApolloProvider } from '@apollo/client';
-import { useApollo } from '../lib/apollo_client';
+// import App from 'next/app';
 
 import 'react-vis/dist/style.css';
 import './global.css';
@@ -28,13 +27,13 @@ function Layout(props) {
 }
 
 export default function App({ Component, pageProps }) {
-  const apolloClient = useApollo(pageProps.initialApolloState);
+  // const apolloClient = useApollo(pageProps.initialApolloState);
 
   return (
-    <ApolloProvider client={apolloClient}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ApolloProvider>
+    // <ApolloProvider client={apolloClient}>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+    // </ApolloProvider>
   );
 }

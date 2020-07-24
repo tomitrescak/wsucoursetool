@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
 import { AdminContainer } from 'components/container';
+import { withApollo } from 'config/apollo';
 
 function Editor() {
   return (
@@ -28,8 +29,8 @@ function Viewer() {
   );
 }
 
-// export const Admin = withApollo({ ssr: false })(Editor);
-// export const View = withApollo({ ssr: false })(Viewer);
+export const Admin = withApollo({ ssr: true })(Editor);
+export const View = withApollo({ ssr: false })(Viewer);
 
-export const Admin = Editor;
-export const View = Viewer;
+// export const Admin = Editor;
+// export const View = Viewer;
