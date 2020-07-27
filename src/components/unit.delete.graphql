@@ -1,0 +1,3 @@
+mutation DeleteUnit($id: String!) {
+  deleteUnit(id: $id)
+}

@@ -66,7 +66,7 @@ function createCourse(model: Course) {
 export class UnitModel extends ExtendedModel(EntityModel, {
   approachToLearning: prop<string>({ setterAction: true }),
   assumedKnowledge: prop<string>({ setterAction: true }),
-  blocks: prop<string[]>({ setterAction: true }),
+  blocks: prop<BlockModel[]>({ setterAction: true }),
   blockTopics: prop<string[]>({ setterAction: true }),
   completionCriteria: prop<CompletionCriteria>({ setterAction: true }),
   corequisites: prop<string>({ setterAction: true }),
@@ -90,7 +90,8 @@ export function createUnit(model: Unit) {
     ...model,
     completionCriteria: new CompletionCriteriaModel(model.completionCriteria || {}),
     outcomes: (model.outcomes || []).map(u => new OutcomeModel(u)),
-    prerequisites: createPrerequisites(model.prerequisites)
+    prerequisites: createPrerequisites(model.prerequisites),
+    blocks: createBlocks(model.blocks)
   });
 }
 
@@ -154,6 +155,7 @@ export function createBlocks(blocks?: Block[]) {
 class PrerequisiteModel extends Model({
   type: prop<PrerequisiteType>({ setterAction: true }),
   id: prop<string>({ setterAction: true }),
+  unitId: prop<string>({ setterAction: true }),
   activityId: prop<string>({ setterAction: true }),
   value: prop<number>({ setterAction: true }),
   recommended: prop<boolean>({ setterAction: true }),
@@ -231,36 +233,34 @@ function createSfias(skills?: SfiaSkill[]) {
   return (skills || []).map(c => new SfiaSkillModel(c));
 }
 
-@model('Course/CourseConfig')
-export class CourseConfigModel extends Model({
-  name: prop({ setterAction: true }),
-  courses: prop<CourseModel[]>(),
-  units: prop<UnitModel[]>(),
-  topics: prop<TopicModel[]>(),
-  blocks: prop<BlockModel[]>(),
-  specialisations: prop<SpecialisationModel[]>(),
-  acsKnowledge: prop<AcsSkillModel[]>(),
-  sfiaSkills: prop<SfiaSkillModel[]>(),
-  jobs: prop<JobModel[]>()
-}) {}
+// @model('Course/CourseConfig')
+// export class CourseConfigModel extends Model({
+//   name: prop({ setterAction: true }),
+//   courses: prop<CourseModel[]>(),
+//   units: prop<UnitModel[]>(),
+//   topics: prop<TopicModel[]>(),
+//   specialisations: prop<SpecialisationModel[]>(),
+//   acsKnowledge: prop<AcsSkillModel[]>(),
+//   sfiaSkills: prop<SfiaSkillModel[]>(),
+//   jobs: prop<JobModel[]>()
+// }) {}
 
-export function createConfig(data: CourseConfig) {
-  const course = new CourseConfigModel({
-    ...data,
-    courses: (data.courses || []).map(c => createCourse(c)),
-    units: (data.units || []).map(c => createUnit(c)),
-    topics: (data.topics || []).map(c => new TopicModel(c)),
-    blocks: createBlocks(data.blocks),
-    specialisations: createSpecialisations(data.specialisations),
-    acsKnowledge: createAcss(data.acsKnowledge),
-    sfiaSkills: createSfias(data.sfiaSkills),
-    jobs: createJobs(data.jobs)
-  });
+// export function createConfig(data: CourseConfig) {
+//   const course = new CourseConfigModel({
+//     ...data,
+//     courses: (data.courses || []).map(c => createCourse(c)),
+//     units: (data.units || []).map(c => createUnit(c)),
+//     topics: (data.topics || []).map(c => new TopicModel(c)),
+//     specialisations: createSpecialisations(data.specialisations),
+//     acsKnowledge: createAcss(data.acsKnowledge),
+//     sfiaSkills: createSfias(data.sfiaSkills),
+//     jobs: createJobs(data.jobs)
+//   });
 
-  const undoManager = undoMiddleware(course);
+//   const undoManager = undoMiddleware(course);
 
-  return { course, undoManager };
-}
+//   return { course, undoManager };
+// }
 
 // @model('Course/CourseConfig')
 // export class CourseConfigModel extends Model({

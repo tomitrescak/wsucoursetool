@@ -19,17 +19,15 @@ type Item = { id: string; name: string };
 
 type Props = {
   block: CompletionCriteria;
-  state: State;
   items?: Item[];
 };
 
 type ItemEditorProps = {
   completionCriteria: CompletionCriteria;
-  state: State;
   items?: Item[];
 };
 
-const ItemEditor = observer(({ items, completionCriteria, state }: ItemEditorProps) => {
+const ItemEditor = observer(({ items, completionCriteria }: ItemEditorProps) => {
   return (
     <Combobox
       flex="1"
@@ -128,18 +126,17 @@ const TypeEditor = observer(({ completionCriteria }: SiProps) => (
 type EditorProps = {
   items: Item[];
   completionCriteria: CompletionCriteria;
-  state: State;
   sub?: boolean;
 };
 
-const SimpleEditor = observer(({ items, completionCriteria, state }: EditorProps) => {
+const SimpleEditor = observer(({ items, completionCriteria }: EditorProps) => {
   return (
     <Pane display="flex" alignItems="center">
       <Pane flex={1}>
         <Heading size={300} marginBottom={4}>
           Activity
         </Heading>
-        <ItemEditor items={items} completionCriteria={completionCriteria} state={state} />
+        <ItemEditor items={items} completionCriteria={completionCriteria} />
       </Pane>
       <Pane marginLeft={8} flex="0 0 80px">
         <Heading size={300} marginBottom={4}>
@@ -164,7 +161,7 @@ const SimpleEditor = observer(({ items, completionCriteria, state }: EditorProps
   );
 });
 
-const AllOfEditor = observer(({ items, completionCriteria, state, sub }: EditorProps) => {
+const AllOfEditor = observer(({ items, completionCriteria, sub }: EditorProps) => {
   return (
     <Pane>
       {completionCriteria.criteria && completionCriteria.criteria.length > 0 && (
@@ -228,9 +225,9 @@ const AllOfEditor = observer(({ items, completionCriteria, state, sub }: EditorP
                   }
                 >
                   {c.type === 'allOf' ? (
-                    <AllOfEditor completionCriteria={c} items={items} state={state} sub={true} />
+                    <AllOfEditor completionCriteria={c} items={items} sub={true} />
                   ) : (
-                    <ItemEditor items={items} completionCriteria={c} state={state} />
+                    <ItemEditor items={items} completionCriteria={c} />
                   )}
                 </td>
                 <td
@@ -342,14 +339,14 @@ const AllOfEditor = observer(({ items, completionCriteria, state, sub }: EditorP
 export const TopicBlockEditor: React.FC<Props> = observer(
   ({ block: completionCriteria, items, state }) => {
     if (completionCriteria.type === '' || completionCriteria.type === 'simple') {
-      return <SimpleEditor completionCriteria={completionCriteria} items={items} state={state} />;
+      return <SimpleEditor completionCriteria={completionCriteria} items={items} />;
     }
     if (completionCriteria.type === 'allOf') {
-      return <AllOfEditor completionCriteria={completionCriteria} items={items} state={state} />;
+      return <AllOfEditor completionCriteria={completionCriteria} items={items} />;
     }
     return (
       <Pane marginTop={4}>
-        <SimpleEditor completionCriteria={completionCriteria} items={items} state={state} />
+        <SimpleEditor completionCriteria={completionCriteria} items={items} />
         {/* {completionCriteria.allOf && (
           <SingleEditor blocks={completionCriteria.allOf} state={state} title="All Of" unitId={unitId} />
         )}

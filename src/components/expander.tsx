@@ -9,7 +9,9 @@ type Props = {
 };
 
 export const Expander = ({ title, children, id, titleControls }: Props) => {
-  const [expanded, setExpanded] = React.useState(localStorage.getItem(id) === 'true');
+  const isServer = typeof localStorage == 'undefined';
+
+  const [expanded, setExpanded] = React.useState(isServer || localStorage.getItem(id) === 'true');
 
   return (
     <Pane marginTop={16} elevation={2} padding={16} borderRadius={8}>

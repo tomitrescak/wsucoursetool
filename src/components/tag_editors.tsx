@@ -3,6 +3,8 @@ import { observer, Observer } from 'mobx-react';
 import { Pane, Text, Autocomplete, TagInput, SelectMenu, Button } from 'evergreen-ui';
 import Router from 'next/router';
 import { State } from './types';
+import { ProgressView } from './progress_view';
+import { useTopicsQuery } from 'config/graphql';
 
 type KeywordEditorProps = {
   owner: { keywords: string[] };
@@ -59,20 +61,24 @@ export const KeywordEditor = observer(({ owner, keywords }: KeywordEditorProps) 
 
 type TopicEditorProps = {
   owner: { topics: string[] };
-  state: State;
   label?: string;
   field?: string;
 };
 
 export const TopicEditor = observer(
-  ({ owner, state, label = 'Topics', field = 'topics' }: TopicEditorProps) => {
+  ({ owner, label = 'Topics', field = 'topics' }: TopicEditorProps) => {
     if (!owner[field]) {
       owner[field] = [];
     }
+
+    const { loading, error, data } = useTopicsQuery();
+    if (loading || error) {
+      return <ProgressView loading={loading} error={error} />;
+    }
+
+    const topicList = [...data.topics];
     const topicOwner = owner[field] || [];
-    const topics = topicOwner
-      .map(id => state.courseConfig.topics.find(t => t.id === id))
-      .map(t => t.name);
+    const topics = topicOwner.map(id => data.topics.find(t => t.id === id)).map(t => t.name);
 
     return (
       <Pane flex={1} marginRight={8}>
@@ -82,7 +88,7 @@ export const TopicEditor = observer(
         <SelectMenu
           isMultiSelect
           title="Select Topics"
-          options={state.courseConfig.topics
+          options={topicList
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(t => ({ label: t.name, value: t.id }))}
           selected={topicOwner}

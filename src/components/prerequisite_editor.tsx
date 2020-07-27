@@ -19,7 +19,9 @@ import {
 } from 'evergreen-ui';
 
 import { bloom } from './bloom';
-import { State, Prerequisite, Unit, AcsKnowledge, Activity } from './types';
+import { State, Prerequisite, Unit, AcsKnowledge, Activity, Topic } from './types';
+import { useAcsQuery, useBlocksQuery, useTopicsQuery, BlockList } from 'config/graphql';
+import { ProgressView } from './progress_view';
 
 export type Props = {
   state: State;
@@ -31,13 +33,22 @@ export type Props = {
 export type LineProps = {
   prerequisite: Prerequisite;
   acsSkills: AcsKnowledge[];
-  state: State;
+  blocks: BlockList[];
   owner: { prerequisites?: Prerequisite[] };
   activities: Activity[];
+  topics: Topic[];
   i: number;
 };
 
-const PrerequisiteLine = ({ prerequisite, acsSkills, activities, state, owner, i }: LineProps) => (
+const PrerequisiteLine = ({
+  prerequisite,
+  acsSkills,
+  activities,
+  blocks,
+  topics,
+  owner,
+  i
+}: LineProps) => (
   <ListItem display="flex">
     {prerequisite.type === 'skill' && (
       <Text flex="1">
@@ -56,13 +67,12 @@ const PrerequisiteLine = ({ prerequisite, acsSkills, activities, state, owner, i
             &nbsp;&gt;&nbsp;
           </>
         )}
-        {state.courseConfig.blocks.find(s => s.id === prerequisite.id)?.name}
+        {blocks.find(s => s.id === prerequisite.id && prerequisite.unitId === s.unitId)?.name}
       </Text>
     )}
     {prerequisite.type === 'topic' && (
       <Text flex="1">
-        <Badge color="purple">Topic</Badge>{' '}
-        {state.courseConfig.topics.find(s => s.id === prerequisite.id)?.name}
+        <Badge color="purple">Topic</Badge> {topics.find(s => s.id === prerequisite.id)?.name}
       </Text>
     )}
 
@@ -87,33 +97,24 @@ const PrerequisiteLine = ({ prerequisite, acsSkills, activities, state, owner, i
 export type AddPrerequisiteProps = {
   unit: Unit;
   acsSkills: AcsKnowledge[];
-  state: State;
   owner: { prerequisites?: Prerequisite[] };
   activities: Activity[];
+  blocks: BlockList[];
+  topics: Topic[];
 };
 
 const AddPrerequisite = observer(
-  ({ unit, state, acsSkills, owner, activities }: AddPrerequisiteProps) => {
+  ({ unit, acsSkills, owner, activities, blocks, topics }: AddPrerequisiteProps) => {
     const localState = useLocalStore(() => ({
       type: '',
       topicId: '',
-      blockId: '',
+      block: null as BlockList,
       acsSkillId: '',
       activityId: null,
       rating: -1,
       blockTopicId: '',
       recommended: false
     }));
-
-    const blocks = React.useMemo(() => {
-      const unitBlocks = unit
-        ? state.courseConfig.blocks.filter(b => unit.blocks.some(id => id === b.id))
-        : [];
-      const otherBlocks = unit
-        ? state.courseConfig.blocks.filter(b => unit.blocks.every(id => id !== b.id))
-        : state.courseConfig.blocks;
-      return unitBlocks.concat(otherBlocks);
-    }, []);
 
     return (
       <Pane display="flex" alignItems="center">
@@ -141,7 +142,7 @@ const AddPrerequisite = observer(
                 id="block"
                 items={blocks}
                 itemToString={item => (item ? item.name : '')}
-                onChange={selected => (localState.blockId = selected.id)}
+                onChange={selected => (localState.block = selected)}
               />
             </Pane>
 
@@ -168,7 +169,7 @@ const AddPrerequisite = observer(
               flex="1"
               width="100%"
               id="topic"
-              items={state.courseConfig.topics}
+              items={topics}
               itemToString={item => (item ? item.name : '')}
               onChange={selected => (localState.topicId = selected.id)}
             />
@@ -231,7 +232,8 @@ const AddPrerequisite = observer(
                 });
               } else if (localState.type === 'block') {
                 owner.prerequisites.push({
-                  id: localState.blockId,
+                  id: localState.block.id,
+                  unitId: localState.block.unitId,
                   type: 'block',
                   recommended: localState.recommended,
                   activityId: localState.activityId
@@ -262,13 +264,14 @@ type OrEditorProps = {
   owner: { prerequisites: Prerequisite[] };
   prerequisite: Prerequisite;
   acsSkills: AcsKnowledge[];
-  state: State;
   unit: Unit;
   activities?: Activity[];
+  blocks: BlockList[];
+  topics: Topic[];
 };
 
 const OrEditor = observer(
-  ({ owner, prerequisite, acsSkills, state, unit, activities }: OrEditorProps) => (
+  ({ owner, prerequisite, acsSkills, unit, activities, blocks, topics }: OrEditorProps) => (
     <Pane display="flex" marginBottom={8}>
       <IconButton
         icon="trash"
@@ -294,9 +297,10 @@ const OrEditor = observer(
             <Prerequisites
               owner={p}
               acsSkills={acsSkills}
-              state={state}
               unit={unit}
               activities={activities}
+              blocks={blocks}
+              topics={topics}
             />
 
             {i < prerequisite.prerequisites.length - 1 && (
@@ -343,7 +347,7 @@ const OrEditor = observer(
   )
 );
 
-const Prerequisites = observer(({ owner, acsSkills, state, unit, activities }) => {
+const Prerequisites = observer(({ owner, acsSkills, unit, activities, blocks, topics }) => {
   return (
     <Pane>
       <UnorderedList icon="tick" iconColor="success" alignItems="center" margin={0} marginLeft={0}>
@@ -354,7 +358,8 @@ const Prerequisites = observer(({ owner, acsSkills, state, unit, activities }) =
                 owner={owner}
                 prerequisite={o}
                 acsSkills={acsSkills}
-                state={state}
+                blocks={blocks}
+                topics={topics}
                 unit={unit}
               />
             );
@@ -365,7 +370,8 @@ const Prerequisites = observer(({ owner, acsSkills, state, unit, activities }) =
               prerequisite={o}
               acsSkills={acsSkills}
               owner={owner}
-              state={state}
+              blocks={blocks}
+              topics={topics}
               i={i}
             />
           );
@@ -375,66 +381,84 @@ const Prerequisites = observer(({ owner, acsSkills, state, unit, activities }) =
         activities={activities}
         acsSkills={acsSkills}
         owner={owner}
-        state={state}
         unit={unit}
+        blocks={blocks}
+        topics={topics}
       />
     </Pane>
   );
 });
 
-export const PrerequisiteEditor: React.FC<Props> = observer(
-  ({ state, owner, unit, activities }) => {
-    const [expanded, setExpanded] = React.useState((owner.prerequisites || []).length > 0);
+export const PrerequisiteEditor: React.FC<Props> = observer(({ owner, unit, activities }) => {
+  const [expanded, setExpanded] = React.useState((owner.prerequisites || []).length > 0);
 
-    const acsSkills = React.useMemo(
-      () =>
-        state.courseConfig.acsKnowledge
-          .map(m => m.items)
-          .flat()
-          .sort((a, b) => a.name.localeCompare(b.name)),
-      []
-    );
+  const { loading: aLoading, error: aError, data: aData } = useAcsQuery();
+  const { loading: tLoading, error: tError, data: tData } = useTopicsQuery();
+  const { loading: bLoading, error: bError, data: bData } = useBlocksQuery();
 
+  if (aLoading || aError || bLoading || bError || tLoading || tError) {
     return (
-      <Pane flex={1}>
-        <Heading
-          size={500}
-          marginBottom={0}
-          borderBottom={expanded ? 'dashed 1px #dedede' : ''}
-          display="flex"
-          alignItems="center"
-        >
-          <Icon
-            size={16}
-            marginRight={8}
-            icon={expanded ? 'chevron-down' : 'chevron-right'}
-            cursor="pointer"
-            onClick={() => setExpanded(!expanded)}
-          />
-          Prerequisites and Recommendations
-          <Pane flex="1" display="flex" justifyItems="flex-end">
-            <Popover
-              position={Position.BOTTOM_LEFT}
-              content={
-                <Menu>
-                  <Menu.Group title="Import">
-                    <Menu.Item
-                      onSelect={() => {
-                        owner.prerequisites.push(
-                          ...unit.blocks.map(
-                            b =>
-                              ({
-                                id: b,
-                                type: 'block',
-                                recommended: true
-                              } as Prerequisite)
-                          )
-                        );
-                      }}
-                    >
-                      All Blocks
-                    </Menu.Item>
-                    <Menu.Item
+      <ProgressView loading={aLoading || bLoading || tLoading} error={aError || bError || tError} />
+    );
+  }
+
+  const topics = tData.topics;
+  const blocks = React.useMemo(() => {
+    const unitBlocks = unit.blocks.map(b => ({ id: b.id, unitId: unit.id, name: b.name }));
+    // const otherBlocks = unit
+    //   ? state.courseConfig.blocks.filter(b => unit.blocks.every(id => id !== b.id))
+    //   : state.courseConfig.blocks;
+    return unitBlocks.concat(bData.blocks);
+  }, []);
+
+  const acsSkills = React.useMemo(() => {
+    return aData.acs
+      .map(m => m.items)
+      .flat()
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [aData]);
+
+  return (
+    <Pane flex={1}>
+      <Heading
+        size={500}
+        marginBottom={0}
+        borderBottom={expanded ? 'dashed 1px #dedede' : ''}
+        display="flex"
+        alignItems="center"
+      >
+        <Icon
+          size={16}
+          marginRight={8}
+          icon={expanded ? 'chevron-down' : 'chevron-right'}
+          cursor="pointer"
+          onClick={() => setExpanded(!expanded)}
+        />
+        Prerequisites and Recommendations
+        <Pane flex="1" display="flex" justifyItems="flex-end">
+          <Popover
+            position={Position.BOTTOM_LEFT}
+            content={
+              <Menu>
+                <Menu.Group title="Import">
+                  <Menu.Item
+                    onSelect={() => {
+                      owner.prerequisites.push(
+                        ...unit.blocks.map(
+                          b =>
+                            ({
+                              id: b.id,
+                              unitId: unit.id,
+                              type: 'block',
+                              recommended: true
+                            } as Prerequisite)
+                        )
+                      );
+                    }}
+                  >
+                    All Blocks
+                  </Menu.Item>
+                  {/* <Menu.Item
                       onSelect={() => {
                         owner.prerequisites.push(
                           ...unit.blocks
@@ -477,28 +501,28 @@ export const PrerequisiteEditor: React.FC<Props> = observer(
                       }}
                     >
                       Exams
-                    </Menu.Item>
-                  </Menu.Group>
-                </Menu>
-              }
-            >
-              <IconButton icon="chevron-down" marginLeft={16} appearance="minimal" />
-            </Popover>
-          </Pane>
-        </Heading>
+                    </Menu.Item> */}
+                </Menu.Group>
+              </Menu>
+            }
+          >
+            <IconButton icon="chevron-down" marginLeft={16} appearance="minimal" />
+          </Popover>
+        </Pane>
+      </Heading>
 
-        {expanded && (
-          <Pane marginTop={8}>
-            <Prerequisites
-              activities={activities}
-              acsSkills={acsSkills}
-              owner={owner}
-              unit={unit}
-              state={state}
-            />{' '}
-          </Pane>
-        )}
-      </Pane>
-    );
-  }
-);
+      {expanded && (
+        <Pane marginTop={8}>
+          <Prerequisites
+            activities={activities}
+            acsSkills={acsSkills}
+            owner={owner}
+            unit={unit}
+            blocks={blocks}
+            topics={topics}
+          />{' '}
+        </Pane>
+      )}
+    </Pane>
+  );
+});

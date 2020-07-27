@@ -9,13 +9,14 @@ import {
   Text,
   TabNavigation,
   Tab,
-  Checkbox
+  Checkbox,
+  toaster
 } from 'evergreen-ui';
 import { Unit, State, Block } from './types';
 import { url, buildForm } from 'lib/helpers';
 import Link from 'next/link';
 
-import { useRouter } from 'next/router';
+import { useRouter, Router } from 'next/router';
 import { BlocksEditor } from './block_editor';
 import { TopicBlockEditor } from './topic_block_editor';
 import { OutcomeEditor } from './outcome_editor';
@@ -26,10 +27,11 @@ import { Expander } from './expander';
 import { UnitGraph } from './unit_graph';
 import { PrerequisiteEditor } from './prerequisite_editor';
 import { VerticalPane } from './vertical_pane';
-import { useUnitQuery } from 'config/graphql';
 import { ProgressView } from './progress_view';
-import { model, Model, prop } from 'mobx-keystone';
+import { model, Model, prop, undoMiddleware } from 'mobx-keystone';
 import { BlockModel, UnitModel, createBlocks, createUnit } from './classes';
+
+import { useUnitQuery, useDeleteUnitMutation, CourseListDocument } from 'config/graphql';
 
 const selfColor = 'rgb(251, 230, 162)';
 const depenedantColor = alpha => `rgb(${47 + alpha}, ${75 + alpha}, ${180 - alpha})`;
@@ -69,7 +71,13 @@ class UnitEditorModel extends Model({
   blocks: prop<BlockModel[]>()
 }) {}
 
-export const UnitDetailContainer = ({ id, readonly, state }) => {
+type Props = {
+  id: string;
+  readonly: boolean;
+  state: State;
+};
+
+export const UnitDetailContainer = ({ id, readonly, state }: Props) => {
   const { loading, error, data } = useUnitQuery({
     variables: {
       id
@@ -78,10 +86,15 @@ export const UnitDetailContainer = ({ id, readonly, state }) => {
 
   const model = React.useMemo(() => {
     if (data) {
-      return new UnitEditorModel({
+      const model = new UnitEditorModel({
         unit: createUnit(data.unit.unit),
         blocks: createBlocks(data.unit.blocks)
       });
+
+      const undoManager = undoMiddleware(model);
+      state.undoManager = undoManager;
+
+      return model;
     }
     return undefined;
   }, [data]);
@@ -96,11 +109,11 @@ export const UnitDetailContainer = ({ id, readonly, state }) => {
     return <ProgressView loading={loading} error={error} />;
   }
 
-  return <UnitDetails model={model} readonly={readonly} />;
+  return <UnitDetails model={model} readonly={readonly} state={state} />;
 };
 
-const UnitDetails: React.FC<{ model: UnitEditorModel; readonly: boolean }> = observer(
-  ({ model: { unit, blocks }, readonly }) => {
+const UnitDetails: React.FC<{ model: UnitEditorModel; readonly: boolean; state: State }> = observer(
+  ({ model: { unit, blocks }, readonly, state }) => {
     const form = React.useMemo(() => buildForm(unit, ['name', 'id', 'delivery', 'outcome']), [
       unit
     ]);
@@ -121,6 +134,15 @@ const UnitDetails: React.FC<{ model: UnitEditorModel; readonly: boolean }> = obs
     let selectedBlockId: string | undefined;
     const router = useRouter();
     const item = router.query.item as string;
+
+    // mutations
+    const [deleteUnit] = useDeleteUnitMutation({
+      refetchQueries: [{ query: CourseListDocument }],
+      onCompleted() {
+        toaster.notify('Deleted');
+        router.push('/');
+      }
+    });
 
     if (item) {
       const mainSplit = item.split('--');
@@ -166,7 +188,11 @@ const UnitDetails: React.FC<{ model: UnitEditorModel; readonly: boolean }> = obs
               ))}
             </TabNavigation>
             <TabNavigation>
-              <Tab target="_blank" href={`https://lgms.westernsydney.edu.au/lg/${unit.lgId}`}>
+              <Tab
+                is="a"
+                target="_blank"
+                href={`https://lgms.westernsydney.edu.au/lg/${unit.lgId}`}
+              >
                 LG
               </Tab>
               <Tab
@@ -177,6 +203,7 @@ const UnitDetails: React.FC<{ model: UnitEditorModel; readonly: boolean }> = obs
                 Details
               </Tab>
               <Tab
+                is="a"
                 target="_blank"
                 href={`https://lgms.westernsydney.edu.au/lg/${unit.lgId}/edit/activities`}
               >
@@ -249,19 +276,19 @@ const UnitDetails: React.FC<{ model: UnitEditorModel; readonly: boolean }> = obs
               </Pane>
               <Pane display="flex">
                 {/* TOPICS */}
-                {/* TODO <TopicEditor owner={unit} /> */}
+                <TopicEditor owner={unit} />
 
                 {/* KEYWORDS */}
                 <KeywordEditor owner={unit} keywords={keywords} />
               </Pane>
               {/* IMPORTED TOPICS */}
-              {/* TODO {unit.dynamic && (
+              {unit.dynamic && (
                 <TopicEditor
                   owner={unit}
                   label="Import Blocks with Following Topics"
                   field="blockTopics"
                 />
-              )} */}
+              )}
               <Checkbox
                 margin={0}
                 label="Dynamic"
@@ -285,11 +312,7 @@ const UnitDetails: React.FC<{ model: UnitEditorModel; readonly: boolean }> = obs
               /> */}
               {/* COMPLETION CRITERIA */}
               <Expander title="Completion Criteria" id="unitCompletionCriteria">
-                {/* TODO <TopicBlockEditor
-                  state={state}
-                  block={unit.completionCriteria}
-                  items={selectionBlocks}
-                /> */}
+                <TopicBlockEditor block={unit.completionCriteria} items={selectionBlocks} />
               </Expander>
 
               {/* OUTCOME DESCRIPTION */}
@@ -313,7 +336,7 @@ const UnitDetails: React.FC<{ model: UnitEditorModel; readonly: boolean }> = obs
 
               {/* BLOCK PREREQUISITES */}
               <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
-                {/* TODO <PrerequisiteEditor owner={unit} unit={unit} /> */}
+                <PrerequisiteEditor owner={unit} unit={unit} />
               </Pane>
 
               {/* Prerequisited CRITERIA */}
@@ -389,22 +412,23 @@ const UnitDetails: React.FC<{ model: UnitEditorModel; readonly: boolean }> = obs
             />
           )} */}
         </Pane>
-        {/* TODO <Button
+        <Button
           intent="danger"
           iconBefore="trash"
           appearance="primary"
           marginTop={8}
           onClick={() => {
-            if (confirm('Are You Sure?')) {
-              state.courseConfig.units.splice(
-                state.courseConfig.units.findIndex(p => p === unit),
-                1
-              );
+            if (confirm('Are You Sure? You canot undo this action!')) {
+              deleteUnit({
+                variables: {
+                  id: unit.id
+                }
+              });
             }
           }}
         >
           Delete
-        </Button> */}
+        </Button>
       </div>
     );
   }

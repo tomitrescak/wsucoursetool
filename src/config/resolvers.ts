@@ -26,6 +26,12 @@ export type Entity = {
   description?: Maybe<Scalars['String']>;
 };
 
+export type BlockList = {
+  id: Scalars['String'];
+  unitId: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type Identifiable = {
   id?: Maybe<Scalars['String']>;
 };
@@ -48,6 +54,7 @@ export type Query = {
   loadUnits?: Maybe<Scalars['String']>;
   loadUnitList: Array<UnitList>;
   courseList: Array<CourseList>;
+  blocks: Array<BlockList>;
   unit: Scalars['JSON'];
   course: Scalars['JSON'];
   acs: Scalars['JSON'];
@@ -172,6 +179,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Entity: ResolverTypeWrapper<Entity>;
+  BlockList: ResolverTypeWrapper<BlockList>;
   Identifiable: ResolverTypeWrapper<Identifiable>;
   MajorList: ResolverTypeWrapper<MajorList>;
   CourseList: ResolverTypeWrapper<CourseList>;
@@ -187,6 +195,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   Boolean: Scalars['Boolean'];
   Entity: Entity;
+  BlockList: BlockList;
   Identifiable: Identifiable;
   MajorList: MajorList;
   CourseList: CourseList;
@@ -210,6 +219,13 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type BlockListResolvers<ContextType = any, ParentType extends ResolversParentTypes['BlockList'] = ResolversParentTypes['BlockList']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  unitId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -238,6 +254,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   loadUnits?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   loadUnitList?: Resolver<Array<ResolversTypes['UnitList']>, ParentType, ContextType>;
   courseList?: Resolver<Array<ResolversTypes['CourseList']>, ParentType, ContextType>;
+  blocks?: Resolver<Array<ResolversTypes['BlockList']>, ParentType, ContextType>;
   unit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryUnitArgs, 'id'>>;
   course?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseArgs, 'id'>>;
   acs?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
@@ -259,6 +276,7 @@ export type Resolvers<ContextType = any> = {
   JSON?: GraphQLScalarType;
   UnitList?: UnitListResolvers<ContextType>;
   Entity?: EntityResolvers<ContextType>;
+  BlockList?: BlockListResolvers<ContextType>;
   Identifiable?: IdentifiableResolvers<ContextType>;
   MajorList?: MajorListResolvers<ContextType>;
   CourseList?: CourseListResolvers<ContextType>;

@@ -22,6 +22,12 @@ const typeDefs = gql`
     description: String
   }
 
+  type BlockList {
+    id: String!
+    unitId: String!
+    name: String!
+  }
+
   type Identifiable {
     id: String
   }
@@ -45,6 +51,7 @@ const typeDefs = gql`
     loadUnitList: [UnitList!]!
     courseList: [CourseList!]!
 
+    blocks: [BlockList!]!
     unit(id: String!): JSON!
     course(id: String!): JSON!
     acs: JSON!
@@ -169,6 +176,12 @@ const resolvers: IResolvers = {
       let db = getDb();
       return db.sfiaSkills;
     },
+    blocks() {
+      let db = getDb();
+      const result = db.units.flatMap(u =>
+        u.blocks.map(b => ({ id: b.id, name: u.name + ' > ' + b.name, unitId: u.id }))
+      );
+    },
     jobs() {
       let db = getDb();
       return db.jobs;
@@ -193,15 +206,22 @@ const resolvers: IResolvers = {
       let db = getDb();
       let unit = db.units.find(u => u.id === id);
 
-      let blocks = unit.blocks.map(id => db.blocks.find(b => b.id === id));
+      let blocks = unit.blocks;
       if (unit.dynamic) {
+        blocks = [...unit.blocks];
+
+        // add individual blocks that belong to the same topic
         blocks.push(
-          ...db.blocks.filter(b => (b.topics || []).some(t => unit.topics.indexOf(t) >= 0))
+          ...db.units
+            .flatMap(u => u.blocks)
+            .filter(b => (b.topics || []).some(t => unit.topics.indexOf(t) >= 0))
         );
+        // add all blocks from a unit that has a dynamic unit's topic
         blocks.push(
           ...db.units
             .filter(u => !u.dynamic && u.topics.some(t => unit.topics.indexOf(t) >= 0))
-            .flatMap(u => u.blocks.map(ub => db.blocks.find(sb => sb.id === ub)))
+            .flatMap(u => u.blocks)
+            .filter(b => blocks.indexOf(b) === -1)
         );
       }
 
@@ -239,11 +259,11 @@ const resolvers: IResolvers = {
       return db.courses.map(c => ({
         id: c.id,
         name: c.name,
-        core: c.core.map(o => ({ id: o.id })),
+        core: c.core.map(o => ({ id: o.id, name: '' })),
         majors: c.majors.map(m => ({
           id: m.id,
           name: m.name,
-          units: m.units.map(u => ({ id: u.id }))
+          units: m.units.map(u => u.id)
         }))
       }));
     }

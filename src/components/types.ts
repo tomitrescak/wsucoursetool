@@ -11,6 +11,7 @@ export type PrerequisiteType = 'block' | 'skill' | 'topic' | 'or' | 'and' | 'con
 export type Prerequisite = {
   type: PrerequisiteType;
   id?: string;
+  unitId?: string;
   activityId?: string;
   value?: number;
   recommended?: boolean;
@@ -50,7 +51,7 @@ export type Unit = {
   assumedKnowledge: string;
   lgId?: string;
 
-  blocks: string[];
+  blocks: Block[];
   topics: string[];
   keywords: string[];
 
@@ -146,7 +147,6 @@ export type CourseConfig = {
   courses: Course[];
   units: Unit[];
   topics: Topic[];
-  blocks: Block[];
   specialisations: Specialisation[];
   acsKnowledge: AcsKnowledge[];
   sfiaSkills: SfiaSkill[];

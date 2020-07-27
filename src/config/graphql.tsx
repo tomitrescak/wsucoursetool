@@ -27,6 +27,12 @@ export type Entity = {
   description?: Maybe<Scalars['String']>;
 };
 
+export type BlockList = {
+  id: Scalars['String'];
+  unitId: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type Identifiable = {
   id?: Maybe<Scalars['String']>;
 };
@@ -49,6 +55,7 @@ export type Query = {
   loadUnits?: Maybe<Scalars['String']>;
   loadUnitList: Array<UnitList>;
   courseList: Array<CourseList>;
+  blocks: Array<BlockList>;
   unit: Scalars['JSON'];
   course: Scalars['JSON'];
   acs: Scalars['JSON'];
@@ -102,6 +109,16 @@ export type MutationDeleteUnitArgs = {
   id: Scalars['String'];
 };
 
+export type AcsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AcsQuery = Pick<Query, 'acs'>;
+
+export type BlocksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BlocksQuery = { blocks: Array<Pick<BlockList, 'id' | 'name' | 'unitId'>> };
+
 export type CourseListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -133,6 +150,18 @@ export type SaveCoursesMutationVariables = Exact<{
 
 export type SaveCoursesMutation = Pick<Mutation, 'saveCourses'>;
 
+export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TopicsQuery = { topics: Array<Pick<Entity, 'id' | 'name'>> };
+
+export type DeleteUnitMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type DeleteUnitMutation = Pick<Mutation, 'deleteUnit'>;
+
 export type UnitQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -141,6 +170,70 @@ export type UnitQueryVariables = Exact<{
 export type UnitQuery = Pick<Query, 'unit'>;
 
 
+export const AcsDocument = gql`
+    query Acs {
+  acs
+}
+    `;
+
+/**
+ * __useAcsQuery__
+ *
+ * To run a query within a React component, call `useAcsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAcsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAcsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAcsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AcsQuery, AcsQueryVariables>) {
+        return ApolloReactHooks.useQuery<AcsQuery, AcsQueryVariables>(AcsDocument, baseOptions);
+      }
+export function useAcsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AcsQuery, AcsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AcsQuery, AcsQueryVariables>(AcsDocument, baseOptions);
+        }
+export type AcsQueryHookResult = ReturnType<typeof useAcsQuery>;
+export type AcsLazyQueryHookResult = ReturnType<typeof useAcsLazyQuery>;
+export type AcsQueryResult = ApolloReactCommon.QueryResult<AcsQuery, AcsQueryVariables>;
+export const BlocksDocument = gql`
+    query Blocks {
+  blocks {
+    id
+    name
+    unitId
+  }
+}
+    `;
+
+/**
+ * __useBlocksQuery__
+ *
+ * To run a query within a React component, call `useBlocksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBlocksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBlocksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBlocksQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<BlocksQuery, BlocksQueryVariables>) {
+        return ApolloReactHooks.useQuery<BlocksQuery, BlocksQueryVariables>(BlocksDocument, baseOptions);
+      }
+export function useBlocksLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BlocksQuery, BlocksQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<BlocksQuery, BlocksQueryVariables>(BlocksDocument, baseOptions);
+        }
+export type BlocksQueryHookResult = ReturnType<typeof useBlocksQuery>;
+export type BlocksLazyQueryHookResult = ReturnType<typeof useBlocksLazyQuery>;
+export type BlocksQueryResult = ApolloReactCommon.QueryResult<BlocksQuery, BlocksQueryVariables>;
 export const CourseListDocument = gql`
     query CourseList {
   loadUnitList {
@@ -286,6 +379,69 @@ export function useSaveCoursesMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type SaveCoursesMutationHookResult = ReturnType<typeof useSaveCoursesMutation>;
 export type SaveCoursesMutationResult = ApolloReactCommon.MutationResult<SaveCoursesMutation>;
 export type SaveCoursesMutationOptions = ApolloReactCommon.BaseMutationOptions<SaveCoursesMutation, SaveCoursesMutationVariables>;
+export const TopicsDocument = gql`
+    query Topics {
+  topics {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useTopicsQuery__
+ *
+ * To run a query within a React component, call `useTopicsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTopicsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTopicsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTopicsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<TopicsQuery, TopicsQueryVariables>) {
+        return ApolloReactHooks.useQuery<TopicsQuery, TopicsQueryVariables>(TopicsDocument, baseOptions);
+      }
+export function useTopicsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<TopicsQuery, TopicsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<TopicsQuery, TopicsQueryVariables>(TopicsDocument, baseOptions);
+        }
+export type TopicsQueryHookResult = ReturnType<typeof useTopicsQuery>;
+export type TopicsLazyQueryHookResult = ReturnType<typeof useTopicsLazyQuery>;
+export type TopicsQueryResult = ApolloReactCommon.QueryResult<TopicsQuery, TopicsQueryVariables>;
+export const DeleteUnitDocument = gql`
+    mutation DeleteUnit($id: String!) {
+  deleteUnit(id: $id)
+}
+    `;
+export type DeleteUnitMutationFn = ApolloReactCommon.MutationFunction<DeleteUnitMutation, DeleteUnitMutationVariables>;
+
+/**
+ * __useDeleteUnitMutation__
+ *
+ * To run a mutation, you first call `useDeleteUnitMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUnitMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUnitMutation, { data, loading, error }] = useDeleteUnitMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteUnitMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteUnitMutation, DeleteUnitMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteUnitMutation, DeleteUnitMutationVariables>(DeleteUnitDocument, baseOptions);
+      }
+export type DeleteUnitMutationHookResult = ReturnType<typeof useDeleteUnitMutation>;
+export type DeleteUnitMutationResult = ApolloReactCommon.MutationResult<DeleteUnitMutation>;
+export type DeleteUnitMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteUnitMutation, DeleteUnitMutationVariables>;
 export const UnitDocument = gql`
     query Unit($id: String!) {
   unit(id: $id)
