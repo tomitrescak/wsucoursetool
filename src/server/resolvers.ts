@@ -89,6 +89,11 @@ export const resolvers: IResolvers = {
           db.specialisations[ix] = body;
           return true;
         }
+        if (part === 'unit') {
+          let ix = db.units.findIndex(j => j.id === id);
+          db.units[ix] = body;
+          return true;
+        }
         throw new Error('Not supported: ' + part);
       });
     },

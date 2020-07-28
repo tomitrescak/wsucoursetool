@@ -14,16 +14,17 @@ import {
   Table
 } from 'evergreen-ui';
 import { buildForm } from 'lib/helpers';
+import { CompletionCriteriaModel } from 'components/classes';
 
 type Item = { id: string; name: string };
 
 type Props = {
-  block: CompletionCriteria;
+  block: CompletionCriteriaModel;
   items?: Item[];
 };
 
 type ItemEditorProps = {
-  completionCriteria: CompletionCriteria;
+  completionCriteria: CompletionCriteriaModel;
   items?: Item[];
 };
 
@@ -125,7 +126,7 @@ const TypeEditor = observer(({ completionCriteria }: SiProps) => (
 
 type EditorProps = {
   items: Item[];
-  completionCriteria: CompletionCriteria;
+  completionCriteria: CompletionCriteriaModel;
   sub?: boolean;
 };
 
@@ -273,7 +274,7 @@ const AllOfEditor = observer(({ items, completionCriteria, sub }: EditorProps) =
                     appearance="primary"
                     icon="trash"
                     intent="danger"
-                    onClick={() => completionCriteria.criteria.splice(i, 1)}
+                    onClick={() => completionCriteria.removeCompletionCriteria(i)}
                   />
                 </td>
               </tr>
@@ -324,11 +325,7 @@ const AllOfEditor = observer(({ items, completionCriteria, sub }: EditorProps) =
           appearance="primary"
           intent="success"
           onClick={() => {
-            if (completionCriteria.criteria == null) {
-              completionCriteria.criteria = [{}];
-            } else {
-              completionCriteria.criteria.push({});
-            }
+            completionCriteria.addCompletionCriteria({});
           }}
         />
       </Pane>

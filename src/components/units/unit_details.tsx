@@ -22,9 +22,20 @@ import { action } from 'mobx';
 import { Expander } from 'components/common/expander';
 import { PrerequisiteEditor } from '../prerequisites/prerequisite_editor';
 import { ProgressView } from '../common/progress_view';
-import { BlockModel, UnitModel, createBlocks, createUnit } from '../classes';
+import {
+  BlockModel,
+  UnitModel,
+  createBlocks,
+  createUnit,
+  createCompletionCriteria
+} from '../classes';
 
-import { useUnitQuery, useDeleteUnitMutation, CourseListDocument } from 'config/graphql';
+import {
+  useUnitQuery,
+  useDeleteUnitMutation,
+  CourseListDocument,
+  useSaveConfigMutation
+} from 'config/graphql';
 import { model, prop, Model, undoMiddleware } from 'mobx-keystone';
 import { TopicBlockEditor } from 'components/completion_criteria/completion_criteria_editor';
 import { TextEditor } from 'components/common/text_editor';
@@ -70,9 +81,19 @@ type Props = {
 };
 
 export const UnitDetailContainer = ({ id, readonly, state }: Props) => {
-  const { loading, error, data } = useUnitQuery({
+  const { loading, error, data, refetch } = useUnitQuery({
     variables: {
       id
+    }
+  });
+
+  const [save] = useSaveConfigMutation({
+    onCompleted() {
+      toaster.notify('Saved');
+      refetch();
+    },
+    onError(e) {
+      toaster.danger('Error ;(: ' + e.message);
     }
   });
 
@@ -81,7 +102,16 @@ export const UnitDetailContainer = ({ id, readonly, state }: Props) => {
       const model = createUnit(data.unit.unit);
       const undoManager = undoMiddleware(model);
       state.undoManager = undoManager;
-
+      state.save = () => {
+        const body = model.toJS();
+        save({
+          variables: {
+            body,
+            id,
+            part: 'unit'
+          }
+        });
+      };
       return model;
     }
     return undefined;
@@ -154,7 +184,7 @@ const UnitDetails: React.FC<{
   }));
 
   if (unit.completionCriteria == null) {
-    unit.completionCriteria = {};
+    unit.completionCriteria = createCompletionCriteria({});
   }
 
   // dependencies

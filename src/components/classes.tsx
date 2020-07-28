@@ -19,6 +19,20 @@ import {
 } from './types';
 import { toJS } from 'mobx';
 
+const removeEmpty = obj => {
+  Object.keys(obj).forEach(key => {
+    if (obj[key] == null || obj[key] == '' || obj[key].length === 0) delete obj[key];
+    else if (Array.isArray(obj[key])) {
+      obj[key].forEach(o => removeEmpty(o));
+    } else if (obj[key] && typeof obj[key] === 'object') {
+      removeEmpty(obj[key]);
+    }
+    // delete
+    // recurse
+  });
+  return obj;
+};
+
 @model('Course/Entity')
 export class EntityModel extends Model({
   id: prop<string>({ setterAction: true }),
@@ -34,7 +48,11 @@ export class EntityModel extends Model({
 class OutcomeModel extends Model({
   acsSkillId: prop<string>({ setterAction: true }),
   bloomRating: prop<number>({ setterAction: true })
-}) {}
+}) {
+  toJS() {
+    return toJS(this.$);
+  }
+}
 
 @model('Course/CourseUnit')
 class CourseUnitModel extends Model({
@@ -74,7 +92,7 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   assumedKnowledge: prop<string>({ setterAction: true }),
   blocks: prop<BlockModel[]>({ setterAction: true }),
   // blockTopics: prop<string[]>({ setterAction: true }),
-  completionCriteria: prop<CompletionCriteria>({ setterAction: true }),
+  completionCriteria: prop<CompletionCriteriaModel>({ setterAction: true }),
   corequisites: prop<string>({ setterAction: true }),
   credits: prop<number>({ setterAction: true }),
   delivery: prop<string>({ setterAction: true }),
@@ -90,6 +108,16 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   topics: prop<string[]>({ setterAction: true }),
   unitPrerequisites: prop<string>({ setterAction: true })
 }) {
+  toJS() {
+    return removeEmpty({
+      ...super.toJS(),
+      ...toJS(this.$),
+      blocks: this.blocks.map(b => b.toJS()),
+      completionCriteria: this.completionCriteria.toJS(),
+      outcomes: this.outcomes.map(b => b.toJS()),
+      prerequisites: this.prerequisites.map(b => b.toJS())
+    });
+  }
   @modelAction
   addPrerequisite(p: Prerequisite) {
     this.prerequisites.push(createPrerequisite(p));
@@ -134,22 +162,32 @@ export function createUnit(model: Unit) {
 }
 
 @model('Course/CompletionCriteria')
-class CompletionCriteriaModel extends Model({
+export class CompletionCriteriaModel extends Model({
   id: prop<string>({ setterAction: true }),
   type: prop<CompletionCriteriaType>({ setterAction: true }),
-  criteria: prop<CompletionCriteria[]>({ setterAction: true }),
+  criteria: prop<CompletionCriteriaModel[]>({ setterAction: true }),
   minimumValue: prop<number>({ setterAction: true }),
   minimumCount: prop<number>({ setterAction: true }),
   weight: prop<number>({ setterAction: true }),
   credit: prop<number>({ setterAction: true })
 }) {
+  toJS() {
+    return {
+      ...toJS(this.$),
+      criteria: this.criteria.map(c => c.toJS())
+    };
+  }
   @modelAction
   addCompletionCriteria(p: CompletionCriteria) {
     this.criteria.push(createCompletionCriteria(p));
   }
+  @modelAction
+  removeCompletionCriteria(ix: number) {
+    this.criteria.splice(ix, 1);
+  }
 }
 
-function createCompletionCriteria(model: CompletionCriteria) {
+export function createCompletionCriteria(model: CompletionCriteria) {
   return new CompletionCriteriaModel({
     ...model,
     criteria: (model.criteria || []).map(c => createCompletionCriteria(c))
@@ -163,7 +201,13 @@ class TopicModel extends ExtendedModel(EntityModel, {}) {}
 class ActivityModel extends ExtendedModel(EntityModel, {
   type: prop<BlockType>({ setterAction: true }),
   lengthHours: prop<number>({ setterAction: true })
-}) {}
+}) {
+  toJS() {
+    return {
+      ...toJS(this.$)
+    };
+  }
+}
 
 function createActivities(activities?: ReadonlyArray<Activity>) {
   return (activities || []).map(a => new ActivityModel(a));
@@ -179,6 +223,15 @@ export class BlockModel extends ExtendedModel(EntityModel, {
   completionCriteria: prop<CompletionCriteriaModel>({ setterAction: true }),
   activities: prop<ActivityModel[]>({ setterAction: true })
 }) {
+  toJS() {
+    return {
+      ...super.toJS(),
+      outcomes: this.outcomes.map(o => o.toJS()),
+      prerequisites: this.prerequisites.map(p => p.toJS()),
+      completionCriteria: this.completionCriteria.toJS(),
+      activities: this.activities.map(a => a.toJS())
+    };
+  }
   @modelAction
   addPrerequisite(pre: Prerequisite) {
     this.prerequisites.push(createPrerequisite(pre));
