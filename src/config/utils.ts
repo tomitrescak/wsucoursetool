@@ -1,8 +1,14 @@
 import { Unit, CourseConfig, Entity } from 'components/types';
 
-type Dependency = {
+export type DependantUnit = {
+  id: string;
+  name: string;
+  prerequisite: string[];
+};
+
+export type Dependency = {
   level: number;
-  unit: Entity;
+  unit: DependantUnit;
 };
 
 function findDependencies(
@@ -15,7 +21,10 @@ function findDependencies(
   if (dependencies.some(s => s.unit.id === unit.id)) {
     return;
   }
-  dependencies.push({ level, unit: { id: unit.id, name: unit.name } });
+  dependencies.push({
+    level,
+    unit: { id: unit.id, name: unit.name, prerequisite: unit.prerequisite }
+  });
 
   // find units depending on this unit
   let depenendants = db.units.filter(
@@ -42,9 +51,10 @@ export function calculateDependencies(unit: Unit, db: CourseConfig) {
       if (!found) {
         found = { id: u, name: u } as any;
       }
-      dependencies.push({ level: -1, unit: { id: found.id, name: found.name } });
+      dependencies.push({ level: -1, unit: { id: found.id, name: found.name, prerequisite: [] } });
     }
   }
 
   findDependencies(unit, db, dependencies, 0, 5);
+  return dependencies;
 }

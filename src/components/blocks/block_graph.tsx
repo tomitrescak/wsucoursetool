@@ -4,13 +4,13 @@ import cytoscape from 'cytoscape';
 import cola from 'cytoscape-cola';
 import fcose from 'cytoscape-fcose';
 
-import { State, Block } from './types';
+import { State, Block, Unit } from '../types';
 
 cytoscape.use(cola);
 cytoscape.use(fcose);
 
 type Props = {
-  state: State;
+  units: Unit[];
 };
 
 function nodeColor(block: Block) {
@@ -46,12 +46,12 @@ function textColor(block: Block) {
   // }
 }
 
-export const Graph: React.FC<Props> = ({ state }) => {
+export const Graph: React.FC<Props> = ({ units }) => {
   const ref = React.useRef(null);
   const cy = React.useRef(null);
 
   const elements: any = [];
-  for (let unit of state.courseConfig.units) {
+  for (let unit of units) {
     elements.push({
       style: {
         label: unit.name,
@@ -60,8 +60,7 @@ export const Graph: React.FC<Props> = ({ state }) => {
       data: { id: 'u_' + unit.id }
     });
 
-    for (let blockId of unit.blocks) {
-      let b = state.courseConfig.blocks.find(b => b.id === blockId);
+    for (let b of unit.blocks) {
       elements.push({
         style: {
           'background-color': nodeColor(b),
@@ -74,13 +73,28 @@ export const Graph: React.FC<Props> = ({ state }) => {
   }
 
   elements.push(
-    ...state.courseConfig.blocks.flatMap(b =>
-      (b.prerequisites || [])
-        .filter(o => o.id)
-        .map(p => ({
-          data: { id: b.id + p.id, source: 'n_' + b.id, target: 'n_' + p.id }
-        }))
-    )
+    ...units
+      .flatMap(u => u.blocks)
+      .flatMap(b =>
+        (b.prerequisites || [])
+          .filter(o => o.id)
+          .map(p => {
+            if (units.every(u => u.id !== p.id)) {
+              // add missing
+              elements.push({
+                style: {
+                  'background-color': '#999',
+                  color: textColor(b),
+                  label: p.unitId + ': ' + p.id
+                },
+                data: { id: 'n_' + p.id }
+              });
+            }
+            return {
+              data: { id: b.id + p.id, source: 'n_' + b.id, target: 'n_' + p.id }
+            };
+          })
+      )
   );
 
   React.useEffect(() => {
@@ -146,7 +160,7 @@ export const Graph: React.FC<Props> = ({ state }) => {
       >
         Layout
       </button>
-      <div ref={ref} id="graph" style={{ height: '800px', width: '100%' }} />
+      <div ref={ref} id="graph" style={{ height: '800px', minWidth: '700px', width: '100%' }} />
     </>
   );
 };

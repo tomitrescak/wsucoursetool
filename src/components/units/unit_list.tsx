@@ -57,11 +57,11 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
     // find unit
     const split = mainSplit[0].split('-');
     unitId = split[split.length - 1];
-    unit = data.loadUnitList.find(u => u.id === unitId);
+    unit = data.units.find(u => u.id === unitId);
   }
 
   let selectedCourse = localState.course
-    ? data.courseList.find(c => c.id === localState.course)
+    ? data.courses.find(c => c.id === localState.course)
     : null;
 
   let selectedMajor = localState.major
@@ -96,7 +96,7 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
               marginRight={8}
             >
               <option value="">Select Course ...</option>
-              {data.courseList.map((c, i) => (
+              {data.courses.map((c, i) => (
                 <option value={c.id} key={i}>
                   {c.name}
                 </option>
@@ -119,7 +119,7 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
           </Pane>
 
           <Tablist>
-            {data.loadUnitList
+            {data.units
               .slice()
               .filter(f => {
                 let isOk = true;
@@ -206,7 +206,7 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
               title="Dialog title"
               onCloseComplete={() => (localState.isShown = false)}
               onConfirm={close => {
-                if (data.loadUnitList.some(u => u.id === localState.newUnitId)) {
+                if (data.units.some(u => u.id === localState.newUnitId)) {
                   alert('Unit Already exists');
                   return false;
                 }
@@ -258,7 +258,7 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
         </Pane>
       </VerticalPane>
       <VerticalPane shrink={true}>
-        {data.loadUnitList.length === 0 && <Alert flex={1}>There are no units defined</Alert>}
+        {data.units.length === 0 && <Alert flex={1}>There are no units defined</Alert>}
         {unit && (
           <UnitDetailContainer key={unit.id} id={unit.id} state={state} readonly={readonly} />
         )}

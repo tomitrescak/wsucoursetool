@@ -1,5 +1,5 @@
 overwrite: true
-schema: src/pages/api/graphql.ts
+schema: src/server/schema.ts
 documents:
   - src/components/**/*.graphql
 config:

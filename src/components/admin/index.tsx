@@ -11,7 +11,6 @@ import 'mobx-react-lite/batchingForReactDom';
 import { url } from 'lib/helpers';
 
 import { TopicEditor } from 'components/topics/topics';
-import { AllBlocksEditor } from 'components/blocks/blocks_editor';
 import { Graph } from 'components/blocks/block_graph';
 import { AcsEditor } from 'components/acs/acs_knowledge_areas';
 import { JobsEditor } from 'components/jobs/jobs';
@@ -47,8 +46,7 @@ const tabs = [
   'Specialisations',
   'Jobs',
   'ACS Skills',
-  'SFIA Skills',
-  'Graph'
+  'SFIA Skills'
 ];
 
 let to: any;
@@ -191,7 +189,6 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
         {selectedTab == 'Specialisations' && (
           <SpecialisationEditor state={state} readonly={readonly} />
         )}
-        {selectedTab == 'Graph' && <Graph state={state} />}
       </Pane>
     </Admin>
   );

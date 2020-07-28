@@ -67,6 +67,7 @@ export type CourseList = {
 export type Query = {
   legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
+  unitBase?: Maybe<Scalars['JSON']>;
   units: Array<UnitList>;
   course: Scalars['JSON'];
   courses: Array<CourseList>;
@@ -75,6 +76,7 @@ export type Query = {
   job: Scalars['JSON'];
   specialisations: Array<SpecialisationList>;
   specialisation: Scalars['JSON'];
+  keywords: Array<Scalars['String']>;
   blocks: Array<BlockList>;
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
@@ -83,6 +85,11 @@ export type Query = {
 
 
 export type QueryUnitArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryUnitBaseArgs = {
   id: Scalars['String'];
 };
 
@@ -337,6 +344,7 @@ export type CourseListResolvers<ContextType = any, ParentType extends ResolversP
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   legacyUnits?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   unit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryUnitArgs, 'id'>>;
+  unitBase?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryUnitBaseArgs, 'id'>>;
   units?: Resolver<Array<ResolversTypes['UnitList']>, ParentType, ContextType>;
   course?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseArgs, 'id'>>;
   courses?: Resolver<Array<ResolversTypes['CourseList']>, ParentType, ContextType>;
@@ -345,6 +353,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   job?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryJobArgs, 'id'>>;
   specialisations?: Resolver<Array<ResolversTypes['SpecialisationList']>, ParentType, ContextType>;
   specialisation?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QuerySpecialisationArgs, 'id'>>;
+  keywords?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   blocks?: Resolver<Array<ResolversTypes['BlockList']>, ParentType, ContextType>;
   acs?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   sfia?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;

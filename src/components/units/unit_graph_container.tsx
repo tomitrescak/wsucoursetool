@@ -5,7 +5,7 @@ import { UnitGraph } from './units_graph';
 
 const QUERY = gql`
   query LoadUnits {
-    loadUnits
+    legacyUnits
   }
 `;
 
@@ -20,7 +20,7 @@ export function UnitContainer() {
   if (error) return <div>Error loading</div>;
   if (loading) return <div>Loading ...</div>;
 
-  const units = JSON.parse(data.loadUnits);
+  const units = JSON.parse(data.legacyUnits);
   const unitArr = Object.keys(units).map(k => units[k]);
 
   return (

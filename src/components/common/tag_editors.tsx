@@ -1,8 +1,6 @@
 import React from 'react';
 import { observer, Observer } from 'mobx-react';
 import { Pane, Text, Autocomplete, TagInput, SelectMenu, Button } from 'evergreen-ui';
-import Router from 'next/router';
-import { State } from './types';
 import { ProgressView } from './progress_view';
 import { useTopicsQuery } from 'config/graphql';
 

@@ -14,7 +14,7 @@ import {
   TextInput
 } from 'evergreen-ui';
 import Router from 'next/router';
-import { State, Block, BlockType as ActivityType, Activity, Unit } from '../types';
+import { State, Block, BlockType as ActivityType, Activity, Unit, AcsKnowledge } from '../types';
 import { buildForm, findMaxId, findNumericMaxId } from 'lib/helpers';
 import Link from 'next/link';
 
@@ -22,11 +22,12 @@ import { AddBlockModal } from './add_block_modal';
 import { SideTab, Tabs } from '../common/tab';
 import { OutcomeEditor } from '../outcomes/outcome_editor';
 import { PrerequisiteEditor } from '../prerequisites/prerequisite_editor';
-import { TopicBlockEditor } from '../topics/topic_block_editor';
+import { TopicBlockEditor } from '../completion_criteria/completion_criteria_editor';
 import { TextEditor } from '../common/text_editor';
 import { KeywordEditor, TopicEditor } from 'components/common/tag_editors';
 import { action } from 'mobx';
 import { Dnd, DragContainer } from 'components/common/dnd';
+import { BlockModel, UnitModel } from 'components/classes';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
@@ -50,8 +51,6 @@ const ActivityDetail: React.FC<{
     () => buildForm(activity, ['name', 'type', 'description', 'lengthHours']),
     [activity]
   );
-
-  console.log('rendering: ' + activity.id);
 
   return (
     <div
@@ -142,313 +141,294 @@ const ActivityDetail: React.FC<{
   );
 });
 
-const BlockDetails: React.FC<{ block: Block; state: State; unit: Unit }> = observer(
-  ({ block, state, unit }) => {
-    const form = React.useMemo(() => buildForm(block, ['name', 'description', 'outcome']), [block]);
-    const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'activity' }), []);
+const BlockDetails: React.FC<{
+  block: BlockModel;
+  state: State;
+  unit: UnitModel;
+  keywords: string[];
+  acs: AcsKnowledge[];
+}> = observer(({ block, state, unit, keywords, acs }) => {
+  const form = React.useMemo(() => buildForm(block, ['name', 'description', 'outcome']), [block]);
+  const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'activity' }), []);
 
-    const [expanded, setExpanded] = React.useState(
-      block.completionCriteria != null && Object.keys(block.completionCriteria).length > 0
+  const [expanded, setExpanded] = React.useState(
+    block.completionCriteria != null && Object.keys(block.completionCriteria).length > 0
+  );
+
+  function addBlock(name = '<New Block>') {
+    const newBlock: Block = {
+      id: findMaxId(unit.blocks),
+      name,
+      prerequisites: [
+        {
+          id: block.id,
+          type: 'block',
+          recommended: true
+        }
+      ],
+      completionCriteria: {},
+      description: '',
+      keywords: [],
+      outcome: '',
+      outcomes: [],
+      topics: [],
+      // credits: 0,
+      activities: []
+    };
+    if (unit) {
+      unit.addBlock(newBlock);
+    }
+
+    // TODO: sync route
+    Router.push(
+      '/editor/[category]/[item]',
+      unit
+        ? `/editor/units/unit-${unit.id}--new-block-${newBlock.id}`
+        : `/editor/blocks/new-block-${newBlock.id}`
+      // { shallow: true }
     );
+  }
 
-    // merge all keywords from blocks and topics
-    let keywords = React.useMemo(() => {
-      let keywords = state.courseConfig.blocks.flatMap(b => b.keywords);
-      keywords = keywords.filter((item, index) => keywords.indexOf(item) === index).sort();
-      return keywords;
-    }, []);
+  function addActivity(type: ActivityType, name = '<New Activity>') {
+    const newActivity: Activity = {
+      id: findMaxId(block.activities),
+      name,
+      description: '',
+      type,
+      lengthHours: 2
+    };
+    block.addActivity(newActivity);
+    state.delaySave();
+  }
 
-    // back
-    if (block.completionCriteria == null) {
-      block.completionCriteria = {};
-    }
+  return (
+    <div style={{ flex: 1 }} key={block.id}>
+      <Pane background="tint3" borderRadius={6} marginLeft={24}>
+        <Pane display="flex" alignItems="center" marginBottom={8}>
+          <Heading size={500} flex="1">
+            <Icon marginRight={8} icon="build" size={14} />
+            {block.name}
+          </Heading>
+          {unit && (
+            <>
+              <IconButton
+                icon="arrow-up"
+                iconSize={12}
+                marginRight={2}
+                width={20}
+                onClick={() => {
+                  const index = unit.blocks.findIndex(b => b.id === block.id);
+                  if (index >= 1) {
+                    unit.removeBlock(index);
+                    unit.insertBlock(block, index - 1);
+                  }
+                }}
+              />
+              <IconButton
+                icon="arrow-down"
+                iconSize={12}
+                marginRight={2}
+                width={20}
+                onClick={() => {
+                  const index = unit.blocks.findIndex(b => b.id === block.id);
+                  if (index < block.activities.length - 1) {
+                    unit.removeBlock(index);
+                    unit.insertBlock(block, index + 1);
+                  }
+                }}
+              />
+            </>
+          )}
 
-    function addBlock(name = '<New Block>') {
-      const newBlock: Block = {
-        id: findMaxId(state.courseConfig.blocks),
-        name,
-        prerequisites: [
-          {
-            id: block.id,
-            type: 'block',
-            recommended: true
-          }
-        ],
-        completionCriteria: {},
-        description: '',
-        keywords: [],
-        outcome: '',
-        outcomes: [],
-        topics: [],
-        // credits: 0,
-        activities: []
-      };
-      if (unit) {
-        unit.blocks.push(newBlock.id);
-      }
-      state.courseConfig.blocks.push(newBlock);
+          <Button
+            appearance="primary"
+            intent="success"
+            marginRight={8}
+            iconBefore="plus"
+            onClick={() => {
+              addBlock();
+            }}
+          >
+            Block
+          </Button>
+        </Pane>
 
-      state.save().then(() => {
-        Router.push(
-          '/editor/[category]/[item]',
-          unit
-            ? `/editor/units/unit-${unit.id}--new-block-${newBlock.id}`
-            : `/editor/blocks/new-block-${newBlock.id}`
-          // { shallow: true }
-        );
-      });
-    }
+        {/* BASIC INFO */}
 
-    function addActivity(type: ActivityType, name = '<New Activity>') {
-      const newActivity: Activity = {
-        id: findMaxId(state.courseConfig.blocks),
-        name,
-        description: '',
-        type,
-        lengthHours: 2
-      };
-      block.activities.push(newActivity);
-      state.delaySave();
-    }
+        <TextInputField
+          flex="1"
+          label="Name"
+          placeholder="Block Name"
+          value={block.name}
+          onChange={form.name}
+          marginBottom={8}
+        />
 
-    return (
-      <div style={{ flex: 1 }} key={block.id}>
-        <Pane background="tint3" borderRadius={6} marginLeft={24}>
-          <Pane display="flex" alignItems="center" marginBottom={8}>
+        {/* ACTIVITIES */}
+
+        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+          <Pane
+            display="flex"
+            alignItems="center"
+            marginBottom={16}
+            paddingBottom={4}
+            borderBottom="dashed 1px #dedede"
+          >
             <Heading size={500} flex="1">
-              <Icon marginRight={8} icon="build" size={14} />
-              {block.name}
+              Activities
             </Heading>
-            {unit && (
-              <>
-                <IconButton
-                  icon="arrow-up"
-                  iconSize={12}
-                  marginRight={2}
-                  width={20}
-                  onClick={() => {
-                    const index = unit.blocks.findIndex(id => id === block.id);
-                    if (index >= 1) {
-                      unit.blocks.splice(index, 1);
-                      unit.blocks.splice(index - 1, 0, block.id);
-                    }
-                  }}
-                />
-                <IconButton
-                  icon="arrow-down"
-                  iconSize={12}
-                  marginRight={2}
-                  width={20}
-                  onClick={() => {
-                    const index = unit.blocks.findIndex(id => id === block.id);
-                    if (index < block.activities.length - 1) {
-                      unit.blocks.splice(index, 1);
-                      unit.blocks.splice(index + 1, 0, block.id);
-                    }
-                  }}
-                />
-              </>
-            )}
-
             <Button
               appearance="primary"
               intent="success"
               marginRight={8}
               iconBefore="plus"
               onClick={() => {
-                addBlock();
+                addActivity('knowledge', 'Lecture');
               }}
             >
-              Block
+              Lecture
+            </Button>
+            <Button
+              appearance="primary"
+              intent="none"
+              iconBefore="plus"
+              marginRight={8}
+              onClick={() => {
+                addActivity('practical', 'Practical'); // - ' + block.name);
+              }}
+            >
+              Practical
+            </Button>
+            <Button
+              appearance="primary"
+              intent="warning"
+              iconBefore="plus"
+              marginRight={8}
+              onClick={() => {
+                addActivity('assignment', 'Portfolio'); // - ' + block.name);
+              }}
+            >
+              Assig.
+            </Button>
+            <Button
+              appearance="primary"
+              intent="danger"
+              iconBefore="plus"
+              onClick={() => {
+                addActivity('exam', 'Exam');
+              }}
+            >
+              Exam
             </Button>
           </Pane>
 
-          {/* BASIC INFO */}
-
-          <TextInputField
-            flex="1"
-            label="Name"
-            placeholder="Block Name"
-            value={block.name}
-            onChange={form.name}
-            marginBottom={8}
-          />
-
-          {/* ACTIVITIES */}
-
-          <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-            <Pane
-              display="flex"
-              alignItems="center"
-              marginBottom={16}
-              paddingBottom={4}
-              borderBottom="dashed 1px #dedede"
-            >
-              <Heading size={500} flex="1">
-                Activities
-              </Heading>
-              <Button
-                appearance="primary"
-                intent="success"
-                marginRight={8}
-                iconBefore="plus"
-                onClick={() => {
-                  addActivity('knowledge', 'Lecture');
-                }}
-              >
-                Lecture
-              </Button>
-              <Button
-                appearance="primary"
-                intent="none"
-                iconBefore="plus"
-                marginRight={8}
-                onClick={() => {
-                  addActivity('practical', 'Practical'); // - ' + block.name);
-                }}
-              >
-                Practical
-              </Button>
-              <Button
-                appearance="primary"
-                intent="warning"
-                iconBefore="plus"
-                marginRight={8}
-                onClick={() => {
-                  addActivity('assignment', 'Portfolio'); // - ' + block.name);
-                }}
-              >
-                Assig.
-              </Button>
-              <Button
-                appearance="primary"
-                intent="danger"
-                iconBefore="plus"
-                onClick={() => {
-                  addActivity('exam', 'Exam');
-                }}
-              >
-                Exam
-              </Button>
-            </Pane>
-
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-              <div style={{ flex: '0 0 50px' }} />
-              <div style={{ flex: 1 }}>
-                <Heading size={400}>Name</Heading>
-              </div>
-              {/* <th style={{ width: '100%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+            <div style={{ flex: '0 0 50px' }} />
+            <div style={{ flex: 1 }}>
+              <Heading size={400}>Name</Heading>
+            </div>
+            {/* <th style={{ width: '100%' }}>
                     <Heading size={400}>Description</Heading>
                   </th> */}
-              <div style={{ flex: ' 0 0 100px' }}>
-                <Heading size={400}>Type</Heading>
-              </div>
-              <div style={{ flex: '0 0 78px' }}>
-                <Heading size={400}>Hrs.</Heading>
-              </div>
+            <div style={{ flex: ' 0 0 100px' }}>
+              <Heading size={400}>Type</Heading>
             </div>
+            <div style={{ flex: '0 0 78px' }}>
+              <Heading size={400}>Hrs.</Heading>
+            </div>
+          </div>
 
-            <DragContainer>
-              {block.activities.map(a => (
-                <ActivityDetail block={block} activity={a} state={state} key={a.id} dnd={dnd} />
-              ))}
-            </DragContainer>
-          </Pane>
-
-          {/* PREREQUSTIES */}
-          <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-            <PrerequisiteEditor
-              state={state}
-              owner={block}
-              unit={unit}
-              activities={block.activities}
-            />
-          </Pane>
-
-          {/* COMPLETION CRITERIA */}
-
-          <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-            <Heading
-              size={500}
-              marginBottom={expanded ? 8 : 0}
-              borderBottom={expanded ? 'dashed 1px #dedede' : ''}
-              display="flex"
-              alignItems="center"
-            >
-              <Icon
-                size={16}
-                marginRight={8}
-                icon={expanded ? 'chevron-down' : 'chevron-right'}
-                cursor="pointer"
-                onClick={() => setExpanded(!expanded)}
-              />
-              Completion Criteria
-            </Heading>
-
-            {expanded && (
-              <TopicBlockEditor
-                state={state}
-                block={block.completionCriteria}
-                items={block.activities}
-              />
-            )}
-          </Pane>
-
-          {/* OUTCOMES */}
-
-          <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-            <OutcomeEditor state={state} owner={block} />
-            {/* <TextEditor owner={block} field="outcome" label="Outcome Description" /> */}
-          </Pane>
-
-          {/* DESCRIPITION */}
-          <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-            <Heading size={500} marginBottom={16} borderBottom="dashed 1px #dedede">
-              Details
-            </Heading>
-
-            <TextEditor owner={block} field="outcome" label="Description" />
-
-            <Pane display="flex">
-              {/* TOPICS */}
-              <TopicEditor owner={block} state={state} />
-              {/* KEYWORDS */}
-              <KeywordEditor owner={block} keywords={keywords} />
-            </Pane>
-          </Pane>
-
-          <Button
-            appearance="primary"
-            intent="danger"
-            onClick={() => {
-              if (confirm('Are you really sure?')) {
-                state.courseConfig.blocks.splice(state.courseConfig.blocks.indexOf(block), 1);
-                state.courseConfig.units.forEach(u => {
-                  let index = u.blocks.findIndex(id => id === block.id);
-                  if (index >= 0) {
-                    u.blocks.splice(index, 1);
-                  }
-                });
-              }
-            }}
-            iconBefore="trash"
-          >
-            Delete
-          </Button>
+          <DragContainer>
+            {block.activities.map(a => (
+              <ActivityDetail block={block} activity={a} state={state} key={a.id} dnd={dnd} />
+            ))}
+          </DragContainer>
         </Pane>
-      </div>
-    );
-  }
-);
+
+        {/* PREREQUSTIES */}
+        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+          <PrerequisiteEditor
+            state={state}
+            owner={block}
+            unit={unit}
+            activities={block.activities}
+          />
+        </Pane>
+
+        {/* COMPLETION CRITERIA */}
+
+        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+          <Heading
+            size={500}
+            marginBottom={expanded ? 8 : 0}
+            borderBottom={expanded ? 'dashed 1px #dedede' : ''}
+            display="flex"
+            alignItems="center"
+          >
+            <Icon
+              size={16}
+              marginRight={8}
+              icon={expanded ? 'chevron-down' : 'chevron-right'}
+              cursor="pointer"
+              onClick={() => setExpanded(!expanded)}
+            />
+            Completion Criteria
+          </Heading>
+
+          {expanded && (
+            <TopicBlockEditor block={block.completionCriteria} items={block.activities} />
+          )}
+        </Pane>
+
+        {/* OUTCOMES */}
+
+        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+          <OutcomeEditor state={state} owner={block} acss={acs} />
+          {/* <TextEditor owner={block} field="outcome" label="Outcome Description" /> */}
+        </Pane>
+
+        {/* DESCRIPITION */}
+        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+          <Heading size={500} marginBottom={16} borderBottom="dashed 1px #dedede">
+            Details
+          </Heading>
+
+          <TextEditor owner={block} field="outcome" label="Description" />
+
+          <Pane display="flex">
+            {/* TOPICS */}
+            <TopicEditor owner={block} />
+            {/* KEYWORDS */}
+            <KeywordEditor owner={block} keywords={keywords} />
+          </Pane>
+        </Pane>
+
+        <Button
+          appearance="primary"
+          intent="danger"
+          onClick={() => {
+            unit.removeBlock(unit.blocks.indexOf(block));
+          }}
+          iconBefore="trash"
+        >
+          Delete
+        </Button>
+      </Pane>
+    </div>
+  );
+});
 
 type Props = {
+  acs: AcsKnowledge[];
   state: State;
-  blocks: Block[];
-  unit: Unit;
+  blocks: BlockModel[];
+  readonlyBlocks: Block[];
+  unit: UnitModel;
   selectedBlockId: string;
   url: (block: Block) => string;
   title?: string;
   readonly: boolean;
+  keywords: string[];
 };
 
 // href="/editor/[category]/[item]"
@@ -508,14 +488,16 @@ function blockColor(block: Block) {
 }
 
 const BlocksEditorView: React.FC<Props> = ({
-  blocks,
   selectedBlockId,
   url,
   state,
   unit,
-  title
+  title,
+  keywords,
+  acs,
+  readonlyBlocks
 }) => {
-  const selectedBlock = selectedBlockId ? blocks.find(b => b.id === selectedBlockId) : null;
+  const selectedBlock = selectedBlockId ? unit.blocks.find(b => b.id === selectedBlockId) : null;
   const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'blocks' }), []);
 
   const mergeWithNext = direction =>
@@ -523,13 +505,13 @@ const BlocksEditorView: React.FC<Props> = ({
       if (!selectedBlockId) {
         return;
       }
-      const blockIndex = blocks.findIndex(b => b.id === selectedBlockId);
-      const nextBlock = blocks[blockIndex + direction];
+      const blockIndex = unit.blocks.findIndex(b => b.id === selectedBlockId);
+      const nextBlock = unit.blocks[blockIndex + direction];
 
       if (!nextBlock) {
         return;
       }
-      const currentBlock = blocks[blockIndex];
+      const currentBlock = unit.blocks[blockIndex];
 
       let maxId = findNumericMaxId(currentBlock.activities);
 
@@ -543,17 +525,12 @@ const BlocksEditorView: React.FC<Props> = ({
         let cc = unit.completionCriteria.criteria.find(c => c.id === nextBlock.id);
         if (cc) {
           // fill in the current block
-          if (currentBlock.completionCriteria == null) {
-            currentBlock.completionCriteria = {
-              type: 'allOf'
-            };
-          } else {
-            currentBlock.completionCriteria.type = 'allOf';
-          }
+          currentBlock.completionCriteria.type = 'allOf';
+
           if (currentBlock.completionCriteria.criteria == null) {
             currentBlock.completionCriteria.criteria = [];
           }
-          currentBlock.completionCriteria.criteria.push({
+          currentBlock.completionCriteria.addCompletionCriteria({
             ...cc,
             id: activities[0]?.id as any
           });
@@ -565,10 +542,8 @@ const BlocksEditorView: React.FC<Props> = ({
 
       // assign new id
 
-      currentBlock.activities.push(...activities);
-      blocks.splice(blockIndex + direction, 1);
-
-      unit.blocks.splice(unit.blocks.indexOf(nextBlock.id), 1);
+      currentBlock.addActivities(activities);
+      unit.removeBlock(blockIndex + direction);
     });
 
   return (
@@ -593,7 +568,7 @@ const BlocksEditorView: React.FC<Props> = ({
         </Pane>
         <Tabs>
           <DragContainer>
-            {blocks.map((block, index) => (
+            {unit.blocks.map((block, index) => (
               <Pane
                 display="flex"
                 alignItems="center"
@@ -631,12 +606,12 @@ const BlocksEditorView: React.FC<Props> = ({
                       {blockCredits(block)}¢
                     </Badge>
                   )}
-                  {requisiteRanges(blocks, block, false).map(r => (
+                  {requisiteRanges(unit.blocks, block, false).map(r => (
                     <Badge key={r} color={'red'}>
                       {r}
                     </Badge>
                   ))}
-                  {requisiteRanges(blocks, block, true).map(r => (
+                  {requisiteRanges(unit.blocks, block, true).map(r => (
                     <Badge key={r} color={'green'}>
                       {r}
                     </Badge>
@@ -645,13 +620,50 @@ const BlocksEditorView: React.FC<Props> = ({
               </Pane>
             ))}
           </DragContainer>
+          {readonlyBlocks && (
+            <>
+              <Heading size={400}>Imported Blocks</Heading>
+              {readonlyBlocks.map((b, i) => {
+                return (
+                  <Link
+                    key={b.id}
+                    href="/editor/[category]/[item]"
+                    as={`/editor/units/imported-${b.unitId}--${b.name}-${b.id}`}
+                  >
+                    <a>
+                      <SideTab
+                        id={b.id}
+                        aria-controls={`panel-${b.name}`}
+                        display="flex"
+                        alignItems="center"
+                      >
+                        <Badge color="orange" marginRight={8}>
+                          {i + 1}
+                        </Badge>
+
+                        {b.name}
+                      </SideTab>
+                    </a>
+                  </Link>
+                );
+              })}
+            </>
+          )}
         </Tabs>
         <Pane marginTop={16}>
           <AddBlockModal state={state} unit={unit} />
         </Pane>
       </Tablist>
-      {state.courseConfig.units.length === 0 && <Alert flex={1}>There are no units defined</Alert>}
-      {selectedBlock && <BlockDetails block={selectedBlock} unit={unit} state={state} />}
+      {unit.blocks.length === 0 && <Alert flex={1}>There are no units defined</Alert>}
+      {selectedBlock && (
+        <BlockDetails
+          keywords={keywords}
+          block={selectedBlock}
+          unit={unit}
+          state={state}
+          acs={acs}
+        />
+      )}
     </Pane>
   );
 };

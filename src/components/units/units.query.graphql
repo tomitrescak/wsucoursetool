@@ -1,0 +1,8 @@
+query Units {
+  units {
+    blockCount
+    dynamic
+    id
+    name
+  }
+}

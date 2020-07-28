@@ -1,0 +1,12 @@
+query Prerequisites {
+  acs
+  topics {
+    id
+    name
+  }
+  blocks {
+    id
+    name
+    unitId
+  }
+}

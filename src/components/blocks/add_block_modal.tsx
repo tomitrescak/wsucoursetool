@@ -1,12 +1,13 @@
 import React from 'react';
 import { Dialog, Pane, TextInputField, Button, SelectField } from 'evergreen-ui';
 import { useLocalStore, observer } from 'mobx-react';
-import { State, Block, Unit } from '../types';
+import { State, Block } from '../types';
 import { findMaxId, buildForm, url } from 'lib/helpers';
 import Router from 'next/router';
+import { UnitModel, createBlock } from 'components/classes';
 
 type Props = {
-  unit: Unit;
+  unit: UnitModel;
   state: State;
 };
 
@@ -26,7 +27,7 @@ export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
         shouldCloseOnOverlayClick={false}
         onConfirm={close => {
           const newBlock: Block = {
-            id: findMaxId(state.courseConfig.blocks),
+            id: findMaxId(unit.blocks),
             name: localState.name,
             prerequisites: [],
             completionCriteria: {},
@@ -34,13 +35,12 @@ export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
             keywords: [],
             outcome: '',
             outcomes: [],
-            credits: 0,
             activities: [],
             topics: []
           };
-          state.courseConfig.blocks.push(newBlock);
+          unit.addBlock(newBlock);
           if (unit) {
-            unit.blocks.push(newBlock.id);
+            unit.blocks.push(createBlock(newBlock));
           }
 
           state.save().then(() => {

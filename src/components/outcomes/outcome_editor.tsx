@@ -15,11 +15,15 @@ import {
   TextInputField
 } from 'evergreen-ui';
 import { action } from 'mobx';
-import { State, Outcome } from '../types';
+import { State, Outcome, AcsKnowledge } from '../types';
 
 export type Props = {
+  acss: AcsKnowledge[];
   state: State;
-  owner: { outcomes: Outcome[] };
+  owner: {
+    outcomes: ReadonlyArray<Outcome>;
+    addOutcome({ acsSkillId: string, bloomRating: number });
+  };
 };
 
 export const skills = [
@@ -44,7 +48,7 @@ export const skills = [
   'e3'
 ];
 
-export const OutcomeEditor: React.FC<Props> = observer(({ state, owner }) => {
+export const OutcomeEditor: React.FC<Props> = observer(({ acss, owner }) => {
   const localState = useLocalStore(() => ({
     outcomeId: '',
     outcomeRating: -1
@@ -59,7 +63,7 @@ export const OutcomeEditor: React.FC<Props> = observer(({ state, owner }) => {
     if (outcome) {
       outcome.bloomRating = value;
     } else {
-      owner.outcomes.push({ acsSkillId: id, bloomRating: value });
+      owner.addOutcome({ acsSkillId: id, bloomRating: value });
     }
   }
 
@@ -120,7 +124,7 @@ export const OutcomeEditor: React.FC<Props> = observer(({ state, owner }) => {
 
             skills.forEach((f, i) => {
               if (line[i] && line[i] !== ' ') {
-                owner.outcomes.push({
+                owner.addOutcome({
                   acsSkillId: f,
                   bloomRating: line[i] === 'x' ? 1 : isNaN(line[i]) ? 1 : parseInt(line[i])
                 });
@@ -131,7 +135,7 @@ export const OutcomeEditor: React.FC<Props> = observer(({ state, owner }) => {
       )}
 
       {expanded &&
-        state.courseConfig.acsKnowledge.map((acs, i) => (
+        acss.map((acs, i) => (
           <Pane key={i}>
             <Heading size={400} marginTop={8} marginBottom={4}>
               {acs.name}

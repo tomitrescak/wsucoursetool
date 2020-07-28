@@ -5,7 +5,7 @@ import cola from 'cytoscape-cola';
 import fcose from 'cytoscape-fcose';
 import spread from 'cytoscape-spread';
 
-import { State, Block } from './types';
+import { State, Block } from 'components/types';
 
 cytoscape.use(cola);
 cytoscape.use(fcose);
@@ -65,8 +65,6 @@ export const UnitGraph: React.FC<Props> = ({ unitArr, height = '800px' }) => {
 
   // datasets even out
   unitArr.forEach(u => (u.id = u.id || u.code));
-
-  debugger;
 
   const elements: any = unitArr
     .filter(u => u.name.indexOf('WSTC') === -1)

@@ -16,9 +16,10 @@ import {
   Checkbox,
   TextInput,
   IconButton,
-  toaster
+  toaster,
+  Tab
 } from 'evergreen-ui';
-import { Unit, State, Course, CourseUnit, Topic } from '../types';
+import { Unit, State, Course, CourseUnit, Topic, AcsKnowledge } from '../types';
 import { url, buildForm } from 'lib/helpers';
 import Link from 'next/link';
 
@@ -43,6 +44,7 @@ import {
 } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 import { createCourse } from 'components/classes';
+import { Graph } from 'components/blocks/block_graph';
 
 /*!
  * Group items from an array together by some criteria or value.
@@ -319,6 +321,114 @@ const UnitsByTopic = observer(
   }
 );
 
+type Props = {
+  courseUnits: Unit[];
+  selectedUnits: CourseUnit[];
+  acs: AcsKnowledge[];
+};
+
+const AcsGraph = ({ courseUnits, selectedUnits, acs }: Props) => {
+  const units: Unit[] = selectedUnits.map(cu => courseUnits.find(u => u.id === cu.id));
+  const titles = {};
+
+  let bars = skills.map((s, i) => {
+    let ascSkill = acs.flatMap(k => k.items).find(k => k.id === s);
+    // find maximum
+
+    let max = units.reduce((max, unit) => {
+      let maxValue = unit.blocks.reduce((blockMax, block) => {
+        let maxBlockValue = block.outcomes?.find(o => o.acsSkillId === s)?.bloomRating || 0;
+        return blockMax < maxBlockValue ? maxBlockValue : blockMax;
+      }, unit.outcomes?.find(o => o.acsSkillId === s)?.bloomRating || 0);
+      return max < maxValue ? maxValue : max;
+    }, 0);
+
+    titles[i] = ascSkill.name;
+
+    return { y: i, x: max };
+  });
+
+  return (
+    <Pane>
+      <Heading>ACS CBOK Breakdown</Heading>
+      <XYPlot height={400} width={400} margin={{ left: 200 }} xDomain={[0, 6]}>
+        <VerticalGridLines />
+        <HorizontalGridLines />
+        <XAxis
+          tickValues={[0, 1, 2, 3, 4, 5, 6]}
+          hideTicks={false}
+          tickFormat={e => Math.round(e) as any}
+        />
+        <YAxis
+          tickValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]}
+          tickFormat={e => titles[e]}
+          width={200}
+        />
+
+        <HorizontalBarSeries data={bars} barWidth={0.7} />
+      </XYPlot>
+      <TextInputField label="Values" value={bars.map(b => b.x).join('\t')} />
+
+      <Pane elevation={2}></Pane>
+    </Pane>
+  );
+};
+
+const TabHeader = observer(({ tab, children, state }) => {
+  return (
+    <Tab
+      key={tab}
+      id={tab}
+      onSelect={() => (state.tab = tab)}
+      isSelected={tab === state.tab}
+      aria-controls={`panel-${tab}`}
+    >
+      {children}
+    </Tab>
+  );
+});
+
+const TabContent = observer(
+  ({ tab, children, state }: React.PropsWithChildren<{ tab: string; state: any }>) => {
+    return (
+      <Pane
+        key={tab}
+        id={`panel-${tab}`}
+        role="tabpanel"
+        aria-labelledby={tab}
+        aria-hidden={state.tab !== tab}
+        display={state.tab === tab ? 'block' : 'none'}
+      >
+        {state.tab === tab && children}
+      </Pane>
+    );
+  }
+);
+
+const Visualisations = observer(({ acs, courseUnits, selectedUnits }: Props) => {
+  const state = useLocalStore(() => ({
+    tab: 'acs'
+  }));
+  return (
+    <Pane>
+      <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
+        <TabHeader tab="acs" state={state}>
+          ACS CBOK
+        </TabHeader>
+        <TabHeader tab="dep" state={state}>
+          Dependencies
+        </TabHeader>
+      </Tablist>
+      <TabContent tab="acs" state={state}>
+        <AcsGraph acs={acs} courseUnits={courseUnits} selectedUnits={selectedUnits} />
+      </TabContent>
+      <TabContent tab="dep" state={state}>
+        <Graph units={selectedUnits.map(u => courseUnits.find(cu => u.id === cu.id))} />
+      </TabContent>
+    </Pane>
+  );
+});
+
 const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = observer(
   ({ course: courseListItem, readonly }) => {
     const { loading, error, data, refetch } = useCourseQuery({
@@ -378,6 +488,7 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
       ...course.core.filter(c => major.units.every(u => u.id !== c.id)),
       ...major.units
     ];
+
     const selectedUnits = courseUnits.filter(u => {
       if (localState.selection.length || localState.semesterSelection.length) {
         return (
@@ -386,26 +497,6 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
         );
       }
       return true;
-    });
-
-    const units: Unit[] = selectedUnits.map(cu => data.courseUnits.find(u => u.id === cu.id));
-    const titles = {};
-
-    let bars = skills.map((s, i) => {
-      let ascSkill = data.acs.flatMap(k => k.items).find(k => k.id === s);
-      // find maximum
-
-      let max = units.reduce((max, unit) => {
-        let maxValue = unit.blocks.reduce((blockMax, block) => {
-          let maxBlockValue = block.outcomes?.find(o => o.acsSkillId === s)?.bloomRating || 0;
-          return blockMax < maxBlockValue ? maxBlockValue : blockMax;
-        }, unit.outcomes?.find(o => o.acsSkillId === s)?.bloomRating || 0);
-        return max < maxValue ? maxValue : max;
-      }, 0);
-
-      titles[i] = ascSkill.name;
-
-      return { y: i, x: max };
     });
 
     return (
@@ -461,7 +552,7 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
                   </option>
                 ))}
               </SelectField>
-              <Dialog
+              {/* <Dialog
                 isShown={localState.isShown}
                 title="Add New Major"
                 onCloseComplete={() => (localState.isShown = false)}
@@ -491,7 +582,7 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
                     flex={1}
                   />
                 </Pane>
-              </Dialog>
+              </Dialog> */}
 
               <Button
                 appearance="primary"
@@ -539,26 +630,11 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
           </Button>
         </VerticalPane>
         <VerticalPane>
-          <Heading>ACS CBOK Breakdown</Heading>
-          <XYPlot height={400} width={400} margin={{ left: 200 }} xDomain={[0, 6]}>
-            <VerticalGridLines />
-            <HorizontalGridLines />
-            <XAxis
-              tickValues={[0, 1, 2, 3, 4, 5, 6]}
-              hideTicks={false}
-              tickFormat={e => Math.round(e) as any}
-            />
-            <YAxis
-              tickValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]}
-              tickFormat={e => titles[e]}
-              width={200}
-            />
-
-            <HorizontalBarSeries data={bars} barWidth={0.7} />
-          </XYPlot>
-          <TextInputField label="Values" value={bars.map(b => b.x).join('\t')} />
-
-          <Pane elevation={2}></Pane>
+          <Visualisations
+            acs={data.acs}
+            selectedUnits={selectedUnits}
+            courseUnits={data.courseUnits}
+          />
         </VerticalPane>
       </>
     );

@@ -337,7 +337,7 @@ const AllOfEditor = observer(({ items, completionCriteria, sub }: EditorProps) =
 });
 
 export const TopicBlockEditor: React.FC<Props> = observer(
-  ({ block: completionCriteria, items, state }) => {
+  ({ block: completionCriteria, items }) => {
     if (completionCriteria.type === '' || completionCriteria.type === 'simple') {
       return <SimpleEditor completionCriteria={completionCriteria} items={items} />;
     }

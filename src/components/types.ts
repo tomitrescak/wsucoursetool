@@ -14,7 +14,7 @@ export type Prerequisite = {
   activityId?: string;
   value?: number;
   recommended?: boolean;
-  prerequisites?: ReadonlyArray<Prerequisite>;
+  prerequisites?: Prerequisite[];
 };
 
 export type Outcome = {
@@ -30,14 +30,14 @@ export type CourseUnit = {
 export type Major = {
   name: string;
   id: string;
-  units: ReadonlyArray<CourseUnit>;
+  units: CourseUnit[];
 };
 
 export type Course = {
   name: string;
   id: string;
-  core: ReadonlyArray<CourseUnit>;
-  majors: ReadonlyArray<Major>;
+  core: CourseUnit[];
+  majors: Major[];
 };
 
 export type ListOwner<T> = {
@@ -50,29 +50,29 @@ export type ListOwner<T> = {
 export type Unit = {
   id: string;
   name: string;
-  delivery: '1' | '2' | '3';
+  delivery: string;
   completionCriteria: CompletionCriteria;
   outcome: string;
-  outcomes: ReadonlyArray<Outcome>;
+  outcomes: Outcome[];
   assumedKnowledge: string;
   lgId?: string;
 
-  blocks: ReadonlyArray<Block>;
-  topics: ReadonlyArray<string>;
-  keywords: ReadonlyArray<string>;
+  blocks: Block[];
+  topics: string[];
+  keywords: string[];
 
   dynamic: boolean;
-  blockTopics: ReadonlyArray<string>;
+  // blockTopics: string[];
 
   unitPrerequisites?: string;
-  prerequisite?: ReadonlyArray<string>;
+  prerequisite?: string[];
   corequisites?: string;
   incompatible?: string;
   credits?: number;
   level?: number;
   approachToLearning?: string;
 
-  prerequisites?: ReadonlyArray<Prerequisite>;
+  prerequisites?: Prerequisite[];
 };
 
 export type CompletionCriteriaType = '' | 'simple' | 'allOf' | 'someOf';
@@ -80,7 +80,7 @@ export type CompletionCriteriaType = '' | 'simple' | 'allOf' | 'someOf';
 export type CompletionCriteria = {
   id?: string;
   type?: CompletionCriteriaType;
-  criteria?: ReadonlyArray<CompletionCriteria>;
+  criteria?: CompletionCriteria[];
   minimumValue?: number;
   minimumCount?: number;
   weight?: number;
@@ -107,21 +107,21 @@ export type Block = {
   id: string;
   unitId?: string;
   name: string;
-  outcomes: ReadonlyArray<Outcome>;
+  outcomes: Outcome[];
   outcome: string;
   description: string;
-  keywords: ReadonlyArray<string>;
-  topics: ReadonlyArray<string>;
-  prerequisites: ReadonlyArray<Prerequisite>;
+  keywords: string[];
+  topics: string[];
+  prerequisites: Prerequisite[];
   completionCriteria: CompletionCriteria;
-  activities: ReadonlyArray<Activity>;
+  activities: Activity[];
 };
 
 export type Specialisation = {
   id: string;
   name: string;
   description: string;
-  prerequisites: ReadonlyArray<Prerequisite>;
+  prerequisites: Prerequisite[];
 };
 
 export type Entity = {
@@ -136,14 +136,14 @@ type SkillLevel = {
 };
 
 export type Job = Entity & {
-  skills: ReadonlyArray<SkillLevel>;
+  skills: SkillLevel[];
 };
 
 export type AcsKnowledge = {
   id: string;
   name: string;
   description: string;
-  items: ReadonlyArray<Entity>;
+  items: Entity[];
 };
 
 export type SfiaSkill = Entity & {
@@ -151,13 +151,13 @@ export type SfiaSkill = Entity & {
 };
 
 export type CourseConfig = {
-  courses: ReadonlyArray<Course>;
-  units: ReadonlyArray<Unit>;
-  topics: ReadonlyArray<Topic>;
-  specialisations: ReadonlyArray<Specialisation>;
-  acsKnowledge: ReadonlyArray<AcsKnowledge>;
-  sfiaSkills: ReadonlyArray<SfiaSkill>;
-  jobs: ReadonlyArray<Job>;
+  courses: Course[];
+  units: Unit[];
+  topics: Topic[];
+  specialisations: Specialisation[];
+  acsKnowledge: AcsKnowledge[];
+  sfiaSkills: SfiaSkill[];
+  jobs: Job[];
 };
 
 export type State = {

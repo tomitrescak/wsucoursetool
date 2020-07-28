@@ -68,6 +68,7 @@ export type CourseList = {
 export type Query = {
   legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
+  unitBase?: Maybe<Scalars['JSON']>;
   units: Array<UnitList>;
   course: Scalars['JSON'];
   courses: Array<CourseList>;
@@ -76,6 +77,7 @@ export type Query = {
   job: Scalars['JSON'];
   specialisations: Array<SpecialisationList>;
   specialisation: Scalars['JSON'];
+  keywords: Array<Scalars['String']>;
   blocks: Array<BlockList>;
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
@@ -84,6 +86,11 @@ export type Query = {
 
 
 export type QueryUnitArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryUnitBaseArgs = {
   id: Scalars['String'];
 };
 
@@ -243,6 +250,14 @@ export type JobsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type JobsQuery = { jobs: Array<Pick<JobList, 'id' | 'name'>> };
 
+export type PrerequisitesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PrerequisitesQuery = (
+  Pick<Query, 'acs'>
+  & { topics: Array<Pick<TopicList, 'id' | 'name'>>, blocks: Array<Pick<BlockList, 'id' | 'name' | 'unitId'>> }
+);
+
 export type SaveConfigMutationVariables = Exact<{
   part: Scalars['String'];
   id?: Maybe<Scalars['String']>;
@@ -297,6 +312,13 @@ export type CreateUnitMutationVariables = Exact<{
 
 export type CreateUnitMutation = { createUnit: Pick<UnitList, 'id' | 'name' | 'dynamic' | 'blockCount'> };
 
+export type UnitBaseQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type UnitBaseQuery = Pick<Query, 'unitBase'>;
+
 export type DeleteUnitMutationVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -309,7 +331,12 @@ export type UnitQueryVariables = Exact<{
 }>;
 
 
-export type UnitQuery = Pick<Query, 'unit'>;
+export type UnitQuery = Pick<Query, 'unit' | 'acs' | 'keywords'>;
+
+export type UnitsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UnitsQuery = { units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'id' | 'name'>> };
 
 
 export const AcsDocument = gql`
@@ -655,6 +682,45 @@ export function useJobsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpt
 export type JobsQueryHookResult = ReturnType<typeof useJobsQuery>;
 export type JobsLazyQueryHookResult = ReturnType<typeof useJobsLazyQuery>;
 export type JobsQueryResult = ApolloReactCommon.QueryResult<JobsQuery, JobsQueryVariables>;
+export const PrerequisitesDocument = gql`
+    query Prerequisites {
+  acs
+  topics {
+    id
+    name
+  }
+  blocks {
+    id
+    name
+    unitId
+  }
+}
+    `;
+
+/**
+ * __usePrerequisitesQuery__
+ *
+ * To run a query within a React component, call `usePrerequisitesQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePrerequisitesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePrerequisitesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePrerequisitesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PrerequisitesQuery, PrerequisitesQueryVariables>) {
+        return ApolloReactHooks.useQuery<PrerequisitesQuery, PrerequisitesQueryVariables>(PrerequisitesDocument, baseOptions);
+      }
+export function usePrerequisitesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PrerequisitesQuery, PrerequisitesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<PrerequisitesQuery, PrerequisitesQueryVariables>(PrerequisitesDocument, baseOptions);
+        }
+export type PrerequisitesQueryHookResult = ReturnType<typeof usePrerequisitesQuery>;
+export type PrerequisitesLazyQueryHookResult = ReturnType<typeof usePrerequisitesLazyQuery>;
+export type PrerequisitesQueryResult = ApolloReactCommon.QueryResult<PrerequisitesQuery, PrerequisitesQueryVariables>;
 export const SaveConfigDocument = gql`
     mutation SaveConfig($part: String!, $id: String, $body: JSON!) {
   save(part: $part, id: $id, body: $body)
@@ -912,6 +978,37 @@ export function useCreateUnitMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type CreateUnitMutationHookResult = ReturnType<typeof useCreateUnitMutation>;
 export type CreateUnitMutationResult = ApolloReactCommon.MutationResult<CreateUnitMutation>;
 export type CreateUnitMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateUnitMutation, CreateUnitMutationVariables>;
+export const UnitBaseDocument = gql`
+    query UnitBase($id: String!) {
+  unitBase(id: $id)
+}
+    `;
+
+/**
+ * __useUnitBaseQuery__
+ *
+ * To run a query within a React component, call `useUnitBaseQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUnitBaseQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUnitBaseQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUnitBaseQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<UnitBaseQuery, UnitBaseQueryVariables>) {
+        return ApolloReactHooks.useQuery<UnitBaseQuery, UnitBaseQueryVariables>(UnitBaseDocument, baseOptions);
+      }
+export function useUnitBaseLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<UnitBaseQuery, UnitBaseQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<UnitBaseQuery, UnitBaseQueryVariables>(UnitBaseDocument, baseOptions);
+        }
+export type UnitBaseQueryHookResult = ReturnType<typeof useUnitBaseQuery>;
+export type UnitBaseLazyQueryHookResult = ReturnType<typeof useUnitBaseLazyQuery>;
+export type UnitBaseQueryResult = ApolloReactCommon.QueryResult<UnitBaseQuery, UnitBaseQueryVariables>;
 export const DeleteUnitDocument = gql`
     mutation DeleteUnit($id: String!) {
   deleteUnit(id: $id)
@@ -945,6 +1042,8 @@ export type DeleteUnitMutationOptions = ApolloReactCommon.BaseMutationOptions<De
 export const UnitDocument = gql`
     query Unit($id: String!) {
   unit(id: $id)
+  acs
+  keywords
 }
     `;
 
@@ -973,3 +1072,38 @@ export function useUnitLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpt
 export type UnitQueryHookResult = ReturnType<typeof useUnitQuery>;
 export type UnitLazyQueryHookResult = ReturnType<typeof useUnitLazyQuery>;
 export type UnitQueryResult = ApolloReactCommon.QueryResult<UnitQuery, UnitQueryVariables>;
+export const UnitsDocument = gql`
+    query Units {
+  units {
+    blockCount
+    dynamic
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useUnitsQuery__
+ *
+ * To run a query within a React component, call `useUnitsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUnitsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUnitsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUnitsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<UnitsQuery, UnitsQueryVariables>) {
+        return ApolloReactHooks.useQuery<UnitsQuery, UnitsQueryVariables>(UnitsDocument, baseOptions);
+      }
+export function useUnitsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<UnitsQuery, UnitsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<UnitsQuery, UnitsQueryVariables>(UnitsDocument, baseOptions);
+        }
+export type UnitsQueryHookResult = ReturnType<typeof useUnitsQuery>;
+export type UnitsLazyQueryHookResult = ReturnType<typeof useUnitsLazyQuery>;
+export type UnitsQueryResult = ApolloReactCommon.QueryResult<UnitsQuery, UnitsQueryVariables>;

@@ -2,7 +2,6 @@ import { model, Model, prop, ExtendedModel, undoMiddleware, modelAction } from '
 import {
   Activity,
   BlockType,
-  CourseConfig,
   PrerequisiteType,
   Prerequisite,
   Block,
@@ -15,7 +14,8 @@ import {
   Major,
   Course,
   Unit,
-  Entity
+  Entity,
+  Outcome
 } from './types';
 import { toJS } from 'mobx';
 
@@ -89,7 +89,36 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   prerequisites: prop<PrerequisiteModel[]>({ setterAction: true }),
   topics: prop<string[]>({ setterAction: true }),
   unitPrerequisites: prop<string>({ setterAction: true })
-}) {}
+}) {
+  @modelAction
+  addPrerequisite(p: Prerequisite) {
+    this.prerequisites.push(createPrerequisite(p));
+  }
+  @modelAction
+  addPrerequisites(p: Prerequisite[]) {
+    this.prerequisites.push(...createPrerequisites(p));
+  }
+  @modelAction
+  removePrerequisite(ix: number) {
+    this.prerequisites.splice(ix, 1);
+  }
+  @modelAction
+  addOutcome(o: Outcome) {
+    this.outcomes.push(new OutcomeModel(o));
+  }
+  @modelAction
+  addBlock(p: Block) {
+    this.blocks.push(createBlock(p));
+  }
+  @modelAction
+  removeBlock(ix: number) {
+    this.blocks.splice(ix, 1);
+  }
+  @modelAction
+  insertBlock(b: BlockModel, ix: number) {
+    this.blocks.splice(ix, 0, b);
+  }
+}
 
 export function createUnit(model: Unit) {
   return new UnitModel({
@@ -113,7 +142,12 @@ class CompletionCriteriaModel extends Model({
   minimumCount: prop<number>({ setterAction: true }),
   weight: prop<number>({ setterAction: true }),
   credit: prop<number>({ setterAction: true })
-}) {}
+}) {
+  @modelAction
+  addCompletionCriteria(p: CompletionCriteria) {
+    this.criteria.push(createCompletionCriteria(p));
+  }
+}
 
 function createCompletionCriteria(model: CompletionCriteria) {
   return new CompletionCriteriaModel({
@@ -144,16 +178,44 @@ export class BlockModel extends ExtendedModel(EntityModel, {
   prerequisites: prop<PrerequisiteModel[]>({ setterAction: true }),
   completionCriteria: prop<CompletionCriteriaModel>({ setterAction: true }),
   activities: prop<ActivityModel[]>({ setterAction: true })
-}) {}
+}) {
+  @modelAction
+  addPrerequisite(pre: Prerequisite) {
+    this.prerequisites.push(createPrerequisite(pre));
+  }
+
+  @modelAction
+  addPrerequisites(pre: ReadonlyArray<Prerequisite>) {
+    this.prerequisites.push(...createPrerequisites(pre));
+  }
+
+  @modelAction
+  removePrerequisite(ix: number) {
+    this.prerequisites.splice(ix, 1);
+  }
+  @modelAction
+  addActivities(a: Activity[]) {
+    this.activities.push(...createActivities(a));
+  }
+  @modelAction
+  addActivity(a: Activity) {
+    this.activities.push(new ActivityModel(a));
+  }
+
+  @modelAction
+  addOutcome(o: Outcome) {
+    this.outcomes.push(new OutcomeModel(o));
+  }
+}
 
 export function createBlock(block: Block) {
   return new BlockModel({
     ...block,
-    keywords: block.keywords as any,
-    topics: block.topics as any,
-    prerequisites: createPrerequisites(block.prerequisites),
+    keywords: (block.keywords as any) || [],
+    topics: (block.topics as any) || [],
+    prerequisites: createPrerequisites(block.prerequisites || []),
     completionCriteria: createCompletionCriteria(block.completionCriteria || {}),
-    activities: createActivities(block.activities),
+    activities: createActivities(block.activities || []),
     outcomes: (block.outcomes || []).map(o => new OutcomeModel(o))
   });
 }
@@ -163,7 +225,7 @@ export function createBlocks(blocks?: ReadonlyArray<Block>) {
 }
 
 @model('Course/Prerequisite')
-class PrerequisiteModel extends Model({
+export class PrerequisiteModel extends Model({
   type: prop<PrerequisiteType>({ setterAction: true }),
   id: prop<string>({ setterAction: true }),
   unitId: prop<string>({ setterAction: true }),
@@ -185,6 +247,13 @@ class PrerequisiteModel extends Model({
   @modelAction
   removePrerequisite(ix: number) {
     this.prerequisites.splice(ix, 1);
+  }
+
+  toJS(): Prerequisite {
+    return {
+      ...toJS(this.$),
+      prerequisites: (this.prerequisites || []).map(p => p.toJS())
+    };
   }
 }
 
@@ -215,7 +284,6 @@ export class SpecialisationModel extends ExtendedModel(EntityModel, {
   removePrerequisite(ix: number) {
     this.prerequisites.splice(ix, 1);
   }
-
   toJS() {
     return {
       ...super.toJS(),

@@ -5,19 +5,27 @@ import cola from 'cytoscape-cola';
 import fcose from 'cytoscape-fcose';
 import spread from 'cytoscape-spread';
 
-import { State, Block, Unit } from './types';
+import { State, Block, Unit } from '../types';
 import { Button, Pane } from 'evergreen-ui';
+import { Dependency, DependantUnit } from 'config/utils';
 
 cytoscape.use(cola);
 cytoscape.use(fcose);
 cytoscape.use(spread);
 
 type Props = {
-  units: Unit[];
+  units: Dependency[];
   height?: string;
   colorMap: { [id: string]: string };
   buttons?: React.ReactChild | React.ReactChild[];
 };
+
+const colorOffset = 30;
+const depenedantColor = alpha =>
+  alpha === -1
+    ? dependOnColor
+    : `rgb(${47 + alpha * colorOffset}, ${75 + alpha * colorOffset}, ${180 - alpha * colorOffset})`;
+const dependOnColor = 'rgb(191, 14, 8)';
 
 function nodeColor(type: 'self' | 'dependants' | 'dependOn') {
   if (type === 'self') {
@@ -40,11 +48,15 @@ export const UnitGraph: React.FC<Props> = ({ units, colorMap, height = '800px', 
     //   // color: textColor(b),
     //   label: b.name
     // },
-    data: { id: 'n_' + b.id, name: b.name, color: colorMap ? colorMap[b.id] : 'rgb(221, 235, 247)' }
+    data: {
+      id: 'n_' + b.unit.id,
+      name: b.unit.name,
+      color: depenedantColor(b.level)
+    }
   }));
 
-  function addPrerequisite(unit: Unit, id: string) {
-    if (units.every(u => u.id !== id)) {
+  function addPrerequisite(unit: DependantUnit, id: string) {
+    if (units.every(u => u.unit.id !== id)) {
       return;
     }
     elements.push({
@@ -53,9 +65,9 @@ export const UnitGraph: React.FC<Props> = ({ units, colorMap, height = '800px', 
   }
 
   for (let unit of units) {
-    if (unit.prerequisite) {
-      for (let pre of unit.prerequisite) {
-        addPrerequisite(unit, pre);
+    if (unit.unit.prerequisite) {
+      for (let pre of unit.unit.prerequisite) {
+        addPrerequisite(unit.unit, pre);
       }
     }
   }
