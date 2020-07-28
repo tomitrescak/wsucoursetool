@@ -65,20 +65,20 @@ export type CourseList = {
 };
 
 export type Query = {
-  loadCourses?: Maybe<Scalars['String']>;
-  loadUnits?: Maybe<Scalars['String']>;
-  loadUnitList: Array<UnitList>;
-  courseList: Array<CourseList>;
-  blocks: Array<BlockList>;
+  legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
+  units: Array<UnitList>;
   course: Scalars['JSON'];
-  acs: Scalars['JSON'];
-  sfia: Scalars['JSON'];
+  courses: Array<CourseList>;
+  courseUnits: Scalars['JSON'];
   jobs: Array<JobList>;
   job: Scalars['JSON'];
-  topics: Array<TopicList>;
   specialisations: Array<SpecialisationList>;
   specialisation: Scalars['JSON'];
+  blocks: Array<BlockList>;
+  acs: Scalars['JSON'];
+  sfia: Scalars['JSON'];
+  topics: Array<TopicList>;
 };
 
 
@@ -88,6 +88,11 @@ export type QueryUnitArgs = {
 
 
 export type QueryCourseArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryCourseUnitsArgs = {
   id: Scalars['String'];
 };
 
@@ -102,19 +107,15 @@ export type QuerySpecialisationArgs = {
 };
 
 export type Mutation = {
-  saveCourses?: Maybe<Scalars['Boolean']>;
   createUnit: UnitList;
   deleteUnit?: Maybe<Scalars['Boolean']>;
   createJob?: Maybe<Scalars['Boolean']>;
   deleteJob?: Maybe<Scalars['Boolean']>;
   createSpecialisation?: Maybe<Scalars['Boolean']>;
   deleteSpecialisation?: Maybe<Scalars['Boolean']>;
+  createCourse?: Maybe<Scalars['Boolean']>;
+  deleteCourse?: Maybe<Scalars['Boolean']>;
   save: Scalars['Boolean'];
-};
-
-
-export type MutationSaveCoursesArgs = {
-  courses?: Maybe<Scalars['String']>;
 };
 
 
@@ -147,6 +148,17 @@ export type MutationCreateSpecialisationArgs = {
 
 
 export type MutationDeleteSpecialisationArgs = {
+  id: Scalars['String'];
+};
+
+
+export type MutationCreateCourseArgs = {
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationDeleteCourseArgs = {
   id: Scalars['String'];
 };
 
@@ -323,30 +335,31 @@ export type CourseListResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  loadCourses?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  loadUnits?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  loadUnitList?: Resolver<Array<ResolversTypes['UnitList']>, ParentType, ContextType>;
-  courseList?: Resolver<Array<ResolversTypes['CourseList']>, ParentType, ContextType>;
-  blocks?: Resolver<Array<ResolversTypes['BlockList']>, ParentType, ContextType>;
+  legacyUnits?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   unit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryUnitArgs, 'id'>>;
+  units?: Resolver<Array<ResolversTypes['UnitList']>, ParentType, ContextType>;
   course?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseArgs, 'id'>>;
-  acs?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
-  sfia?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
+  courses?: Resolver<Array<ResolversTypes['CourseList']>, ParentType, ContextType>;
+  courseUnits?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseUnitsArgs, 'id'>>;
   jobs?: Resolver<Array<ResolversTypes['JobList']>, ParentType, ContextType>;
   job?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryJobArgs, 'id'>>;
-  topics?: Resolver<Array<ResolversTypes['TopicList']>, ParentType, ContextType>;
   specialisations?: Resolver<Array<ResolversTypes['SpecialisationList']>, ParentType, ContextType>;
   specialisation?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QuerySpecialisationArgs, 'id'>>;
+  blocks?: Resolver<Array<ResolversTypes['BlockList']>, ParentType, ContextType>;
+  acs?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
+  sfia?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
+  topics?: Resolver<Array<ResolversTypes['TopicList']>, ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  saveCourses?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationSaveCoursesArgs, never>>;
   createUnit?: Resolver<ResolversTypes['UnitList'], ParentType, ContextType, RequireFields<MutationCreateUnitArgs, 'id'>>;
   deleteUnit?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteUnitArgs, 'id'>>;
   createJob?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationCreateJobArgs, 'id'>>;
   deleteJob?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteJobArgs, 'id'>>;
   createSpecialisation?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationCreateSpecialisationArgs, 'id'>>;
   deleteSpecialisation?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteSpecialisationArgs, 'id'>>;
+  createCourse?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationCreateCourseArgs, 'id'>>;
+  deleteCourse?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteCourseArgs, 'id'>>;
   save?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationSaveArgs, 'part' | 'body'>>;
 };
 

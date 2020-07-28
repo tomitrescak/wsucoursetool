@@ -1,0 +1,3 @@
+mutation CreateCourse($id: String!, $name: String!) {
+  createCourse(id: $id, name: $name)
+}

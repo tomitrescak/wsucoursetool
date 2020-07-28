@@ -1,12 +1,12 @@
 query CourseList {
-  loadUnitList {
+  units {
     blockCount
     id
     name
     dynamic
   }
 
-  courseList {
+  courses {
     id
     name
     core {

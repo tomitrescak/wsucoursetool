@@ -60,7 +60,7 @@ class CourseModel extends ExtendedModel(EntityModel, {
   majors: prop<MajorModel[]>({ setterAction: true })
 }) {}
 
-function createCourse(model: Course) {
+export function createCourse(model: Course) {
   return new CourseModel({
     ...model,
     core: (model.core || []).map(u => new CourseUnitModel(u)),

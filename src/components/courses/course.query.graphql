@@ -1,0 +1,19 @@
+query Course($id: String!) {
+  course(id: $id)
+
+  courseUnits(id: $id)
+
+  units {
+    blockCount
+    id
+    name
+    dynamic
+  }
+
+  acs
+
+  topics {
+    id
+    name
+  }
+}

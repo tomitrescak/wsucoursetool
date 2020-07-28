@@ -61,26 +61,27 @@ const typeDefs = gql`
   }
 
   type Query {
-    loadCourses: String
-    loadUnits: String
-    loadUnitList: [UnitList!]!
-    courseList: [CourseList!]!
+    legacyUnits: String
 
-    blocks: [BlockList!]!
     unit(id: String!): JSON!
+    units: [UnitList!]!
+
     course(id: String!): JSON!
-    acs: JSON!
-    sfia: JSON!
+    courses: [CourseList!]!
+    courseUnits(id: String!): JSON!
+
     jobs: [JobList!]!
     job(id: String!): JSON!
-    topics: [TopicList!]!
 
     specialisations: [SpecialisationList!]!
     specialisation(id: String!): JSON!
+
+    blocks: [BlockList!]!
+    acs: JSON!
+    sfia: JSON!
+    topics: [TopicList!]!
   }
   type Mutation {
-    saveCourses(courses: String): Boolean
-
     createUnit(id: String!, name: String): UnitList!
     deleteUnit(id: String!): Boolean
 
@@ -89,6 +90,9 @@ const typeDefs = gql`
 
     createSpecialisation(id: String!, name: String): Boolean
     deleteSpecialisation(id: String!): Boolean
+
+    createCourse(id: String!, name: String): Boolean
+    deleteCourse(id: String!): Boolean
 
     save(part: String!, id: String, body: JSON!): Boolean!
   }
@@ -181,17 +185,25 @@ const resolvers: IResolvers = {
         throw new Error('Not supported: ' + part);
       });
     },
-    saveCourses(parent, { courses }) {
-      const original = fs.readFileSync(path.resolve('./src/data/db.json'), {
-        encoding: 'utf-8'
+    createCourse(_, { id, name }) {
+      return withDb(db => {
+        db.courses.push({
+          id,
+          name,
+          core: [],
+          majors: []
+        });
+        return true;
       });
-      fs.writeFileSync(path.resolve('./src/data/db.backup.json'), original, {
-        encoding: 'utf-8'
+    },
+    deleteCourse(_, { id }) {
+      return withDb(db => {
+        db.courses.splice(
+          db.jobs.findIndex(j => j.id === id),
+          1
+        );
+        return true;
       });
-      fs.writeFileSync(path.resolve('./src/data/db.json'), courses, {
-        encoding: 'utf-8'
-      });
-      return true;
     },
     createJob(_, { id, name }) {
       return withDb(db => {
@@ -338,7 +350,20 @@ const resolvers: IResolvers = {
       let db = getDb();
       return db.courses.find(u => u.id === id);
     },
-    loadUnitList() {
+    courseUnits(_, { id }) {
+      let db = getDb();
+      let course = db.courses.find(u => u.id === id);
+      let units = course.core.map(c => db.units.find(u => u.id === c.id));
+      for (let major of course.majors) {
+        for (let unit of major.units) {
+          if (units.every(u => u.id !== unit.id)) {
+            units.push(db.units.find(u => u.id === unit.id));
+          }
+        }
+      }
+      return units;
+    },
+    units() {
       let db = getDb();
       return db.units.map(u => ({
         id: u.id,
@@ -347,17 +372,12 @@ const resolvers: IResolvers = {
         blockCount: (u.blocks || []).length
       }));
     },
-    loadCourses(parent, args, context) {
-      return fs.readFileSync(path.resolve('./src/data/db.json'), {
-        encoding: 'utf-8'
-      });
-    },
-    loadUnits(parent, args, context) {
+    legacyUnits(parent, args, context) {
       return fs.readFileSync(path.resolve('./src/data/units.json'), {
         encoding: 'utf-8'
       });
     },
-    courseList() {
+    courses() {
       let db = getDb();
       return db.courses.map(c => ({
         id: c.id,
@@ -366,7 +386,7 @@ const resolvers: IResolvers = {
         majors: c.majors.map(m => ({
           id: m.id,
           name: m.name,
-          units: m.units.map(u => u.id)
+          units: m.units.map(u => ({ id: u.id }))
         }))
       }));
     }
