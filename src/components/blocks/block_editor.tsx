@@ -11,30 +11,22 @@ import {
   Badge,
   Icon,
   Select,
-  TextInput,
-  Checkbox
+  TextInput
 } from 'evergreen-ui';
 import Router from 'next/router';
-import {
-  State,
-  Block,
-  BlockType as ActivityType,
-  Activity,
-  Unit,
-  CompletionCriteria
-} from './types';
+import { State, Block, BlockType as ActivityType, Activity, Unit } from '../types';
 import { buildForm, findMaxId, findNumericMaxId } from 'lib/helpers';
 import Link from 'next/link';
 
 import { AddBlockModal } from './add_block_modal';
-import { SideTab, Tabs } from './tab';
-import { OutcomeEditor } from './outcome_editor';
-import { PrerequisiteEditor } from './prerequisite_editor';
-import { TopicBlockEditor } from './topic_block_editor';
-import { TextEditor } from './text_editor';
-import { KeywordEditor, TopicEditor } from './tag_editors';
+import { SideTab, Tabs } from '../common/tab';
+import { OutcomeEditor } from '../outcomes/outcome_editor';
+import { PrerequisiteEditor } from '../prerequisites/prerequisite_editor';
+import { TopicBlockEditor } from '../topics/topic_block_editor';
+import { TextEditor } from '../common/text_editor';
+import { KeywordEditor, TopicEditor } from 'components/common/tag_editors';
 import { action } from 'mobx';
-import { Dnd, DragContainer } from './dnd';
+import { Dnd, DragContainer } from 'components/common/dnd';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {

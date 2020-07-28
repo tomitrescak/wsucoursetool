@@ -18,14 +18,21 @@ import {
   Menu
 } from 'evergreen-ui';
 
-import { bloom } from './bloom';
-import { State, Prerequisite, Unit, AcsKnowledge, Activity, Topic } from './types';
+import { bloom } from '../acs/bloom';
+import { State, Prerequisite, Unit, AcsKnowledge, Activity, Topic } from '../types';
 import { useAcsQuery, useBlocksQuery, useTopicsQuery, BlockList } from 'config/graphql';
-import { ProgressView } from './progress_view';
+import { ProgressView } from '../common/progress_view';
+
+type PrerequisiteOwner = {
+  prerequisites?: ReadonlyArray<Prerequisite>;
+  addPrerequisite(p: Prerequisite);
+  addPrerequisites(ps: Prerequisite[]);
+  removePrerequisite(ix: number);
+};
 
 export type Props = {
   state: State;
-  owner: { prerequisites?: Prerequisite[] };
+  owner: PrerequisiteOwner;
   unit: Unit;
   activities?: Activity[];
 };
@@ -261,8 +268,8 @@ const AddPrerequisite = observer(
 );
 
 type OrEditorProps = {
-  owner: { prerequisites: Prerequisite[] };
-  prerequisite: Prerequisite;
+  owner: PrerequisiteOwner;
+  prerequisite: PrerequisiteModel;
   acsSkills: AcsKnowledge[];
   unit: Unit;
   activities?: Activity[];
@@ -279,7 +286,7 @@ const OrEditor = observer(
         intent="danger"
         marginRight={4}
         onClick={() => {
-          owner.prerequisites.splice(owner.prerequisites.indexOf(prerequisite), 1);
+          owner.removePrerequisite(owner.prerequisites.indexOf(prerequisite));
         }}
       />
       <IconButton
@@ -396,15 +403,13 @@ export const PrerequisiteEditor: React.FC<Props> = observer(({ owner, unit, acti
   const { loading: tLoading, error: tError, data: tData } = useTopicsQuery();
   const { loading: bLoading, error: bError, data: bData } = useBlocksQuery();
 
-  if (aLoading || aError || bLoading || bError || tLoading || tError) {
-    return (
-      <ProgressView loading={aLoading || bLoading || tLoading} error={aError || bError || tError} />
-    );
-  }
-
-  const topics = tData.topics;
   const blocks = React.useMemo(() => {
-    const unitBlocks = unit.blocks.map(b => ({ id: b.id, unitId: unit.id, name: b.name }));
+    if (!bData) {
+      return [];
+    }
+    const unitBlocks = unit
+      ? unit.blocks.map(b => ({ id: b.id, unitId: unit.id, name: b.name }))
+      : [];
     // const otherBlocks = unit
     //   ? state.courseConfig.blocks.filter(b => unit.blocks.every(id => id !== b.id))
     //   : state.courseConfig.blocks;
@@ -412,11 +417,22 @@ export const PrerequisiteEditor: React.FC<Props> = observer(({ owner, unit, acti
   }, []);
 
   const acsSkills = React.useMemo(() => {
+    if (!aData) {
+      return [];
+    }
     return aData.acs
       .map(m => m.items)
       .flat()
       .sort((a, b) => a.name.localeCompare(b.name));
   }, [aData]);
+
+  if (aLoading || aError || bLoading || bError || tLoading || tError) {
+    return (
+      <ProgressView loading={aLoading || bLoading || tLoading} error={aError || bError || tError} />
+    );
+  }
+
+  const topics = tData.topics;
 
   return (
     <Pane flex={1}>
@@ -443,8 +459,8 @@ export const PrerequisiteEditor: React.FC<Props> = observer(({ owner, unit, acti
                 <Menu.Group title="Import">
                   <Menu.Item
                     onSelect={() => {
-                      owner.prerequisites.push(
-                        ...unit.blocks.map(
+                      owner.addPrerequisites(
+                        unit.blocks.map(
                           b =>
                             ({
                               id: b.id,

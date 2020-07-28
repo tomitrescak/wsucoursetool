@@ -1,5 +1,5 @@
 import React from 'react';
-import { CompletionCriteria, State } from './types';
+import { CompletionCriteria, State } from '../types';
 import { observer, useLocalStore } from 'mobx-react';
 import {
   Pane,

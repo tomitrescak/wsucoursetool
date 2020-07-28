@@ -12,26 +12,22 @@ import {
   Checkbox,
   toaster
 } from 'evergreen-ui';
-import { Unit, State, Block } from './types';
-import { url, buildForm } from 'lib/helpers';
+import { State } from '../types';
+import { buildForm } from 'lib/helpers';
 import Link from 'next/link';
 
-import { useRouter, Router } from 'next/router';
-import { BlocksEditor } from './block_editor';
-import { TopicBlockEditor } from './topic_block_editor';
-import { OutcomeEditor } from './outcome_editor';
-import { KeywordEditor, TopicEditor } from './tag_editors';
-import { TextEditor } from './text_editor';
+import { useRouter } from 'next/router';
+import { KeywordEditor, TopicEditor } from 'components/common/tag_editors';
 import { action } from 'mobx';
-import { Expander } from './expander';
-import { UnitGraph } from './unit_graph';
-import { PrerequisiteEditor } from './prerequisite_editor';
-import { VerticalPane } from './vertical_pane';
-import { ProgressView } from './progress_view';
-import { model, Model, prop, undoMiddleware } from 'mobx-keystone';
-import { BlockModel, UnitModel, createBlocks, createUnit } from './classes';
+import { Expander } from 'components/common/expander';
+import { PrerequisiteEditor } from '../prerequisites/prerequisite_editor';
+import { ProgressView } from '../common/progress_view';
+import { BlockModel, UnitModel, createBlocks, createUnit } from '../classes';
 
 import { useUnitQuery, useDeleteUnitMutation, CourseListDocument } from 'config/graphql';
+import { model, prop, Model, undoMiddleware } from 'mobx-keystone';
+import { TopicBlockEditor } from 'components/topics/topic_block_editor';
+import { TextEditor } from 'components/common/text_editor';
 
 const selfColor = 'rgb(251, 230, 162)';
 const depenedantColor = alpha => `rgb(${47 + alpha}, ${75 + alpha}, ${180 - alpha})`;

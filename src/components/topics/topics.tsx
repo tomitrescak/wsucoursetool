@@ -1,22 +1,41 @@
 import React from 'react';
-import { observer, useLocalStore, Observer } from 'mobx-react';
-import { TextInputField, Pane, Tablist, Heading, Button, IconButton } from 'evergreen-ui';
-import { State, Topic } from './types';
+import { observer, useLocalStore } from 'mobx-react';
+import { TextInputField, Pane, Tablist, Heading, Button, IconButton, toaster } from 'evergreen-ui';
+import { State, Topic, Entity } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
 import Link from 'next/link';
 
-import { SideTab, Tabs, TextField } from './tab';
+import { SideTab, Tabs, TextField } from 'components/common/tab';
 import marked from 'marked';
 import { useRouter } from 'next/router';
-import { TextEditor } from './text_editor';
-import { VerticalPane } from './vertical_pane';
+import { TextEditor } from 'components/common/text_editor';
+import { VerticalPane } from 'components/common/vertical_pane';
+import { model, Model, prop, modelAction, undoMiddleware } from 'mobx-keystone';
+import { EntityModel } from 'components/classes';
+import { useSaveConfigMutation, useTopicsQuery } from 'config/graphql';
+import { ProgressView } from 'components/common/progress_view';
+
+@model('Editor/Topics')
+class TopicEditorModel extends Model({
+  items: prop<EntityModel[]>()
+}) {
+  @modelAction
+  add(pre: Entity) {
+    this.items.push(new EntityModel(pre));
+  }
+
+  @modelAction
+  remove(ix: number) {
+    this.items.splice(ix, 1);
+  }
+}
 
 type KeywordProps = {
   item: Topic;
   keywords: string;
 };
 
-const Details: React.FC<{ item: Topic; state: State }> = observer(({ item, state }) => {
+const Details: React.FC<{ item: Topic; owner: TopicEditorModel }> = observer(({ item, owner }) => {
   const form = React.useMemo(() => buildForm(item, ['name', 'description']), [item]);
 
   return (
@@ -43,10 +62,7 @@ const Details: React.FC<{ item: Topic; state: State }> = observer(({ item, state
           marginTop={8}
           onClick={() => {
             if (confirm('Are You Sure?')) {
-              state.courseConfig.topics.splice(
-                state.courseConfig.topics.findIndex(p => p === item),
-                1
-              );
+              owner.remove(owner.items.findIndex(p => p === item));
             }
           }}
         >
@@ -85,11 +101,48 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
   const mainSplit = item ? item.split('--') : null;
   const split = mainSplit ? mainSplit[0].split('-') : null;
   const selectedId = split ? split[split.length - 1] : null;
-  const selectedItem = selectedId ? state.courseConfig.topics.find(b => b.id === selectedId) : null;
 
   const localState = useLocalStore(() => ({
     name: ''
   }));
+
+  const { loading, error, data, refetch } = useTopicsQuery();
+  const [save] = useSaveConfigMutation({
+    onCompleted() {
+      toaster.notify('Saved');
+      refetch();
+    },
+    onError() {
+      toaster.danger('Error ;(');
+    }
+  });
+
+  const model = React.useMemo(() => {
+    if (data) {
+      let model = new TopicEditorModel({
+        items: data.topics.map(t => new EntityModel(t))
+      });
+      state.undoManager = undoMiddleware(model);
+      state.save = () => {
+        const body = model.items.map(i => i.toJS());
+        save({
+          variables: {
+            body,
+            part: 'topics'
+          }
+        });
+      };
+      return model;
+    }
+    return null;
+  }, [data]);
+
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
+
+  const selectedItem = selectedId ? model.items.find(b => b.id === selectedId) : null;
+
   const form = buildForm(localState, ['name']);
   const view = readonly ? 'view' : 'editor';
 
@@ -98,7 +151,8 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
       <VerticalPane title="Topic List">
         <Tablist flexBasis={200} width={200} marginRight={8}>
           <Tabs>
-            {state.courseConfig.topics
+            {model.items
+              .slice()
               .sort((a, b) => a.name.localeCompare(b.name))
               .map(topic => (
                 <Link
@@ -135,8 +189,8 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
                 intent="success"
                 icon="plus"
                 onClick={() => {
-                  state.courseConfig.topics.push({
-                    id: findMaxId(state.courseConfig.topics),
+                  model.add({
+                    id: findMaxId(model.items),
                     name: localState.name,
                     description: ''
                   });
@@ -152,7 +206,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
           (readonly ? (
             <DetailsReadonly item={selectedItem} />
           ) : (
-            <Details item={selectedItem} state={state} />
+            <Details item={selectedItem} owner={model} />
           ))}
       </VerticalPane>
     </>

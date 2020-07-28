@@ -1,0 +1,3 @@
+mutation SaveConfig($part: String!, $id: String, $body: JSON!) {
+  save(part: $part, id: $id, body: $body)
+}

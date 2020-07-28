@@ -1,0 +1,3 @@
+mutation CreateSpecialisation($id: String!, $name: String!) {
+  createSpecialisation(id: $id, name: $name)
+}

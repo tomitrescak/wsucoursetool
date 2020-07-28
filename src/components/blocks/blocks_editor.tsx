@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { State } from './types';
+import { State } from '../types';
 import { BlocksEditor } from './block_editor';
 import { url } from 'lib/helpers';
 import { observer } from 'mobx-react';

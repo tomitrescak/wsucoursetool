@@ -1,0 +1,3 @@
+query Specialisation($id: String!) {
+  specialisation(id: $id)
+}

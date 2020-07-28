@@ -12,14 +12,14 @@ import {
   Select,
   TextInput
 } from 'evergreen-ui';
-import { Unit, State } from './types';
+import { Unit, State } from '../types';
 import { url, buildForm } from 'lib/helpers';
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
-import { VerticalPane } from './vertical_pane';
+import { VerticalPane } from 'components/common/vertical_pane';
 import { useCourseListQuery, UnitList, useCreateUnitMutation } from 'config/graphql';
-import { ProgressView } from './progress_view';
+import { ProgressView } from 'components/common/progress_view';
 import { UnitDetailContainer } from './unit_details';
 
 const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state, readonly }) => {

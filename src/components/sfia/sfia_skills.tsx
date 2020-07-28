@@ -11,20 +11,44 @@ import {
   Badge,
   IconButton,
   Text,
-  Combobox
+  Combobox,
+  toaster
 } from 'evergreen-ui';
-import { State, Job, SfiaSkill } from './types';
+import { State, Job, SfiaSkill, AcsKnowledge } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
 import Link from 'next/link';
 
-import { SideTab, Tabs, TextField } from './tab';
+import { SideTab, Tabs, TextField } from '../common/tab';
 import marked from 'marked';
 import { useRouter } from 'next/router';
+import { Model, prop, modelAction, model, undoMiddleware } from 'mobx-keystone';
+import { SfiaSkillModel, createSfias } from 'components/classes';
+import { useSfiaQuery, useSaveConfigMutation } from 'config/graphql';
+import { ProgressView } from 'components/common/progress_view';
 
-const Details: React.FC<{ item: SfiaSkill; state: State }> = observer(({ item, state }) => {
+@model('Editor/Sfia')
+class SfiaEditorModel extends Model({
+  items: prop<SfiaSkillModel[]>()
+}) {
+  @modelAction
+  add(pre: SfiaSkill) {
+    this.items.push(new SfiaSkillModel(pre));
+  }
+
+  @modelAction
+  remove(ix: number) {
+    this.items.splice(ix, 1);
+  }
+}
+
+const Details: React.FC<{
+  item: SfiaSkill;
+  owner: SfiaEditorModel;
+  acs: AcsKnowledge[];
+}> = observer(({ item, owner, acs }) => {
   const localState = useLocalStore(() => ({ isPreview: false }));
   const form = React.useMemo(() => buildForm(item, ['name', 'description']), [item]);
-  const items = state.courseConfig.acsKnowledge.map(m => m.items).flat();
+  const items = acs.map(m => m.items).flat();
   const selected = item.acsSkillId ? items.find(i => i.id === item.acsSkillId) : null;
   return (
     <div style={{ flex: 1 }}>
@@ -74,10 +98,7 @@ const Details: React.FC<{ item: SfiaSkill; state: State }> = observer(({ item, s
           marginTop={8}
           onClick={() => {
             if (confirm('Are You Sure?')) {
-              state.courseConfig.sfiaSkills.splice(
-                state.courseConfig.sfiaSkills.findIndex(p => p === item),
-                1
-              );
+              owner.remove(owner.items.findIndex(p => p === item));
             }
           }}
         >
@@ -113,13 +134,47 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
   const mainSplit = item ? item.split('--') : null;
   const split = mainSplit ? mainSplit[0].split('-') : null;
   const selectedId = split ? split[split.length - 1] : null;
-  const selectedItem = selectedId
-    ? state.courseConfig.sfiaSkills.find(b => b.id === selectedId)
-    : null;
 
   const localState = useLocalStore(() => ({
     name: ''
   }));
+
+  const { loading, error, data, refetch } = useSfiaQuery();
+  const [save] = useSaveConfigMutation({
+    onCompleted() {
+      toaster.notify('Saved');
+      refetch();
+    },
+    onError() {
+      toaster.danger('Error ;(');
+    }
+  });
+
+  const model = React.useMemo(() => {
+    if (data) {
+      let model = new SfiaEditorModel({
+        items: createSfias(data.sfia)
+      });
+      state.undoManager = undoMiddleware(model);
+      state.save = () => {
+        const body = model.items.map(i => i.toJS());
+        save({
+          variables: {
+            body,
+            part: 'sfia'
+          }
+        });
+      };
+      return model;
+    }
+    return null;
+  }, [data]);
+
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
+
+  const selectedItem = selectedId ? model.items.find(b => b.id === selectedId) : null;
   const form = buildForm(localState, ['name']);
   const view = readonly ? 'view' : 'editor';
 
@@ -127,7 +182,8 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
     <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
       <Tablist flexBasis={200} width={200} marginRight={8}>
         <Tabs>
-          {state.courseConfig.sfiaSkills
+          {model.items
+            .slice()
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(block => (
               <Link
@@ -165,8 +221,8 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
               intent="success"
               icon="plus"
               onClick={() => {
-                state.courseConfig.sfiaSkills.push({
-                  id: findMaxId(state.courseConfig.sfiaSkills),
+                model.add({
+                  id: findMaxId(model.items),
                   name: localState.name,
                   description: '',
                   acsSkillId: ''
@@ -181,7 +237,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
         (readonly ? (
           <DetailsReadonly item={selectedItem} />
         ) : (
-          <Details item={selectedItem} state={state} />
+          <Details item={selectedItem} owner={model} acs={data.acs} />
         ))}
     </Pane>
   );

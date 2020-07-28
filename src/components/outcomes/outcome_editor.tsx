@@ -15,7 +15,7 @@ import {
   TextInputField
 } from 'evergreen-ui';
 import { action } from 'mobx';
-import { State, Outcome } from './types';
+import { State, Outcome } from '../types';
 
 export type Props = {
   state: State;

@@ -22,6 +22,21 @@ const typeDefs = gql`
     description: String
   }
 
+  type SpecialisationList {
+    id: String!
+    name: String!
+  }
+
+  type JobList {
+    id: String!
+    name: String!
+  }
+
+  type TopicList {
+    id: String!
+    name: String!
+  }
+
   type BlockList {
     id: String!
     unitId: String!
@@ -56,16 +71,26 @@ const typeDefs = gql`
     course(id: String!): JSON!
     acs: JSON!
     sfia: JSON!
-    jobs: [Entity!]!
+    jobs: [JobList!]!
     job(id: String!): JSON!
-    topics: [Entity!]!
-    specialisations: [Entity!]!
+    topics: [TopicList!]!
+
+    specialisations: [SpecialisationList!]!
     specialisation(id: String!): JSON!
   }
   type Mutation {
     saveCourses(courses: String): Boolean
+
     createUnit(id: String!, name: String): UnitList!
     deleteUnit(id: String!): Boolean
+
+    createJob(id: String!, name: String): Boolean
+    deleteJob(id: String!): Boolean
+
+    createSpecialisation(id: String!, name: String): Boolean
+    deleteSpecialisation(id: String!): Boolean
+
+    save(part: String!, id: String, body: JSON!): Boolean!
   }
 `;
 
@@ -84,7 +109,16 @@ function getDb(): CourseConfig {
   return g.__db;
 }
 
+const maxBackupFiles = 15;
+
 function saveBackup() {
+  // remove old files
+  const files = fs.readdirSync('./src/data/backup').sort((a, b) => a.localeCompare(b));
+  for (let i = 0; i < files.length - maxBackupFiles; i++) {
+    console.log('Removing backup: ' + files[i]);
+    fs.unlinkSync(`./src/data/backup/${files[i]}`);
+  }
+
   fs.writeFileSync(
     path.resolve(`./src/data/backup/db.${Date.now()}.json`),
     JSON.stringify(g.__db, null, 2),
@@ -120,6 +154,33 @@ function withDb<T>(action: (db: CourseConfig) => T): T {
 const resolvers: IResolvers = {
   JSON: GraphQLJSON,
   Mutation: {
+    save(_, { id, part, body }) {
+      return withDb(db => {
+        if (part === 'acs') {
+          db.acsKnowledge = body;
+          return true;
+        }
+        if (part === 'topics') {
+          db.topics = body;
+          return true;
+        }
+        if (part === 'sfia') {
+          db.sfiaSkills = body;
+          return true;
+        }
+        if (part === 'job') {
+          let ix = db.jobs.findIndex(j => j.id === id);
+          db.jobs[ix] = body;
+          return true;
+        }
+        if (part === 'specialisation') {
+          let ix = db.specialisations.findIndex(j => j.id === id);
+          db.specialisations[ix] = body;
+          return true;
+        }
+        throw new Error('Not supported: ' + part);
+      });
+    },
     saveCourses(parent, { courses }) {
       const original = fs.readFileSync(path.resolve('./src/data/db.json'), {
         encoding: 'utf-8'
@@ -131,6 +192,44 @@ const resolvers: IResolvers = {
         encoding: 'utf-8'
       });
       return true;
+    },
+    createJob(_, { id, name }) {
+      return withDb(db => {
+        db.jobs.push({
+          id,
+          name,
+          skills: []
+        });
+        return true;
+      });
+    },
+    deleteJob(_, { id }) {
+      return withDb(db => {
+        db.jobs.splice(
+          db.jobs.findIndex(j => j.id === id),
+          1
+        );
+        return true;
+      });
+    },
+    createSpecialisation(_, { id, name }) {
+      return withDb(db => {
+        db.specialisations.push({
+          id,
+          name,
+          prerequisites: []
+        });
+        return true;
+      });
+    },
+    deleteSpecialisation(_, { id }) {
+      return withDb(db => {
+        db.specialisations.splice(
+          db.specialisations.findIndex(j => j.id === id),
+          1
+        );
+        return true;
+      });
     },
     createUnit(_, { id, name }) {
       return withDb(db => {
@@ -181,6 +280,10 @@ const resolvers: IResolvers = {
       const result = db.units.flatMap(u =>
         u.blocks.map(b => ({ id: b.id, name: u.name + ' > ' + b.name, unitId: u.id }))
       );
+
+      // console.log(JSON.stringify(result, null, 2));
+
+      return result;
     },
     jobs() {
       let db = getDb();
@@ -270,7 +373,15 @@ const resolvers: IResolvers = {
   }
 };
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context() {
+    return {
+      user: 'tomas'
+    };
+  }
+});
 
 export const config = {
   api: {

@@ -14,8 +14,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": "./src",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "assumeChangesOnlyAffectDirectDependencies": false
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", ".next", ".vscode"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

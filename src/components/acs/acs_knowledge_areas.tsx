@@ -11,16 +11,22 @@ import {
   Badge,
   IconButton,
   Text,
-  Icon
+  Icon,
+  toaster
 } from 'evergreen-ui';
-import { State, Block, AcsKnowledge } from './types';
+import { State, Block, AcsKnowledge } from '../types';
 import { buildForm, findMaxId, url, viewType } from 'lib/helpers';
 import Link from 'next/link';
 
-import { SideTab, Tabs, TextField } from './tab';
+import { SideTab, Tabs, TextField } from '../common/tab';
 import marked from 'marked';
 import { useRouter } from 'next/router';
 import { AcsKnowledgeItem } from './acs_knowledge_item';
+import { useAcsQuery, useSaveConfigMutation } from 'config/graphql';
+import { ProgressView } from 'components/common/progress_view';
+import { model, Model, prop, modelAction, undoMiddleware, getSnapshot } from 'mobx-keystone';
+import { AcsSkillModel, createAcs, createAcss } from 'components/classes';
+import { toJS } from 'mobx';
 
 // const Details: React.FC<{ item: AcsKnowledge; state: State }> = observer(({ item, state }) => {
 //   const localState = useLocalStore(() => ({ isPreview: false }));
@@ -84,19 +90,70 @@ type Props = {
 // href="/editor/[category]/[item]"
 // as={`/editor/units/${url(block.name)}-${block.id}`}
 
+@model('Editor/Acs')
+class AcsEditorModel extends Model({
+  items: prop<AcsSkillModel[]>()
+}) {
+  @modelAction
+  add(pre: AcsKnowledge) {
+    this.items.push(createAcs(pre));
+  }
+
+  @modelAction
+  remove(ix: number) {
+    this.items.splice(ix, 1);
+  }
+}
+
 const AcsEditorView: React.FC<Props> = ({ state, readonly }) => {
   const router = useRouter();
+  const localState = useLocalStore(() => ({
+    name: ''
+  }));
+
+  const { loading, error, data, refetch } = useAcsQuery();
+  const [save] = useSaveConfigMutation({
+    onCompleted() {
+      toaster.notify('Saved');
+      refetch();
+    },
+    onError() {
+      toaster.danger('Error ;(');
+    }
+  });
+
+  const model = React.useMemo(() => {
+    if (data) {
+      let model = new AcsEditorModel({
+        items: createAcss(data.acs)
+      });
+      state.undoManager = undoMiddleware(model);
+      state.save = () => {
+        const body = model.items.map(i => i.toJS());
+        save({
+          variables: {
+            body,
+            part: 'acs'
+          }
+        });
+      };
+      return model;
+    }
+    return null;
+  }, [data]);
+
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
+
+  const acs = model.items;
+
   const item = router.query.item as string;
   const mainSplit = item ? item.split('--') : null;
   const split = mainSplit ? mainSplit[0].split('-') : null;
   const selectedId = split ? split[split.length - 1] : null;
-  const selectedItem = selectedId
-    ? state.courseConfig.acsKnowledge.find(b => b.id === selectedId)
-    : null;
+  const selectedItem = selectedId ? acs.find(b => b.id === selectedId) : null;
 
-  const localState = useLocalStore(() => ({
-    name: ''
-  }));
   const form = buildForm(localState, ['name']);
   const view = readonly ? 'view' : 'editor';
 
@@ -104,7 +161,7 @@ const AcsEditorView: React.FC<Props> = ({ state, readonly }) => {
     <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
       <Tablist flexBasis={200} width={200} marginRight={8}>
         <Tabs>
-          {state.courseConfig.acsKnowledge.map(block => (
+          {acs.map(block => (
             <Link
               key={block.id}
               href={`/${view}/[category]/[item]`}
@@ -125,7 +182,7 @@ const AcsEditorView: React.FC<Props> = ({ state, readonly }) => {
           <a href="https://www.acs.org.au/msa/acs-core-body-of-knowledge-for-ict-professionals-cbok.html">
             <SideTab borderTop="1px dotted #dedede">
               <Pane display="flex" alignItems="center">
-                <Icon icon="link" marginRight={4} />
+                <Icon size={14} icon="link" marginRight={4} />
                 ACS Core Body of Knowledge
               </Pane>
             </SideTab>
@@ -146,8 +203,8 @@ const AcsEditorView: React.FC<Props> = ({ state, readonly }) => {
               intent="success"
               icon="plus"
               onClick={() => {
-                state.courseConfig.acsKnowledge.push({
-                  id: findMaxId(state.courseConfig.acsKnowledge),
+                model.add({
+                  id: findMaxId(acs),
                   name: localState.name,
                   description: '',
                   items: []

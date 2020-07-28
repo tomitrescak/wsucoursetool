@@ -1,0 +1,6 @@
+query Jobs {
+  jobs {
+    id
+    name
+  }
+}

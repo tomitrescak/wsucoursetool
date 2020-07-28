@@ -12,18 +12,12 @@ import {
   Button,
   SelectField,
   Text,
-  TabNavigation,
-  Tab,
   Badge,
-  Textarea,
   Checkbox,
-  Select,
   TextInput,
-  Link as EGLink,
-  Table,
   IconButton
 } from 'evergreen-ui';
-import { Unit, State, Course, CourseUnit } from './types';
+import { Unit, State, Course, CourseUnit } from '../types';
 import { url, buildForm } from 'lib/helpers';
 import Link from 'next/link';
 
@@ -36,9 +30,9 @@ import {
   HorizontalGridLines,
   HorizontalBarSeries
 } from 'react-vis';
-import { skills } from './outcome_editor';
-import { VerticalPane } from './vertical_pane';
-import { Expander } from './expander';
+import { skills } from 'components/outcomes/outcome_editor';
+import { VerticalPane } from 'components/common/vertical_pane';
+import { Expander } from 'components/common/expander';
 
 /*!
  * Group items from an array together by some criteria or value.

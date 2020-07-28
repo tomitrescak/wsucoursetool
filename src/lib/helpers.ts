@@ -32,6 +32,9 @@ type Mapped<T> = {
 };
 
 export function buildForm<T>(obj: T, keys: Array<keyof T>): Mapped<T> {
+  if (obj == null) {
+    return {} as any;
+  }
   const result = {};
   for (let key of keys) {
     result[key as any] = (e: React.ChangeEvent<HTMLInputElement>) =>

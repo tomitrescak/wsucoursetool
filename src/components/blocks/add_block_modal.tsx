@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dialog, Pane, TextInputField, Button, SelectField } from 'evergreen-ui';
 import { useLocalStore, observer } from 'mobx-react';
-import { State, Block, Unit } from './types';
+import { State, Block, Unit } from '../types';
 import { findMaxId, buildForm, url } from 'lib/helpers';
 import Router from 'next/router';
 

@@ -12,16 +12,16 @@ import {
   IconButton,
   Text
 } from 'evergreen-ui';
-import { State, Block, AcsKnowledge, Entity } from './types';
+import { State, Block, AcsKnowledge, Entity, ListOwner } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
 import Link from 'next/link';
 
-import { AddBlockModal } from './add_block_modal';
-import { SideTab, Tabs, TextField } from './tab';
+import { SideTab, Tabs, TextField } from 'components/common/tab';
 import marked from 'marked';
 import { useRouter } from 'next/router';
+import { AcsSkillModel } from 'components/classes';
 
-const Details: React.FC<{ item: Entity; state: State }> = observer(({ item, state }) => {
+const Details: React.FC<{ item: Entity; owner: AcsSkillModel }> = observer(({ item, owner }) => {
   const localState = useLocalStore(() => ({ isPreview: false }));
   const form = React.useMemo(() => buildForm(item, ['name', 'description']), [item]);
 
@@ -57,10 +57,7 @@ const Details: React.FC<{ item: Entity; state: State }> = observer(({ item, stat
           marginTop={8}
           onClick={() => {
             if (confirm('Are You Sure?')) {
-              state.courseConfig.acsKnowledge.splice(
-                state.courseConfig.acsKnowledge.findIndex(p => p === item),
-                1
-              );
+              owner.remove(owner.items.findIndex(p => p === item));
             }
           }}
         >
@@ -88,7 +85,7 @@ const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
 type Props = {
   state: State;
   readonly: boolean;
-  acs: AcsKnowledge;
+  acs: AcsSkillModel;
 };
 
 // href="/editor/[category]/[item]"
@@ -146,7 +143,7 @@ const AcsKnowledgeItemView: React.FC<Props> = ({ state, acs, readonly }) => {
               intent="success"
               icon="plus"
               onClick={() => {
-                acs.items.push({
+                acs.add({
                   id: findMaxId(acs.items),
                   name: localState.name,
                   description: ''
@@ -161,7 +158,7 @@ const AcsKnowledgeItemView: React.FC<Props> = ({ state, acs, readonly }) => {
         (readonly ? (
           <DetailsReadonly item={selectedItem} />
         ) : (
-          <Details item={selectedItem} state={state} />
+          <Details item={selectedItem} owner={acs} />
         ))}
     </Pane>
   );

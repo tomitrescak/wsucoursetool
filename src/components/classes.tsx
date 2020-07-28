@@ -1,4 +1,4 @@
-import { model, Model, prop, ExtendedModel, undoMiddleware } from 'mobx-keystone';
+import { model, Model, prop, ExtendedModel, undoMiddleware, modelAction } from 'mobx-keystone';
 import {
   Activity,
   BlockType,
@@ -14,15 +14,21 @@ import {
   CompletionCriteriaType,
   Major,
   Course,
-  Unit
+  Unit,
+  Entity
 } from './types';
+import { toJS } from 'mobx';
 
 @model('Course/Entity')
-class EntityModel extends Model({
+export class EntityModel extends Model({
   id: prop<string>({ setterAction: true }),
   name: prop<string>({ setterAction: true }),
   description: prop<string>({ setterAction: true })
-}) {}
+}) {
+  toJS() {
+    return toJS(this.$);
+  }
+}
 
 @model('Course/Outcome')
 class OutcomeModel extends Model({
@@ -67,7 +73,7 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   approachToLearning: prop<string>({ setterAction: true }),
   assumedKnowledge: prop<string>({ setterAction: true }),
   blocks: prop<BlockModel[]>({ setterAction: true }),
-  blockTopics: prop<string[]>({ setterAction: true }),
+  // blockTopics: prop<string[]>({ setterAction: true }),
   completionCriteria: prop<CompletionCriteria>({ setterAction: true }),
   corequisites: prop<string>({ setterAction: true }),
   credits: prop<number>({ setterAction: true }),
@@ -88,7 +94,10 @@ export class UnitModel extends ExtendedModel(EntityModel, {
 export function createUnit(model: Unit) {
   return new UnitModel({
     ...model,
-    completionCriteria: new CompletionCriteriaModel(model.completionCriteria || {}),
+    keywords: model.keywords as any,
+    topics: model.topics as any,
+    prerequisite: model.prerequisite as any,
+    completionCriteria: createCompletionCriteria(model.completionCriteria || {}),
     outcomes: (model.outcomes || []).map(u => new OutcomeModel(u)),
     prerequisites: createPrerequisites(model.prerequisites),
     blocks: createBlocks(model.blocks)
@@ -122,7 +131,7 @@ class ActivityModel extends ExtendedModel(EntityModel, {
   lengthHours: prop<number>({ setterAction: true })
 }) {}
 
-function createActivities(activities?: Activity[]) {
+function createActivities(activities?: ReadonlyArray<Activity>) {
   return (activities || []).map(a => new ActivityModel(a));
 }
 
@@ -140,14 +149,16 @@ export class BlockModel extends ExtendedModel(EntityModel, {
 export function createBlock(block: Block) {
   return new BlockModel({
     ...block,
+    keywords: block.keywords as any,
+    topics: block.topics as any,
     prerequisites: createPrerequisites(block.prerequisites),
-    completionCriteria: new CompletionCriteriaModel(block.completionCriteria || {}),
+    completionCriteria: createCompletionCriteria(block.completionCriteria || {}),
     activities: createActivities(block.activities),
     outcomes: (block.outcomes || []).map(o => new OutcomeModel(o))
   });
 }
 
-export function createBlocks(blocks?: Block[]) {
+export function createBlocks(blocks?: ReadonlyArray<Block>) {
   return (blocks || []).map(b => createBlock(b));
 }
 
@@ -160,7 +171,22 @@ class PrerequisiteModel extends Model({
   value: prop<number>({ setterAction: true }),
   recommended: prop<boolean>({ setterAction: true }),
   prerequisites: prop<PrerequisiteModel[]>({ setterAction: true })
-}) {}
+}) {
+  @modelAction
+  addPrerequisite(pre: Prerequisite) {
+    this.prerequisites.push(createPrerequisite(pre));
+  }
+
+  @modelAction
+  addPrerequisites(pre: ReadonlyArray<Prerequisite>) {
+    this.prerequisites.push(...createPrerequisites(pre));
+  }
+
+  @modelAction
+  removePrerequisite(ix: number) {
+    this.prerequisites.splice(ix, 1);
+  }
+}
 
 function createPrerequisite(model: Prerequisite) {
   return new PrerequisiteModel({
@@ -169,67 +195,133 @@ function createPrerequisite(model: Prerequisite) {
   });
 }
 
-function createPrerequisites(requisites?: Prerequisite[]) {
+function createPrerequisites(requisites?: ReadonlyArray<Prerequisite>) {
   return (requisites || []).map(p => createPrerequisite(p));
 }
 
 @model('Course/Specialisation')
-class SpecialisationModel extends ExtendedModel(EntityModel, {
-  prerequisites: prop<PrerequisiteModel[]>({ setterAction: true })
-}) {}
+export class SpecialisationModel extends ExtendedModel(EntityModel, {
+  prerequisites: prop<PrerequisiteModel[]>(() => [], { setterAction: true })
+}) {
+  @modelAction
+  addPrerequisite(p: Prerequisite) {
+    this.prerequisites.push(createPrerequisite(p));
+  }
+  @modelAction
+  addPrerequisites(p: Prerequisite[]) {
+    this.prerequisites.push(...createPrerequisites(p));
+  }
+  @modelAction
+  removePrerequisite(ix: number) {
+    this.prerequisites.splice(ix, 1);
+  }
 
-function createSpecialisations(specialisations: Specialisation[]) {
-  return (specialisations || []).map(
-    c =>
-      new SpecialisationModel({
-        ...c,
-        prerequisites: createPrerequisites(c.prerequisites)
-      })
-  );
+  toJS() {
+    return {
+      ...super.toJS(),
+      prerequisites: this.prerequisites.map(p => p.toJS())
+    };
+  }
+}
+
+export function createSpecialisations(specialisations: Specialisation[]) {
+  return (specialisations || []).map(c => createSpecialisation(c));
+}
+
+export function createSpecialisation(c: Specialisation) {
+  return new SpecialisationModel({
+    ...c,
+    prerequisites: createPrerequisites(c.prerequisites)
+  });
 }
 
 @model('Course/SkillLevel')
 class SkillLevelModel extends Model({
   skillId: prop<string>(),
   bloomRating: prop<number>()
-}) {}
+}) {
+  toJS() {
+    return toJS(this.$);
+  }
+}
 
 @model('Course/JobModel')
-class JobModel extends ExtendedModel(EntityModel, {
+export class JobModel extends ExtendedModel(EntityModel, {
   skills: prop<SkillLevelModel[]>({ setterAction: true })
-}) {}
+}) {
+  @modelAction
+  removeSkill(ix: number) {
+    this.skills.splice(ix, 1);
+  }
 
-function createJobs(jobs: Job[]) {
-  return (jobs || []).map(
-    c =>
-      new JobModel({
-        ...c,
-        skills: c.skills.map(s => new SkillLevelModel(s))
+  @modelAction
+  addSkill(skillId: string, bloomRating: number) {
+    this.skills.push(
+      new SkillLevelModel({
+        skillId,
+        bloomRating
       })
-  );
+    );
+  }
+
+  toJS() {
+    return {
+      ...super.toJS(),
+      skills: this.skills.map(s => s.toJS())
+    };
+  }
+}
+
+export function createJobs(jobs: Job[]) {
+  return (jobs || []).map(c => createJob(c));
+}
+
+export function createJob(c: Job) {
+  return new JobModel({
+    ...c,
+    skills: c.skills.map(s => new SkillLevelModel(s))
+  });
 }
 
 @model('Course/AcsSkillModel')
-class AcsSkillModel extends ExtendedModel(EntityModel, {
+export class AcsSkillModel extends ExtendedModel(EntityModel, {
   items: prop<EntityModel[]>({ setterAction: true })
-}) {}
+}) {
+  @modelAction
+  add(pre: Entity) {
+    this.items.push(new EntityModel(pre));
+  }
 
-function createAcss(skills?: AcsKnowledge[]) {
-  return (skills || []).map(
-    c =>
-      new AcsSkillModel({
-        ...c,
-        items: c.items.map(s => new EntityModel(s))
-      })
-  );
+  @modelAction
+  remove(ix: number) {
+    this.items.splice(ix, 1);
+  }
+
+  toJS() {
+    return {
+      ...toJS(this.$),
+      items: this.items.map(i => i.toJS())
+    };
+  }
+}
+
+export function createAcss(skills?: AcsKnowledge[]) {
+  return (skills || []).map(c => createAcs(c));
+}
+
+export function createAcs(c?: AcsKnowledge) {
+  return new AcsSkillModel({
+    ...c,
+    items: c.items.map(s => new EntityModel(s))
+  });
 }
 
 @model('Course/SfiaModel')
-class SfiaSkillModel extends ExtendedModel(EntityModel, {
+export class SfiaSkillModel extends ExtendedModel(EntityModel, {
   acsSkillId: prop<string>({ setterAction: true })
 }) {}
 
-function createSfias(skills?: SfiaSkill[]) {
+export function createSfias(skills?: SfiaSkill[]) {
   return (skills || []).map(c => new SfiaSkillModel(c));
 }
 

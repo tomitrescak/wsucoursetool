@@ -1,0 +1,3 @@
+mutation CreateJob($id: String!, $name: String!) {
+  createJob(id: $id, name: $name)
+}

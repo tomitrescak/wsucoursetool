@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
-import { AdminContainer } from 'components/container';
 import { withApollo } from 'config/apollo';
+import { Root } from './admin/index';
 
 function Editor() {
   return (
@@ -11,7 +11,7 @@ function Editor() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AdminContainer readonly={false} />
+      <Root readonly={false} />
     </div>
   );
 }
@@ -24,7 +24,7 @@ function Viewer() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AdminContainer readonly={true} />
+      <Root readonly={true} />
     </div>
   );
 }

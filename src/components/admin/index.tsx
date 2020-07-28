@@ -1,28 +1,25 @@
 import React from 'react';
 import { Pane, Tablist, SidebarTab, Menu, Text, toaster } from 'evergreen-ui';
-import { observable, toJS } from 'mobx';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import { CourseConfig } from './types';
-import { UnitsEditor } from './unit_list';
-import { url } from 'lib/helpers';
-import { useMutation } from '@apollo/client';
-import { SAVE } from 'lib/data';
-import { AcsEditor } from './acs_knowledge_areas';
-import { JobsEditor } from './jobs';
-
 import 'mobx-react-lite/batchingForReactDom';
-import { SfiaEditor } from './sfia_skills';
-import { TopicEditor } from './topics';
-import { AllBlocksEditor } from './blocks_editor';
-import { SpecialisationEditor } from './specialisations';
-import { Graph } from './block_graph';
-import { CoursesEditor } from './courses';
-import { VerticalPane } from './vertical_pane';
-import { CourseConfigModel, createConfig } from './classes';
+
+import { url } from 'lib/helpers';
+
+import { TopicEditor } from 'components/topics/topics';
+import { AllBlocksEditor } from 'components/blocks/blocks_editor';
+import { Graph } from 'components/blocks/block_graph';
+import { AcsEditor } from 'components/acs/acs_knowledge_areas';
+import { JobsEditor } from 'components/jobs/jobs';
+import { SfiaEditor } from 'components/sfia/sfia_skills';
+import { SpecialisationEditor } from 'components/specialisations/specialisations';
+import { CoursesEditor } from 'components/courses/courses';
+import { VerticalPane } from 'components/common/vertical_pane';
+import { UnitsEditor } from 'components/units/unit_list';
 
 const BreadCrumbs = styled(Text)`
   background: white;
@@ -46,7 +43,7 @@ const tabs = [
   'Units',
   'Courses',
   'Topics',
-  'Blocks',
+  // 'Blocks',
   'Specialisations',
   'Jobs',
   'ACS Skills',
@@ -70,37 +67,37 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
   //   }
   // });
 
-  function save() {
-    // return addTodo({
-    //   variables: {
-    //     courses: JSON.stringify(toJS(state.courseConfig), null, 2)
-    //   }
-    // });
-    return fetch('http://localhost:3000/api/save', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(toJS(state.courseConfig), null, 2)
-    })
-      .then(function (response) {
-        toaster.notify('Saved');
-      })
-      .catch(function (error) {
-        console.log(error);
-        toaster.notify('Save Error: ' + error);
-      });
-  }
+  // function save() {
+  //   // return addTodo({
+  //   //   variables: {
+  //   //     courses: JSON.stringify(toJS(state.courseConfig), null, 2)
+  //   //   }
+  //   // });
+  //   return fetch('http://localhost:3000/api/save', {
+  //     method: 'post',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //       // 'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //     body: JSON.stringify(toJS(state.courseConfig), null, 2)
+  //   })
+  //     .then(function (response) {
+  //       toaster.notify('Saved');
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //       toaster.notify('Save Error: ' + error);
+  //     });
+  // }
 
-  function delaySave() {
-    if (to) {
-      clearTimeout(to);
-    }
-    to = setTimeout(() => {
-      save();
-    }, 2000);
-  }
+  // function delaySave() {
+  //   if (to) {
+  //     clearTimeout(to);
+  //   }
+  //   to = setTimeout(() => {
+  //     save();
+  //   }, 2000);
+  // }
 
   const state = React.useMemo(() => {
     // const { course, undoManager } = createConfig(data);
@@ -133,7 +130,12 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
         zIndex={10}
         maxHeight="40px"
       >
-        <Menu.Item icon="floppy-disk" width={40} maxWidth="40px" onSelect={save} />
+        <Menu.Item
+          icon="floppy-disk"
+          width={40}
+          maxWidth="40px"
+          onSelect={() => state.save && state.save()}
+        />
         <Menu.Item
           icon="undo"
           width={40}
@@ -182,7 +184,7 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
         {selectedTab == 'Units' && <UnitsEditor state={state} readonly={readonly} />}
         {selectedTab == 'Courses' && <CoursesEditor state={state} readonly={readonly} />}
         {selectedTab == 'Jobs' && <JobsEditor state={state} readonly={readonly} />}
-        {selectedTab == 'Blocks' && <AllBlocksEditor state={state} readonly={readonly} />}
+        {/* {selectedTab == 'Blocks' && <AllBlocksEditor state={state} readonly={readonly} />} */}
         {selectedTab == 'Topics' && <TopicEditor state={state} readonly={readonly} />}
         {selectedTab == 'ACS Skills' && <AcsEditor state={state} readonly={readonly} />}
         {selectedTab == 'SFIA Skills' && <SfiaEditor state={state} readonly={readonly} />}
@@ -195,4 +197,4 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
   );
 };
 
-export const CourseAdmin = observer(CourseAdminComponent);
+export const Root = observer(CourseAdminComponent);

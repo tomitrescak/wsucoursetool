@@ -1,5 +1,4 @@
 import { UndoManager } from 'mobx-keystone';
-import { CourseConfigModel } from './classes';
 
 export type User = {
   id: string;
@@ -15,7 +14,7 @@ export type Prerequisite = {
   activityId?: string;
   value?: number;
   recommended?: boolean;
-  prerequisites?: Prerequisite[];
+  prerequisites?: ReadonlyArray<Prerequisite>;
 };
 
 export type Outcome = {
@@ -31,14 +30,21 @@ export type CourseUnit = {
 export type Major = {
   name: string;
   id: string;
-  units: CourseUnit[];
+  units: ReadonlyArray<CourseUnit>;
 };
 
 export type Course = {
   name: string;
   id: string;
-  core: CourseUnit[];
-  majors: Major[];
+  core: ReadonlyArray<CourseUnit>;
+  majors: ReadonlyArray<Major>;
+};
+
+export type ListOwner<T> = {
+  add<T>(item: T): void;
+  remove(index: number);
+  addMany?<T>(items: T[]): void;
+  items: T[];
 };
 
 export type Unit = {
@@ -47,26 +53,26 @@ export type Unit = {
   delivery: '1' | '2' | '3';
   completionCriteria: CompletionCriteria;
   outcome: string;
-  outcomes: Outcome[];
+  outcomes: ReadonlyArray<Outcome>;
   assumedKnowledge: string;
   lgId?: string;
 
-  blocks: Block[];
-  topics: string[];
-  keywords: string[];
+  blocks: ReadonlyArray<Block>;
+  topics: ReadonlyArray<string>;
+  keywords: ReadonlyArray<string>;
 
   dynamic: boolean;
-  blockTopics: string[];
+  blockTopics: ReadonlyArray<string>;
 
   unitPrerequisites?: string;
-  prerequisite?: string[];
+  prerequisite?: ReadonlyArray<string>;
   corequisites?: string;
   incompatible?: string;
   credits?: number;
   level?: number;
   approachToLearning?: string;
 
-  prerequisites?: Prerequisite[];
+  prerequisites?: ReadonlyArray<Prerequisite>;
 };
 
 export type CompletionCriteriaType = '' | 'simple' | 'allOf' | 'someOf';
@@ -74,7 +80,7 @@ export type CompletionCriteriaType = '' | 'simple' | 'allOf' | 'someOf';
 export type CompletionCriteria = {
   id?: string;
   type?: CompletionCriteriaType;
-  criteria?: CompletionCriteria[];
+  criteria?: ReadonlyArray<CompletionCriteria>;
   minimumValue?: number;
   minimumCount?: number;
   weight?: number;
@@ -99,22 +105,23 @@ export type Activity = {
 
 export type Block = {
   id: string;
+  unitId?: string;
   name: string;
-  outcomes: Outcome[];
+  outcomes: ReadonlyArray<Outcome>;
   outcome: string;
   description: string;
-  keywords: string[];
-  topics: string[];
-  prerequisites: Prerequisite[];
+  keywords: ReadonlyArray<string>;
+  topics: ReadonlyArray<string>;
+  prerequisites: ReadonlyArray<Prerequisite>;
   completionCriteria: CompletionCriteria;
-  activities: Activity[];
+  activities: ReadonlyArray<Activity>;
 };
 
 export type Specialisation = {
   id: string;
   name: string;
   description: string;
-  prerequisites: Prerequisite[];
+  prerequisites: ReadonlyArray<Prerequisite>;
 };
 
 export type Entity = {
@@ -129,14 +136,14 @@ type SkillLevel = {
 };
 
 export type Job = Entity & {
-  skills: SkillLevel[];
+  skills: ReadonlyArray<SkillLevel>;
 };
 
 export type AcsKnowledge = {
   id: string;
   name: string;
   description: string;
-  items: Entity[];
+  items: ReadonlyArray<Entity>;
 };
 
 export type SfiaSkill = Entity & {
@@ -144,13 +151,13 @@ export type SfiaSkill = Entity & {
 };
 
 export type CourseConfig = {
-  courses: Course[];
-  units: Unit[];
-  topics: Topic[];
-  specialisations: Specialisation[];
-  acsKnowledge: AcsKnowledge[];
-  sfiaSkills: SfiaSkill[];
-  jobs: Job[];
+  courses: ReadonlyArray<Course>;
+  units: ReadonlyArray<Unit>;
+  topics: ReadonlyArray<Topic>;
+  specialisations: ReadonlyArray<Specialisation>;
+  acsKnowledge: ReadonlyArray<AcsKnowledge>;
+  sfiaSkills: ReadonlyArray<SfiaSkill>;
+  jobs: ReadonlyArray<Job>;
 };
 
 export type State = {
