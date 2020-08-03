@@ -51,6 +51,40 @@ The project aims to expand the current prototype of the **Course Analyser** with
 3. **Week 7-9**: Job / Specialisation visualisation
 4. **Week 10-14/15**: Course Planner
 
+## Specification
+
+### Student Management
+
+The system admin has to have the following capabilities:
+
+#### Student Records
+
+- List all students (name and ID)
+- Add a new student (by Name and ID)
+- View student details, which shows which blocks / units student has studied, or is surrently studying and what are the results. It also shows groups of student preferences out of which one is marked as active. The preference contains following fields:
+
+  - Interests (list of keywords, e.g. video games, netowrks)
+  - Desired Jobs
+  - Desired Specialisations
+  - Desired Units
+  - Desired Blocks
+
+- Register student results
+- Change stuent preferences
+
+#### Job Visualisation
+
+The system admin has to have the following capabilities:
+
+- List all registered jobs and their current "Matching" with student profile. Matching is numerated as Percentage (e.g. 57% match)
+- Mark which jobs will reach at least X (e.g. 90%) match by the end of the study
+- Show job details, where a graphical coparison of currwnt student capabailities vs desired job capabilities is visualised
+- Generate a new study plan to match with this job
+
+#### Study Plan
+
+- Enumerates saved user preferences and generates new study plans
+
 ## Documentation Team Questionnaire
 
 Please answer following questions as best as you can and if possible try to ask your colleagues as well. If you can ask also diverse people who performed really good vs who performed ok. You can anonymise it, but please I need to know at least the performance (e.g. GPA)
@@ -74,6 +108,35 @@ Please answer following questions as best as you can and if possible try to ask 
 14. Overall, can you tell us what you liked about your degree and what you disliked?
 
 ## Backend Cookbook
+
+### Adding a new API call
+
+We will add a new call that return student info basedon his student id, stored in the JSON file in the "student" folder as `{id}.json`. We will return raw JSON and do not care about actual shape of the data here.
+
+1. We need to add the schema definition to `src/server/schema.ts`
+
+   ```grapqhql
+   type Query {
+     ...
+     student(id: String!): JSON!
+   }
+   ```
+
+2. We run `yarn generate` to generate the type safe resolver structure
+3. In `src/server/resolvers.ts` we implement the resolver under the `Query`
+   ```ts
+   export const resolvers: IResolvers = {
+     Query: {
+       // ...
+       student(_, { id }) {
+         return fs.readFileSync(path.resolve(`./src/data/students/${id}.json`), {
+           encoding: 'utf-8'
+         });
+       }
+     }
+   };
+   ```
+4. Profit. Do similar things with mutations.
 
 ## Frontend Cookbook
 
