@@ -136,7 +136,9 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   }
   @modelAction
   addBlock(p: Block) {
-    this.blocks.push(createBlock(p));
+    const block = createBlock(p);
+    this.blocks.push(block);
+    return block;
   }
   @modelAction
   removeBlock(ix: number) {
@@ -198,7 +200,7 @@ export function createCompletionCriteria(model: CompletionCriteria) {
 class TopicModel extends ExtendedModel(EntityModel, {}) {}
 
 @model('Course/Activity')
-class ActivityModel extends ExtendedModel(EntityModel, {
+export class ActivityModel extends ExtendedModel(EntityModel, {
   type: prop<BlockType>({ setterAction: true }),
   lengthHours: prop<number>({ setterAction: true })
 }) {
@@ -253,6 +255,14 @@ export class BlockModel extends ExtendedModel(EntityModel, {
   @modelAction
   addActivity(a: Activity) {
     this.activities.push(new ActivityModel(a));
+  }
+  @modelAction
+  spliceActivity(idx: number, count: number, a?: ActivityModel) {
+    if (a) {
+      this.activities.splice(idx, count, a);
+    } else {
+      this.activities.splice(idx, count);
+    }
   }
 
   @modelAction

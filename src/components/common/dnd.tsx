@@ -35,6 +35,11 @@ const Drag = styled.div`
   }
 `;
 
+export type Modifier<T = any> = {
+  splice(posision: number, count: number, element?: T): void;
+  findIndex(condition: (c: T) => boolean): number;
+};
+
 export const DragContainer: React.FC<React.HTMLAttributes<HTMLDivElement>> = props => (
   <Drag data-dnd="container">{props.children}</Drag>
 );
@@ -44,7 +49,7 @@ export class Dnd {
 
   static dragId?: string;
   static dragItem?: any;
-  static dragItemParent?: any[];
+  static dragItemParent?: Modifier;
   static height = 0;
   static dragging?: boolean = false;
   static dragElement?: HTMLDivElement;
@@ -57,7 +62,7 @@ export class Dnd {
 
   static avatar?: HTMLDivElement;
   static overItem?: any;
-  static overItemParent?: any;
+  static overItemParent?: Modifier;
   static overItemElement?: HTMLDivElement;
   static handlerPressed = false;
 
@@ -193,7 +198,7 @@ export class Dnd {
     }
   };
 
-  props(item: any, owner: any[], handler = false) {
+  props(item: any, owner: Modifier, handler = false) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     return {
       onDragOver: (e: React.DragEvent<HTMLDivElement>) => {
@@ -242,9 +247,9 @@ export class Dnd {
 
         const root = this.overRootElement(e.currentTarget);
 
-        console.log(e.currentTarget.innerHTML);
-        console.log(root?.id);
-        console.log('Over ...' + root?.classList.contains('animated'));
+        // console.log(e.currentTarget.innerHTML);
+        // console.log(root?.id);
+        // console.log('Over ...' + root?.classList.contains('animated'));
 
         if (root && !root.classList.contains('animated')) {
           root.classList.add('animated');

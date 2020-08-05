@@ -45,6 +45,7 @@ import {
 import { ProgressView } from 'components/common/progress_view';
 import { createCourse } from 'components/classes';
 import { Graph } from 'components/blocks/block_graph';
+import { AcsGraph } from 'components/acs/acs_graph';
 
 /*!
  * Group items from an array together by some criteria or value.
@@ -327,52 +328,10 @@ type Props = {
   acs: AcsKnowledge[];
 };
 
-const AcsGraph = ({ courseUnits, selectedUnits, acs }: Props) => {
+const AcsGraphContainer = observer(({ courseUnits, selectedUnits, acs }: Props) => {
   const units: Unit[] = selectedUnits.map(cu => courseUnits.find(u => u.id === cu.id));
-  const titles = {};
-
-  let bars = skills.map((s, i) => {
-    let ascSkill = acs.flatMap(k => k.items).find(k => k.id === s);
-    // find maximum
-
-    let max = units.reduce((max, unit) => {
-      let maxValue = unit.blocks.reduce((blockMax, block) => {
-        let maxBlockValue = block.outcomes?.find(o => o.acsSkillId === s)?.bloomRating || 0;
-        return blockMax < maxBlockValue ? maxBlockValue : blockMax;
-      }, unit.outcomes?.find(o => o.acsSkillId === s)?.bloomRating || 0);
-      return max < maxValue ? maxValue : max;
-    }, 0);
-
-    titles[i] = ascSkill.name;
-
-    return { y: i, x: max };
-  });
-
-  return (
-    <Pane>
-      <Heading>ACS CBOK Breakdown</Heading>
-      <XYPlot height={400} width={400} margin={{ left: 200 }} xDomain={[0, 6]}>
-        <VerticalGridLines />
-        <HorizontalGridLines />
-        <XAxis
-          tickValues={[0, 1, 2, 3, 4, 5, 6]}
-          hideTicks={false}
-          tickFormat={e => Math.round(e) as any}
-        />
-        <YAxis
-          tickValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]}
-          tickFormat={e => titles[e]}
-          width={200}
-        />
-
-        <HorizontalBarSeries data={bars} barWidth={0.7} />
-      </XYPlot>
-      <TextInputField label="Values" value={bars.map(b => b.x).join('\t')} />
-
-      <Pane elevation={2}></Pane>
-    </Pane>
-  );
-};
+  return <AcsGraph acs={acs} units={units} />;
+});
 
 const TabHeader = observer(({ tab, children, state }) => {
   return (
@@ -420,7 +379,7 @@ const Visualisations = observer(({ acs, courseUnits, selectedUnits }: Props) => 
         </TabHeader>
       </Tablist>
       <TabContent tab="acs" state={state}>
-        <AcsGraph acs={acs} courseUnits={courseUnits} selectedUnits={selectedUnits} />
+        <AcsGraphContainer acs={acs} courseUnits={courseUnits} selectedUnits={selectedUnits} />
       </TabContent>
       <TabContent tab="dep" state={state}>
         <Graph units={selectedUnits.map(u => courseUnits.find(cu => u.id === cu.id))} />

@@ -27,7 +27,8 @@ import { TextEditor } from '../common/text_editor';
 import { KeywordEditor, TopicEditor } from 'components/common/tag_editors';
 import { action } from 'mobx';
 import { Dnd, DragContainer } from 'components/common/dnd';
-import { BlockModel, UnitModel } from 'components/classes';
+import { BlockModel, UnitModel, ActivityModel } from 'components/classes';
+import units from 'pages/units';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
@@ -37,24 +38,36 @@ function blockCredits(block: Block) {
 
 const Handler = ({ dnd }) => (
   <Pane width={10} height={20} marginRight="2" pointer="drag" color="#999" {...dnd.handlerProps}>
-    <Icon icon="drag-handle-vertical" />
+    <Icon icon="drag-handle-vertical" size={14} />
   </Pane>
 );
 
 const ActivityDetail: React.FC<{
-  activity: Activity;
-  block: Block;
+  unit: UnitModel;
+  activity: ActivityModel;
+  block: BlockModel;
   state: State;
   dnd: Dnd;
-}> = observer(({ block, activity, dnd }) => {
+}> = observer(({ block, activity, dnd, unit }) => {
   const form = React.useMemo(
     () => buildForm(activity, ['name', 'type', 'description', 'lengthHours']),
     [activity]
   );
+  const activityModifier = React.useMemo(
+    () => ({
+      splice(position: number, count: number, element?: ActivityModel): void {
+        block.spliceActivity(position, count, element);
+      },
+      findIndex(condition: (c: Activity) => boolean): number {
+        return block.activities.findIndex(condition);
+      }
+    }),
+    [block]
+  );
 
   return (
     <div
-      {...dnd.props(activity, block.activities, true)}
+      {...dnd.props(activity, activityModifier, true)}
       style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}
     >
       <div style={{ flex: '0 0 10px', marginRight: '8px' }}>
@@ -130,12 +143,37 @@ const ActivityDetail: React.FC<{
       />
 
       <IconButton
+        icon="eject"
+        iconSize={12}
+        width={24}
+        marginRight={4}
+        intent="warning"
+        appearance="primary"
+        onClick={() => {
+          const clone = activity.toJS();
+          unit.addBlock({
+            id: findMaxId(unit.blocks),
+            name: activity.name,
+            outcome: '',
+            outcomes: [],
+            description: '',
+            activities: [clone],
+            completionCriteria: {},
+            keywords: [],
+            prerequisites: [],
+            topics: []
+          });
+          block.spliceActivity(block.activities.indexOf(activity), 1);
+        }}
+      />
+
+      <IconButton
         icon="trash"
         iconSize={12}
         width={24}
         intent="danger"
         appearance="primary"
-        onClick={() => block.activities.splice(block.activities.indexOf(activity), 1)}
+        onClick={() => block.spliceActivity(block.activities.indexOf(activity), 1)}
       />
     </div>
   );
@@ -340,7 +378,14 @@ const BlockDetails: React.FC<{
 
           <DragContainer>
             {block.activities.map(a => (
-              <ActivityDetail block={block} activity={a} state={state} key={a.id} dnd={dnd} />
+              <ActivityDetail
+                unit={unit}
+                block={block}
+                activity={a}
+                state={state}
+                key={a.id}
+                dnd={dnd}
+              />
             ))}
           </DragContainer>
         </Pane>
