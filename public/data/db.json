@@ -66798,13 +66798,10 @@
         {
           "id": "0",
           "name": "Unit overview and introduction to AI",
-          "description": "",
           "week": 1,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Unit overview and introduction to AI",
               "lengthHours": 2
             },
@@ -66814,18 +66811,16 @@
               "name": "Tutorial: No tutorial",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "1",
           "name": "Intelligent agents \n",
-          "description": "",
           "week": 2,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Intelligent agents \n",
               "lengthHours": 2
             },
@@ -66835,18 +66830,16 @@
               "name": "Tutorial: Tutorial 1",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "2",
           "name": "Logical agents\n",
-          "description": "",
           "week": 3,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Logical agents\n",
               "lengthHours": 2
             },
@@ -66856,18 +66849,16 @@
               "name": "Tutorial: Tutorial 2",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "3",
           "name": "Problem solving by searching\n",
-          "description": "",
           "week": 4,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Problem solving by searching\n",
               "lengthHours": 2
             },
@@ -66877,18 +66868,16 @@
               "name": "Tutorial: Tutorial 3",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "4",
           "name": "General intelligence and general game playing\n",
-          "description": "",
           "week": 5,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: General intelligence and general game playing\n",
               "lengthHours": 2
             },
@@ -66898,18 +66887,16 @@
               "name": "Tutorial: Tutorial 4",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "5",
           "name": "Multi-agent system: game playing \n",
-          "description": "",
           "week": 6,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Multi-agent system: game playing \n",
               "lengthHours": 2
             },
@@ -66919,18 +66906,16 @@
               "name": "Tutorial: Tutorial 5",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "6",
           "name": "Multi-agent system: game theory\n",
-          "description": "",
           "week": 7,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Multi-agent system: game theory\n",
               "lengthHours": 2
             },
@@ -66940,18 +66925,16 @@
               "name": "Tutorial: Tutorial 6",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "7",
           "name": "Trading in e-markets: single auctions\n",
-          "description": "",
           "week": 8,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Trading in e-markets: single auctions\n",
               "lengthHours": 2
             },
@@ -66961,7 +66944,8 @@
               "name": "Tutorial: Tutorial 7",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "8",
@@ -66974,23 +66958,20 @@
           "week": 8,
           "activities": [
             {
-              "id": 0,
               "type": "assignment",
               "name": "Assignment 1",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "9",
           "name": "Inter Session Break\n",
-          "description": "",
           "week": 9,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Inter Session Break\n",
               "lengthHours": 2
             },
@@ -67000,18 +66981,16 @@
               "name": "Tutorial: ",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "10",
           "name": "Trading in e-markets: double auctions\n",
-          "description": "",
           "week": 10,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Trading in e-markets: double auctions\n",
               "lengthHours": 2
             },
@@ -67021,18 +67000,16 @@
               "name": "Tutorial: Tutorial 8",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "11",
           "name": "Trading in e-markets: Ad auctions\n\n",
-          "description": "",
           "week": 11,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Trading in e-markets: Ad auctions\n\n",
               "lengthHours": 2
             },
@@ -67042,18 +67019,16 @@
               "name": "Tutorial: Tutorial 9",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "12",
           "name": "Machine learning",
-          "description": "",
           "week": 12,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Machine learning",
               "lengthHours": 2
             },
@@ -67063,18 +67038,16 @@
               "name": "Tutorial: Tutorial 10",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "13",
           "name": "Robots & Robot Operation System\n",
-          "description": "",
           "week": 13,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Robots & Robot Operation System\n",
               "lengthHours": 2
             },
@@ -67084,7 +67057,8 @@
               "name": "Tutorial: Tutorial 12: Assignment 2 demonstration",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "14",
@@ -67097,23 +67071,20 @@
           "week": 13,
           "activities": [
             {
-              "id": 0,
               "type": "assignment",
               "name": "Assignment 2",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "15",
           "name": "Unit review",
-          "description": "",
           "week": 14,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Unit review",
               "lengthHours": 2
             },
@@ -67123,7 +67094,8 @@
               "name": "Tutorial: Tutorial 13: Assignment 2 demonstration",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "16",
@@ -67136,19 +67108,19 @@
           "week": 16,
           "activities": [
             {
-              "id": 0,
               "type": "exam",
               "name": "Final examination",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         }
       ],
       "description": "This unit introduces the most fundamental techniques of artificial intelligence (AI), including knowledge representation, searching, machine learning and intelligent agents. Students will learn the basic theories and algorithms that are essential in the design and development of intelligent systems. The unit will focus on two typical AI applications: game playing and e-trading. Students will have the chance of using existing multiagent system platforms to design and develop intelligent software for game playing and automated trading in e-markets.",
       "assumedKnowledge": "This unit requires basic skills in programming with either JAVA or C++ as the programming language.",
       "approachToLearning": "This unit enhances learning through lectures, tutorials, assignments, textbook and other online materials.\n\nLectures - explain the fundamental concepts of artificial intelligence with selected topics. Lecture notes are available on vUWS. Students are expected to preview associated lecture notes before each lecture and view the lecture notes again after the lecture.\n\nTutorials - provide students with questions and hands-on experience designed to challenge them to think about and feel intelligent systems with detailed instructions or hints. Opportunities are there for students to ask questions and discuss among themselves. Attendance to the tutorials is compulsory.\n\nAssignments - The first assignment will be purely theoretical, which is designed for enhancing a good understanding of the fundamental knowledge of Artificial Intelligence. The second assignment provides students with an opportunity of building an intelligent system or intelligent agents.\n\nTextbook - the text provides detailed theories, algorithms, explanations and examples of and beyond what are covered in the lecture notes. Students should preview and review the related chapters of textbook for each lecture and tutorial. \n\nvUWS - is used as the main communication channel with students. Students should check the mail and announcement facility frequently to be aware of changes, hints or recommendations made during the session. A discussion facility is also available to enable students to share ideas.\n\n",
       "lgId": "16322",
-      "name": " Advanced Topics in Artificial Intelligence",
+      "name": " Advanced Topics in Artificial Intelligence 1",
       "outcome": "After a successful completion of this unit, students will be able to:\n\n Outcomes\n\n1. Explain the background and principles of typical artificial intelligence techniques\n2. Describe the algorithms and their applications of typical artificial intelligence techniques\n3. Describe the architectures and models of intelligent agents and robots\n4. Explain the general economic model of electronic markets\n5. Design and implement computer game players and trading agents based on provided system development environment",
       "incompatible": "300245 Intelligent Agents, 300385 Automated Negotiation and e-Trading, 300769 Intelligent Agents for eMarkets",
       "passCriteria": "The assessment items in this unit are designed to enable you to demonstrate that you have achieved the unit learning outcomes. Completion and submission of all assessment items which have been designated as mandatory or compulsory, is essential to receive a passing grade.\nTo pass this unit, you must achieve at least 50% overall.",
