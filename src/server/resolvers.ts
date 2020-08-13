@@ -12,12 +12,14 @@ let orig = require('./db.json');
 
 function checkDirs() {
   if (!fs.existsSync('./public/data/backup')) {
-    fs.mkdirSync('./public');
+    if (!fs.existsSync('./public')) {
+      fs.mkdirSync('./public');
+    }
     fs.mkdirSync('./public/data');
     fs.mkdirSync('./public/data/backup');
     fs.mkdirSync('./public/data/users');
 
-    fs.writeFileSync('./public/data/users/db.json', JSON.stringify(orig), { encoding: 'utf-8' });
+    fs.writeFileSync('./public/data/db.json', JSON.stringify(orig), { encoding: 'utf-8' });
   }
 }
 
