@@ -8,7 +8,22 @@ import GraphQLJSON from 'graphql-type-json';
 let g = global as any;
 g.__users = {};
 
+let orig = require('./db.json');
+
+function checkDirs() {
+  if (!fs.existsSync('./public/data/backup')) {
+    fs.mkdirSync('./public');
+    fs.mkdirSync('./public/data');
+    fs.mkdirSync('./public/data/backup');
+    fs.mkdirSync('./public/data/users');
+
+    fs.writeFileSync('./public/data/users/db.json', JSON.stringify(orig), { encoding: 'utf-8' });
+  }
+}
+
 function getDb(): CourseConfig {
+  checkDirs();
+
   if (g.__db == null) {
     g.__db = JSON.parse(
       fs.readFileSync('./public/data/db.json', {
@@ -23,11 +38,6 @@ function getDb(): CourseConfig {
 const maxBackupFiles = 15;
 
 function saveBackup() {
-  // remove old files
-  if (!fs.existsSync('./public/data/backup')) {
-    fs.mkdirSync('./public/data/backup');
-    fs.mkdirSync('./public/data/users');
-  }
   const files = fs.readdirSync('./public/data/backup').sort((a, b) => a.localeCompare(b));
   for (let i = 0; i < files.length - maxBackupFiles; i++) {
     console.log('Removing backup: ' + files[i]);
