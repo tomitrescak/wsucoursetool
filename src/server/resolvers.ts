@@ -8,35 +8,14 @@ import GraphQLJSON from 'graphql-type-json';
 let g = global as any;
 g.__users = {};
 
-let orig = require('./db.json');
-
-function checkDirs() {
-  if (!fs.existsSync('./public/data/backup')) {
-    if (!fs.existsSync('./public')) {
-      fs.mkdirSync('./public');
-    }
-    if (!fs.existsSync('./public/data')) {
-      fs.mkdirSync('./public/data');
-    }
-    if (!fs.existsSync('./public/data/backup')) {
-      fs.mkdirSync('./public/data/backup');
-    }
-    if (!fs.existsSync('./public/data/users')) {
-      fs.mkdirSync('./public/data/users');
-    }
-    fs.writeFileSync('./public/data/db.json', JSON.stringify(orig), { encoding: 'utf-8' });
-  }
-}
-
 function getDb(): CourseConfig {
-  checkDirs();
-
   if (g.__db == null) {
-    g.__db = JSON.parse(
-      fs.readFileSync('./public/data/db.json', {
-        encoding: 'utf-8'
-      })
-    );
+    // g.__db = JSON.parse(
+    //   fs.readFileSync(path.resolve('./src/data/db.json'), {
+    //     encoding: 'utf-8'
+    //   })
+    // );
+    g.__db = require('../data/db.json');
     console.log(Object.keys(g.__db));
   }
   return g.__db;
@@ -45,14 +24,15 @@ function getDb(): CourseConfig {
 const maxBackupFiles = 15;
 
 function saveBackup() {
-  const files = fs.readdirSync('./public/data/backup').sort((a, b) => a.localeCompare(b));
+  // remove old files
+  const files = fs.readdirSync('./src/data/backup').sort((a, b) => a.localeCompare(b));
   for (let i = 0; i < files.length - maxBackupFiles; i++) {
     console.log('Removing backup: ' + files[i]);
-    fs.unlinkSync(`./public/data/backup/${files[i]}`);
+    fs.unlinkSync(`./src/data/backup/${files[i]}`);
   }
 
   fs.writeFileSync(
-    path.resolve(`./public/data/backup/db.${Date.now()}.json`),
+    path.resolve(`./src/data/backup/db.${Date.now()}.json`),
     JSON.stringify(g.__db, null, 2),
     {
       encoding: 'utf-8'
@@ -61,14 +41,14 @@ function saveBackup() {
 }
 
 function saveDb() {
-  fs.writeFileSync(path.resolve('./public/data/db.json'), JSON.stringify(g.__db, null, 2), {
+  fs.writeFileSync(path.resolve('./src/data/db.json'), JSON.stringify(g.__db, null, 2), {
     encoding: 'utf-8'
   });
 }
 
 function getUser(id): User {
   if (g.__users[id] == null) {
-    g.__users[id] = fs.readFileSync(path.resolve(`./public/data/users/${id}.json`), {
+    g.__users[id] = fs.readFileSync(path.resolve(`./src/data/users/${id}.json`), {
       encoding: 'utf-8'
     });
   }
