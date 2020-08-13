@@ -35,6 +35,8 @@ import { ProgressView } from 'components/common/progress_view';
 import { EntityModel, createJob } from 'components/classes';
 import { undoMiddleware } from 'mobx-keystone';
 import { TextEditor } from 'components/common/text_editor';
+import { AcsGraph } from 'components/acs/acs_graph';
+import { skills } from 'components/outcomes/outcome_editor';
 
 const Details: React.FC<{ item: Entity; state: State; refetch: Function }> = observer(
   ({ item, refetch, state }) => {
@@ -93,7 +95,10 @@ const Details: React.FC<{ item: Entity; state: State; refetch: Function }> = obs
     // const sfiaSkills = state.courseConfig.sfiaSkills;
 
     return (
-      <div style={{ flex: 1 }}>
+      <div
+        style={{ flex: 1, overflow: 'auto', height: '100%', paddingRight: '8px' }}
+        className="scroll1"
+      >
         <Pane background="tint3" borderRadius={6} marginLeft={24}>
           <Heading size={500} marginBottom={16}>
             {job.name}
@@ -227,14 +232,55 @@ const Details: React.FC<{ item: Entity; state: State; refetch: Function }> = obs
 );
 
 const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
+  const { loading, error, data } = useJobQuery({
+    variables: {
+      id: item.id
+    }
+  });
+
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
+  const job: Job = data.job;
+  const acs: AcsKnowledge[] = data.acs;
+  const acsItems = acs.flatMap(m => m.items);
+
+  let bars = skills.map((s, i) => {
+    return {
+      x: job.skills.find(j => j.skillId === s)?.bloomRating || 0,
+      y: i
+    };
+  });
   return (
-    <div style={{ flex: 1 }}>
+    <div
+      style={{ flex: 1, overflow: 'auto', height: '100%', paddingRight: '8px' }}
+      className="scroll1"
+    >
       <Pane background="tint3" borderRadius={6} marginLeft={24}>
         <Heading size={500} marginBottom={16}>
-          {item.name}
+          {job.name}
         </Heading>
 
-        <TextField label="Description" html={marked(item.description)} />
+        <Text dangerouslySetInnerHTML={{ __html: marked(job.description || '') }} />
+
+        <Heading size={400} marginBottom={8}>
+          Skills
+        </Heading>
+
+        <Pane display="flex">
+          <Pane marginRight={16}>
+            <Pane padding={8} elevation={2} borderRadius={4} background="tint2">
+              {bloom.map((b, i) => (
+                <Text is="div" key={i}>
+                  {i + 1} - {b.title}
+                </Text>
+              ))}
+            </Pane>
+          </Pane>
+          <Pane>
+            <AcsGraph acs={acs} bars={bars} />
+          </Pane>
+        </Pane>
       </Pane>
     </div>
   );

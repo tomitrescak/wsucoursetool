@@ -14,7 +14,7 @@ export const Expander = ({ title, children, id, titleControls }: Props) => {
   const [expanded, setExpanded] = React.useState(isServer || localStorage.getItem(id) === 'true');
 
   return (
-    <Pane marginTop={16} elevation={2} padding={16} borderRadius={8}>
+    <Pane marginTop={16} elevation={1} padding={16} borderRadius={8} background="tint1">
       <Heading
         size={500}
         marginBottom={0}

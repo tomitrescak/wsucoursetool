@@ -11,7 +11,8 @@ import {
   Badge,
   Icon,
   Select,
-  TextInput
+  TextInput,
+  Text
 } from 'evergreen-ui';
 import Router from 'next/router';
 import { State, Block, BlockType as ActivityType, Activity, Unit, AcsKnowledge } from '../types';
@@ -48,7 +49,8 @@ const ActivityDetail: React.FC<{
   block: BlockModel;
   state: State;
   dnd: Dnd;
-}> = observer(({ block, activity, dnd, unit }) => {
+  readonly: boolean;
+}> = observer(({ block, activity, dnd, unit, readonly }) => {
   const form = React.useMemo(
     () => buildForm(activity, ['name', 'type', 'description', 'lengthHours']),
     [activity]
@@ -87,6 +89,17 @@ const ActivityDetail: React.FC<{
             ? 'yellow'
             : 'teal'
         }
+        title={
+          activity.type === 'knowledge'
+            ? 'Lecture'
+            : activity.type === 'exam'
+            ? 'Exam or Assessment'
+            : activity.type === 'practical'
+            ? 'Practical'
+            : activity.type === 'assignment'
+            ? 'Assignment or Project'
+            : 'WIL'
+        }
       >
         {activity.type === 'knowledge'
           ? 'K'
@@ -99,14 +112,20 @@ const ActivityDetail: React.FC<{
           : 'W'}
       </Badge>
 
-      <TextInput
-        flex="1"
-        placeholder="Activity Name"
-        value={activity.name}
-        onChange={form.name}
-        width="100%"
-        marginRight={4}
-      />
+      {readonly ? (
+        <Text is="div" flex={1} size={400}>
+          {activity.name}
+        </Text>
+      ) : (
+        <TextInput
+          flex="1"
+          placeholder="Activity Name"
+          value={activity.name}
+          onChange={form.name}
+          width="100%"
+          marginRight={4}
+        />
+      )}
 
       {/* <td>
           <TextInput
@@ -117,64 +136,67 @@ const ActivityDetail: React.FC<{
           />
         </td> */}
 
-      <Select
-        flex="0 0 100px"
-        value={activity.type}
-        id="type"
-        placeholder="Activity Type"
-        onChange={form.type}
-        marginRight={4}
-      >
-        <option value="">Please Select ...</option>
-        <option value="knowledge">Knowledge</option>
-        <option value="practical">Practical</option>
-        <option value="assignment">Assignment (Project)</option>
-        <option value="exam">Exam / Quiz</option>
-        <option value="wif">WIL</option>
-      </Select>
+      {!readonly && (
+        <>
+          <Select
+            flex="0 0 100px"
+            value={activity.type}
+            id="type"
+            placeholder="Activity Type"
+            onChange={form.type}
+            marginRight={4}
+          >
+            <option value="">Please Select ...</option>
+            <option value="knowledge">Knowledge</option>
+            <option value="practical">Practical</option>
+            <option value="assignment">Assignment (Project)</option>
+            <option value="exam">Exam / Quiz</option>
+            <option value="wif">WIL</option>
+          </Select>
+          <TextInput
+            flex="0 0 50px"
+            placeholder="Hours"
+            width={40}
+            marginRight={4}
+            value={activity.lengthHours}
+            onChange={form.lengthHours}
+          />
 
-      <TextInput
-        flex="0 0 50px"
-        placeholder="Hours"
-        width={40}
-        marginRight={4}
-        value={activity.lengthHours}
-        onChange={form.lengthHours}
-      />
+          <IconButton
+            icon="eject"
+            iconSize={12}
+            width={24}
+            marginRight={4}
+            intent="warning"
+            appearance="primary"
+            onClick={() => {
+              const clone = activity.toJS();
+              unit.addBlock({
+                id: findMaxId(unit.blocks),
+                name: activity.name,
+                outcome: '',
+                outcomes: [],
+                description: '',
+                activities: [clone],
+                completionCriteria: {},
+                keywords: [],
+                prerequisites: [],
+                topics: []
+              });
+              block.spliceActivity(block.activities.indexOf(activity), 1);
+            }}
+          />
 
-      <IconButton
-        icon="eject"
-        iconSize={12}
-        width={24}
-        marginRight={4}
-        intent="warning"
-        appearance="primary"
-        onClick={() => {
-          const clone = activity.toJS();
-          unit.addBlock({
-            id: findMaxId(unit.blocks),
-            name: activity.name,
-            outcome: '',
-            outcomes: [],
-            description: '',
-            activities: [clone],
-            completionCriteria: {},
-            keywords: [],
-            prerequisites: [],
-            topics: []
-          });
-          block.spliceActivity(block.activities.indexOf(activity), 1);
-        }}
-      />
-
-      <IconButton
-        icon="trash"
-        iconSize={12}
-        width={24}
-        intent="danger"
-        appearance="primary"
-        onClick={() => block.spliceActivity(block.activities.indexOf(activity), 1)}
-      />
+          <IconButton
+            icon="trash"
+            iconSize={12}
+            width={24}
+            intent="danger"
+            appearance="primary"
+            onClick={() => block.spliceActivity(block.activities.indexOf(activity), 1)}
+          />
+        </>
+      )}
     </div>
   );
 });
@@ -185,13 +207,15 @@ const BlockDetails: React.FC<{
   unit: UnitModel;
   keywords: string[];
   acs: AcsKnowledge[];
-}> = observer(({ block, state, unit, keywords, acs }) => {
+  readonly: boolean;
+}> = observer(({ block, state, unit, keywords, acs, readonly }) => {
   const form = React.useMemo(() => buildForm(block, ['name', 'description', 'outcome']), [block]);
   const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'activity' }), []);
 
   const [expanded, setExpanded] = React.useState(
     block.completionCriteria != null && Object.keys(block.completionCriteria).length > 0
   );
+  const view = readonly ? 'view' : 'editor';
 
   function addBlock(name = '<New Block>') {
     const newBlock: Block = {
@@ -219,10 +243,10 @@ const BlockDetails: React.FC<{
 
     // TODO: sync route
     Router.push(
-      '/editor/[category]/[item]',
+      `/${view}/[category]/[item]`,
       unit
-        ? `/editor/units/unit-${unit.id}--new-block-${newBlock.id}`
-        : `/editor/blocks/new-block-${newBlock.id}`
+        ? `/${view}/units/unit-${unit.id}--new-block-${newBlock.id}`
+        : `/${view}/blocks/new-block-${newBlock.id}`
       // { shallow: true }
     );
   }
@@ -247,7 +271,7 @@ const BlockDetails: React.FC<{
             <Icon marginRight={8} icon="build" size={14} />
             {block.name}
           </Heading>
-          {unit && (
+          {unit && !readonly && (
             <>
               <IconButton
                 icon="arrow-up"
@@ -278,29 +302,33 @@ const BlockDetails: React.FC<{
             </>
           )}
 
-          <Button
-            appearance="primary"
-            intent="success"
-            marginRight={8}
-            iconBefore="plus"
-            onClick={() => {
-              addBlock();
-            }}
-          >
-            Block
-          </Button>
+          {!readonly && (
+            <Button
+              appearance="primary"
+              intent="success"
+              marginRight={8}
+              iconBefore="plus"
+              onClick={() => {
+                addBlock();
+              }}
+            >
+              Block
+            </Button>
+          )}
         </Pane>
 
         {/* BASIC INFO */}
 
-        <TextInputField
-          flex="1"
-          label="Name"
-          placeholder="Block Name"
-          value={block.name}
-          onChange={form.name}
-          marginBottom={8}
-        />
+        {!readonly && (
+          <TextInputField
+            flex="1"
+            label="Name"
+            placeholder="Block Name"
+            value={block.name}
+            onChange={form.name}
+            marginBottom={8}
+          />
+        )}
 
         {/* ACTIVITIES */}
 
@@ -315,49 +343,53 @@ const BlockDetails: React.FC<{
             <Heading size={500} flex="1">
               Activities
             </Heading>
-            <Button
-              appearance="primary"
-              intent="success"
-              marginRight={8}
-              iconBefore="plus"
-              onClick={() => {
-                addActivity('knowledge', 'Lecture');
-              }}
-            >
-              Lecture
-            </Button>
-            <Button
-              appearance="primary"
-              intent="none"
-              iconBefore="plus"
-              marginRight={8}
-              onClick={() => {
-                addActivity('practical', 'Practical'); // - ' + block.name);
-              }}
-            >
-              Practical
-            </Button>
-            <Button
-              appearance="primary"
-              intent="warning"
-              iconBefore="plus"
-              marginRight={8}
-              onClick={() => {
-                addActivity('assignment', 'Portfolio'); // - ' + block.name);
-              }}
-            >
-              Assig.
-            </Button>
-            <Button
-              appearance="primary"
-              intent="danger"
-              iconBefore="plus"
-              onClick={() => {
-                addActivity('exam', 'Exam');
-              }}
-            >
-              Exam
-            </Button>
+            {!readonly && (
+              <>
+                <Button
+                  appearance="primary"
+                  intent="success"
+                  marginRight={8}
+                  iconBefore="plus"
+                  onClick={() => {
+                    addActivity('knowledge', 'Lecture');
+                  }}
+                >
+                  Lecture
+                </Button>
+                <Button
+                  appearance="primary"
+                  intent="none"
+                  iconBefore="plus"
+                  marginRight={8}
+                  onClick={() => {
+                    addActivity('practical', 'Practical'); // - ' + block.name);
+                  }}
+                >
+                  Practical
+                </Button>
+                <Button
+                  appearance="primary"
+                  intent="warning"
+                  iconBefore="plus"
+                  marginRight={8}
+                  onClick={() => {
+                    addActivity('assignment', 'Portfolio'); // - ' + block.name);
+                  }}
+                >
+                  Assig.
+                </Button>
+                <Button
+                  appearance="primary"
+                  intent="danger"
+                  iconBefore="plus"
+                  onClick={() => {
+                    addActivity('exam', 'Exam');
+                  }}
+                >
+                  Exam
+                </Button>
+              </>
+            )}
           </Pane>
 
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
@@ -368,12 +400,16 @@ const BlockDetails: React.FC<{
             {/* <th style={{ width: '100%' }}>
                     <Heading size={400}>Description</Heading>
                   </th> */}
-            <div style={{ flex: ' 0 0 100px' }}>
-              <Heading size={400}>Type</Heading>
-            </div>
-            <div style={{ flex: '0 0 78px' }}>
-              <Heading size={400}>Hrs.</Heading>
-            </div>
+            {!readonly && (
+              <>
+                <div style={{ flex: ' 0 0 100px' }}>
+                  <Heading size={400}>Type</Heading>
+                </div>
+                <div style={{ flex: '0 0 78px' }}>
+                  <Heading size={400}>Hrs.</Heading>
+                </div>
+              </>
+            )}
           </div>
 
           <DragContainer>
@@ -385,6 +421,7 @@ const BlockDetails: React.FC<{
                 state={state}
                 key={a.id}
                 dnd={dnd}
+                readonly={readonly}
               />
             ))}
           </DragContainer>
@@ -397,6 +434,7 @@ const BlockDetails: React.FC<{
             owner={block}
             unit={unit}
             activities={block.activities}
+            readonly={readonly}
           />
         </Pane>
 
@@ -421,14 +459,18 @@ const BlockDetails: React.FC<{
           </Heading>
 
           {expanded && (
-            <TopicBlockEditor block={block.completionCriteria} items={block.activities} />
+            <TopicBlockEditor
+              block={block.completionCriteria}
+              items={block.activities}
+              readonly={readonly}
+            />
           )}
         </Pane>
 
         {/* OUTCOMES */}
 
         <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-          <OutcomeEditor state={state} owner={block} acss={acs} />
+          <OutcomeEditor state={state} owner={block} acss={acs} readonly={readonly} />
           {/* <TextEditor owner={block} field="outcome" label="Outcome Description" /> */}
         </Pane>
 
@@ -438,13 +480,13 @@ const BlockDetails: React.FC<{
             Details
           </Heading>
 
-          <TextEditor owner={block} field="outcome" label="Description" />
+          <TextEditor owner={block} field="outcome" label="Description" readonly={readonly} />
 
           <Pane display="flex">
             {/* TOPICS */}
-            <TopicEditor owner={block} />
+            <TopicEditor owner={block} readonly={readonly} />
             {/* KEYWORDS */}
-            <KeywordEditor owner={block} keywords={keywords} />
+            <KeywordEditor owner={block} keywords={keywords} readonly={readonly} />
           </Pane>
         </Pane>
 
@@ -475,9 +517,6 @@ type Props = {
   readonly: boolean;
   keywords: string[];
 };
-
-// href="/editor/[category]/[item]"
-// as={`/editor/units/${url(block.name)}-${block.id}`}
 
 function createRanges(arr: number[]) {
   let start = null;
@@ -540,10 +579,12 @@ const BlocksEditorView: React.FC<Props> = ({
   title,
   keywords,
   acs,
+  readonly,
   readonlyBlocks
 }) => {
   const selectedBlock = selectedBlockId ? unit.blocks.find(b => b.id === selectedBlockId) : null;
   const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'blocks' }), []);
+  const view = readonly ? 'view' : 'editor';
 
   const mergeWithNext = direction =>
     action(() => {
@@ -600,16 +641,20 @@ const BlocksEditorView: React.FC<Props> = ({
               {title}
             </Heading>
           )}
-          <IconButton
-            icon="symbol-triangle-up"
-            title="Merge with previous block"
-            onClick={mergeWithNext(-1)}
-          />
-          <IconButton
-            icon="symbol-triangle-down"
-            title="Merge with next block"
-            onClick={mergeWithNext(1)}
-          />
+          {!readonly && (
+            <>
+              <IconButton
+                icon="symbol-triangle-up"
+                title="Merge with previous block"
+                onClick={mergeWithNext(-1)}
+              />
+              <IconButton
+                icon="symbol-triangle-down"
+                title="Merge with next block"
+                onClick={mergeWithNext(1)}
+              />
+            </>
+          )}
         </Pane>
         <Tabs>
           <DragContainer>
@@ -620,9 +665,9 @@ const BlocksEditorView: React.FC<Props> = ({
                 key={block.id}
                 {...dnd.props(block.id, unit.blocks, true)}
               >
-                <Handler dnd={dnd} />
+                {!readonly && <Handler dnd={dnd} />}
                 <Pane flex="1" width="130px" marginRight={8}>
-                  <Link key={block.id} href="/editor/[category]/[item]" as={url(block)}>
+                  <Link key={block.id} href={`/${view}/[category]/[item]`} as={url(block)}>
                     <a>
                       <SideTab
                         key={block.id}
@@ -672,8 +717,8 @@ const BlocksEditorView: React.FC<Props> = ({
                 return (
                   <Link
                     key={b.id}
-                    href="/editor/[category]/[item]"
-                    as={`/editor/units/imported-${b.unitId}--${b.name}-${b.id}`}
+                    href={`/${view}/[category]/[item]`}
+                    as={`/${view}/units/imported-${b.unitId}--${b.name}-${b.id}`}
                   >
                     <a>
                       <SideTab
@@ -695,9 +740,11 @@ const BlocksEditorView: React.FC<Props> = ({
             </>
           )}
         </Tabs>
-        <Pane marginTop={16}>
-          <AddBlockModal state={state} unit={unit} />
-        </Pane>
+        {!readonly && (
+          <Pane marginTop={16}>
+            <AddBlockModal state={state} unit={unit} />
+          </Pane>
+        )}
       </Tablist>
       {unit.blocks.length === 0 && <Alert flex={1}>There are no units defined</Alert>}
       {selectedBlock && (
@@ -707,6 +754,7 @@ const BlocksEditorView: React.FC<Props> = ({
           unit={unit}
           state={state}
           acs={acs}
+          readonly={readonly}
         />
       )}
     </Pane>

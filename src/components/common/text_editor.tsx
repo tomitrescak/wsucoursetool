@@ -8,9 +8,10 @@ type Props = {
   owner: any;
   field: string;
   parser?: Function;
+  readonly: boolean;
 };
 
-export const TextEditor = observer(({ label, owner, field, parser }: Props) => {
+export const TextEditor = observer(({ label, owner, field, parser, readonly }: Props) => {
   const [isPreview, setPreview] = React.useState(true);
 
   return (
@@ -24,9 +25,11 @@ export const TextEditor = observer(({ label, owner, field, parser }: Props) => {
         display="block"
       >
         {label}{' '}
-        <Badge cursor="pointer" onClick={() => setPreview(!isPreview)}>
-          {isPreview ? 'Editor' : 'Preview'}
-        </Badge>
+        {!readonly && (
+          <Badge cursor="pointer" onClick={() => setPreview(!isPreview)}>
+            {isPreview ? 'Editor' : 'Preview'}
+          </Badge>
+        )}
       </Text>
       {isPreview ? (
         parser ? (

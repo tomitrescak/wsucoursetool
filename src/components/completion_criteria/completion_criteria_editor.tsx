@@ -21,14 +21,23 @@ type Item = { id: string; name: string };
 type Props = {
   block: CompletionCriteriaModel;
   items?: Item[];
+  readonly?: boolean;
 };
 
 type ItemEditorProps = {
   completionCriteria: CompletionCriteriaModel;
   items?: Item[];
+  readonly: boolean;
 };
 
-const ItemEditor = observer(({ items, completionCriteria }: ItemEditorProps) => {
+const ItemEditor = observer(({ items, completionCriteria, readonly }: ItemEditorProps) => {
+  if (readonly) {
+    return (
+      <Text>
+        {completionCriteria.id ? items.find(b => b.id === completionCriteria.id).name : null}
+      </Text>
+    );
+  }
   return (
     <Combobox
       flex="1"
@@ -44,8 +53,12 @@ const ItemEditor = observer(({ items, completionCriteria }: ItemEditorProps) => 
 
 type SiProps = {
   completionCriteria: CompletionCriteria;
+  readonly: boolean;
 };
-const MarkEditor = observer(({ completionCriteria }: SiProps) => {
+const MarkEditor = observer(({ completionCriteria, readonly }: SiProps) => {
+  if (readonly) {
+    return <Text>{completionCriteria.minimumValue || '--'} %</Text>;
+  }
   return (
     <Pane display="flex" alignItems="center">
       <TextInput
@@ -63,7 +76,10 @@ const MarkEditor = observer(({ completionCriteria }: SiProps) => {
     </Pane>
   );
 });
-const AttendanceEditor = observer(({ completionCriteria }: SiProps) => {
+const AttendanceEditor = observer(({ completionCriteria, readonly }: SiProps) => {
+  if (readonly) {
+    return <Text>{completionCriteria.minimumCount || '--'} %</Text>;
+  }
   return (
     <Pane display="flex" alignItems="center">
       <TextInput
@@ -80,7 +96,16 @@ const AttendanceEditor = observer(({ completionCriteria }: SiProps) => {
     </Pane>
   );
 });
-const WeightEditor = observer(({ completionCriteria }: SiProps) => {
+const WeightEditor = observer(({ completionCriteria, readonly }: SiProps) => {
+  if (readonly) {
+    return (
+      <Pane display="flex" alignItems="center">
+        <Text marginLeft={4} marginRight={8}>
+          {completionCriteria.weight} %
+        </Text>
+      </Pane>
+    );
+  }
   return (
     <Pane display="flex" alignItems="center">
       <TextInput
@@ -98,7 +123,10 @@ const WeightEditor = observer(({ completionCriteria }: SiProps) => {
   );
 });
 
-const CreditEditor = observer(({ completionCriteria }: SiProps) => {
+const CreditEditor = observer(({ completionCriteria, readonly }: SiProps) => {
+  if (readonly) {
+    return <Text>{completionCriteria.credit || '--'} %</Text>;
+  }
   return (
     <TextInput
       type="number"
@@ -128,41 +156,44 @@ type EditorProps = {
   items: Item[];
   completionCriteria: CompletionCriteriaModel;
   sub?: boolean;
+  readonly: boolean;
 };
 
-const SimpleEditor = observer(({ items, completionCriteria }: EditorProps) => {
+const SimpleEditor = observer(({ items, completionCriteria, readonly }: EditorProps) => {
   return (
     <Pane display="flex" alignItems="center">
       <Pane flex={1}>
         <Heading size={300} marginBottom={4}>
           Activity
         </Heading>
-        <ItemEditor items={items} completionCriteria={completionCriteria} />
+        <ItemEditor items={items} completionCriteria={completionCriteria} readonly={readonly} />
       </Pane>
       <Pane marginLeft={8} flex="0 0 80px">
         <Heading size={300} marginBottom={4}>
           Mark
         </Heading>
-        <MarkEditor completionCriteria={completionCriteria} />
+        <MarkEditor completionCriteria={completionCriteria} readonly={readonly} />
       </Pane>
       <Pane marginLeft={8} flex="0 0 60px">
         <Heading size={300} marginBottom={4}>
           Credit
         </Heading>
-        <CreditEditor completionCriteria={completionCriteria} />
+        <CreditEditor completionCriteria={completionCriteria} readonly={readonly} />
       </Pane>
 
-      <Pane marginLeft={8} flex="0 0 100px">
-        <Heading size={300} marginBottom={4}>
-          Type
-        </Heading>
-        <TypeEditor completionCriteria={completionCriteria} />
-      </Pane>
+      {!readonly && (
+        <Pane marginLeft={8} flex="0 0 100px">
+          <Heading size={300} marginBottom={4}>
+            Type
+          </Heading>
+          <TypeEditor completionCriteria={completionCriteria} readonly={readonly} />
+        </Pane>
+      )}
     </Pane>
   );
 });
 
-const AllOfEditor = observer(({ items, completionCriteria, sub }: EditorProps) => {
+const AllOfEditor = observer(({ items, completionCriteria, sub, readonly }: EditorProps) => {
   return (
     <Pane>
       {completionCriteria.criteria && completionCriteria.criteria.length > 0 && (
@@ -192,8 +223,12 @@ const AllOfEditor = observer(({ items, completionCriteria, sub }: EditorProps) =
                   Mark
                 </Heading>
               </th>
-              {!sub && <th style={{ minWidth: '80px', textAlign: 'left' }}></th>}
-              <th></th>
+              {!readonly && (
+                <>
+                  {!sub && <th style={{ minWidth: '80px', textAlign: 'left' }}></th>}
+                  <th></th>
+                </>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -211,7 +246,7 @@ const AllOfEditor = observer(({ items, completionCriteria, sub }: EditorProps) =
                           }
                     }
                   >
-                    <WeightEditor completionCriteria={c} />
+                    {<WeightEditor completionCriteria={c} readonly={readonly} />}
                   </td>
                 )}
                 <td
@@ -226,9 +261,14 @@ const AllOfEditor = observer(({ items, completionCriteria, sub }: EditorProps) =
                   }
                 >
                   {c.type === 'allOf' ? (
-                    <AllOfEditor completionCriteria={c} items={items} sub={true} />
+                    <AllOfEditor
+                      completionCriteria={c}
+                      items={items}
+                      sub={true}
+                      readonly={readonly}
+                    />
                   ) : (
-                    <ItemEditor items={items} completionCriteria={c} />
+                    <ItemEditor items={items} completionCriteria={c} readonly={readonly} />
                   )}
                 </td>
                 <td
@@ -242,41 +282,45 @@ const AllOfEditor = observer(({ items, completionCriteria, sub }: EditorProps) =
                         }
                   }
                 >
-                  <MarkEditor completionCriteria={c} />
+                  <MarkEditor completionCriteria={c} readonly={readonly} />
                 </td>
-                {!sub && (
-                  <td
-                    style={
-                      sub
-                        ? {}
-                        : {
-                            borderBottom: 'dashed 1px #cdcdcd',
-                            paddingBottom: '4px',
-                            paddingTop: '4px'
-                          }
-                    }
-                  >
-                    <TypeEditor completionCriteria={c} />
-                  </td>
-                )}
-                <td
-                  style={
-                    sub
-                      ? {}
-                      : {
-                          borderBottom: 'dashed 1px #cdcdcd',
-                          paddingBottom: '4px',
-                          paddingTop: '4px'
+                {!readonly && (
+                  <>
+                    {!sub && (
+                      <td
+                        style={
+                          sub
+                            ? {}
+                            : {
+                                borderBottom: 'dashed 1px #cdcdcd',
+                                paddingBottom: '4px',
+                                paddingTop: '4px'
+                              }
                         }
-                  }
-                >
-                  <IconButton
-                    appearance="primary"
-                    icon="trash"
-                    intent="danger"
-                    onClick={() => completionCriteria.removeCompletionCriteria(i)}
-                  />
-                </td>
+                      >
+                        <TypeEditor completionCriteria={c} readonly={readonly} />
+                      </td>
+                    )}
+                    <td
+                      style={
+                        sub
+                          ? {}
+                          : {
+                              borderBottom: 'dashed 1px #cdcdcd',
+                              paddingBottom: '4px',
+                              paddingTop: '4px'
+                            }
+                      }
+                    >
+                      <IconButton
+                        appearance="primary"
+                        icon="trash"
+                        intent="danger"
+                        onClick={() => completionCriteria.removeCompletionCriteria(i)}
+                      />
+                    </td>
+                  </>
+                )}
               </tr>
             ))}
           </tbody>
@@ -293,175 +337,63 @@ const AllOfEditor = observer(({ items, completionCriteria, sub }: EditorProps) =
           <Heading size={300} marginBottom={4}>
             Attendance
           </Heading>
-          <AttendanceEditor completionCriteria={completionCriteria} />
+          <AttendanceEditor completionCriteria={completionCriteria} readonly={readonly} />
         </Pane>
         <Pane flex={1} marginLeft={8}>
           <Heading size={300} marginBottom={4}>
             Mark
           </Heading>
-          <MarkEditor completionCriteria={completionCriteria} />
+          <MarkEditor completionCriteria={completionCriteria} readonly={readonly} />
         </Pane>
         {!sub && (
           <Pane flex={1} marginLeft={8}>
             <Heading size={300} marginBottom={4}>
               Credit
             </Heading>
-            <CreditEditor completionCriteria={completionCriteria} />
+            <CreditEditor completionCriteria={completionCriteria} readonly={readonly} />
           </Pane>
         )}
 
-        {!sub && (
+        {!sub && !readonly && (
           <Pane flex={1} marginLeft={8}>
             <Heading size={300} marginBottom={4}>
               Type
             </Heading>
-            <TypeEditor completionCriteria={completionCriteria} />
+            <TypeEditor completionCriteria={completionCriteria} readonly={readonly} />
           </Pane>
         )}
 
-        <IconButton
-          marginLeft={8}
-          icon="plus"
-          appearance="primary"
-          intent="success"
-          onClick={() => {
-            completionCriteria.addCompletionCriteria({});
-          }}
-        />
+        {!readonly && (
+          <IconButton
+            marginLeft={8}
+            icon="plus"
+            appearance="primary"
+            intent="success"
+            onClick={() => {
+              completionCriteria.addCompletionCriteria({});
+            }}
+          />
+        )}
       </Pane>
     </Pane>
   );
 });
 
 export const TopicBlockEditor: React.FC<Props> = observer(
-  ({ block: completionCriteria, items }) => {
+  ({ block: completionCriteria, items, readonly }) => {
     if (completionCriteria.type === '' || completionCriteria.type === 'simple') {
-      return <SimpleEditor completionCriteria={completionCriteria} items={items} />;
+      return (
+        <SimpleEditor completionCriteria={completionCriteria} items={items} readonly={readonly} />
+      );
     }
     if (completionCriteria.type === 'allOf') {
-      return <AllOfEditor completionCriteria={completionCriteria} items={items} />;
+      return (
+        <AllOfEditor completionCriteria={completionCriteria} items={items} readonly={readonly} />
+      );
     }
     return (
       <Pane marginTop={4}>
-        <SimpleEditor completionCriteria={completionCriteria} items={items} />
-        {/* {completionCriteria.allOf && (
-          <SingleEditor blocks={completionCriteria.allOf} state={state} title="All Of" unitId={unitId} />
-        )}
-        {completionCriteria.someOf && (
-          <SingleEditor blocks={completionCriteria.someOf} state={state} title="Some Of" unitId={unitId} />
-        )}
-        {completionCriteria.anyOf && (
-          <SingleEditor blocks={completionCriteria.anyOf} state={state} title="Any Of" unitId={unitId} />
-        )}
-        {completionCriteria.oneOf && (
-          <SingleEditor blocks={completionCriteria.oneOf} state={state} title="One Of" unitId={unitId} />
-        )} */}
-
-        {/* <Pane display="flex" alignItems="center">
-          <Combobox
-            flex="1"
-            width="100%"
-            id="block"
-            items={items}
-            selectedItem={
-              completionCriteria.id
-                ? state.courseConfig.blocks.find(b => b.id === completionCriteria.id)
-                : null
-            }
-            itemToString={item => (item ? item.name : '')}
-            onChange={selected => (completionCriteria.id = selected.id)}
-          />
-          <TextInput
-            marginLeft={8}
-            type="number"
-            width={50}
-            placeholder={'Mark'}
-            onChange={form.minimumValue}
-            value={completionCriteria.minimumValue}
-          />
-          <Text marginLeft={4} marginRight={8}>
-            {' '}
-            %
-          </Text>
-          <TextInput
-            marginLeft={8}
-            type="number"
-            width={50}
-            placeholder={'Att.'}
-            onChange={form.minimumCount}
-            value={completionCriteria.minimumCount}
-          />
-          <Text marginLeft={4} marginRight={8}>
-            {' '}
-            %
-          </Text>
-          <TextInput
-            marginLeft={8}
-            type="number"
-            width={50}
-            placeholder={'Weight'}
-            onChange={form.weight}
-            value={completionCriteria.weight}
-          />
-          <Text marginLeft={4} marginRight={8}>
-            {' '}
-            %
-          </Text>
-          <TextInput
-            marginLeft={8}
-            type="number"
-            width={50}
-            placeholder={'Credits'}
-            onChange={form.credit}
-            value={completionCriteria.credit}
-          />
-          <Text marginLeft={4} marginRight={8}>
-            {' '}
-            Credit
-          </Text>
-
-          <IconButton
-            flex="0 0 30px"
-            icon="plus"
-            marginLeft={8}
-            intent="success"
-            appearance="primary"
-            onClick={() => {
-              if (localState.type === 'allOf') {
-                if (completionCriteria.allOf == null) {
-                  completionCriteria.allOf = [];
-                }
-                completionCriteria.allOf.push({});
-              } else if (localState.type === 'anyOf') {
-                if (completionCriteria.anyOf == null) {
-                  completionCriteria.anyOf = [];
-                }
-                completionCriteria.anyOf.push({});
-              } else if (localState.type === 'someOf') {
-                if (completionCriteria.someOf == null) {
-                  completionCriteria.someOf = [];
-                }
-                completionCriteria.someOf.push({});
-              } else if (localState.type === 'oneOf') {
-                if (completionCriteria.oneOf == null) {
-                  completionCriteria.oneOf = [];
-                }
-                completionCriteria.oneOf.push({});
-              }
-            }}
-          />
-          {deleteItem && (
-            <IconButton
-              flex="0 0 30px"
-              marginLeft={8}
-              width={30}
-              intent="danger"
-              appearance="primary"
-              icon="trash"
-              onClick={deleteItem}
-            />
-          )} 
-        </Pane>*/}
+        <SimpleEditor completionCriteria={completionCriteria} items={items} readonly={readonly} />
       </Pane>
     );
   }

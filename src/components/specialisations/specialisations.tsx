@@ -35,8 +35,6 @@ import { TextEditor } from 'components/common/text_editor';
 
 const Details: React.FC<{ item: Entity; state: State; refetch: Function }> = observer(
   ({ item, state, refetch }) => {
-    const localState = useLocalStore(() => ({ isPreview: false, acsId: '', rating: 0, bloom: -1 }));
-
     const { loading, error, data } = useSpecialisationQuery({
       variables: {
         id: item.id
@@ -130,14 +128,24 @@ const Details: React.FC<{ item: Entity; state: State; refetch: Function }> = obs
 );
 
 const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
+  const { loading, error, data } = useSpecialisationQuery({
+    variables: {
+      id: item.id
+    }
+  });
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
+  const specialisation: Specialisation = data.specialisation;
+
   return (
     <div style={{ flex: 1 }}>
       <Pane background="tint3" borderRadius={6} marginLeft={24}>
         <Heading size={500} marginBottom={16}>
-          {item.name}
+          {specialisation.name}
         </Heading>
 
-        <TextField label="Description" html={marked(item.description)} />
+        <TextField label="Description" html={marked(specialisation.description)} />
       </Pane>
     </div>
   );

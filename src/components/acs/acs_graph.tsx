@@ -12,18 +12,14 @@ import { skills } from 'components/outcomes/outcome_editor';
 import { Unit, AcsKnowledge } from 'components/types';
 import { Pane, Heading, TextInputField } from 'evergreen-ui';
 
-type AcsGraphProps = {
+type AcsUnitGraphProps = {
   units: Unit[];
   acs: AcsKnowledge[];
+  readonly?: boolean;
 };
 
-export const AcsGraph = ({ units, acs }: AcsGraphProps) => {
-  const titles = {};
-
+export const AcsUnitGraph = ({ units, acs, readonly }: AcsUnitGraphProps) => {
   let bars = skills.map((s, i) => {
-    let ascSkill = acs.flatMap(k => k.items).find(k => k.id === s);
-    // find maximum
-
     let max = units.reduce((max, unit) => {
       if (unit.blocks) {
         let maxValue = unit.blocks.reduce((blockMax, block) => {
@@ -35,9 +31,25 @@ export const AcsGraph = ({ units, acs }: AcsGraphProps) => {
       return unit.outcomes?.find(o => o.acsSkillId === s)?.bloomRating || 0;
     }, 0);
 
-    titles[i] = ascSkill.name;
-
     return { y: i, x: max };
+  });
+
+  return <AcsGraph acs={acs} bars={bars} readonly={readonly} />;
+};
+
+type AcsGraphProps = {
+  bars: { x: number; y: number }[];
+  acs: AcsKnowledge[];
+  readonly?: boolean;
+};
+
+export const AcsGraph = ({ bars, acs, readonly }: AcsGraphProps) => {
+  const titles = {};
+
+  const items = acs.flatMap(k => k.items);
+  skills.forEach((s, i) => {
+    let ascSkill = items.find(k => k.id === s);
+    titles[i] = ascSkill.name;
   });
 
   return (
@@ -59,7 +71,7 @@ export const AcsGraph = ({ units, acs }: AcsGraphProps) => {
 
         <HorizontalBarSeries data={bars} barWidth={0.7} />
       </XYPlot>
-      <TextInputField label="Values" value={bars.map(b => b.x).join('\t')} />
+      {!readonly && <TextInputField label="Values" value={bars.map(b => b.x).join('\t')} />}
 
       <Pane elevation={2}></Pane>
     </Pane>

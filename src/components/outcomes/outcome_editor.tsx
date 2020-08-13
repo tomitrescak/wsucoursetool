@@ -16,11 +16,13 @@ import {
 } from 'evergreen-ui';
 import { action } from 'mobx';
 import { State, Outcome, AcsKnowledge } from '../types';
-import { AcsGraph } from 'components/acs/acs_graph';
+import { AcsUnitGraph } from 'components/acs/acs_graph';
+import { bloom } from 'components/acs/bloom';
 
 export type Props = {
   acss: AcsKnowledge[];
   state: State;
+  readonly: boolean;
   owner: {
     outcomes: ReadonlyArray<Outcome>;
     addOutcome({ acsSkillId: string, bloomRating: number });
@@ -49,7 +51,7 @@ export const skills = [
   'e3'
 ];
 
-export const OutcomeEditor: React.FC<Props> = observer(({ acss, owner }) => {
+export const OutcomeEditor: React.FC<Props> = observer(({ acss, owner, readonly }) => {
   const localState = useLocalStore(() => ({
     outcomeId: '',
     outcomeRating: -1
@@ -113,7 +115,7 @@ export const OutcomeEditor: React.FC<Props> = observer(({ acss, owner }) => {
         ))}
       </UnorderedList> */}
 
-      {expanded && (
+      {expanded && !readonly && (
         <TextInputField
           label="Parse Outcomes"
           placeholder="Please paste the outcomes, separated by tab"
@@ -137,45 +139,59 @@ export const OutcomeEditor: React.FC<Props> = observer(({ acss, owner }) => {
 
       {expanded && (
         <Pane display="flex">
-          <Pane flex={1} overflow="auto" marginRight={8}>
-            {acss.map((acs, i) => (
-              <Pane key={i}>
-                <Heading size={400} marginTop={8} marginBottom={4}>
-                  {acs.name}
-                </Heading>
-
-                {acs.items.map((s, i) => (
-                  <Pane display="flex" key={i} marginTop={4}>
-                    <Pane flex="0 0 240px">
-                      <Text size={300}>{s.name}</Text>
-                    </Pane>
-
-                    <Select
-                      marginLeft={8}
-                      marginRight={8}
-                      flex="0 0 140px"
-                      value={
-                        (owner.outcomes || [])
-                          .find(o => o.acsSkillId === s.id)
-                          ?.bloomRating.toString() || '0'
-                      }
-                      onChange={e => setOutcome(s.id, parseInt(e.currentTarget.value))}
-                    >
-                      <option value="0">None</option>
-                      <option value="1">1 - Knowledge</option>
-                      <option value="2">2 - Comprehension</option>
-                      <option value="3">3 - Application</option>
-                      <option value="4">4 - Analysis</option>
-                      <option value="5">5 - Synthesis</option>
-                      <option value="6">6 - Evaluation</option>
-                    </Select>
-                  </Pane>
+          {readonly && (
+            <Pane marginRight={16}>
+              <Pane padding={8} elevation={2} borderRadius={4} background="tint2">
+                {bloom.map((b, i) => (
+                  <Text is="div" key={i}>
+                    {i + 1} - {b.title}
+                  </Text>
                 ))}
               </Pane>
-            ))}
-          </Pane>
+            </Pane>
+          )}
+          {!readonly && (
+            <Pane flex={1} overflow="auto" marginRight={8}>
+              {acss.map((acs, i) => (
+                <Pane key={i}>
+                  <Heading size={400} marginTop={8} marginBottom={4}>
+                    {acs.name}
+                  </Heading>
+
+                  {acs.items.map((s, i) => (
+                    <Pane display="flex" key={i} marginTop={4}>
+                      <Pane flex="0 0 240px">
+                        <Text size={300}>{s.name}</Text>
+                      </Pane>
+
+                      <Select
+                        marginLeft={8}
+                        marginRight={8}
+                        flex="0 0 140px"
+                        value={
+                          (owner.outcomes || [])
+                            .find(o => o.acsSkillId === s.id)
+                            ?.bloomRating.toString() || '0'
+                        }
+                        onChange={e => setOutcome(s.id, parseInt(e.currentTarget.value))}
+                      >
+                        <option value="0">None</option>
+                        <option value="1">1 - Knowledge</option>
+                        <option value="2">2 - Comprehension</option>
+                        <option value="3">3 - Application</option>
+                        <option value="4">4 - Analysis</option>
+                        <option value="5">5 - Synthesis</option>
+                        <option value="6">6 - Evaluation</option>
+                      </Select>
+                    </Pane>
+                  ))}
+                </Pane>
+              ))}
+            </Pane>
+          )}
+
           <Pane flex={1} overflow="auto">
-            <AcsGraph units={[owner as any]} acs={acss} />
+            <AcsUnitGraph units={[owner as any]} acs={acss} readonly={readonly} />
           </Pane>
         </Pane>
       )}

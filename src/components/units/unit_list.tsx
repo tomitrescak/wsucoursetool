@@ -23,6 +23,7 @@ import { ProgressView } from 'components/common/progress_view';
 import { UnitDetailContainer } from './unit_details';
 
 const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state, readonly }) => {
+  const view = readonly ? 'view' : 'editor';
   const localState = useLocalStore(() => ({
     newUnitName: '',
     newUnitId: '',
@@ -144,8 +145,8 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
               .map((unit, index) => (
                 <Link
                   key={unit.id}
-                  href="/editor/[category]/[item]"
-                  as={`/editor/units/${url(unit.name)}-${unit.id}`}
+                  href={`/${view}/[category]/[item]`}
+                  as={`/${view}/units/${url(unit.name)}-${unit.id}`}
                 >
                   <a>
                     <SidebarTab

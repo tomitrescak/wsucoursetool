@@ -24,14 +24,7 @@ import { url, buildForm } from 'lib/helpers';
 import Link from 'next/link';
 
 import Router, { useRouter } from 'next/router';
-import {
-  XYPlot,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  HorizontalBarSeries
-} from 'react-vis';
+
 import { skills } from 'components/outcomes/outcome_editor';
 import { VerticalPane } from 'components/common/vertical_pane';
 import { Expander } from 'components/common/expander';
@@ -45,7 +38,7 @@ import {
 import { ProgressView } from 'components/common/progress_view';
 import { createCourse } from 'components/classes';
 import { Graph } from 'components/blocks/block_graph';
-import { AcsGraph } from 'components/acs/acs_graph';
+import { AcsUnitGraph } from 'components/acs/acs_graph';
 
 /*!
  * Group items from an array together by some criteria or value.
@@ -141,7 +134,7 @@ const UnitsBySemester = observer(({ courseUnits, units, localState, course }: Se
             <React.Fragment key={sem}>
               <thead>
                 <tr>
-                  <th style={{ textAlign: 'left' }}>
+                  <th style={{ textAlign: 'left' }} colSpan={3}>
                     <Heading size={400}>
                       <Checkbox
                         fontWeight="bold"
@@ -272,7 +265,10 @@ const UnitsByTopic = observer(
               <React.Fragment key={sem}>
                 <thead>
                   <tr>
-                    <th style={{ textAlign: 'left' }}>
+                    <th
+                      style={{ textAlign: 'left', paddingTop: '8px', paddingBottom: '4px' }}
+                      colSpan={3}
+                    >
                       <Heading size={400}>{sem}</Heading>
                     </th>
                   </tr>
@@ -330,7 +326,7 @@ type Props = {
 
 const AcsGraphContainer = observer(({ courseUnits, selectedUnits, acs }: Props) => {
   const units: Unit[] = selectedUnits.map(cu => courseUnits.find(u => u.id === cu.id));
-  return <AcsGraph acs={acs} units={units} />;
+  return <AcsUnitGraph acs={acs} units={units} />;
 });
 
 const TabHeader = observer(({ tab, children, state }) => {
@@ -543,14 +539,16 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
                 </Pane>
               </Dialog> */}
 
-              <Button
-                appearance="primary"
-                iconBefore="plus"
-                marginLeft={8}
-                onClick={() => (localState.isShown = true)}
-              >
-                Add Major
-              </Button>
+              {!readonly && (
+                <Button
+                  appearance="primary"
+                  iconBefore="plus"
+                  marginLeft={8}
+                  onClick={() => (localState.isShown = true)}
+                >
+                  Add Major
+                </Button>
+              )}
             </Pane>
             <UnitsBySemester
               course={course}
@@ -601,6 +599,7 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
 );
 
 const CoursesEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state, readonly }) => {
+  const view = readonly ? 'view' : 'editor';
   const localState = useLocalStore(() => ({
     newCourseName: '',
     newCourseId: '',
@@ -646,8 +645,8 @@ const CoursesEditorView: React.FC<{ state: State; readonly: boolean }> = ({ stat
             .map((course, index) => (
               <Link
                 key={course.id}
-                href="/editor/[category]/[item]"
-                as={`/editor/courses/${url(course.name)}-${course.id}`}
+                href={`/${view}/[category]/[item]`}
+                as={`/${view}/courses/${url(course.name)}-${course.id}`}
               >
                 <a>
                   <SidebarTab
@@ -657,6 +656,7 @@ const CoursesEditorView: React.FC<{ state: State; readonly: boolean }> = ({ stat
                     isSelected={course.id === courseId}
                     onSelect={() => {}}
                     aria-controls={`panel-${course.name}`}
+                    minWidth="120px"
                   >
                     <Badge size={300} marginRight={8}>
                       {course.id}
@@ -667,54 +667,58 @@ const CoursesEditorView: React.FC<{ state: State; readonly: boolean }> = ({ stat
               </Link>
             ))}
 
-          <Dialog
-            isShown={localState.isShown}
-            title="Add new course"
-            onCloseComplete={() => (localState.isShown = false)}
-            onConfirm={close => {
-              createCourse({
-                variables: {
-                  id: localState.newCourseId,
-                  name: localState.newCourseName
-                }
-              }).then(() => refetch());
+          {!readonly && (
+            <>
+              <Dialog
+                isShown={localState.isShown}
+                title="Add new course"
+                onCloseComplete={() => (localState.isShown = false)}
+                onConfirm={close => {
+                  createCourse({
+                    variables: {
+                      id: localState.newCourseId,
+                      name: localState.newCourseName
+                    }
+                  }).then(() => refetch());
 
-              close();
-            }}
-            confirmLabel="Add Course"
-          >
-            <Pane display="flex" alignItems="flex-baseline">
-              <TextInputField
-                label="Course Code"
-                placeholder="Course Id"
-                onChange={form.newCourseId}
-                marginRight={4}
-              />
-              <TextInputField
-                label="Course Name"
-                placeholder="Course Name"
-                onChange={form.newCourseName}
-                marginRight={4}
-                flex={1}
-              />
-            </Pane>
-          </Dialog>
+                  close();
+                }}
+                confirmLabel="Add Course"
+              >
+                <Pane display="flex" alignItems="flex-baseline">
+                  <TextInputField
+                    label="Course Code"
+                    placeholder="Course Id"
+                    onChange={form.newCourseId}
+                    marginRight={4}
+                  />
+                  <TextInputField
+                    label="Course Name"
+                    placeholder="Course Name"
+                    onChange={form.newCourseName}
+                    marginRight={4}
+                    flex={1}
+                  />
+                </Pane>
+              </Dialog>
 
-          <Pane
-            display="flex"
-            alignItems="center"
-            marginTop={16}
-            paddingTop={8}
-            borderTop="dotted 1px #dedede"
-          >
-            <Button
-              appearance="primary"
-              iconBefore="plus"
-              onClick={() => (localState.isShown = true)}
-            >
-              Add Course
-            </Button>
-          </Pane>
+              <Pane
+                display="flex"
+                alignItems="center"
+                marginTop={16}
+                paddingTop={8}
+                borderTop="dotted 1px #dedede"
+              >
+                <Button
+                  appearance="primary"
+                  iconBefore="plus"
+                  onClick={() => (localState.isShown = true)}
+                >
+                  Add Course
+                </Button>
+              </Pane>
+            </>
+          )}
         </Tablist>
       </VerticalPane>
 

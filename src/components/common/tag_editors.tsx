@@ -7,9 +7,10 @@ import { useTopicsQuery } from 'config/graphql';
 type KeywordEditorProps = {
   owner: { keywords: string[] };
   keywords: string[];
+  readonly: boolean;
 };
 
-export const KeywordEditor = observer(({ owner, keywords }: KeywordEditorProps) => {
+export const KeywordEditor = observer(({ owner, keywords, readonly }: KeywordEditorProps) => {
   return (
     <Pane flex={1}>
       <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
@@ -46,6 +47,7 @@ export const KeywordEditor = observer(({ owner, keywords }: KeywordEditorProps) 
                   onInputChange={onChange}
                   innerRef={getRef}
                   marginBottom={16}
+                  disabled={readonly}
                   {...rest}
                 />
               )}
@@ -61,10 +63,11 @@ type TopicEditorProps = {
   owner: { topics: string[] };
   label?: string;
   field?: string;
+  readonly?: boolean;
 };
 
 export const TopicEditor = observer(
-  ({ owner, label = 'Topics', field = 'topics' }: TopicEditorProps) => {
+  ({ owner, label = 'Topics', field = 'topics', readonly }: TopicEditorProps) => {
     if (!owner[field]) {
       owner[field] = [];
     }
@@ -99,6 +102,7 @@ export const TopicEditor = observer(
         >
           <TagInput
             id="keywords"
+            disabled={readonly}
             inputProps={{ placeholder: 'Add topics...' }}
             values={topics}
             width="100%"

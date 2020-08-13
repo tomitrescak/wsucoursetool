@@ -81,7 +81,10 @@ const DetailsReadonly: React.FC<{ item: Topic }> = observer(({ item }) => {
           {item.name}
         </Heading>
 
-        <TextField label="Description" html={marked(item.description)} />
+        <TextField
+          label="Description"
+          html={marked(item.description || 'This topic has no description')}
+        />
       </Pane>
     </div>
   );

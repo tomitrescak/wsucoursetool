@@ -26,61 +26,7 @@ import { useAcsQuery, useSaveConfigMutation } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 import { model, Model, prop, modelAction, undoMiddleware, getSnapshot } from 'mobx-keystone';
 import { AcsSkillModel, createAcs, createAcss } from 'components/classes';
-import { toJS } from 'mobx';
-
-// const Details: React.FC<{ item: AcsKnowledge; state: State }> = observer(({ item, state }) => {
-//   const localState = useLocalStore(() => ({ isPreview: false }));
-//   const form = React.useMemo(() => buildForm(item, ['name', 'description']), [item]);
-
-//   return (
-//     <div style={{ flex: 1 }}>
-//       <Pane background="tint3" borderRadius={6} marginLeft={24}>
-//         <Heading size={500} marginBottom={16}>
-//           {item.name}
-//         </Heading>
-
-//         <TextInputField
-//           label="Name"
-//           placeholder="Name"
-//           value={item.name}
-//           onChange={form.name}
-//           marginBottom={8}
-//         />
-
-//         <Button
-//           intent="danger"
-//           iconBefore="trash"
-//           appearance="primary"
-//           marginTop={8}
-//           onClick={() => {
-//             if (confirm('Are You Sure?')) {
-//               state.courseConfig.acsKnowledge.splice(
-//                 state.courseConfig.acsKnowledge.findIndex(p => p === item),
-//                 1
-//               );
-//             }
-//           }}
-//         >
-//           Delete
-//         </Button>
-//       </Pane>
-//     </div>
-//   );
-// });
-
-const DetailsReadonly: React.FC<{ item: AcsKnowledge }> = observer(({ item }) => {
-  return (
-    <div style={{ flex: 1 }}>
-      <Pane background="tint3" borderRadius={6} marginLeft={24}>
-        <Heading size={500} marginBottom={16}>
-          {item.name}
-        </Heading>
-
-        <TextField label="Description" html={marked(item.description)} />
-      </Pane>
-    </div>
-  );
-});
+import { AcsReadonly } from './acs_readonly';
 
 type Props = {
   state: State;
@@ -216,12 +162,6 @@ const AcsEditorView: React.FC<Props> = ({ state, readonly }) => {
       </Tablist>
 
       {selectedItem && <AcsKnowledgeItem acs={selectedItem} readonly={readonly} state={state} />}
-      {/* {selectedItem &&
-        (readonly ? (
-          <DetailsReadonly item={selectedItem} />
-        ) : (
-          <Details item={selectedItem} state={state} />
-        ))} */}
     </Pane>
   );
 };

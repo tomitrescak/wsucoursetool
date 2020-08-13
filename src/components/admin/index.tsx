@@ -21,8 +21,8 @@ import { VerticalPane } from 'components/common/vertical_pane';
 import { UnitsEditor } from 'components/units/unit_list';
 
 const BreadCrumbs = styled(Text)`
-  background: white;
-  border: solid 1px #dedede;
+  /* background: white;
+  border: solid 1px #dedede; */
   opacity: 0.9;
   border-radius: 6px;
   display: flex;
@@ -128,27 +128,31 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
         zIndex={10}
         maxHeight="40px"
       >
-        <Menu.Item
-          icon="floppy-disk"
-          width={40}
-          maxWidth="40px"
-          onSelect={() => state.save && state.save()}
-        />
-        <Menu.Item
-          icon="undo"
-          width={40}
-          onSelect={() =>
-            state.undoManager && state.undoManager.canUndo && state.undoManager.undo()
-          }
-        />
-        <Menu.Item
-          icon="redo"
-          width={40}
-          onSelect={() =>
-            state.undoManager && state.undoManager.canRedo && state.undoManager.redo()
-          }
-        />
-        <BreadCrumbs>{tabs[selectedIndex]} &gt;</BreadCrumbs>
+        {!readonly && (
+          <>
+            <Menu.Item
+              icon="floppy-disk"
+              width={40}
+              maxWidth="40px"
+              onSelect={() => state.save && state.save()}
+            />
+            <Menu.Item
+              icon="undo"
+              width={40}
+              onSelect={() =>
+                state.undoManager && state.undoManager.canUndo && state.undoManager.undo()
+              }
+            />
+            <Menu.Item
+              icon="redo"
+              width={40}
+              onSelect={() =>
+                state.undoManager && state.undoManager.canRedo && state.undoManager.redo()
+              }
+            />
+          </>
+        )}
+        <BreadCrumbs>CDMS Unit Analysis &gt; {tabs[selectedIndex]} </BreadCrumbs>
       </Pane>
       <Pane
         position="absolute"

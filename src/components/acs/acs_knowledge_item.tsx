@@ -20,6 +20,7 @@ import { SideTab, Tabs, TextField } from 'components/common/tab';
 import marked from 'marked';
 import { useRouter } from 'next/router';
 import { AcsSkillModel } from 'components/classes';
+import { AcsReadonly } from './acs_readonly';
 
 const Details: React.FC<{ item: Entity; owner: AcsSkillModel }> = observer(({ item, owner }) => {
   const localState = useLocalStore(() => ({ isPreview: false }));
@@ -104,6 +105,10 @@ const AcsKnowledgeItemView: React.FC<Props> = ({ state, acs, readonly }) => {
   }));
   const form = buildForm(localState, ['name']);
   const view = readonly ? 'view' : 'editor';
+
+  if (readonly) {
+    return <AcsReadonly acs={acs} />;
+  }
 
   return (
     <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
