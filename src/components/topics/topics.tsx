@@ -53,7 +53,7 @@ const Details: React.FC<{ item: Topic; owner: TopicEditorModel }> = observer(({ 
           marginBottom={8}
         />
 
-        <TextEditor owner={item} field="description" label="Description" />
+        <TextEditor owner={item} field="description" label="Description" readonly={false} />
 
         <Button
           intent="danger"

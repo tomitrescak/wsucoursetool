@@ -38,198 +38,200 @@ import { TextEditor } from 'components/common/text_editor';
 import { AcsGraph } from 'components/acs/acs_graph';
 import { skills } from 'components/outcomes/outcome_editor';
 
-const Details: React.FC<{ item: Entity; state: State; refetch: Function }> = observer(
-  ({ item, refetch, state }) => {
-    const localState = useLocalStore(() => ({ isPreview: false, acsId: '', rating: 0, bloom: -1 }));
-    const { loading, error, data } = useJobQuery({
-      variables: {
-        id: item.id
-      }
-    });
-    const [deleteJob] = useDeleteJobMutation({
-      onCompleted() {
-        toaster.notify('Job deleted. Config saved.');
-      },
-      onError(e) {
-        toaster.danger('Error ;(: ' + e.message);
-      }
-    });
-    const [save] = useSaveConfigMutation({
-      onCompleted() {
-        toaster.notify('Saved');
-      },
-      onError(e) {
-        toaster.danger('Error ;(: ' + e.message);
-      }
-    });
-
-    const job = React.useMemo(() => {
-      console.log('Createing job!');
-      if (data) {
-        const job = createJob(data.job);
-        state.undoManager = undoMiddleware(job);
-        state.save = () =>
-          save({
-            variables: {
-              body: job.toJS(),
-              part: 'job',
-              id: item.id
-            }
-          }).then(() => refetch());
-        return job;
-      }
-      return null;
-    }, [data]);
-
-    const form = React.useMemo(() => buildForm(job, ['name', 'description']), [job]);
-
-    if (loading || error) {
-      return <ProgressView loading={loading} error={error} />;
+const Details: React.FC<{
+  item: Entity;
+  state: State;
+  refetch: Function;
+}> = observer(({ item, refetch, state }) => {
+  const localState = useLocalStore(() => ({ isPreview: false, acsId: '', rating: 0, bloom: -1 }));
+  const { loading, error, data } = useJobQuery({
+    variables: {
+      id: item.id
     }
+  });
+  const [deleteJob] = useDeleteJobMutation({
+    onCompleted() {
+      toaster.notify('Job deleted. Config saved.');
+    },
+    onError(e) {
+      toaster.danger('Error ;(: ' + e.message);
+    }
+  });
+  const [save] = useSaveConfigMutation({
+    onCompleted() {
+      toaster.notify('Saved');
+    },
+    onError(e) {
+      toaster.danger('Error ;(: ' + e.message);
+    }
+  });
 
-    const acsSkills: AcsKnowledge[] = data.acs
-      .map(m => m.items)
-      .flat()
-      .sort((a, b) => a.name.localeCompare(b.name));
+  const job = React.useMemo(() => {
+    console.log('Createing job!');
+    if (data) {
+      const job = createJob(data.job);
+      state.undoManager = undoMiddleware(job);
+      state.save = () =>
+        save({
+          variables: {
+            body: job.toJS(),
+            part: 'job',
+            id: item.id
+          }
+        }).then(() => refetch());
+      return job;
+    }
+    return null;
+  }, [data]);
 
-    // const sfiaSkills = state.courseConfig.sfiaSkills;
+  const form = React.useMemo(() => buildForm(job, ['name', 'description']), [job]);
 
-    return (
-      <div
-        style={{ flex: 1, overflow: 'auto', height: '100%', paddingRight: '8px' }}
-        className="scroll1"
-      >
-        <Pane background="tint3" borderRadius={6} marginLeft={24}>
-          <Heading size={500} marginBottom={16}>
-            {job.name}
-          </Heading>
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
 
-          <TextInputField
-            label="Name"
-            placeholder="Name"
-            value={job.name}
-            onChange={form.name}
-            marginBottom={8}
-          />
+  const acsSkills: AcsKnowledge[] = data.acs
+    .map(m => m.items)
+    .flat()
+    .sort((a, b) => a.name.localeCompare(b.name));
 
-          <TextEditor field="description" label="Description" owner={job} />
+  // const sfiaSkills = state.courseConfig.sfiaSkills;
 
-          <Heading size={500} marginBottom={8} marginTop={16}>
-            Skills
-          </Heading>
+  return (
+    <div
+      style={{ flex: 1, overflow: 'auto', height: '100%', paddingRight: '8px' }}
+      className="scroll1"
+    >
+      <Pane background="tint3" borderRadius={6} marginLeft={24}>
+        <Heading size={500} marginBottom={16}>
+          {job.name}
+        </Heading>
 
-          {job.skills.map((skill, i) => {
-            //const sfia = sfiaSkills.find(s => s.id === skill.skillId);
-            const acs = acsSkills.find(s => s.id === skill.skillId);
+        <TextInputField
+          label="Name"
+          placeholder="Name"
+          value={job.name}
+          onChange={form.name}
+          marginBottom={8}
+        />
 
-            return (
-              <Pane display="flex" marginBottom={8}>
-                <IconButton
-                  marginTop={-4}
-                  flex="0 0 40px"
-                  icon="trash"
-                  intent="danger"
-                  appearance="primary"
-                  marginRight={16}
-                  onClick={() => {
-                    job.removeSkill(i);
-                  }}
-                />
-                <Text
-                  display="block"
-                  // width={140}
-                  onMouseOver={() => (localState.bloom = skill.bloomRating - 1)}
+        <TextEditor field="description" label="Description" owner={job} readonly={false} />
+
+        <Heading size={500} marginBottom={8} marginTop={16}>
+          Skills
+        </Heading>
+
+        {job.skills.map((skill, i) => {
+          //const sfia = sfiaSkills.find(s => s.id === skill.skillId);
+          const acs = acsSkills.find(s => s.id === skill.skillId);
+
+          return (
+            <Pane display="flex" marginBottom={8}>
+              <IconButton
+                marginTop={-4}
+                flex="0 0 40px"
+                icon="trash"
+                intent="danger"
+                appearance="primary"
+                marginRight={16}
+                onClick={() => {
+                  job.removeSkill(i);
+                }}
+              />
+              <Text
+                display="block"
+                // width={140}
+                onMouseOver={() => (localState.bloom = skill.bloomRating - 1)}
+              >
+                <Tooltip
+                  content={
+                    <Paragraph>
+                      <Text
+                        size={300}
+                        dangerouslySetInnerHTML={{
+                          __html: marked(bloom[skill.bloomRating - 1].description)
+                        }}
+                      />
+                    </Paragraph>
+                  }
+                  appearance="card"
                 >
-                  <Tooltip
-                    content={
-                      <Paragraph>
-                        <Text
-                          size={300}
-                          dangerouslySetInnerHTML={{
-                            __html: marked(bloom[skill.bloomRating - 1].description)
-                          }}
-                        />
-                      </Paragraph>
-                    }
-                    appearance="card"
-                  >
-                    <Text>[{skill.bloomRating}]</Text>
-                  </Tooltip>
-                  &nbsp;-&nbsp; {/* {' '}
+                  <Text>[{skill.bloomRating}]</Text>
+                </Tooltip>
+                &nbsp;-&nbsp; {/* {' '}
                 - {bloom[skill.bloomRating - 1].title} */}
-                </Text>
-                <Text display="block" flex="1">
-                  {acs && acs.name}
-                </Text>
+              </Text>
+              <Text display="block" flex="1">
+                {acs && acs.name}
+              </Text>
 
-                {/* <Text display="block" flex="1">
+              {/* <Text display="block" flex="1">
                 {sfia.name}
               </Text> */}
-              </Pane>
-            );
-          })}
+            </Pane>
+          );
+        })}
 
-          <Pane display="flex" alignItems="center" marginTop={16}>
-            <Combobox
-              flex="1"
-              width="100%"
-              id="mapping"
-              items={acsSkills}
-              itemToString={item => (item ? item.name : '')}
-              onChange={selected => (localState.acsId = selected.id)}
-            />
+        <Pane display="flex" alignItems="center" marginTop={16}>
+          <Combobox
+            flex="1"
+            width="100%"
+            id="mapping"
+            items={acsSkills}
+            itemToString={item => (item ? item.name : '')}
+            onChange={selected => (localState.acsId = selected.id)}
+          />
 
-            <Select
-              marginLeft={8}
-              marginRight={8}
-              flex="0 0 140px"
-              value={localState.rating ? localState.rating.toString() : ''}
-              onChange={e => (localState.rating = parseInt(e.currentTarget.value))}
-            >
-              <option value="">None</option>
-              <option value="1">1 - Knowledge</option>
-              <option value="2">2 - Comprehension</option>
-              <option value="3">3 - Application</option>
-              <option value="4">4 - Analysis</option>
-              <option value="5">5 - Synthesis</option>
-              <option value="6">6 - Evaluation</option>
-            </Select>
-            <IconButton
-              width={50}
-              icon="plus"
-              appearance="primary"
-              intent="success"
-              onClick={() => {
-                job.addSkill(localState.acsId, localState.rating);
-              }}
-            />
-          </Pane>
-
-          <Button
-            intent="danger"
-            iconBefore="trash"
-            appearance="primary"
-            marginTop={8}
-            onClick={() => {
-              if (confirm('Are You Sure? This action cannot be undone!')) {
-                deleteJob({
-                  variables: {
-                    id: item.id
-                  }
-                }).then(() => {
-                  refetch();
-                  Router.push('/editor/[category]', `/editor/jobs`);
-                });
-              }
-            }}
+          <Select
+            marginLeft={8}
+            marginRight={8}
+            flex="0 0 140px"
+            value={localState.rating ? localState.rating.toString() : ''}
+            onChange={e => (localState.rating = parseInt(e.currentTarget.value))}
           >
-            Delete
-          </Button>
+            <option value="">None</option>
+            <option value="1">1 - Knowledge</option>
+            <option value="2">2 - Comprehension</option>
+            <option value="3">3 - Application</option>
+            <option value="4">4 - Analysis</option>
+            <option value="5">5 - Synthesis</option>
+            <option value="6">6 - Evaluation</option>
+          </Select>
+          <IconButton
+            width={50}
+            icon="plus"
+            appearance="primary"
+            intent="success"
+            onClick={() => {
+              job.addSkill(localState.acsId, localState.rating);
+            }}
+          />
         </Pane>
-      </div>
-    );
-  }
-);
+
+        <Button
+          intent="danger"
+          iconBefore="trash"
+          appearance="primary"
+          marginTop={8}
+          onClick={() => {
+            if (confirm('Are You Sure? This action cannot be undone!')) {
+              deleteJob({
+                variables: {
+                  id: item.id
+                }
+              }).then(() => {
+                refetch();
+                Router.push('/editor/[category]', `/editor/jobs`);
+              });
+            }
+          }}
+        >
+          Delete
+        </Button>
+      </Pane>
+    </div>
+  );
+});
 
 const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
   const { loading, error, data } = useJobQuery({

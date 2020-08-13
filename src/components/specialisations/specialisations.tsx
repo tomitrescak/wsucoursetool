@@ -33,99 +33,106 @@ import { createSpecialisation } from 'components/classes';
 import { undoMiddleware } from 'mobx-keystone';
 import { TextEditor } from 'components/common/text_editor';
 
-const Details: React.FC<{ item: Entity; state: State; refetch: Function }> = observer(
-  ({ item, state, refetch }) => {
-    const { loading, error, data } = useSpecialisationQuery({
-      variables: {
-        id: item.id
-      }
-    });
-    const [deleteSpecialisation] = useDeleteSpecialisationMutation({
-      onCompleted() {
-        toaster.notify('Specialisation deleted. Config saved.');
-      },
-      onError(e) {
-        toaster.danger('Error ;(: ' + e.message);
-      }
-    });
-    const [save] = useSaveConfigMutation({
-      onCompleted() {
-        toaster.notify('Saved');
-      },
-      onError(e) {
-        toaster.danger('Error ;(: ' + e.message);
-      }
-    });
-
-    const specialisation = React.useMemo(() => {
-      if (data) {
-        const specialisation = createSpecialisation(data.specialisation);
-        state.undoManager = undoMiddleware(specialisation);
-        state.save = () =>
-          save({
-            variables: {
-              body: specialisation.toJS(),
-              part: 'specialisation',
-              id: item.id
-            }
-          }).then(() => refetch());
-        return specialisation;
-      }
-      return null;
-    }, [data]);
-
-    const form = React.useMemo(() => buildForm(specialisation, ['name', 'description']), [item]);
-    if (loading || error) {
-      return <ProgressView loading={loading} error={error} />;
+const Details: React.FC<{
+  item: Entity;
+  state: State;
+  refetch: Function;
+}> = observer(({ item, state, refetch }) => {
+  const { loading, error, data } = useSpecialisationQuery({
+    variables: {
+      id: item.id
     }
+  });
+  const [deleteSpecialisation] = useDeleteSpecialisationMutation({
+    onCompleted() {
+      toaster.notify('Specialisation deleted. Config saved.');
+    },
+    onError(e) {
+      toaster.danger('Error ;(: ' + e.message);
+    }
+  });
+  const [save] = useSaveConfigMutation({
+    onCompleted() {
+      toaster.notify('Saved');
+    },
+    onError(e) {
+      toaster.danger('Error ;(: ' + e.message);
+    }
+  });
 
-    return (
-      <div style={{ flex: 1 }}>
-        <Pane background="tint3" borderRadius={6} marginLeft={24}>
-          <Heading size={500} marginBottom={16}>
-            {item.name}
-          </Heading>
+  const specialisation = React.useMemo(() => {
+    if (data) {
+      const specialisation = createSpecialisation(data.specialisation);
+      state.undoManager = undoMiddleware(specialisation);
+      state.save = () =>
+        save({
+          variables: {
+            body: specialisation.toJS(),
+            part: 'specialisation',
+            id: item.id
+          }
+        }).then(() => refetch());
+      return specialisation;
+    }
+    return null;
+  }, [data]);
 
-          <TextInputField
-            label="Name"
-            placeholder="Name"
-            value={specialisation.name}
-            onChange={form.name}
-            marginBottom={8}
-          />
-
-          <TextEditor field="description" label="Description" owner={specialisation} />
-
-          <Pane display="flex" background="tint2" marginTop={16} padding={16} borderRadius={6}>
-            {/* PREREQUSTIES */}
-            <PrerequisiteEditor state={state} owner={specialisation} unit={null} />
-          </Pane>
-
-          <Button
-            intent="danger"
-            iconBefore="trash"
-            appearance="primary"
-            marginTop={8}
-            onClick={() => {
-              if (confirm('Are You Sure? This action cannot be undone!')) {
-                deleteSpecialisation({
-                  variables: {
-                    id: item.id
-                  }
-                }).then(() => {
-                  refetch();
-                  Router.push('/editor/[category]', `/editor/specialisations`);
-                });
-              }
-            }}
-          >
-            Delete
-          </Button>
-        </Pane>
-      </div>
-    );
+  const form = React.useMemo(() => buildForm(specialisation, ['name', 'description']), [item]);
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
   }
-);
+
+  return (
+    <div style={{ flex: 1 }}>
+      <Pane background="tint3" borderRadius={6} marginLeft={24}>
+        <Heading size={500} marginBottom={16}>
+          {item.name}
+        </Heading>
+
+        <TextInputField
+          label="Name"
+          placeholder="Name"
+          value={specialisation.name}
+          onChange={form.name}
+          marginBottom={8}
+        />
+
+        <TextEditor
+          field="description"
+          label="Description"
+          owner={specialisation}
+          readonly={false}
+        />
+
+        <Pane display="flex" background="tint2" marginTop={16} padding={16} borderRadius={6}>
+          {/* PREREQUSTIES */}
+          <PrerequisiteEditor state={state} owner={specialisation} unit={null} readonly={false} />
+        </Pane>
+
+        <Button
+          intent="danger"
+          iconBefore="trash"
+          appearance="primary"
+          marginTop={8}
+          onClick={() => {
+            if (confirm('Are You Sure? This action cannot be undone!')) {
+              deleteSpecialisation({
+                variables: {
+                  id: item.id
+                }
+              }).then(() => {
+                refetch();
+                Router.push('/editor/[category]', `/editor/specialisations`);
+              });
+            }
+          }}
+        >
+          Delete
+        </Button>
+      </Pane>
+    </div>
+  );
+});
 
 const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
   const { loading, error, data } = useSpecialisationQuery({
