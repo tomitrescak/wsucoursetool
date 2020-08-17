@@ -364,6 +364,9 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
       // };
       return model;
     }
+
+    // changed
+
     return null;
   }, [data]);
 
