@@ -192,6 +192,14 @@ export const resolvers: IResolvers = {
     }
   },
   Query: {
+    students() {
+      const files = fs.readdirSync(path.resolve("./src/data/students"));
+      const students = files.map(fileName => fs.readFileSync(path.resolve(
+        `./src/data/students/${fileName}`),{ encoding: 'utf-8'})
+        );
+        console.log(students);
+        return students.map(studentString => JSON.parse(studentString));
+    },
     acs() {
       let db = getDb();
       return db.acsKnowledge;

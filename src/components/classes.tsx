@@ -34,6 +34,18 @@ const removeEmpty = obj => {
 };
 
 @model('Course/Entity')
+export class TestModel extends Model({
+  id: prop<string>({ setterAction: true }),
+  fname: prop<string>({ setterAction: true }),
+  lname: prop<string>({ setterAction: true }),
+  details: prop<string>({ setterAction: true })
+}) {
+  toJS() {
+    return toJS(this.$);
+  }
+}
+
+@model('Course/Entity')
 export class EntityModel extends Model({
   id: prop<string>({ setterAction: true }),
   name: prop<string>({ setterAction: true }),
@@ -454,6 +466,25 @@ export class SfiaSkillModel extends ExtendedModel(EntityModel, {
 
 export function createSfias(skills?: SfiaSkill[]) {
   return (skills || []).map(c => new SfiaSkillModel(c));
+}
+
+
+
+
+@model('Editor/Student')
+export class StudentModel extends Model({
+  firstName: prop<string>({ setterAction: true }),
+  lastName: prop<string>({ setterAction: true }),
+  id: prop<string>(),
+}) {
+  // @modelAction
+  // add(pre: Entity) {
+  //   this.items.push(new EntityModel(pre));
+  // }
+  // @modelAction
+  // remove(ix: number) {
+  //   this.items.splice(ix, 1);
+  // }
 }
 
 // @model('Course/CourseConfig')

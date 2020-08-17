@@ -54,6 +54,12 @@ export const typeDefs = gql`
     core: [Identifiable!]!
   }
 
+  type Student{
+    id: String!
+    fname: String!
+    lname: String!
+  }
+
   type Query {
     legacyUnits: String
 
@@ -76,6 +82,8 @@ export const typeDefs = gql`
     acs: JSON!
     sfia: JSON!
     topics: [TopicList!]!
+
+    students: [Student!]!
   }
   type Mutation {
     createUnit(id: String!, name: String): UnitList!

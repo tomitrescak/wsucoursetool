@@ -166,3 +166,10 @@ export type State = {
   delaySave(): any;
   undoManager: UndoManager;
 };
+
+export type Student = {
+  id: string;
+  fname: string;
+  lname: string;
+  details: string;
+}

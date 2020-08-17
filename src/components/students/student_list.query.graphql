@@ -1,0 +1,12 @@
+query StudentList {
+  students {
+    id
+    fname
+    lname
+  }
+
+  units {
+    id
+    name
+  }
+}

@@ -19,6 +19,8 @@ import { SpecialisationEditor } from 'components/specialisations/specialisations
 import { CoursesEditor } from 'components/courses/courses';
 import { VerticalPane } from 'components/common/vertical_pane';
 import { UnitsEditor } from 'components/units/unit_list';
+import { StudentList } from 'components/students/student_list';
+
 
 const BreadCrumbs = styled(Text)`
   background: white;
@@ -46,7 +48,8 @@ const tabs = [
   'Specialisations',
   'Jobs',
   'ACS Skills',
-  'SFIA Skills'
+  'SFIA Skills',
+  'Students'
 ];
 
 let to: any;
@@ -189,6 +192,7 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
         {selectedTab == 'Specialisations' && (
           <SpecialisationEditor state={state} readonly={readonly} />
         )}
+        {selectedTab == 'Students' && <StudentList state={state} readonly={readonly} />}
       </Pane>
     </Admin>
   );

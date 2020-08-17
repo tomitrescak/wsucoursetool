@@ -65,6 +65,12 @@ export type CourseList = {
   core: Array<Identifiable>;
 };
 
+export type Student = {
+  id: Scalars['String'];
+  fname: Scalars['String'];
+  lname: Scalars['String'];
+};
+
 export type Query = {
   legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
@@ -82,6 +88,7 @@ export type Query = {
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
   topics: Array<TopicList>;
+  students: Array<Student>;
 };
 
 
@@ -298,6 +305,11 @@ export type SpecialisationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SpecialisationsQuery = { specialisations: Array<Pick<SpecialisationList, 'id' | 'name'>> };
+
+export type StudentListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type StudentListQuery = { students: Array<Pick<Student, 'id' | 'fname' | 'lname'>>, units: Array<Pick<UnitList, 'id' | 'name'>> };
 
 export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -909,6 +921,44 @@ export function useSpecialisationsLazyQuery(baseOptions?: ApolloReactHooks.LazyQ
 export type SpecialisationsQueryHookResult = ReturnType<typeof useSpecialisationsQuery>;
 export type SpecialisationsLazyQueryHookResult = ReturnType<typeof useSpecialisationsLazyQuery>;
 export type SpecialisationsQueryResult = ApolloReactCommon.QueryResult<SpecialisationsQuery, SpecialisationsQueryVariables>;
+export const StudentListDocument = gql`
+    query StudentList {
+  students {
+    id
+    fname
+    lname
+  }
+  units {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useStudentListQuery__
+ *
+ * To run a query within a React component, call `useStudentListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStudentListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStudentListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useStudentListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<StudentListQuery, StudentListQueryVariables>) {
+        return ApolloReactHooks.useQuery<StudentListQuery, StudentListQueryVariables>(StudentListDocument, baseOptions);
+      }
+export function useStudentListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<StudentListQuery, StudentListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<StudentListQuery, StudentListQueryVariables>(StudentListDocument, baseOptions);
+        }
+export type StudentListQueryHookResult = ReturnType<typeof useStudentListQuery>;
+export type StudentListLazyQueryHookResult = ReturnType<typeof useStudentListLazyQuery>;
+export type StudentListQueryResult = ApolloReactCommon.QueryResult<StudentListQuery, StudentListQueryVariables>;
 export const TopicsDocument = gql`
     query Topics {
   topics {

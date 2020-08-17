@@ -33,3 +33,4 @@ yarn-error.log*
 backup
 src/data/units/
 src/data/outcomes/
+src/data/students

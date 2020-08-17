@@ -64,6 +64,12 @@ export type CourseList = {
   core: Array<Identifiable>;
 };
 
+export type Student = {
+  id: Scalars['String'];
+  fname: Scalars['String'];
+  lname: Scalars['String'];
+};
+
 export type Query = {
   legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
@@ -81,6 +87,7 @@ export type Query = {
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
   topics: Array<TopicList>;
+  students: Array<Student>;
 };
 
 
@@ -254,6 +261,7 @@ export type ResolversTypes = {
   Identifiable: ResolverTypeWrapper<Identifiable>;
   MajorList: ResolverTypeWrapper<MajorList>;
   CourseList: ResolverTypeWrapper<CourseList>;
+  Student: ResolverTypeWrapper<Student>;
   Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
 };
@@ -273,6 +281,7 @@ export type ResolversParentTypes = {
   Identifiable: Identifiable;
   MajorList: MajorList;
   CourseList: CourseList;
+  Student: Student;
   Query: {};
   Mutation: {};
 };
@@ -341,6 +350,13 @@ export type CourseListResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type StudentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Student'] = ResolversParentTypes['Student']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  fname?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lname?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   legacyUnits?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   unit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryUnitArgs, 'id'>>;
@@ -358,6 +374,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   acs?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   sfia?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   topics?: Resolver<Array<ResolversTypes['TopicList']>, ParentType, ContextType>;
+  students?: Resolver<Array<ResolversTypes['Student']>, ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -383,6 +400,7 @@ export type Resolvers<ContextType = any> = {
   Identifiable?: IdentifiableResolvers<ContextType>;
   MajorList?: MajorListResolvers<ContextType>;
   CourseList?: CourseListResolvers<ContextType>;
+  Student?: StudentResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 };
