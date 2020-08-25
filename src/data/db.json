@@ -54086,353 +54086,190 @@
               "type": "practical",
               "name": "Practical: Getting data ready for analysis",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "4",
-          "ass_id": "51409",
-          "name": "Online Quizzes 1.",
-          "week": 4,
-          "activities": [
+            },
             {
-              "id": 1,
+              "id": "8",
               "type": "exam",
               "name": "Online Quizzes 1.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "5",
-          "name": "R programming 1",
-          "week": 5,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Flow control statements",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "9"
             },
             {
-              "id": 1,
+              "id": "10",
               "type": "practical",
               "name": "Practical: Writing R scripts",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "6",
-          "name": "R programming 2",
-          "week": 6,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Functions\nDebugging using RStudio",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "11"
             },
             {
-              "id": 1,
+              "id": "12",
               "type": "practical",
               "name": "Practical: Writing R functions",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "7",
-          "name": "Simulation using R",
-          "week": 7,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Basic data generating functions \nMath and stats functions",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "13"
             },
             {
-              "id": 1,
+              "id": "14",
               "type": "practical",
               "name": "Practical: Using R builtin functions for simulation",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "8",
-          "ass_id": "51409",
-          "name": "Online Quizzes 2.",
-          "week": 7,
-          "activities": [
+            },
             {
-              "id": 2,
+              "id": "15",
               "type": "exam",
               "name": "Online Quizzes 2.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "9",
-          "name": "Input &amp; outputs",
-          "week": 8,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Standard input/output",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "16"
             },
             {
-              "id": 1,
+              "id": "17",
               "type": "practical",
               "name": "Practical: Reading and writing data from and to files",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "10",
-          "name": "<br>",
-          "week": 9,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: <br>",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "18"
             },
             {
-              "id": 1,
+              "id": "19",
               "type": "practical",
               "name": "Practical: <br>",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "11",
-          "name": "Graphics",
-          "week": 10,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: R plotting functions",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "20"
             },
             {
-              "id": 1,
+              "id": "21",
               "type": "practical",
               "name": "Practical: Visualising data using R plotting functions",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "12",
-          "ass_id": "51409",
-          "name": "Online Quizzes 3.",
-          "week": 10,
-          "activities": [
+            },
             {
-              "id": 3,
+              "id": "22",
               "type": "exam",
               "name": "Online Quizzes 3.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "13",
-          "name": "Accessing data using SQL",
-          "week": 11,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Basic database system, SQL\nConnecting to database systems in R using SQL",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "23"
             },
             {
-              "id": 1,
+              "id": "24",
               "type": "practical",
               "name": "Practical: Accessing data from database systems",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "14",
-          "name": "Documenting with RMarkdown",
-          "week": 12,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: RStudio reproducible reporting system",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "25"
             },
             {
-              "id": 1,
+              "id": "26",
               "type": "practical",
               "name": "Practical: Reporting using rmarkdown",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "15",
-          "ass_id": "51409",
-          "name": "Online Quizzes 4.",
-          "week": 12,
-          "activities": [
+            },
             {
-              "id": 4,
+              "id": "27",
               "type": "exam",
               "name": "Online Quizzes 4.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "16",
-          "name": "Advanced topics",
-          "week": 13,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: R extension\nInterfacing with other languages",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "28"
             },
             {
-              "id": 1,
+              "id": "29",
               "type": "practical",
               "name": "Practical: Extending R functionalities",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "17",
-          "ass_id": "51409",
-          "name": "Online Quizzes 5.",
-          "week": 13,
-          "activities": [
+            },
             {
-              "id": 5,
+              "id": "30",
               "type": "exam",
               "name": "Online Quizzes 5.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "18",
-          "ass_id": "51411",
-          "name": "Assignment",
-          "weight": "40",
-          "ulos": "2, 3, 4, 5, 6",
-          "threshold": "0",
-          "due_date": "Week 13",
-          "week": 13,
-          "activities": [
+            },
             {
               "type": "assignment",
               "name": "Assignment",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "19",
-          "name": "Revision",
-          "week": 14,
-          "activities": [
+              "lengthHours": 2,
+              "id": "31"
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Revision",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "32"
             },
             {
-              "id": 1,
+              "id": "33",
               "type": "practical",
               "name": "Practical: Test",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "20",
-          "ass_id": "51410",
-          "name": "Computer Test",
-          "weight": "40",
-          "ulos": "2, 3, 4",
-          "threshold": "0",
-          "due_date": "Week 14",
-          "week": 14,
-          "activities": [
+            },
             {
               "type": "exam",
               "name": "Computer Test",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "34"
             }
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "21",
-          "ass_id": "51409",
-          "name": "Online Quizzes",
-          "weight": "20",
-          "ulos": "1, 2, 3, 4",
-          "threshold": "0",
-          "due_date": "Weeks 4, 7, 10, 12 and 13",
-          "week": 15,
-          "activities": [
-            {
-              "id": 1,
-              "type": "exam",
-              "name": "Online Quizzes 1.",
-              "lengthHours": 2
-            },
-            {
-              "id": 2,
-              "type": "exam",
-              "name": "Online Quizzes 2.",
-              "lengthHours": 2
-            },
-            {
-              "id": 3,
-              "type": "exam",
-              "name": "Online Quizzes 3.",
-              "lengthHours": 2
-            },
-            {
-              "id": 4,
-              "type": "exam",
-              "name": "Online Quizzes 4.",
-              "lengthHours": 2
-            },
-            {
-              "id": 5,
-              "type": "exam",
-              "name": "Online Quizzes 5.",
-              "lengthHours": 2
-            }
+          "completionCriteria": {
+            "criteria": [
+              {
+                "weight": "40",
+                "type": "block",
+                "id": "31"
+              },
+              {
+                "weight": "40",
+                "type": "block",
+                "id": "34"
+              }
+            ],
+            "type": "allOf"
+          },
+          "topics": [
+            "14",
+            "5"
           ],
-          "completionCriteria": {}
+          "level": "Fundamentals"
         }
       ],
       "description": "This unit covers the use of computers and computer programming for Data Science. After briefly considering spreadsheet systems, the unit will consider programming in the statistical system \"R\" in depth. Finally, other special purpose languages will be touched briefly (eg. SQL).",
@@ -54451,16 +54288,6 @@
             "weight": "20",
             "type": "block",
             "id": "21"
-          },
-          {
-            "weight": "40",
-            "type": "block",
-            "id": "20"
-          },
-          {
-            "weight": "40",
-            "type": "block",
-            "id": "18"
           }
         ]
       },
@@ -54470,7 +54297,8 @@
         "5",
         "7"
       ],
-      "processed": true
+      "processed": true,
+      "group": "R"
     },
     {
       "id": "301108",
@@ -55590,46 +55418,41 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "level": "Intermediate",
+          "topics": [
+            "9",
+            "16"
+          ]
         },
         {
           "id": "1",
-          "name": "Python Basics 1",
+          "name": "Python Basics",
           "week": 2,
           "activities": [
             {
               "type": "knowledge",
               "name": "Lecture: Python Basics 1",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "2",
-          "name": "Python Basics 2",
-          "week": 3,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Python Basics 2",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "3",
-          "name": "Python Basics 3",
-          "week": 4,
-          "activities": [
+              "lengthHours": 2,
+              "id": "0"
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Python Basics 3",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "1"
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "level": "Fundamentals",
+          "topics": [
+            "5"
+          ]
         },
         {
           "id": "4",
@@ -55640,52 +55463,31 @@
               "type": "knowledge",
               "name": "Lecture: Relational Databases and SQL",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "5",
-          "ass_id": "43133",
-          "name": "Quizzes 1.",
-          "week": 5,
-          "activities": [
+            },
             {
-              "id": 1,
+              "id": "0",
               "type": "exam",
               "name": "Quizzes 1.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "6",
-          "name": "More Relational Databases and SQL",
-          "week": 6,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: More Relational Databases and SQL",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "7",
-          "ass_id": "43133",
-          "name": "Quizzes 2.",
-          "week": 6,
-          "activities": [
+              "lengthHours": 2,
+              "id": "1"
+            },
             {
-              "id": 2,
+              "id": "2",
               "type": "exam",
               "name": "Quizzes 2.",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "topics": [
+            "9"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "8",
@@ -55698,7 +55500,11 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "topics": [
+            "9"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "9",
@@ -55709,211 +55515,82 @@
               "type": "knowledge",
               "name": "Lecture: Web Services and APIs",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "10",
-          "ass_id": "43133",
-          "name": "Quizzes 3.",
-          "week": 8,
-          "activities": [
+            },
             {
-              "id": 3,
+              "id": "0",
               "type": "exam",
               "name": "Quizzes 3.",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "11",
-          "name": "Intra Session Break",
-          "week": 9,
-          "activities": [
-            {
-              "type": "knowledge",
-              "name": "Lecture: Intra Session Break",
-              "lengthHours": 2
-            }
+          "completionCriteria": {},
+          "topics": [
+            "23"
           ],
-          "completionCriteria": {}
+          "level": "Fundamentals"
         },
         {
           "id": "12",
-          "name": "MapReduce part 1",
+          "name": "Hadoop Fundamentals",
           "week": 10,
           "activities": [
             {
               "type": "knowledge",
               "name": "Lecture: MapReduce part 1",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "13",
-          "name": "MapReduce part 2",
-          "week": 11,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: MapReduce part 2",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "14",
-          "ass_id": "43133",
-          "name": "Quizzes 4.",
-          "week": 11,
-          "activities": [
+              "lengthHours": 2,
+              "id": "0"
+            },
             {
-              "id": 4,
+              "id": "1",
               "type": "exam",
               "name": "Quizzes 4.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "15",
-          "name": "Predictive Modelling part 1 ",
-          "week": 12,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Predictive Modelling part 1 ",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "16",
-          "name": "Predictive Modelling part 2 ",
-          "week": 13,
-          "activities": [
+              "lengthHours": 2,
+              "id": "2"
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Predictive Modelling part 2 ",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "17",
-          "ass_id": "43133",
-          "name": "Quizzes 5.",
-          "week": 13,
-          "activities": [
+              "lengthHours": 2,
+              "id": "3"
+            },
             {
-              "id": 5,
+              "id": "4",
               "type": "exam",
               "name": "Quizzes 5.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "18",
-          "name": "Final exam",
-          "week": 14,
-          "activities": [
-            {
-              "type": "knowledge",
-              "name": "Lecture: Final exam",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "19",
-          "ass_id": "43134",
-          "name": "Assignment",
-          "weight": "30",
-          "ulos": "1, 2, 3, 4",
-          "threshold": "0",
-          "due_date": "25 October (Friday, week 14)",
-          "week": 14,
-          "activities": [
+            },
             {
               "type": "assignment",
               "name": "Assignment",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "5"
             }
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "20",
-          "ass_id": "43135",
-          "name": "Final Exam",
-          "weight": "40",
-          "ulos": "1, 2, 3, 4, 5, 6",
-          "threshold": "0",
-          "due_date": "Week 14 in the lab class",
-          "week": 14,
-          "activities": [
-            {
-              "type": "exam",
-              "name": "Final Exam",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "21",
-          "ass_id": "43133",
-          "name": "Quizzes",
-          "weight": "30",
-          "ulos": "2, 3, 4, 5, 6",
-          "threshold": "0",
-          "due_date": "23 August (Friday, week 5); 30 August (Friday, week 6); 13 September (Friday, week 8);  4 October (Friday, week 11); 18 October (Friday, week 13)",
-          "week": 15,
-          "activities": [
-            {
-              "id": 1,
-              "type": "exam",
-              "name": "Quizzes 1.",
-              "lengthHours": 2
-            },
-            {
-              "id": 2,
-              "type": "exam",
-              "name": "Quizzes 2.",
-              "lengthHours": 2
-            },
-            {
-              "id": 3,
-              "type": "exam",
-              "name": "Quizzes 3.",
-              "lengthHours": 2
-            },
-            {
-              "id": 4,
-              "type": "exam",
-              "name": "Quizzes 4.",
-              "lengthHours": 2
-            },
-            {
-              "id": 5,
-              "type": "exam",
-              "name": "Quizzes 5.",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
+          "completionCriteria": {
+            "criteria": [
+              {
+                "weight": "30",
+                "type": "block",
+                "id": "5"
+              }
+            ],
+            "type": "allOf"
+          },
+          "level": "Applied",
+          "topics": [
+            "16",
+            "9"
+          ]
         }
       ],
       "description": "Many techniques and tools have been developed over the past decade to cope with the ever-growing needs for the processing and analysis of big data. This unit will cover the key techniques that have been widely used in big data applications, such as relational and Not Only Structured Query Language (NoSQL) databases, Web Services, parallel and cloud computing, MapReduce, Hadoop and its eco-system. It aims to introduce the emerging technologies and applications in big data to students, and keep up with the latest trends in the industry.",
@@ -55939,11 +55616,6 @@
             "id": "21"
           },
           {
-            "weight": "30",
-            "type": "block",
-            "id": "19"
-          },
-          {
             "weight": "40",
             "type": "block",
             "id": "20"
@@ -55955,7 +55627,8 @@
         "13",
         "9",
         "23"
-      ]
+      ],
+      "group": "Python, Big Data"
     },
     {
       "id": "301111",
@@ -61895,7 +61568,8 @@
           "completionCriteria": {},
           "topics": [
             "21"
-          ]
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "2",
@@ -61935,7 +61609,8 @@
           "completionCriteria": {},
           "topics": [
             "21"
-          ]
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "5",
@@ -61975,7 +61650,8 @@
           "completionCriteria": {},
           "topics": [
             "21"
-          ]
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "8",
@@ -61997,7 +61673,8 @@
           "completionCriteria": {},
           "topics": [
             "21"
-          ]
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "9",
@@ -62025,11 +61702,12 @@
           "completionCriteria": {},
           "topics": [
             "21"
-          ]
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "12",
-          "name": "Watch selected courses from Lynda.com:\n- Create and Animate 3D Characters in Maya - Model 3D Objects in Maya\n- Learn 3D Rendering in Maya",
+          "name": "Major Project in Maya",
           "week": 10,
           "activities": [
             {
@@ -62042,155 +61720,116 @@
               "type": "practical",
               "name": "Practical: Object and camera animation. Creation of storyboards for movie creation.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "13",
-          "name": "Watch selected courses from Lynda.com:\n- Create and Animate 3D Characters in Maya - Model 3D Objects in Maya\n- Learn 3D Rendering in Maya",
-          "week": 11,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Watch selected courses from Lynda.com:\n- Create and Animate 3D Characters in Maya - Model 3D Objects in Maya\n- Learn 3D Rendering in Maya",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "2"
             },
             {
-              "id": 1,
+              "id": "3",
               "type": "practical",
               "name": "Practical: Presentation of portfolios. Character creation and rigging.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "14",
-          "ass_id": "51200",
-          "name": "Workshop Portfolio - Each portfolio will result in a 3D scene to be delivered 4.",
-          "week": 11,
-          "activities": [
+            },
             {
-              "id": 4,
+              "id": "4",
               "type": "assignment",
               "name": "Workshop Portfolio - Each portfolio will result in a 3D scene to be delivered 4.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "15",
-          "name": "Watch selected courses from Lynda.com:\n- Create and Animate 3D Characters in Maya - Model 3D Objects in Maya\n- Learn 3D Rendering in Maya",
-          "week": 12,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Watch selected courses from Lynda.com:\n- Create and Animate 3D Characters in Maya - Model 3D Objects in Maya\n- Learn 3D Rendering in Maya",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "5"
             },
             {
-              "id": 1,
+              "id": "6",
               "type": "practical",
               "name": "Practical: Consultations for major assignment. Advanced techniques in Maya.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "16",
-          "name": "Watch on Lynda.com: Maya: Tips, Tricks, &amp; Techniques",
-          "week": 13,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Watch on Lynda.com: Maya: Tips, Tricks, &amp; Techniques",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "7"
             },
             {
-              "id": 1,
+              "id": "8",
               "type": "practical",
               "name": "Practical: Consultations for major assignment. Advanced techniques in Maya.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "17",
-          "name": "Watch on Lynda.com: Maya: Tips, Tricks, &amp; Techniques",
-          "week": 14,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Watch on Lynda.com: Maya: Tips, Tricks, &amp; Techniques",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "9"
             },
             {
-              "id": 1,
+              "id": "10",
               "type": "practical",
               "name": "Practical: Portfolio presentation and competition.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "18",
-          "ass_id": "51200",
-          "name": "Workshop Portfolio - Each portfolio will result in a 3D scene to be delivered",
-          "weight": "40",
-          "ulos": "1, 2",
-          "threshold": "0",
-          "due_date": "Friday, 23:59 of 3rd / 6th / 9th / 11th week",
-          "week": 15,
-          "activities": [
+            },
             {
-              "id": 1,
+              "id": "11",
               "type": "assignment",
               "name": "Workshop Portfolio - Each portfolio will result in a 3D scene to be delivered 1.",
               "lengthHours": 2
             },
             {
-              "id": 2,
+              "id": "12",
               "type": "assignment",
               "name": "Workshop Portfolio - Each portfolio will result in a 3D scene to be delivered 2.",
               "lengthHours": 2
             },
             {
-              "id": 3,
+              "id": "13",
               "type": "assignment",
               "name": "Workshop Portfolio - Each portfolio will result in a 3D scene to be delivered 3.",
               "lengthHours": 2
             },
             {
-              "id": 4,
+              "id": "14",
               "type": "assignment",
               "name": "Workshop Portfolio - Each portfolio will result in a 3D scene to be delivered 4.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "19",
-          "ass_id": "51201",
-          "name": "Major Assignment - Students are expected to produce a complex 3D scene and build an animation around this scene",
-          "weight": "60",
-          "ulos": "1, 2, 3, 4",
-          "threshold": "0",
-          "due_date": "Friday, 23:59 of Week 16",
-          "week": 16,
-          "activities": [
+            },
             {
               "type": "assignment",
               "name": "Major Assignment - Students are expected to produce a complex 3D scene and build an animation around this scene",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "15"
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {
+            "criteria": [
+              {
+                "weight": "40",
+                "type": "block",
+                "id": "11"
+              },
+              {
+                "weight": "40",
+                "type": "block",
+                "id": "11"
+              },
+              {
+                "weight": "60",
+                "type": "block",
+                "id": "15"
+              }
+            ],
+            "type": "allOf"
+          },
+          "topics": [
+            "21"
+          ],
+          "level": "Intermediate"
         }
       ],
       "description": "This unit will introduce the fundamentals of 3D surface modelling. Students will learn the theory of 3D surface modelling and will gain practical skills in creating 3D assets using a popular software package from Autodesk. They will also learn how to design characters and how to integrate their assets with a purpose of producing complex 3D scenes and animated movies. This unit is aimed at students who have no prior knowledge of 3D modelling and are not familiar with associated software packages.",
@@ -62206,19 +61845,7 @@
       "credits": "10",
       "level": "1",
       "completionCriteria": {
-        "type": "allOf",
-        "criteria": [
-          {
-            "weight": "40",
-            "type": "block",
-            "id": "18"
-          },
-          {
-            "weight": "60",
-            "type": "block",
-            "id": "19"
-          }
-        ]
+        "type": "allOf"
       },
       "coordinator": "Tomas Trescak",
       "topics": [

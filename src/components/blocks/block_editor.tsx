@@ -32,6 +32,7 @@ import { action, toJS } from 'mobx';
 import { Dnd, DragContainer } from 'components/common/dnd';
 import { BlockModel, UnitModel, ActivityModel } from 'components/classes';
 import units from 'pages/units';
+import { Expander } from 'components/common/expander';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
@@ -237,7 +238,10 @@ const BlockDetails: React.FC<{
       outcomes: [],
       topics: [],
       // credits: 0,
-      activities: []
+      activities: [],
+      group: '',
+      level: '',
+      flagged: false
     };
     if (unit) {
       unit.addBlock(newBlock);
@@ -319,22 +323,68 @@ const BlockDetails: React.FC<{
           )}
         </Pane>
 
-        {/* BASIC INFO */}
+        {/* DETAILS */}
+        <Expander id="blockDetails" title="Details">
+          {!readonly && (
+            <TextInputField
+              flex="1"
+              label="Name"
+              placeholder="Block Name"
+              value={block.name}
+              onChange={form.name}
+              marginBottom={8}
+              marginTop={8}
+            />
+          )}
 
-        {!readonly && (
-          <TextInputField
-            flex="1"
-            label="Name"
-            placeholder="Block Name"
-            value={block.name}
-            onChange={form.name}
-            marginBottom={8}
-          />
-        )}
+          <TextEditor owner={block} field="outcome" label="Description" readonly={readonly} />
+
+          <Pane display="flex">
+            {/* TOPICS */}
+            <TopicEditor owner={block} readonly={readonly} />
+            {/* KEYWORDS */}
+            <KeywordEditor owner={block} keywords={keywords} readonly={readonly} />
+          </Pane>
+
+          <Pane display="flex">
+            {/* GROUP */}
+            <TextInputField
+              label="Group"
+              id="group"
+              value={block.group}
+              disabled={readonly}
+              onChange={form.group}
+              margin={0}
+              marginRight={8}
+            />
+            {/* LEVEL */}
+            <SelectField
+              label="Level"
+              id="level"
+              onChange={e => (block.level = e.currentTarget.value)}
+              margin={0}
+              marginRight={8}
+            >
+              <option value="">Please Select ...</option>
+              <option value="Fundamentals">Fundamentals</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+              <option value="Applied">Applied</option>
+            </SelectField>
+            <Checkbox
+              margin={0}
+              marginTop={30}
+              label="Flagged"
+              onChange={e => (block.flagged = e.currentTarget.checked)}
+              checked={block.flagged}
+              disabled={readonly}
+            />
+          </Pane>
+        </Expander>
 
         {/* ACTIVITIES */}
 
-        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
           <Pane
             display="flex"
             alignItems="center"
@@ -476,55 +526,6 @@ const BlockDetails: React.FC<{
           {/* <TextEditor owner={block} field="outcome" label="Outcome Description" /> */}
         </Pane>
 
-        {/* DETAILS */}
-        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-          <Heading size={500} marginBottom={16} borderBottom="dashed 1px #dedede">
-            Details
-          </Heading>
-
-          <TextEditor owner={block} field="outcome" label="Description" readonly={readonly} />
-
-          <Pane display="flex">
-            {/* TOPICS */}
-            <TopicEditor owner={block} readonly={readonly} />
-            {/* KEYWORDS */}
-            <KeywordEditor owner={block} keywords={keywords} readonly={readonly} />
-          </Pane>
-
-          <Pane display="flex">
-            {/* GROUP */}
-            <TextInputField
-              label="Group"
-              id="group"
-              value={block.group}
-              disabled={readonly}
-              onChange={form.group}
-              marginRight={8}
-            />
-            {/* LEVEL */}
-            <SelectField
-              label="Level"
-              id="level"
-              onChange={e => (block.level = e.value)}
-              marginRight={8}
-            >
-              <option value="">Please Select ...</option>
-              <option value="Fundamentals">Fundamentals</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Advanced">Advanced</option>
-              <option value="Applied">Applied</option>
-            </SelectField>
-            <Checkbox
-              margin={0}
-              marginTop={30}
-              label="Flagged"
-              onChange={e => (block.flagged = e.currentTarget.checked)}
-              checked={block.flagged}
-              disabled={readonly}
-            />
-          </Pane>
-        </Pane>
-
         <Button
           appearance="primary"
           intent="danger"
@@ -652,12 +653,14 @@ const BlocksEditorView: React.FC<Props> = ({
             currentBlock.completionCriteria.criteria = [];
           }
           currentBlock.completionCriteria.addCompletionCriteria({
-            ...cc,
+            ...cc.toJS(),
             id: activities[0]?.id as any
           });
 
           // remove from original
-          unit.completionCriteria.criteria.splice(unit.completionCriteria.criteria.indexOf(cc), 1);
+          unit.completionCriteria.removeCompletionCriteria(
+            unit.completionCriteria.criteria.indexOf(cc)
+          );
         }
       }
 
