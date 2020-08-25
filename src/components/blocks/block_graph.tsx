@@ -67,35 +67,48 @@ export const Graph: React.FC<Props> = ({ units }) => {
           color: textColor(b),
           label: b.name
         },
-        data: { id: 'n_' + b.id, parent: 'u_' + unit.id }
+        data: {
+          id: 'n_' + unit.id + '_' + b.id,
+          parent: 'u_' + unit.id
+        }
       });
     }
   }
 
-  elements.push(
-    ...units
-      .flatMap(u => u.blocks)
-      .flatMap(b =>
-        (b.prerequisites || [])
-          .filter(o => o.id)
-          .map(p => {
-            if (units.every(u => u.id !== p.id)) {
-              // add missing
-              elements.push({
-                style: {
-                  'background-color': '#999',
-                  color: textColor(b),
-                  label: p.unitId + ': ' + p.id
-                },
-                data: { id: 'n_' + p.id }
-              });
-            }
-            return {
-              data: { id: b.id + p.id, source: 'n_' + b.id, target: 'n_' + p.id }
-            };
-          })
-      )
-  );
+  for (let u of units) {
+    // add unit prerequisites
+    if (u.prerequisites && u.prerequisites.length) {
+      for (let pre of u.prerequisites) {
+        elements.push({
+          data: {
+            id: 'l_' + u.id + '_' + pre.id,
+            source: 'u_' + u.id,
+            target: 'n_' + pre.unitId + '_' + pre.id
+          }
+        });
+      }
+    }
+    // add block prerequisites
+    for (let b of u.blocks) {
+      if (b.prerequisites && b.prerequisites.length > 0) {
+        for (let pre of b.prerequisites) {
+          if (pre.unitId != null) {
+            elements.push({
+              data: {
+                id: 'l_' + u.id + '_' + pre.id,
+                source: 'n_' + u.id + '_' + b.id,
+                target: 'n_' + pre.unitId + '_' + pre.id
+              }
+            });
+          }
+        }
+      }
+    }
+  }
+
+  // for (let u of units) {
+
+  // }
 
   React.useEffect(() => {
     cy.current = cytoscape({

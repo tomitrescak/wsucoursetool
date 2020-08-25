@@ -1,0 +1,14 @@
+query Coordinators {
+  coordinators {
+    name
+    units {
+      id
+      name
+      level
+      topics
+      obsolete
+      outdated
+      processed
+    }
+  }
+}

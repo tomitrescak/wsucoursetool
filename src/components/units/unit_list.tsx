@@ -10,7 +10,11 @@ import {
   Button,
   Badge,
   Select,
-  TextInput
+  TextInput,
+  Text,
+  SelectMenu,
+  Icon,
+  IconButton
 } from 'evergreen-ui';
 import { Unit, State } from '../types';
 import { url, buildForm } from 'lib/helpers';
@@ -22,6 +26,38 @@ import { useCourseListQuery, UnitList, useCreateUnitMutation } from 'config/grap
 import { ProgressView } from 'components/common/progress_view';
 import { UnitDetailContainer } from './unit_details';
 
+const TopicBadge = ({ children }) => (
+  <Text
+    marginRight={4}
+    size={300}
+    background="#E4E7EB"
+    paddingLeft={4}
+    paddingRight={4}
+    borderRadius={3}
+  >
+    {children}
+  </Text>
+);
+
+function exportToCsv(rows: string[][]) {
+  let csvContent = 'data:text/csv;charset=utf-8,';
+  rows.forEach(function (rowArray) {
+    for (var i = 0, len = rowArray.length; i < len; i++) {
+      if (typeof rowArray[i] == 'string') rowArray[i] = rowArray[i].replace(/<(?:.|\n)*?>/gm, '');
+      rowArray[i] = rowArray[i].replace(/,/g, '');
+    }
+
+    let row = rowArray.join(',');
+    csvContent += row + '\r\n'; // add carriage return
+  });
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', 'export.csv');
+  document.body.appendChild(link);
+  link.click();
+}
+
 const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state, readonly }) => {
   const view = readonly ? 'view' : 'editor';
   const localState = useLocalStore(() => ({
@@ -32,7 +68,9 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
     course: '',
     major: '',
     filterName: '',
-    filterCode: ''
+    filterCode: '',
+    level: 'ug',
+    selectedTopics: []
   }));
   const form = buildForm(localState, ['newUnitName', 'newUnitId', 'filterCode', 'filterName']);
   const router = useRouter();
@@ -69,6 +107,37 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
     ? selectedCourse.majors.find(m => m.id === localState.major)
     : null;
 
+  const filteredUnits = data.units.slice().filter(f => {
+    let isOk = true;
+    if (selectedCourse) {
+      isOk =
+        selectedCourse.core.findIndex(c => c.id === f.id) >= 0 ||
+        (selectedMajor && selectedMajor.units.findIndex(u => u.id === f.id) >= 0);
+    }
+    if (localState.filterName) {
+      isOk =
+        isOk &&
+        localState.filterName
+          .toLowerCase()
+          .split(' ')
+          .every(d => f.name.toLowerCase().indexOf(d) >= 0);
+    }
+    if (localState.filterCode) {
+      isOk = isOk && f.id.indexOf(localState.filterCode) >= 0;
+    }
+    isOk =
+      isOk &&
+      (localState.level === 'both' ? true : localState.level === 'ug' ? f.level < 7 : f.level > 6);
+
+    isOk =
+      isOk &&
+      (localState.selectedTopics.length === 0
+        ? true
+        : localState.selectedTopics.some(t => f.topics.some(p => p === t)));
+    return isOk;
+  });
+  filteredUnits.sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <>
       <VerticalPane title="Unit List">
@@ -91,6 +160,15 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
                 width="100%"
               />
             </Pane>
+            <Select
+              value={localState.level || 'ug'}
+              onChange={e => (localState.level = e.currentTarget.value)}
+              marginRight={8}
+            >
+              <option value="ug">Undergraduate</option>
+              <option value="pg">Postgraduate</option>
+              <option value="both">Both</option>
+            </Select>
             <Select
               value={localState.course}
               onChange={e => (localState.course = e.currentTarget.value)}
@@ -118,33 +196,44 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
               </Select>
             )}
           </Pane>
+          <Pane display="flex">
+            <SelectMenu
+              isMultiSelect
+              title="Select topics"
+              options={data.topics.map(t => ({ label: t.name, value: t.id }))}
+              selected={localState.selectedTopics}
+              onSelect={item => {
+                localState.selectedTopics.push(item.value);
+              }}
+              onDeselect={item => {
+                localState.selectedTopics.splice(localState.selectedTopics.indexOf(item.value), 1);
+              }}
+            >
+              <Button maxWidth={300} marginRight={8}>
+                {localState.selectedTopics.length > 3
+                  ? `${localState.selectedTopics.length} selected`
+                  : localState.selectedTopics.length > 0
+                  ? localState.selectedTopics
+                      .map(t => data.topics.find(p => p.id === t).name)
+                      .join(', ')
+                  : 'Select topics...'}
+                <Icon size={12} icon="caret-down" marginLeft={4} />
+              </Button>
+            </SelectMenu>
+            <IconButton
+              icon="export"
+              onClick={() =>
+                exportToCsv(
+                  filteredUnits.map(u => [u.id, u.name, u.level == null ? '-' : u.level.toString()])
+                )
+              }
+            />
+          </Pane>
 
           <Tablist>
-            {data.units
-              .slice()
-              .filter(f => {
-                let isOk = true;
-                if (selectedCourse) {
-                  isOk =
-                    selectedCourse.core.findIndex(c => c.id === f.id) >= 0 ||
-                    (selectedMajor && selectedMajor.units.findIndex(u => u.id === f.id) >= 0);
-                }
-                if (localState.filterName) {
-                  isOk = localState.filterName
-                    .toLowerCase()
-                    .split(' ')
-                    .every(d => f.name.toLowerCase().indexOf(d) >= 0);
-                }
-                if (localState.filterCode) {
-                  isOk = f.id.indexOf(localState.filterCode) >= 0;
-                }
-
-                return isOk;
-              })
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((unit, index) => (
+            {filteredUnits.map((unit, index) => (
+              <Pane key={unit.id}>
                 <Link
-                  key={unit.id}
                   href={`/${view}/[category]/[item]`}
                   as={`/${view}/units/${url(unit.name)}-${unit.id}`}
                 >
@@ -167,14 +256,17 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
                         : localState.selection.splice(localState.selection.indexOf(unit.id), 1)
                     }
                   /> */}
-                      <Badge size={300} marginRight={8}>
+
+                      <Badge size={300} marginRight={8} color={unit.level < 7 ? 'green' : 'red'}>
                         {unit.id}
                       </Badge>
+
                       {unit.dynamic && (
                         <Badge color="orange" marginRight={8}>
                           D
                         </Badge>
                       )}
+
                       {selectedCourse && selectedCourse.core.some(s => s.id === unit.id) && (
                         <Badge color="yellow" marginRight={8}>
                           C
@@ -188,7 +280,33 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
                     </SidebarTab>
                   </a>
                 </Link>
-              ))}
+
+                <Pane marginLeft={65} marginTop={-10} marginBottom={8} maxWidth={300}>
+                  {unit.outdated && (
+                    <Badge color="red" marginRight={8}>
+                      Outdated
+                    </Badge>
+                  )}
+                  {unit.obsolete && (
+                    <Badge color="red" marginRight={8}>
+                      Obsolete
+                    </Badge>
+                  )}
+                  {unit.processed && (
+                    <Badge color="green" marginRight={8}>
+                      Processed
+                    </Badge>
+                  )}
+                  {unit.topics.map(t => (
+                    <>
+                      <TopicBadge key={t}>
+                        {data.topics.find(p => p.id === t).name.replace(/ /g, '\xa0')}
+                      </TopicBadge>{' '}
+                    </>
+                  ))}
+                </Pane>
+              </Pane>
+            ))}
 
             {/* <Button
           onClick={action(() => {

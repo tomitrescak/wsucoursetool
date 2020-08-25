@@ -1,0 +1,23 @@
+query db {
+  courses {
+    core {
+      id
+    }
+    id
+    majors {
+      id
+      name
+      units {
+        id
+      }
+    }
+    name
+  }
+
+  topics {
+    id
+    name
+  }
+
+  db
+}

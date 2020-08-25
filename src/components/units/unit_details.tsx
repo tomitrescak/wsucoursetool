@@ -46,32 +46,34 @@ import { BlocksEditor } from 'components/blocks/block_editor';
 
 const selfColor = 'rgb(251, 230, 162)';
 
-function urlParse(text: string) {
-  var reg = /\d\d\d\d\d\d/g;
-  var result: RegExpExecArray;
-  let i = 0;
-  let els = [];
+function urlParse(view: string) {
+  return function (text) {
+    var reg = /\d\d\d\d\d\d/g;
+    var result: RegExpExecArray;
+    let i = 0;
+    let els = [];
 
-  if (text.match(/\d\d\d\d\d\d/) == null) {
-    return text;
-  }
+    if (text.match(/\d\d\d\d\d\d/) == null) {
+      return text;
+    }
 
-  let index = 0;
-  while ((result = reg.exec(text)) !== null) {
-    els.push(<Text key={i++}>{text.substring(index, result.index)}</Text>);
-    els.push(
-      <Link key={i++} href="/editor/[category]/[item]" as={`/editor/units/unit-${result[0]}`}>
-        <a>
-          <Text>{result[0]}</Text>
-        </a>
-      </Link>
-    );
-    index = reg.lastIndex;
-  }
+    let index = 0;
+    while ((result = reg.exec(text)) !== null) {
+      els.push(<Text key={i++}>{text.substring(index, result.index)}</Text>);
+      els.push(
+        <Link key={i++} href={`/${view}/[category]/[item]`} as={`/${view}/units/unit-${result[0]}`}>
+          <a>
+            <Text>{result[0]}</Text>
+          </a>
+        </Link>
+      );
+      index = reg.lastIndex;
+    }
 
-  els.push(<Text key={i++}>{text.substring(index)}</Text>);
+    els.push(<Text key={i++}>{text.substring(index)}</Text>);
 
-  return els;
+    return els;
+  };
 }
 
 type Props = {
@@ -149,7 +151,10 @@ const UnitDetails: React.FC<{
   dependencies: Dependency[];
   readonlyBlocks: Block[];
 }> = observer(({ model: unit, keywords, readonly, acs, state, dependencies, readonlyBlocks }) => {
-  const form = React.useMemo(() => buildForm(unit, ['name', 'id', 'delivery', 'outcome']), [unit]);
+  const form = React.useMemo(
+    () => buildForm(unit, ['name', 'id', 'delivery', 'outcome', 'group']),
+    [unit]
+  );
   let selectionBlocks = [...unit.blocks];
   // add practicals
   selectionBlocks.unshift({
@@ -169,6 +174,8 @@ const UnitDetails: React.FC<{
       router.push('/');
     }
   });
+  const view = readonly ? 'view' : 'editor';
+  const parseUrl = React.useMemo(() => urlParse(view), [view]);
 
   if (item) {
     const mainSplit = item.split('--');
@@ -189,7 +196,6 @@ const UnitDetails: React.FC<{
 
   // dependencies
   let colorMap: { [id: string]: string } = { [unit.id]: selfColor };
-  const view = readonly ? 'view' : 'editor';
   return (
     <div style={{ flex: 1 }}>
       <Pane background="tint1" elevation={1} padding={16} borderRadius={6}>
@@ -258,6 +264,24 @@ const UnitDetails: React.FC<{
                 onChange={form.name}
               />
               <TextInputField
+                label={
+                  <Link
+                    href={`/${view}/[category]/[item]`}
+                    as={`/${view}/coordinators/${url(unit.coordinator)}`}
+                  >
+                    <a>
+                      <Text fontWeight={500}>Coordinator</Text>
+                    </a>
+                  </Link>
+                }
+                value={unit.coordinator}
+                id="unitCordinator"
+                onChange={form.coordinator}
+                disabled={true}
+                margin={0}
+                marginRight={8}
+              />
+              <TextInputField
                 label="Level"
                 flex="0 0 50px"
                 value={unit.level}
@@ -306,13 +330,64 @@ const UnitDetails: React.FC<{
               <KeywordEditor owner={unit} keywords={keywords} readonly={readonly} />
             </Pane>
 
-            <Checkbox
-              margin={0}
-              label="Dynamic"
-              onChange={e => (unit.dynamic = e.currentTarget.checked)}
-              checked={unit.dynamic}
-              disabled={readonly}
-            />
+            <Pane display="flex">
+              <TextInputField
+                label="Group"
+                flex="0 0 200px"
+                value={unit.group}
+                id="group"
+                onChange={form.group}
+                disabled={readonly}
+                margin={0}
+                marginRight={8}
+              />
+              <Pane display="flex" marginTop={30}>
+                <Checkbox
+                  margin={0}
+                  label="Dynamic"
+                  onChange={e => (unit.dynamic = e.currentTarget.checked)}
+                  checked={unit.dynamic}
+                  disabled={readonly}
+                />
+
+                <Checkbox
+                  margin={0}
+                  label="Obsolete"
+                  onChange={e => (unit.obsolete = e.currentTarget.checked)}
+                  checked={unit.obsolete}
+                  disabled={readonly}
+                  marginLeft={16}
+                />
+
+                <Checkbox
+                  margin={0}
+                  label="Outdated"
+                  onChange={e => (unit.outdated = e.currentTarget.checked)}
+                  checked={unit.outdated}
+                  disabled={readonly}
+                  marginLeft={16}
+                />
+                <Checkbox
+                  margin={0}
+                  label="Duplicate"
+                  onChange={e => (unit.duplicate = e.currentTarget.checked)}
+                  checked={unit.duplicate}
+                  disabled={readonly}
+                  marginLeft={16}
+                />
+
+                <Checkbox
+                  margin={0}
+                  label="Processed"
+                  onChange={e => (unit.processed = e.currentTarget.checked)}
+                  checked={unit.processed}
+                  disabled={readonly}
+                  marginLeft={16}
+                />
+              </Pane>
+            </Pane>
+
+            <TextEditor owner={unit} field="notes" label="Notes" readonly={readonly} />
           </Pane>
         )}
         {localState.tab === 'Blocks' && (
@@ -408,7 +483,7 @@ const UnitDetails: React.FC<{
                 owner={unit}
                 field="unitPrerequisites"
                 label="Unit Prerequisites"
-                parser={urlParse}
+                parser={parseUrl}
               />
             )}
             {unit.corequisites && (
@@ -417,7 +492,7 @@ const UnitDetails: React.FC<{
                 owner={unit}
                 field="corequisites"
                 label="Corequisites"
-                parser={urlParse}
+                parser={parseUrl}
               />
             )}
             {unit.incompatible && (
@@ -426,7 +501,7 @@ const UnitDetails: React.FC<{
                 owner={unit}
                 field="incompatible"
                 label="Incompatible"
-                parser={urlParse}
+                parser={parseUrl}
               />
             )}
 

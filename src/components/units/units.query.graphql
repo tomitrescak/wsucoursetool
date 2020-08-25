@@ -1,8 +1,18 @@
 query Units {
+  topics {
+    id
+    name
+  }
+
   units {
     blockCount
     dynamic
+    topics
     id
     name
+    level
+    outdated
+    obsolete
+    processed
   }
 }

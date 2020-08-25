@@ -19,6 +19,8 @@ import { SpecialisationEditor } from 'components/specialisations/specialisations
 import { CoursesEditor } from 'components/courses/courses';
 import { VerticalPane } from 'components/common/vertical_pane';
 import { UnitsEditor } from 'components/units/unit_list';
+import { Coordinators } from 'components/coordinators/coordinators';
+import { Analysis } from 'components/analysis/analysis';
 
 const BreadCrumbs = styled(Text)`
   /* background: white;
@@ -41,12 +43,14 @@ const Admin = styled.div`
 const tabs = [
   'Units',
   'Courses',
+  'Coordinators',
   'Topics',
   // 'Blocks',
   'Specialisations',
   'Jobs',
   'ACS Skills',
-  'SFIA Skills'
+  'SFIA Skills',
+  'Analysis'
 ];
 
 let to: any;
@@ -185,6 +189,7 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
 
         {selectedTab == 'Units' && <UnitsEditor state={state} readonly={readonly} />}
         {selectedTab == 'Courses' && <CoursesEditor state={state} readonly={readonly} />}
+        {selectedTab == 'Coordinators' && <Coordinators state={state} readonly={readonly} />}
         {selectedTab == 'Jobs' && <JobsEditor state={state} readonly={readonly} />}
         {/* {selectedTab == 'Blocks' && <AllBlocksEditor state={state} readonly={readonly} />} */}
         {selectedTab == 'Topics' && <TopicEditor state={state} readonly={readonly} />}
@@ -193,6 +198,7 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
         {selectedTab == 'Specialisations' && (
           <SpecialisationEditor state={state} readonly={readonly} />
         )}
+        {selectedTab == 'Analysis' && <Analysis state={state} readonly={readonly} />}
       </Pane>
     </Admin>
   );

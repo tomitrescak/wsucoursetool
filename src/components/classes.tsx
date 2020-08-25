@@ -94,6 +94,7 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   // blockTopics: prop<string[]>({ setterAction: true }),
   completionCriteria: prop<CompletionCriteriaModel>({ setterAction: true }),
   corequisites: prop<string>({ setterAction: true }),
+  coordinator: prop<string>({ setterAction: true }),
   credits: prop<number>({ setterAction: true }),
   delivery: prop<string>({ setterAction: true }),
   dynamic: prop<boolean>({ setterAction: true }),
@@ -106,7 +107,13 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   prerequisite: prop<string[]>({ setterAction: true }),
   prerequisites: prop<PrerequisiteModel[]>({ setterAction: true }),
   topics: prop<string[]>({ setterAction: true }),
-  unitPrerequisites: prop<string>({ setterAction: true })
+  unitPrerequisites: prop<string>({ setterAction: true }),
+  notes: prop<string>({ setterAction: true }),
+  processed: prop<boolean>({ setterAction: true }),
+  obsolete: prop<boolean>({ setterAction: true }),
+  outdated: prop<boolean>({ setterAction: true }),
+  duplicate: prop<boolean>({ setterAction: true }),
+  group: prop<string>({ setterAction: true })
 }) {
   toJS() {
     return removeEmpty({
@@ -135,6 +142,26 @@ export class UnitModel extends ExtendedModel(EntityModel, {
     this.outcomes.push(new OutcomeModel(o));
   }
   @modelAction
+  addKeyword(kw: string) {
+    if (kw) {
+      this.keywords.push(kw);
+    }
+  }
+  @modelAction
+  removeKeyword(ix: number) {
+    this.keywords.splice(ix, 1);
+  }
+  @modelAction
+  addTopic(kw: string) {
+    if (kw) {
+      this.topics.push(kw);
+    }
+  }
+  @modelAction
+  removeTopic(ix: number) {
+    this.topics.splice(ix, 1);
+  }
+  @modelAction
   addBlock(p: Block) {
     const block = createBlock(p);
     this.blocks.push(block);
@@ -147,6 +174,16 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   @modelAction
   insertBlock(b: BlockModel, ix: number) {
     this.blocks.splice(ix, 0, b);
+  }
+  @modelAction
+  spliceBlock(ix: number, num: number, block: BlockModel) {
+    //if (ix >= 0) {
+    if (block) {
+      this.blocks.splice(ix, num, block);
+    } else {
+      this.blocks.splice(ix, num);
+    }
+    //}
   }
 }
 
@@ -223,7 +260,10 @@ export class BlockModel extends ExtendedModel(EntityModel, {
   topics: prop<string[]>({ setterAction: true }),
   prerequisites: prop<PrerequisiteModel[]>({ setterAction: true }),
   completionCriteria: prop<CompletionCriteriaModel>({ setterAction: true }),
-  activities: prop<ActivityModel[]>({ setterAction: true })
+  activities: prop<ActivityModel[]>({ setterAction: true }),
+  level: prop<string>({ setterAction: true }),
+  group: prop<string>({ setterAction: true }),
+  flagged: prop<boolean>({ setterAction: true })
 }) {
   toJS() {
     return {
@@ -233,6 +273,26 @@ export class BlockModel extends ExtendedModel(EntityModel, {
       completionCriteria: this.completionCriteria.toJS(),
       activities: this.activities.map(a => a.toJS())
     };
+  }
+  @modelAction
+  addKeyword(kw: string) {
+    if (kw) {
+      this.keywords.push(kw);
+    }
+  }
+  @modelAction
+  removeKeyword(ix: number) {
+    this.keywords.splice(ix, 1);
+  }
+  @modelAction
+  addTopic(kw: string) {
+    if (kw) {
+      this.topics.push(kw);
+    }
+  }
+  @modelAction
+  removeTopic(ix: number) {
+    this.topics.splice(ix, 1);
   }
   @modelAction
   addPrerequisite(pre: Prerequisite) {

@@ -17,8 +17,13 @@ export type Scalars = {
 export type UnitList = {
   id: Scalars['String'];
   name: Scalars['String'];
-  blockCount: Scalars['Int'];
-  dynamic: Scalars['Boolean'];
+  blockCount?: Maybe<Scalars['Int']>;
+  dynamic?: Maybe<Scalars['Boolean']>;
+  obsolete?: Maybe<Scalars['Boolean']>;
+  outdated?: Maybe<Scalars['Boolean']>;
+  processed?: Maybe<Scalars['Boolean']>;
+  topics: Array<Scalars['String']>;
+  level?: Maybe<Scalars['Int']>;
 };
 
 export type Entity = {
@@ -65,11 +70,17 @@ export type CourseList = {
   core: Array<Identifiable>;
 };
 
+export type Coordinator = {
+  name: Scalars['String'];
+  units: Array<UnitList>;
+};
+
 export type Query = {
   legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
   unitBase?: Maybe<Scalars['JSON']>;
   units: Array<UnitList>;
+  coordinators: Array<Coordinator>;
   course: Scalars['JSON'];
   courses: Array<CourseList>;
   courseUnits: Scalars['JSON'];
@@ -82,6 +93,7 @@ export type Query = {
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
   topics: Array<TopicList>;
+  db: Scalars['JSON'];
 };
 
 
@@ -182,10 +194,32 @@ export type AcsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type AcsQuery = Pick<Query, 'acs'>;
 
+export type DbQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DbQuery = (
+  Pick<Query, 'db'>
+  & { courses: Array<(
+    Pick<CourseList, 'id' | 'name'>
+    & { core: Array<Pick<Identifiable, 'id'>>, majors: Array<(
+      Pick<MajorList, 'id' | 'name'>
+      & { units: Array<Pick<Identifiable, 'id'>> }
+    )> }
+  )>, topics: Array<Pick<TopicList, 'id' | 'name'>> }
+);
+
 export type BlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type BlocksQuery = { blocks: Array<Pick<BlockList, 'id' | 'name' | 'unitId'>> };
+
+export type CoordinatorsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CoordinatorsQuery = { coordinators: Array<(
+    Pick<Coordinator, 'name'>
+    & { units: Array<Pick<UnitList, 'id' | 'name' | 'level' | 'topics' | 'obsolete' | 'outdated' | 'processed'>> }
+  )> };
 
 export type CreateCourseMutationVariables = Exact<{
   id: Scalars['String'];
@@ -215,7 +249,7 @@ export type CourseQuery = (
 export type CourseListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CourseListQuery = { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic'>>, courses: Array<(
+export type CourseListQuery = { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'level' | 'obsolete' | 'outdated' | 'processed' | 'topics'>>, topics: Array<Pick<TopicList, 'id' | 'name'>>, courses: Array<(
     Pick<CourseList, 'id' | 'name'>
     & { core: Array<Pick<Identifiable, 'id'>>, majors: Array<(
       Pick<MajorList, 'id' | 'name'>
@@ -336,7 +370,7 @@ export type UnitQuery = Pick<Query, 'unit' | 'acs' | 'keywords'>;
 export type UnitsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UnitsQuery = { units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'id' | 'name'>> };
+export type UnitsQuery = { topics: Array<Pick<TopicList, 'id' | 'name'>>, units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'topics' | 'id' | 'name' | 'level' | 'outdated' | 'obsolete' | 'processed'>> };
 
 
 export const AcsDocument = gql`
@@ -369,6 +403,54 @@ export function useAcsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpti
 export type AcsQueryHookResult = ReturnType<typeof useAcsQuery>;
 export type AcsLazyQueryHookResult = ReturnType<typeof useAcsLazyQuery>;
 export type AcsQueryResult = ApolloReactCommon.QueryResult<AcsQuery, AcsQueryVariables>;
+export const DbDocument = gql`
+    query db {
+  courses {
+    core {
+      id
+    }
+    id
+    majors {
+      id
+      name
+      units {
+        id
+      }
+    }
+    name
+  }
+  topics {
+    id
+    name
+  }
+  db
+}
+    `;
+
+/**
+ * __useDbQuery__
+ *
+ * To run a query within a React component, call `useDbQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDbQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDbQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDbQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<DbQuery, DbQueryVariables>) {
+        return ApolloReactHooks.useQuery<DbQuery, DbQueryVariables>(DbDocument, baseOptions);
+      }
+export function useDbLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<DbQuery, DbQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<DbQuery, DbQueryVariables>(DbDocument, baseOptions);
+        }
+export type DbQueryHookResult = ReturnType<typeof useDbQuery>;
+export type DbLazyQueryHookResult = ReturnType<typeof useDbLazyQuery>;
+export type DbQueryResult = ApolloReactCommon.QueryResult<DbQuery, DbQueryVariables>;
 export const BlocksDocument = gql`
     query Blocks {
   blocks {
@@ -403,6 +485,47 @@ export function useBlocksLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookO
 export type BlocksQueryHookResult = ReturnType<typeof useBlocksQuery>;
 export type BlocksLazyQueryHookResult = ReturnType<typeof useBlocksLazyQuery>;
 export type BlocksQueryResult = ApolloReactCommon.QueryResult<BlocksQuery, BlocksQueryVariables>;
+export const CoordinatorsDocument = gql`
+    query Coordinators {
+  coordinators {
+    name
+    units {
+      id
+      name
+      level
+      topics
+      obsolete
+      outdated
+      processed
+    }
+  }
+}
+    `;
+
+/**
+ * __useCoordinatorsQuery__
+ *
+ * To run a query within a React component, call `useCoordinatorsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCoordinatorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCoordinatorsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCoordinatorsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CoordinatorsQuery, CoordinatorsQueryVariables>) {
+        return ApolloReactHooks.useQuery<CoordinatorsQuery, CoordinatorsQueryVariables>(CoordinatorsDocument, baseOptions);
+      }
+export function useCoordinatorsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CoordinatorsQuery, CoordinatorsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CoordinatorsQuery, CoordinatorsQueryVariables>(CoordinatorsDocument, baseOptions);
+        }
+export type CoordinatorsQueryHookResult = ReturnType<typeof useCoordinatorsQuery>;
+export type CoordinatorsLazyQueryHookResult = ReturnType<typeof useCoordinatorsLazyQuery>;
+export type CoordinatorsQueryResult = ApolloReactCommon.QueryResult<CoordinatorsQuery, CoordinatorsQueryVariables>;
 export const CreateCourseDocument = gql`
     mutation CreateCourse($id: String!, $name: String!) {
   createCourse(id: $id, name: $name)
@@ -514,6 +637,15 @@ export const CourseListDocument = gql`
     id
     name
     dynamic
+    level
+    obsolete
+    outdated
+    processed
+    topics
+  }
+  topics {
+    id
+    name
   }
   courses {
     id
@@ -1074,11 +1206,20 @@ export type UnitLazyQueryHookResult = ReturnType<typeof useUnitLazyQuery>;
 export type UnitQueryResult = ApolloReactCommon.QueryResult<UnitQuery, UnitQueryVariables>;
 export const UnitsDocument = gql`
     query Units {
+  topics {
+    id
+    name
+  }
   units {
     blockCount
     dynamic
+    topics
     id
     name
+    level
+    outdated
+    obsolete
+    processed
   }
 }
     `;

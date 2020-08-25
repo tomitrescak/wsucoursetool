@@ -6,8 +6,13 @@ export const typeDefs = gql`
   type UnitList {
     id: String!
     name: String!
-    blockCount: Int!
-    dynamic: Boolean!
+    blockCount: Int
+    dynamic: Boolean
+    obsolete: Boolean
+    outdated: Boolean
+    processed: Boolean
+    topics: [String!]!
+    level: Int
   }
 
   type Entity {
@@ -54,12 +59,19 @@ export const typeDefs = gql`
     core: [Identifiable!]!
   }
 
+  type Coordinator {
+    name: String!
+    units: [UnitList!]!
+  }
+
   type Query {
     legacyUnits: String
 
     unit(id: String!): JSON!
     unitBase(id: String!): JSON
     units: [UnitList!]!
+
+    coordinators: [Coordinator!]!
 
     course(id: String!): JSON!
     courses: [CourseList!]!
@@ -76,6 +88,8 @@ export const typeDefs = gql`
     acs: JSON!
     sfia: JSON!
     topics: [TopicList!]!
+
+    db: JSON!
   }
   type Mutation {
     createUnit(id: String!, name: String): UnitList!

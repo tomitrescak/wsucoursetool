@@ -4,6 +4,16 @@ query CourseList {
     id
     name
     dynamic
+    level
+    obsolete
+    outdated
+    processed
+    topics
+  }
+
+  topics {
+    id
+    name
   }
 
   courses {

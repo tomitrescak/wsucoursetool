@@ -5,7 +5,11 @@ import { ProgressView } from './progress_view';
 import { useTopicsQuery } from 'config/graphql';
 
 type KeywordEditorProps = {
-  owner: { keywords: string[] };
+  owner: {
+    keywords: string[];
+    addKeyword(keyword: string): void;
+    removeKeyword(index: number): void;
+  };
   keywords: string[];
   readonly: boolean;
 };
@@ -20,10 +24,7 @@ export const KeywordEditor = observer(({ owner, keywords, readonly }: KeywordEdi
         title="Keywords"
         onChange={undefined}
         onSelect={e => {
-          if (owner.keywords == null) {
-            owner.keywords = [];
-          }
-          owner.keywords.push(e);
+          owner.addKeyword(e);
         }}
         items={keywords}
       >
@@ -42,7 +43,7 @@ export const KeywordEditor = observer(({ owner, keywords, readonly }: KeywordEdi
                     owner.keywords = values;
                   }}
                   onRemove={(_value, index) => {
-                    owner.keywords = owner.keywords.filter((b, i) => i !== index);
+                    owner.removeKeyword(index);
                   }}
                   onInputChange={onChange}
                   innerRef={getRef}
@@ -60,7 +61,7 @@ export const KeywordEditor = observer(({ owner, keywords, readonly }: KeywordEdi
 });
 
 type TopicEditorProps = {
-  owner: { topics: string[] };
+  owner: { topics: string[]; addTopic(id: string): void; removeTopic(index: number): void };
   label?: string;
   field?: string;
   readonly?: boolean;
@@ -94,10 +95,10 @@ export const TopicEditor = observer(
             .map(t => ({ label: t.name, value: t.id }))}
           selected={topicOwner}
           onSelect={item => {
-            topicOwner.push(item.value);
+            owner.addTopic(item.value as string);
           }}
           onDeselect={item => {
-            topicOwner.splice(topicOwner.indexOf(item.value), 1);
+            owner.removeTopic(topicOwner.indexOf(item.value));
           }}
         >
           <TagInput

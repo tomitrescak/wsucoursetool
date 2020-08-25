@@ -12,7 +12,9 @@ import {
   Icon,
   Select,
   TextInput,
-  Text
+  Text,
+  SelectField,
+  Checkbox
 } from 'evergreen-ui';
 import Router from 'next/router';
 import { State, Block, BlockType as ActivityType, Activity, Unit, AcsKnowledge } from '../types';
@@ -26,7 +28,7 @@ import { PrerequisiteEditor } from '../prerequisites/prerequisite_editor';
 import { TopicBlockEditor } from '../completion_criteria/completion_criteria_editor';
 import { TextEditor } from '../common/text_editor';
 import { KeywordEditor, TopicEditor } from 'components/common/tag_editors';
-import { action } from 'mobx';
+import { action, toJS } from 'mobx';
 import { Dnd, DragContainer } from 'components/common/dnd';
 import { BlockModel, UnitModel, ActivityModel } from 'components/classes';
 import units from 'pages/units';
@@ -474,7 +476,7 @@ const BlockDetails: React.FC<{
           {/* <TextEditor owner={block} field="outcome" label="Outcome Description" /> */}
         </Pane>
 
-        {/* DESCRIPITION */}
+        {/* DETAILS */}
         <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
           <Heading size={500} marginBottom={16} borderBottom="dashed 1px #dedede">
             Details
@@ -487,6 +489,39 @@ const BlockDetails: React.FC<{
             <TopicEditor owner={block} readonly={readonly} />
             {/* KEYWORDS */}
             <KeywordEditor owner={block} keywords={keywords} readonly={readonly} />
+          </Pane>
+
+          <Pane display="flex">
+            {/* GROUP */}
+            <TextInputField
+              label="Group"
+              id="group"
+              value={block.group}
+              disabled={readonly}
+              onChange={form.group}
+              marginRight={8}
+            />
+            {/* LEVEL */}
+            <SelectField
+              label="Level"
+              id="level"
+              onChange={e => (block.level = e.value)}
+              marginRight={8}
+            >
+              <option value="">Please Select ...</option>
+              <option value="Fundamentals">Fundamentals</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+              <option value="Applied">Applied</option>
+            </SelectField>
+            <Checkbox
+              margin={0}
+              marginTop={30}
+              label="Flagged"
+              onChange={e => (block.flagged = e.currentTarget.checked)}
+              checked={block.flagged}
+              disabled={readonly}
+            />
           </Pane>
         </Pane>
 
@@ -603,7 +638,7 @@ const BlocksEditorView: React.FC<Props> = ({
 
       // reasign ids
       let activities = nextBlock.activities.map(a => ({
-        ...a,
+        ...a.toJS(),
         id: (maxId++).toString()
       }));
 
@@ -631,6 +666,18 @@ const BlocksEditorView: React.FC<Props> = ({
       currentBlock.addActivities(activities);
       unit.removeBlock(blockIndex + direction);
     });
+
+  const blockModifier = React.useMemo(
+    () => ({
+      splice(position: number, count: number, element?: BlockModel): void {
+        unit.spliceBlock(position, count, element);
+      },
+      findIndex(condition: (id: Block) => boolean): number {
+        return unit.blocks.findIndex(condition);
+      }
+    }),
+    [unit]
+  );
 
   return (
     <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
@@ -663,7 +710,7 @@ const BlocksEditorView: React.FC<Props> = ({
                 display="flex"
                 alignItems="center"
                 key={block.id}
-                {...dnd.props(block.id, unit.blocks, true)}
+                {...dnd.props(block, blockModifier, true)}
               >
                 {!readonly && <Handler dnd={dnd} />}
                 <Pane flex="1" width="130px" marginRight={8}>

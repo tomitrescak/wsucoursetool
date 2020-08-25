@@ -16,8 +16,13 @@ export type Scalars = {
 export type UnitList = {
   id: Scalars['String'];
   name: Scalars['String'];
-  blockCount: Scalars['Int'];
-  dynamic: Scalars['Boolean'];
+  blockCount?: Maybe<Scalars['Int']>;
+  dynamic?: Maybe<Scalars['Boolean']>;
+  obsolete?: Maybe<Scalars['Boolean']>;
+  outdated?: Maybe<Scalars['Boolean']>;
+  processed?: Maybe<Scalars['Boolean']>;
+  topics: Array<Scalars['String']>;
+  level?: Maybe<Scalars['Int']>;
 };
 
 export type Entity = {
@@ -64,11 +69,17 @@ export type CourseList = {
   core: Array<Identifiable>;
 };
 
+export type Coordinator = {
+  name: Scalars['String'];
+  units: Array<UnitList>;
+};
+
 export type Query = {
   legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
   unitBase?: Maybe<Scalars['JSON']>;
   units: Array<UnitList>;
+  coordinators: Array<Coordinator>;
   course: Scalars['JSON'];
   courses: Array<CourseList>;
   courseUnits: Scalars['JSON'];
@@ -81,6 +92,7 @@ export type Query = {
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
   topics: Array<TopicList>;
+  db: Scalars['JSON'];
 };
 
 
@@ -254,6 +266,7 @@ export type ResolversTypes = {
   Identifiable: ResolverTypeWrapper<Identifiable>;
   MajorList: ResolverTypeWrapper<MajorList>;
   CourseList: ResolverTypeWrapper<CourseList>;
+  Coordinator: ResolverTypeWrapper<Coordinator>;
   Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
 };
@@ -273,6 +286,7 @@ export type ResolversParentTypes = {
   Identifiable: Identifiable;
   MajorList: MajorList;
   CourseList: CourseList;
+  Coordinator: Coordinator;
   Query: {};
   Mutation: {};
 };
@@ -284,8 +298,13 @@ export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 export type UnitListResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnitList'] = ResolversParentTypes['UnitList']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  blockCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  dynamic?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  blockCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  dynamic?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  obsolete?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  outdated?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  processed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  topics?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -341,11 +360,18 @@ export type CourseListResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type CoordinatorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Coordinator'] = ResolversParentTypes['Coordinator']> = {
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  units?: Resolver<Array<ResolversTypes['UnitList']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   legacyUnits?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   unit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryUnitArgs, 'id'>>;
   unitBase?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryUnitBaseArgs, 'id'>>;
   units?: Resolver<Array<ResolversTypes['UnitList']>, ParentType, ContextType>;
+  coordinators?: Resolver<Array<ResolversTypes['Coordinator']>, ParentType, ContextType>;
   course?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseArgs, 'id'>>;
   courses?: Resolver<Array<ResolversTypes['CourseList']>, ParentType, ContextType>;
   courseUnits?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseUnitsArgs, 'id'>>;
@@ -358,6 +384,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   acs?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   sfia?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   topics?: Resolver<Array<ResolversTypes['TopicList']>, ParentType, ContextType>;
+  db?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -383,6 +410,7 @@ export type Resolvers<ContextType = any> = {
   Identifiable?: IdentifiableResolvers<ContextType>;
   MajorList?: MajorListResolvers<ContextType>;
   CourseList?: CourseListResolvers<ContextType>;
+  Coordinator?: CoordinatorResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 };

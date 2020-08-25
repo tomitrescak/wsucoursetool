@@ -51,6 +51,7 @@ export type Unit = {
   id: string;
   name: string;
   delivery: string;
+  coordinator: string;
   completionCriteria: CompletionCriteria;
   outcome: string;
   outcomes: Outcome[];
@@ -62,6 +63,9 @@ export type Unit = {
   keywords: string[];
 
   dynamic: boolean;
+  processed: boolean;
+  outdated: boolean;
+  obsolete: boolean;
   // blockTopics: string[];
 
   unitPrerequisites?: string;
@@ -73,6 +77,7 @@ export type Unit = {
   approachToLearning?: string;
 
   prerequisites?: Prerequisite[];
+  group: string;
 };
 
 export type CompletionCriteriaType = '' | 'simple' | 'allOf' | 'someOf';
@@ -115,6 +120,9 @@ export type Block = {
   prerequisites: Prerequisite[];
   completionCriteria: CompletionCriteria;
   activities: Activity[];
+  group: string;
+  level: string;
+  flagged: boolean;
 };
 
 export type Specialisation = {

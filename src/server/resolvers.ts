@@ -164,8 +164,12 @@ export const resolvers: IResolvers = {
           name,
           topics: [],
           keywords: [],
+          coordinator: '',
           // blockTopics: [],
           dynamic: false,
+          outdated: false,
+          obsolete: false,
+          processed: false,
           delivery: '1',
           completionCriteria: {},
           assumedKnowledge: '',
@@ -178,6 +182,9 @@ export const resolvers: IResolvers = {
           id,
           name,
           dynamic: false,
+          outdated: false,
+          obsolete: false,
+          topics: [],
           blockCount: 0
         };
       });
@@ -193,6 +200,9 @@ export const resolvers: IResolvers = {
     }
   },
   Query: {
+    db() {
+      return getDb().units;
+    },
     acs() {
       let db = getDb();
       return db.acsKnowledge;
@@ -210,6 +220,20 @@ export const resolvers: IResolvers = {
       // console.log(JSON.stringify(result, null, 2));
 
       return result;
+    },
+    coordinators() {
+      let db = getDb();
+      let groups = {};
+      for (let unit of db.units) {
+        let c = unit.coordinator || 'Unknown';
+        let u = { id: unit.id, name: unit.name, level: unit.level };
+        if (groups[c] == null) {
+          groups[c] = [unit];
+        } else {
+          groups[c].push(u);
+        }
+      }
+      return Object.keys(groups).map(key => ({ name: key, units: groups[key] }));
     },
     jobs() {
       let db = getDb();
@@ -292,7 +316,12 @@ export const resolvers: IResolvers = {
         id: u.id,
         name: u.name,
         dynamic: !!u.dynamic,
-        blockCount: (u.blocks || []).length
+        blockCount: (u.blocks || []).length,
+        level: u.level,
+        outdated: u.outdated,
+        processed: u.processed,
+        obsolete: u.obsolete,
+        topics: u.topics || []
       }));
     },
     legacyUnits(parent, args, context) {

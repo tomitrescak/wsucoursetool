@@ -107,128 +107,144 @@ type SemesterProps = {
     semesterSelection: string[];
     selection: string[];
   };
+  view: string;
 };
 
-const UnitsBySemester = observer(({ courseUnits, units, localState, course }: SemesterProps) => {
-  let semesters = groupBy(courseUnits, 'semester');
+const UnitsBySemester = observer(
+  ({ courseUnits, units, localState, course, view }: SemesterProps) => {
+    let semesters = groupBy(courseUnits, 'semester');
 
-  return (
-    <Expander title="Units by Semester" id="semesterUnits">
-      <Pane display="flex">
-        <table>
-          <thead>
-            <tr>
-              <th style={{ textAlign: 'left' }}>
-                <Heading size={400}>Code</Heading>
-              </th>
-              <th style={{ textAlign: 'left' }}>
-                <Heading size={400}>Name</Heading>
-              </th>
-              <th style={{ textAlign: 'left' }}>
-                <Heading size={400}>Sem.</Heading>
-              </th>
-              <th></th>
-            </tr>
-          </thead>
-          {Object.keys(semesters).map(sem => (
-            <React.Fragment key={sem}>
-              <thead>
-                <tr>
-                  <th style={{ textAlign: 'left' }} colSpan={3}>
-                    <Heading size={400}>
-                      <Checkbox
-                        fontWeight="bold"
-                        fontSize="16px"
-                        label={
-                          <Heading size={400}>
-                            {sem === '0' ? 'Electives' : `Semester ${sem}`}
-                          </Heading>
-                        }
-                        checked={localState.semesterSelection.indexOf(sem) >= 0}
-                        onChange={e => {
-                          e.currentTarget.checked
-                            ? localState.semesterSelection.push(sem)
-                            : localState.semesterSelection.splice(
-                                localState.semesterSelection.indexOf(sem),
-                                1
-                              );
-                        }}
-                      />
-                    </Heading>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {semesters[sem].map((c, i) => {
-                  let unit = units.find(u => u.id === c.id);
-                  let cunit = courseUnits.find(u => u.id === c.id);
-
-                  // console.log(c.id);
-                  // console.log(cunit.semester);
-
-                  // console.log(
-                  //   localState.semesterSelection.some(s => parseInt(s) === cunit.semester) ||
-                  //     localState.selection.indexOf(unit.id) >= 0
-                  // );
-
-                  return (
-                    <tr key={c.id}>
-                      <td>
+    return (
+      <Expander title="Units by Semester" id="semesterUnits">
+        <Pane display="flex">
+          <table>
+            <thead>
+              <tr>
+                <th style={{ textAlign: 'left' }}>
+                  <Heading size={400}>Code</Heading>
+                </th>
+                <th style={{ textAlign: 'left' }}>
+                  <Heading size={400}>Name</Heading>
+                </th>
+                <th style={{ textAlign: 'left' }}>
+                  <Heading size={400}>Sem.</Heading>
+                </th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            {Object.keys(semesters).map(sem => (
+              <React.Fragment key={sem}>
+                <thead>
+                  <tr>
+                    <th style={{ textAlign: 'left' }} colSpan={3}>
+                      <Heading size={400}>
                         <Checkbox
-                          margin={0}
-                          label={unit.id}
-                          checked={
-                            localState.semesterSelection.some(
-                              s => parseInt(s) === cunit.semester
-                            ) || localState.selection.indexOf(unit.id) >= 0
+                          fontWeight="bold"
+                          fontSize="16px"
+                          label={
+                            <Heading size={400}>
+                              {sem === '0' ? 'Electives' : `Semester ${sem}`}
+                            </Heading>
                           }
-                          onChange={e =>
+                          checked={localState.semesterSelection.indexOf(sem) >= 0}
+                          onChange={e => {
                             e.currentTarget.checked
-                              ? localState.selection.push(unit.id)
-                              : localState.selection.splice(
-                                  localState.selection.indexOf(unit.id),
+                              ? localState.semesterSelection.push(sem)
+                              : localState.semesterSelection.splice(
+                                  localState.semesterSelection.indexOf(sem),
                                   1
-                                )
-                          }
+                                );
+                          }}
                         />
-                      </td>
-                      <Text
-                        is="td"
-                        cursor="pointer"
-                        onClick={() => (localState.selection = [unit.id])}
-                        size={300}
-                      >
-                        {unit.name}
-                      </Text>
-                      <td>
-                        <TextInput
-                          height={25}
-                          width={50}
-                          type="number"
-                          value={c.semester}
-                          onChange={e => (c.semester = parseInt(e.currentTarget.value))}
-                        />
-                      </td>
-                      <td>
-                        <IconButton
-                          height={25}
-                          icon="trash"
-                          intent="danger"
-                          appearance="primary"
-                          onClick={e => course.core.splice(i, 1)}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </React.Fragment>
-          ))}
-        </table>
-      </Pane>
-    </Expander>
-  );
-});
+                      </Heading>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {semesters[sem].map((c, i) => {
+                    let unit = units.find(u => u.id === c.id);
+                    let cunit = courseUnits.find(u => u.id === c.id);
+
+                    // console.log(c.id);
+                    // console.log(cunit.semester);
+
+                    // console.log(
+                    //   localState.semesterSelection.some(s => parseInt(s) === cunit.semester) ||
+                    //     localState.selection.indexOf(unit.id) >= 0
+                    // );
+
+                    return (
+                      <tr key={c.id}>
+                        <td>
+                          <Checkbox
+                            margin={0}
+                            label={unit.id}
+                            checked={
+                              localState.semesterSelection.some(
+                                s => parseInt(s) === cunit.semester
+                              ) || localState.selection.indexOf(unit.id) >= 0
+                            }
+                            onChange={e =>
+                              e.currentTarget.checked
+                                ? localState.selection.push(unit.id)
+                                : localState.selection.splice(
+                                    localState.selection.indexOf(unit.id),
+                                    1
+                                  )
+                            }
+                          />
+                        </td>
+                        <Text
+                          is="td"
+                          cursor="pointer"
+                          onClick={() => (localState.selection = [unit.id])}
+                          size={300}
+                        >
+                          {unit.name}
+                        </Text>
+
+                        <td>
+                          <TextInput
+                            height={25}
+                            width={50}
+                            type="number"
+                            value={c.semester}
+                            onChange={e => (c.semester = parseInt(e.currentTarget.value))}
+                          />
+                        </td>
+                        <td>
+                          <Link
+                            key={course.id}
+                            href={`/${view}/[category]/[item]`}
+                            as={`/${view}/units/${url(unit.name)}-${unit.id}`}
+                          >
+                            <a>
+                              <IconButton height={25} icon="link" appearance="minimal" />
+                            </a>
+                          </Link>
+                        </td>
+                        <td>
+                          <IconButton
+                            height={25}
+                            icon="trash"
+                            intent="danger"
+                            appearance="primary"
+                            onClick={e => course.core.splice(i, 1)}
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </React.Fragment>
+            ))}
+          </table>
+        </Pane>
+      </Expander>
+    );
+  }
+);
 
 const UnitsByTopic = observer(
   ({ units, topics, courseUnits, localState, course }: SemesterProps) => {
@@ -453,10 +469,11 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
       }
       return true;
     });
+    const view = readonly ? 'view' : 'editor';
 
     return (
       <>
-        <VerticalPane shrink={true}>
+        <VerticalPane title="Details">
           <Pane background="tint2" padding={16} borderRadius={6}>
             <Pane marginBottom={16} display="flex" alignItems="center">
               <Heading size={500} marginRight={16}>
@@ -556,6 +573,7 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
               units={data.courseUnits}
               topics={data.topics}
               localState={localState}
+              view={view}
             />
             <UnitsByTopic
               course={course}
@@ -563,6 +581,7 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
               units={data.courseUnits}
               topics={data.topics}
               localState={localState}
+              view={view}
             />
           </Pane>
           <Button
@@ -586,7 +605,7 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
             Delete
           </Button>
         </VerticalPane>
-        <VerticalPane>
+        <VerticalPane shrink={true}>
           <Visualisations
             acs={data.acs}
             selectedUnits={selectedUnits}
