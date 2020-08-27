@@ -1,3 +1,106 @@
+<<<<<<< HEAD
+=======
+// import React from 'react';123
+// import { useStudentListQuery } from 'config/graphql';
+// import { ProgressView } from 'components/common/progress_view';
+// import { VerticalPane } from 'components/common/vertical_pane';
+
+// import { State, Specialisation, Entity } from '../types';
+// import { buildForm, findMaxId, url } from 'lib/helpers';
+
+// import {
+//   TextInputField,
+//   Pane,
+//   Tablist,
+//   SidebarTab,
+//   Alert,
+//   Heading,
+//   Dialog,
+//   Button,
+//   SelectField,
+//   Text,
+//   Badge,
+//   Checkbox,
+//   TextInput,
+//   IconButton,
+//   toaster,
+//   Tab,
+//   Link
+// } from 'evergreen-ui';
+
+// import { SideTab, Tabs } from 'components/common/tab';
+// import { renderToStringWithData } from '@apollo/react-ssr';
+
+// export const StudentList = () => {
+//   // see an example in tag_editors.tsx
+//   const { loading, error, data } = useStudentListQuery();
+//   if (loading || error) {
+//     return <ProgressView loading={loading} error={error} />;
+//   }
+
+//   interface state {
+//     isOpen: boolean;
+//   }
+
+//   function showDetails(id, name) {
+//     // testing: accessing and printing data
+//     console.log('Student Id: ' + id);
+//     console.log('Student Name: ' + name);
+//   }
+
+//   // now work with data
+//   return (
+//     <div>
+//       <Tablist flexBasis={200} width={200} marginRight={8}>
+//         <VerticalPane title="Student List">
+//           {/* <ul>
+//             {data.students.map(student => (
+//               <li key={student.id}>
+//                 {student.name} [{student.id}]
+//               </li>
+//             ))}
+//           </ul> */}
+
+//           <Tabs>
+//             {data.students.map(student => (
+//               <Link
+//                 onClick={() => { showDetails(student.id, student.name) }}
+//                 key={student.id}
+//                 //href={`/${view}/[category]/[item]`}
+//                 //as={`/${view}/specialisations/${url(student.name)}-${student.id}`}
+//               >
+//                 <a>
+//                   <SideTab
+//                     key={student.id}
+//                     id={student.id}
+//                     //isSelected={selectedItem && student.id === selectedItem.id}
+//                     aria-controls={`panel-${student.name}`}
+//                   >
+//                     {student.name}
+//                   </SideTab>
+//                 </a>
+//               </Link>
+//             ))}
+//           </Tabs>
+
+//           <Pane
+//             display="flex"
+//             alignItems="center"
+//             marginTop={16}
+//             paddingTop={8}
+//             borderTop="dotted 1px #dedede"
+//           >
+//             <Button appearance="primary" iconBefore="plus" /* onClick={() => addStudent() } */>
+//               Add Student
+//             </Button>
+//           </Pane>
+//         </VerticalPane>
+//       </Tablist>
+//     </div>
+//   );
+// };
+
+>>>>>>> 43af37262e2bcbca9a6c156ed1f5f0197de335bb
 import React from 'react';
 import { observer, useLocalStore } from 'mobx-react';
 import {
