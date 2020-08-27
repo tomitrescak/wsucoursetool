@@ -109,9 +109,10 @@ import {
   IconButton,
   toaster,
   Text,
-  Select
+  Select,
+  Combobox
 } from 'evergreen-ui';
-import { State, Student, Entity, AcsKnowledge } from '../types';
+import { State, Student, Unit } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
 import Link from 'next/link';
 
@@ -121,17 +122,26 @@ import { useRouter } from 'next/router';
 import { TextEditor } from 'components/common/text_editor';
 import { VerticalPane } from 'components/common/vertical_pane';
 import { model, Model, prop, modelAction, undoMiddleware } from 'mobx-keystone';
-import { TestModel } from 'components/classes';
-import { useSaveConfigMutation, useTopicsQuery } from 'config/graphql';
+import { StudentModel } from 'components/classes';
+import { useSaveConfigMutation, useTopicsQuery, StudentListQuery } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 
-import { useStudentListQuery } from 'config/graphql';
+import { useStudentListQuery, useUnitsQuery, UnitList, useCreateUnitMutation } from 'config/graphql';
 import { Expander } from 'components/common/expander';
+
 
 @model('Editor/Students')
 class StudentListModel extends Model({
-  items: prop<TestModel[]>()
-}) {
+  items: prop<StudentModel[]>()
+})
+{
+  @modelAction
+  add(pre: Student) {
+    this.items.push(new StudentModel(pre));
+  }
+}
+ 
+{
   // @modelAction
   // add(pre: Entity) {
   //   this.items.push(new EntityModel(pre));
@@ -146,24 +156,207 @@ type KeywordProps = {
   item: Student;
 };
 
+
+const DetailsReadonly: React.FC<{ item: Student }> = observer(({ item }) => {
+  return (
+    <div style={{ flex: 1 }}>
+      <Pane background="tint3" borderRadius={6} marginLeft={24}>
+        <Heading size={500} marginBottom={16}>
+          {item.fname + ' ' + item.lname}
+        </Heading>
+        <TextField label="Details" html={marked(item.details)} />
+      </Pane>
+    </div>
+  );
+});
+
+type Props = {
+  state: State;
+  readonly: boolean;
+};
+
+/*const localState = useLocalStore(() => ({
+  newUnitName: '',
+  newUnitId: '',
+  isShown: false,
+  selection: []
+}) */
+
+// href="/editor/[category]/[item]"
+// as={`/editor/units/${url(block.name)}-${block.id}`}
+//const { loading, error, data } = useUnitsQuery();
+
+
+
+const ListItem = observer(({ view, student, selectedItem }) => {
+  return (
+    <Link
+      key={student.studentID}
+      href={`/${view}/[category]/[item]`}
+      as={`/${view}/students/${url(student.fname + '-' + student.lname)}-${student.studentID}`}
+    >
+      <a>
+        <SideTab
+          key={student.studentID}
+          id={student.studentID}
+          isSelected={selectedItem && student.studentID === selectedItem.studentID}
+          aria-controls={`panel-${student.fname /* + ' ' + student.lname */}`}
+        >
+          {student.fname + ' ' + student.lname}
+        </SideTab>
+      </a>
+    </Link>
+  );
+});
+
+const EditorView: React.FC<Props> = ({ state, readonly }) => {
+  const router = useRouter();
+  const item = router.query.item as string;
+  const mainSplit = item ? item.split('--') : null;
+  const split = mainSplit ? mainSplit[0].split('-') : null;
+  const selectedId = split ? split[split.length - 1] : null;
+  const selectedName = split ? split[split.length - 1] : null;
+  //const selectedCode = split ? split[split.length - 1] : null;
+  const localState = useLocalStore(() => ({
+    name: '',
+    registeredName: '',
+    registeredUnit: '',
+    registeredID: ''
+  }));
+
+  // const { loading, error, data, refetch } = useStudentListQuery();
+  // const [save] = useSaveConfigMutation({
+  //   onCompleted() {
+  //     toaster.notify('Saved');
+  //     refetch();
+  //   },
+  //   onError() {
+  //     toaster.danger('Error ;(');
+  //   }
+  // });
+  /*const [createUnitMutation, { data, loading, error }] = useCreateUnitMutation({
+    variables: {
+       id: unit.id,  // value for 'id'
+       name: unit.name // value for 'name'
+    },
+  }); */
+  const { loading, error, data } = useStudentListQuery();
+
+  const model = React.useMemo(() => {
+    if (data) {
+      let model = new StudentListModel({
+        items: data.students.map(t => new StudentModel(t))
+      });
+      return model;
+    }
+    return null;
+  }, [data]);
+
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
+
+  const selectedItem = selectedId ? model.items.find(b => b.studentID === selectedId) : null;
+  const selected = selectedName ? model.items.find(a => a.name == selectedName) : null;
+
+  const form = buildForm(localState, ['name']);
+  const view = readonly ? 'view' : 'editor';
+  const units = data.units;
+
+ 
+  return (
+    <>
+      <VerticalPane title="Student List">
+        <Tablist flexBasis={200} width={200} marginRight={8}>
+          <Tabs>
+            {model.items
+              .slice()
+              .sort((a, b) => a.fname.localeCompare(b.fname))
+              .map(student => (
+                <ListItem student={student} view={view} selectedItem={selectedItem} />
+              ))}
+          </Tabs>
+        </Tablist>
+        
+        <Pane
+          display="flex"
+          alignItems="center"
+          marginTop={16}
+          paddingTop={8}
+          borderTop="dotted 1px #dedede"
+        >
+          <Button appearance="primary" iconBefore="plus" onClick={() => console.log('Add Student')}>
+            Add Student
+          </Button>
+        </Pane>
+      </VerticalPane>
+        
+
+      <VerticalPane title="Student" shrink={true}>
+        {selectedItem &&
+          (readonly ? (
+            <DetailsReadonly item={selectedItem} />
+          ) : (
+            <Details item={selectedItem} owner={model} /*unit={data.units}*/ />
+          ))}
+      </VerticalPane>
+
+    </>
+  );
+};
 // updates on the page for now until refresh
 // since its just reading from the json file
-const Details: React.FC<{ item: Student; owner: StudentListModel }> = observer(
-  ({ item, owner }) => {
-    const form = React.useMemo(() => buildForm(item, ['id', 'fname', 'lname', 'details']), [item]);
+const Details: React.FC<{ 
+  item: Student; 
+  owner: StudentListModel; 
+  unit: Unit[];
+}> = observer(({ unit, owner, item }) => { //added id: '' remove if no gud
+    const localState = useLocalStore(() => ({  
+    name: '',
+    registeredName: '',
+    registeredUnit: '',
+    registeredID: ''
+  }));
+    const form = React.useMemo(() => buildForm(item,  ['studentID', 'fname', 'lname', 'details', 'id', 'name']), [item]);
+    const router = useRouter();
+    const unitItem = router.query.item as string;
+    const mainSplit = unitItem ? unitItem.split('--') : null;
+    const split = mainSplit ? mainSplit[0].split('-') : null;
+    const selectedId = split ? split[split.length - 1] : null;
+    const selectedName = split ? split[split.length - 1] : null;
+   
+   const { loading, error, data } = useStudentListQuery();
 
+   const model = React.useMemo(() => {
+     if (data) {
+       let model = new StudentListModel({
+         items: data.units.map(t => new StudentModel(t))
+       });
+       return model;
+     }
+     return null;
+   }, [data]);
+ 
+   if (loading || error) {
+     return <ProgressView loading={loading} error={error} />;
+   }
+   //const items = unit.map(m => m.id).flat();
+   const units = data.units;
+   const selectedItem = selectedId ? model.items.find(b => b.studentID === selectedId) : null;
+  const selected = selectedName ? model.items.find(a => a.name == selectedName) : null;
     return (
       <div style={{ flex: 1 }}>
         <Pane background="tint3" borderRadius={6} marginLeft={24}>
           <Heading size={500} marginBottom={16}>
             {item.fname + ' ' + item.lname}
+            {item.id + '' + item.name}
           </Heading>
 
           <TextInputField
-            label="Student Id"
-            placeholder="Student Id"
-            value={item.id}
-            onChange={form.id}
+            label="Student ID"
+            placeholder="Student ID"
+            value={item.studentID}
+            onChange={form.studentID}
             marginBottom={8}
           />
 
@@ -200,52 +393,109 @@ const Details: React.FC<{ item: Student; owner: StudentListModel }> = observer(
         </Button> */}
         </Pane>
 
-        <br></br>
-        <Heading>Registed Units/Blocks</Heading>
+        <Expander title="Registered Units/Blocks" id="unitCompletionCriteria">
         <Pane display="flex" marginBottom={8}>
-          {/* <IconButton
-            marginTop={-4}
-            flex="0 0 40px"
-            icon="trash"
-            intent="danger"
-            appearance="primary"
-            marginRight={16}
-            // onClick={() => {
-            //   job.removeSkill(i);
-            // }}
-          /> */}
           <Text display="block" flex="1">
-            Example Unit
-            {/* {acs && acs.name} */}
-          </Text>
-
-          <Select
+          <table>
+          <thead>
+            <tr>
+              <th style={{ textAlign: 'left' }}>
+                <Heading size={400}>Unit Code</Heading>
+              </th>
+              <th style={{ textAlign: 'left' }}>
+                <Heading size={400}>Unit Name</Heading>
+              </th>
+              <th style={{ textAlign: 'left' }}>
+                <Heading size={400}>Status</Heading>
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+           <tr>
+             <td>
+               {localState.registeredID}
+             </td>
+              <td>
+                {localState.registeredUnit}
+              </td>
+              <td>
+              <Select
             marginLeft={8}
             marginRight={8}
             flex="0 0 140px"
-            //value={localState.rating ? localState.rating.toString() : ''}
-            //onChange={e => (localState.rating = parseInt(e.currentTarget.value))}
           >
             <option value="">Not Completed</option>
             <option value="1">In Progress</option>
             <option value="2">Completed</option>
           </Select>
+              </td>
+           </tr>
+          </tbody>
+          </table>
+          </Text>
+        </Pane>  
+            </Expander>
 
-          {/* <Text display="block" flex="1">
-                {sfia.name}
-              </Text> */}
+            <Expander title="Add Units" id="unitCompletionCriteria">
+        <Pane display="flex" marginBottom={8}>
+        <Pane display="flex" marginBottom={8} alignItems="flex-end">
+        <Combobox
+        label="Unit Code"
+          id="mapping"
+          flex="1"
+          marginRight={8}
+          data={units[0].id}
+          defaultValue={e => { if (selected.name = localState.registeredUnit) {
+            localState.registeredID = selected.id
+          }}
+        }
+          items={units}
+          itemToString={item => (item ? item.id : '')}
+          selectedItem={selected}
+          onChange={
+           
+            selected => (localState.registeredID = selected.id) } 
+        />
+        <Combobox 
+          //label="Unit Name"
+          id="mapping"
+          flex="1"
+          marginRight={8}
+          initialSelectedItem={{ label: 'Unit Name' }}
+          data={units[0].name}
+          defaultValue={"Unit Name"}
+          items={units}
+          itemToString={item => (item ? item.name : '')}
+          selectedItem={selected}
+          onChange={
+            selected => (localState.registeredUnit = selected.name)} 
+        />
+        <Button
+          //intent="danger"
+          iconBefore="plus"
+          appearance="primary"
+          marginTop={8}
+          onClick={() => {
+           // if (confirm('Are You Sure?')) {
+           () => localState.registeredUnit = localState.registeredName
+          }} 
+        >
+          Add
+        </Button>
+        </Pane>  
         </Pane>
+            </Expander>
 
-        <br></br>
-        <Heading>Completed Units</Heading>
-        <Pane>
-          <Pane display="flex" marginBottom={8} alignItems="flex-end">
+            <Expander title="Completed Units" id="unitCompletionCriteria">
+        <Pane display="flex" marginBottom={8}>
+        <Pane display="flex" marginBottom={8} alignItems="flex-end">
             <TextInputField
               label="Unit Code"
-              value="(example) 123456"
-              //value={unit.id}
+              //value={"(example) 123456"}
+              //value={units[0].id} // thisssssssssss here 2 am <------------------------------
               id="unitCode"
-              onChange={form.id}
+              //onChange={unit[0].id}
               disabled={true}
               margin={0}
               marginRight={8}
@@ -274,174 +524,13 @@ const Details: React.FC<{ item: Student; owner: StudentListModel }> = observer(
               //onChange={form.result}
             />
           </Pane>
-        </Pane>
+        </Pane>  
+            </Expander>
+        <br></br>
       </div>
     );
   }
-);
-
-const DetailsReadonly: React.FC<{ item: Student }> = observer(({ item }) => {
-  return (
-    <div style={{ flex: 1 }}>
-      <Pane background="tint3" borderRadius={6} marginLeft={24}>
-        <Heading size={500} marginBottom={16}>
-          {item.fname + ' ' + item.lname}
-        </Heading>
-
-        <TextField label="Details" html={marked(item.details)} />
-      </Pane>
-    </div>
   );
-});
 
-type Props = {
-  state: State;
-  readonly: boolean;
-};
-
-// href="/editor/[category]/[item]"
-// as={`/editor/units/${url(block.name)}-${block.id}`}
-
-const ListItem = observer(({ view, student, selectedItem }) => {
-  return (
-    <Link
-      key={student.id}
-      href={`/${view}/[category]/[item]`}
-      as={`/${view}/students/${url(student.fname + '-' + student.lname)}-${student.id}`}
-    >
-      <a>
-        <SideTab
-          key={student.id}
-          id={student.id}
-          isSelected={selectedItem && student.id === selectedItem.id}
-          aria-controls={`panel-${student.fname /* + ' ' + student.lname */}`}
-        >
-          {student.fname + ' ' + student.lname}
-        </SideTab>
-      </a>
-    </Link>
-  );
-});
-
-const EditorView: React.FC<Props> = ({ state, readonly }) => {
-  const router = useRouter();
-  const item = router.query.item as string;
-  const mainSplit = item ? item.split('--') : null;
-  const split = mainSplit ? mainSplit[0].split('-') : null;
-  const selectedId = split ? split[split.length - 1] : null;
-
-  const localState = useLocalStore(() => ({
-    name: ''
-  }));
-
-  // const { loading, error, data, refetch } = useStudentListQuery();
-  // const [save] = useSaveConfigMutation({
-  //   onCompleted() {
-  //     toaster.notify('Saved');
-  //     refetch();
-  //   },
-  //   onError() {
-  //     toaster.danger('Error ;(');
-  //   }
-  // });
-
-  const { loading, error, data } = useStudentListQuery();
-
-  const model = React.useMemo(() => {
-    if (data) {
-      let model = new StudentListModel({
-        items: data.students.map(t => new TestModel(t))
-      });
-      // state.undoManager = undoMiddleware(model);
-      // state.save = () => {
-      //   const body = model.items.map(i => i.toJS());
-      //   save({
-      //     variables: {
-      //       body,
-      //       part: 'students'
-      //     }
-      //   });
-      // };
-      return model;
-    }
-    // another change
-    // changed
-    // testing changes
-
-    return null;
-  }, [data]);
-
-  if (loading || error) {
-    return <ProgressView loading={loading} error={error} />;
-  }
-
-  const selectedItem = selectedId ? model.items.find(b => b.id === selectedId) : null;
-
-  const form = buildForm(localState, ['name']);
-  const view = readonly ? 'view' : 'editor';
-
-  return (
-    <>
-      <VerticalPane title="Student List">
-        <Tablist flexBasis={200} width={200} marginRight={8}>
-          <Tabs>
-            {model.items
-              .slice()
-              .sort((a, b) => a.fname.localeCompare(b.fname))
-              .map(student => (
-                <ListItem student={student} view={view} selectedItem={selectedItem} />
-              ))}
-          </Tabs>
-
-          {/* {!readonly && (
-            <Pane marginTop={16} display="flex" alignItems="center">
-              <TextInputField
-                flex={1}
-                label="Name"
-                value={localState.name}
-                placeholder="Please specify name ..."
-                onChange={form.name}
-                marginRight={4}
-              />
-              <IconButton
-                appearance="primary"
-                intent="success"
-                icon="plus"
-                onClick={() => {
-                  model.add({
-                    id: findMaxId(model.items),
-                    name: localState.name,
-                    details: ''
-                  });
-                }}
-              />
-            </Pane>
-          )} */}
-        </Tablist>
-
-        <Pane
-          display="flex"
-          alignItems="center"
-          marginTop={16}
-          paddingTop={8}
-          borderTop="dotted 1px #dedede"
-        >
-          <Button appearance="primary" iconBefore="plus" onClick={() => console.log('Add Student')}>
-            Add Student
-          </Button>
-        </Pane>
-      </VerticalPane>
-
-      <VerticalPane title="Student" shrink={true}>
-        {selectedItem &&
-          (readonly ? (
-            <DetailsReadonly item={selectedItem} />
-          ) : (
-            <Details item={selectedItem} owner={model} />
-          ))}
-      </VerticalPane>
-    </>
-  );
-};
 
 export const StudentList = observer(EditorView);

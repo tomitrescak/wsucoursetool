@@ -33,9 +33,20 @@ const removeEmpty = obj => {
   return obj;
 };
 
-@model('Course/Entity')
-export class TestModel extends Model({
+
+@model('Course/Unit')
+export class StudentUnitModel extends Model({
   id: prop<string>({ setterAction: true }),
+  name: prop<string>({ setterAction: true })
+}) {
+  toJS() {
+    return toJS(this.$);
+    }
+  }
+
+@model('Course/Entity')
+export class StudentModel extends ExtendedModel(StudentUnitModel, {
+  studentID: prop<string>({ setterAction: true }),
   fname: prop<string>({ setterAction: true }),
   lname: prop<string>({ setterAction: true }),
   details: prop<string>({ setterAction: true })
@@ -472,10 +483,10 @@ export function createSfias(skills?: SfiaSkill[]) {
 
 
 @model('Editor/Student')
-export class StudentModel extends Model({
+export class StudentTestModel extends Model({
   firstName: prop<string>({ setterAction: true }),
   lastName: prop<string>({ setterAction: true }),
-  id: prop<string>(),
+  studentID: prop<string>(),
 }) {
   // @modelAction
   // add(pre: Entity) {

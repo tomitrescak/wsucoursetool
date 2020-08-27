@@ -55,7 +55,7 @@ export const typeDefs = gql`
   }
 
   type Student{
-    id: String!
+    studentID: String!
     fname: String!
     lname: String!
   }

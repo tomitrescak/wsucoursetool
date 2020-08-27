@@ -167,8 +167,8 @@ export type State = {
   undoManager: UndoManager;
 };
 
-export type Student = {
-  id: string;
+export type Student = Unit & {
+  studentID: string;
   fname: string;
   lname: string;
   details: string;
