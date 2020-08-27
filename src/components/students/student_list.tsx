@@ -1,103 +1,3 @@
-// import React from 'react';1
-// import { useStudentListQuery } from 'config/graphql';
-// import { ProgressView } from 'components/common/progress_view';
-// import { VerticalPane } from 'components/common/vertical_pane';
-
-// import { State, Specialisation, Entity } from '../types';
-// import { buildForm, findMaxId, url } from 'lib/helpers';
-
-// import {
-//   TextInputField,
-//   Pane,
-//   Tablist,
-//   SidebarTab,
-//   Alert,
-//   Heading,
-//   Dialog,
-//   Button,
-//   SelectField,
-//   Text,
-//   Badge,
-//   Checkbox,
-//   TextInput,
-//   IconButton,
-//   toaster,
-//   Tab,
-//   Link
-// } from 'evergreen-ui';
-
-// import { SideTab, Tabs } from 'components/common/tab';
-// import { renderToStringWithData } from '@apollo/react-ssr';
-
-// export const StudentList = () => {
-//   // see an example in tag_editors.tsx
-//   const { loading, error, data } = useStudentListQuery();
-//   if (loading || error) {
-//     return <ProgressView loading={loading} error={error} />;
-//   }
-
-//   interface state {
-//     isOpen: boolean;
-//   }
-
-//   function showDetails(id, name) {
-//     // testing: accessing and printing data
-//     console.log('Student Id: ' + id);
-//     console.log('Student Name: ' + name);
-//   }
-
-//   // now work with data
-//   return (
-//     <div>
-//       <Tablist flexBasis={200} width={200} marginRight={8}>
-//         <VerticalPane title="Student List">
-//           {/* <ul>
-//             {data.students.map(student => (
-//               <li key={student.id}>
-//                 {student.name} [{student.id}]
-//               </li>
-//             ))}
-//           </ul> */}
-
-//           <Tabs>
-//             {data.students.map(student => (
-//               <Link
-//                 onClick={() => { showDetails(student.id, student.name) }}
-//                 key={student.id}
-//                 //href={`/${view}/[category]/[item]`}
-//                 //as={`/${view}/specialisations/${url(student.name)}-${student.id}`}
-//               >
-//                 <a>
-//                   <SideTab
-//                     key={student.id}
-//                     id={student.id}
-//                     //isSelected={selectedItem && student.id === selectedItem.id}
-//                     aria-controls={`panel-${student.name}`}
-//                   >
-//                     {student.name}
-//                   </SideTab>
-//                 </a>
-//               </Link>
-//             ))}
-//           </Tabs>
-
-//           <Pane
-//             display="flex"
-//             alignItems="center"
-//             marginTop={16}
-//             paddingTop={8}
-//             borderTop="dotted 1px #dedede"
-//           >
-//             <Button appearance="primary" iconBefore="plus" /* onClick={() => addStudent() } */>
-//               Add Student
-//             </Button>
-//           </Pane>
-//         </VerticalPane>
-//       </Tablist>
-//     </div>
-//   );
-// };
-
 import React from 'react';
 import { observer, useLocalStore } from 'mobx-react';
 import {
@@ -111,7 +11,7 @@ import {
   Text,
   Select
 } from 'evergreen-ui';
-import { State, Student, Entity, AcsKnowledge } from '../types';
+import { State, Student, Entity, AcsKnowledge, Unit } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
 import Link from 'next/link';
 
@@ -142,21 +42,43 @@ class StudentListModel extends Model({
   // }
 }
 
-type KeywordProps = {
-  item: Student;
-};
-
-// updates on the page for now until refresh
-// since its just reading from the json file
 const Details: React.FC<{ item: Student; owner: StudentListModel }> = observer(
   ({ item, owner }) => {
-    const form = React.useMemo(() => buildForm(item, ['id', 'fname', 'lname', 'details']), [item]);
+    const { loading, error, data } = useStudentListQuery({});
+
+    // const model = React.useMemo(() => {
+    //   console.log('Creating Student!');
+    //   if (data) {
+    //     let model = new StudentListModel({
+    //       items: data.students.map(t => new TestModel(t))
+    //     });
+    //     return model;
+    //   }
+    //   return null;
+    // }, [data]);
+
+    const form = React.useMemo(
+      () =>
+        buildForm(item, [
+          'id',
+          'firstName',
+          'lastName',
+          'details',
+          'registeredUnits',
+          'registeredBlocks'
+        ]),
+      [item]
+    );
+
+    if (loading || error) {
+      return <ProgressView loading={loading} error={error} />;
+    }
 
     return (
       <div style={{ flex: 1 }}>
         <Pane background="tint3" borderRadius={6} marginLeft={24}>
           <Heading size={500} marginBottom={16}>
-            {item.fname + ' ' + item.lname}
+            {item.firstName + ' ' + item.lastName}
           </Heading>
 
           <TextInputField
@@ -170,125 +92,147 @@ const Details: React.FC<{ item: Student; owner: StudentListModel }> = observer(
           <TextInputField
             label="First Name"
             placeholder="First Name"
-            value={item.fname}
-            onChange={form.fname}
+            value={item.firstName}
+            onChange={form.firstName}
             marginBottom={8}
           />
 
           <TextInputField
             label="Last Name"
             placeholder="Last Name"
-            value={item.lname}
-            onChange={form.lname}
+            value={item.lastName}
+            onChange={form.lastName}
             marginBottom={8}
           />
 
           <TextEditor owner={item} field="details" label="Details (TEMP)" />
-
-          {/* <Button
-          intent="danger"
-          iconBefore="trash"
-          appearance="primary"
-          marginTop={8}
-          onClick={() => {
-            if (confirm('Are You Sure?')) {
-              owner.remove(owner.items.findIndex(p => p === item));
-            }
-          }}
-        >
-          Delete
-        </Button> */}
         </Pane>
 
         <br></br>
-        <Heading>Registed Units/Blocks</Heading>
-        <Pane display="flex" marginBottom={8}>
-          {/* <IconButton
-            marginTop={-4}
-            flex="0 0 40px"
-            icon="trash"
-            intent="danger"
-            appearance="primary"
-            marginRight={16}
-            // onClick={() => {
-            //   job.removeSkill(i);
-            // }}
-          /> */}
-          <Text display="block" flex="1">
-            Example Unit
-            {/* {acs && acs.name} */}
-          </Text>
 
-          <Select
-            marginLeft={8}
-            marginRight={8}
-            flex="0 0 140px"
-            //value={localState.rating ? localState.rating.toString() : ''}
-            //onChange={e => (localState.rating = parseInt(e.currentTarget.value))}
-          >
-            <option value="">Not Completed</option>
-            <option value="1">In Progress</option>
-            <option value="2">Completed</option>
-          </Select>
-
-          {/* <Text display="block" flex="1">
-                {sfia.name}
-              </Text> */}
-        </Pane>
-
+        <Heading>Registered Units</Heading>
+        {item.registeredUnits.map((unit, i) => {
+          return (
+            <Expander title={item.registeredUnits[i].unitId} id="registeredUnitDetails">
+              <Pane display="flex" marginBottom={8}>
+                <TextInputField
+                  label="Unit Id"
+                  value={item.registeredUnits[i].unitId}
+                  id="unitId"
+                  disabled={true}
+                  margin={0}
+                  marginRight={8}
+                />
+                <TextInputField
+                  label="Registration Date"
+                  value={item.registeredUnits[i].registrationDate}
+                  id="registrationDate"
+                  disabled={true}
+                  margin={0}
+                  marginRight={8}
+                />
+              </Pane>
+              <Pane display="flex" marginBottom={8}>
+                <TextInputField
+                  label="Completion Date"
+                  value={item.registeredUnits[i].results.date}
+                  id="unitId"
+                  disabled={false}
+                  margin={0}
+                  marginRight={8}
+                />
+                <TextInputField
+                  label="Grade"
+                  value={item.registeredUnits[i].results.grade}
+                  id="grade"
+                  disabled={false}
+                  margin={0}
+                  marginRight={8}
+                />
+                <TextInputField
+                  label="Result"
+                  value={item.registeredUnits[i].results.result}
+                  id="result"
+                  disabled={false}
+                  margin={0}
+                  marginRight={8}
+                />
+              </Pane>
+            </Expander>
+          );
+        })}
         <br></br>
-        <Heading>Completed Units</Heading>
-        <Pane>
-          <Pane display="flex" marginBottom={8} alignItems="flex-end">
-            <TextInputField
-              label="Unit Code"
-              value="(example) 123456"
-              //value={unit.id}
-              id="unitCode"
-              onChange={form.id}
-              disabled={true}
-              margin={0}
-              marginRight={8}
-            />
-            <TextInputField
-              flex="1"
-              label="Unit Name"
-              id="unitName"
-              placeholder="Unit Name"
-              value="(example) Some Unit"
-              //value={unit.name}
-              margin={0}
-              marginRight={8}
-              //onChange={form.name}
-              disabled={true}
-            />
-            <TextInputField
-              label="Result"
-              flex="0 0 50px"
-              value="75"
-              //value={unit.level}
-              id="result"
-              disabled={false}
-              margin={0}
-              marginRight={8}
-              //onChange={form.result}
-            />
-          </Pane>
-        </Pane>
+
+        <Heading>Registered Blocks</Heading>
+        {item.registeredBlocks.map((block, i) => {
+          return (
+            <Expander
+              title={item.registeredBlocks[i].unitId + '(' + item.registeredBlocks[i].blockId + ')'}
+              id="registeredUnitDetails"
+            >
+              <Pane display="flex" marginBottom={8}>
+                <TextInputField
+                  label="Block Id"
+                  value={item.registeredBlocks[i].blockId}
+                  id="blockId"
+                  disabled={true}
+                  margin={0}
+                  marginRight={8}
+                />
+                <TextInputField
+                  flex="1"
+                  label="Unit Code"
+                  id="unitId"
+                  placeholder="Unit Code"
+                  value={item.registeredBlocks[i].unitId}
+                  margin={0}
+                  marginRight={8}
+                  disabled={true}
+                />
+              </Pane>
+              <Pane display="flex" marginBottom={8}>
+                <TextInputField
+                  label="Completion Date"
+                  value={item.registeredBlocks[i].results.date}
+                  id="unitId"
+                  disabled={false}
+                  margin={0}
+                  marginRight={8}
+                />
+                <TextInputField
+                  label="Grade"
+                  value={item.registeredBlocks[i].results.grade}
+                  id="grade"
+                  disabled={false}
+                  margin={0}
+                  marginRight={8}
+                />
+                <TextInputField
+                  label="Result"
+                  value={item.registeredBlocks[i].results.result}
+                  id="result"
+                  disabled={false}
+                  margin={0}
+                  marginRight={8}
+                />
+              </Pane>
+            </Expander>
+          );
+        })}
       </div>
     );
   }
 );
 
-const DetailsReadonly: React.FC<{ item: Student }> = observer(({ item }) => {
+const DetailsReadonly: React.FC<{ item: TestModel }> = observer(({ item }) => {
   return (
     <div style={{ flex: 1 }}>
       <Pane background="tint3" borderRadius={6} marginLeft={24}>
         <Heading size={500} marginBottom={16}>
-          {item.fname + ' ' + item.lname}
+          {item.id}
         </Heading>
 
-        <TextField label="Details" html={marked(item.details)} />
+        <TextField label="Description" html={marked(item.details)} />
       </Pane>
     </div>
   );
@@ -299,24 +243,21 @@ type Props = {
   readonly: boolean;
 };
 
-// href="/editor/[category]/[item]"
-// as={`/editor/units/${url(block.name)}-${block.id}`}
-
 const ListItem = observer(({ view, student, selectedItem }) => {
   return (
     <Link
       key={student.id}
       href={`/${view}/[category]/[item]`}
-      as={`/${view}/students/${url(student.fname + '-' + student.lname)}-${student.id}`}
+      as={`/${view}/students/${url(student.firstName + '-' + student.firstName)}-${student.id}`}
     >
       <a>
         <SideTab
           key={student.id}
           id={student.id}
           isSelected={selectedItem && student.id === selectedItem.id}
-          aria-controls={`panel-${student.fname /* + ' ' + student.lname */}`}
+          aria-controls={`panel-${student.firstName /* + ' ' + student.lastName */}`}
         >
-          {student.fname + ' ' + student.lname}
+          {student.firstName + ' ' + student.lastName}
         </SideTab>
       </a>
     </Link>
@@ -334,14 +275,13 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
     name: ''
   }));
 
-  // const { loading, error, data, refetch } = useStudentListQuery();
-  // const [save] = useSaveConfigMutation({
+  // // useCreateStudentMutation doesnt actually exist
+  // const [createStudent] = useCreateStudentMutation({
   //   onCompleted() {
-  //     toaster.notify('Saved');
-  //     refetch();
+  //     toaster.notify('Student created. Config saved.');
   //   },
-  //   onError() {
-  //     toaster.danger('Error ;(');
+  //   onError(e) {
+  //     toaster.danger('Error ;(: ' + e.message);
   //   }
   // });
 
@@ -364,9 +304,6 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
       // };
       return model;
     }
-    // another change
-    // changed
-    // testing changes
 
     return null;
   }, [data]);
@@ -376,7 +313,6 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
   }
 
   const selectedItem = selectedId ? model.items.find(b => b.id === selectedId) : null;
-
   const form = buildForm(localState, ['name']);
   const view = readonly ? 'view' : 'editor';
 
@@ -387,36 +323,11 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
           <Tabs>
             {model.items
               .slice()
-              .sort((a, b) => a.fname.localeCompare(b.fname))
+              .sort((a, b) => a.firstName.localeCompare(b.firstName))
               .map(student => (
                 <ListItem student={student} view={view} selectedItem={selectedItem} />
               ))}
           </Tabs>
-
-          {/* {!readonly && (
-            <Pane marginTop={16} display="flex" alignItems="center">
-              <TextInputField
-                flex={1}
-                label="Name"
-                value={localState.name}
-                placeholder="Please specify name ..."
-                onChange={form.name}
-                marginRight={4}
-              />
-              <IconButton
-                appearance="primary"
-                intent="success"
-                icon="plus"
-                onClick={() => {
-                  model.add({
-                    id: findMaxId(model.items),
-                    name: localState.name,
-                    details: ''
-                  });
-                }}
-              />
-            </Pane>
-          )} */}
         </Tablist>
 
         <Pane
