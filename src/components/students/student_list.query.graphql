@@ -1,8 +1,28 @@
+fragment Result on Result {
+  date
+  grade
+  result
+}
 query StudentList {
   students {
     id
-    fname
-    lname
+    firstName
+    lastName
+    registeredUnits {
+      registrationDate
+      unitId
+      results {
+        ...Result
+      }
+    }
+    registeredBlocks {
+      registrationDate
+      blockId
+      unitId
+      results {
+        ...Result
+      }
+    }
   }
 
   units {

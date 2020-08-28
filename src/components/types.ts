@@ -167,9 +167,30 @@ export type State = {
   undoManager: UndoManager;
 };
 
+export type Result = {
+  date: string;
+  result: number;
+  grade: string;
+};
+
+export type RegisteredUnit = {
+  unitId: string;
+  registrationDate: string;
+  results: Result;
+};
+
+export type RegisteredBlock = {
+  unitId: string;
+  blockId: string;
+  registrationDate: string;
+  results: Result;
+};
+
 export type Student = {
   id: string;
-  fname: string;
-  lname: string;
+  firstName: string;
+  lastName: string;
   details: string;
-}
+  registeredUnits: RegisteredUnit[];
+  registeredBlocks: RegisteredBlock[];
+};

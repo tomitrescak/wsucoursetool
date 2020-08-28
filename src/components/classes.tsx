@@ -33,12 +33,33 @@ const removeEmpty = obj => {
   return obj;
 };
 
+type Result = {
+  date: string;
+  result: number;
+  grade: string;
+};
+
+type RegisteredUnit = {
+  unitId: string;
+  registrationDate: string;
+  results: Result;
+};
+
+type RegisteredBlock = {
+  unitId: string;
+  blockId: string;
+  registrationDate: string;
+  results: Result;
+};
+
 @model('Course/Entity')
 export class TestModel extends Model({
   id: prop<string>({ setterAction: true }),
-  fname: prop<string>({ setterAction: true }),
-  lname: prop<string>({ setterAction: true }),
-  details: prop<string>({ setterAction: true })
+  firstName: prop<string>({ setterAction: true }),
+  lastName: prop<string>({ setterAction: true }),
+  details: prop<string>({ setterAction: true }),
+  registeredUnits: prop<RegisteredUnit[]>({ setterAction: true }),
+  registeredBlocks: prop<RegisteredBlock[]>({ setterAction: true })
 }) {
   toJS() {
     return toJS(this.$);
@@ -468,14 +489,11 @@ export function createSfias(skills?: SfiaSkill[]) {
   return (skills || []).map(c => new SfiaSkillModel(c));
 }
 
-
-
-
 @model('Editor/Student')
 export class StudentModel extends Model({
   firstName: prop<string>({ setterAction: true }),
   lastName: prop<string>({ setterAction: true }),
-  id: prop<string>(),
+  id: prop<string>()
 }) {
   // @modelAction
   // add(pre: Entity) {

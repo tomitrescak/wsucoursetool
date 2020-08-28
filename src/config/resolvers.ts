@@ -64,10 +64,31 @@ export type CourseList = {
   core: Array<Identifiable>;
 };
 
+export type Result = {
+  date: Scalars['String'];
+  result: Scalars['Int'];
+  grade: Scalars['String'];
+};
+
+export type RegisteredUnit = {
+  unitId: Scalars['String'];
+  registrationDate: Scalars['String'];
+  results: Result;
+};
+
+export type RegisteredBlock = {
+  unitId: Scalars['String'];
+  blockId: Scalars['String'];
+  registrationDate: Scalars['String'];
+  results: Result;
+};
+
 export type Student = {
   id: Scalars['String'];
-  fname: Scalars['String'];
-  lname: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  registeredUnits: Array<RegisteredUnit>;
+  registeredBlocks: Array<RegisteredBlock>;
 };
 
 export type Query = {
@@ -261,6 +282,9 @@ export type ResolversTypes = {
   Identifiable: ResolverTypeWrapper<Identifiable>;
   MajorList: ResolverTypeWrapper<MajorList>;
   CourseList: ResolverTypeWrapper<CourseList>;
+  Result: ResolverTypeWrapper<Result>;
+  RegisteredUnit: ResolverTypeWrapper<RegisteredUnit>;
+  RegisteredBlock: ResolverTypeWrapper<RegisteredBlock>;
   Student: ResolverTypeWrapper<Student>;
   Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -281,6 +305,9 @@ export type ResolversParentTypes = {
   Identifiable: Identifiable;
   MajorList: MajorList;
   CourseList: CourseList;
+  Result: Result;
+  RegisteredUnit: RegisteredUnit;
+  RegisteredBlock: RegisteredBlock;
   Student: Student;
   Query: {};
   Mutation: {};
@@ -350,10 +377,34 @@ export type CourseListResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = {
+  date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  result?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  grade?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type RegisteredUnitResolvers<ContextType = any, ParentType extends ResolversParentTypes['RegisteredUnit'] = ResolversParentTypes['RegisteredUnit']> = {
+  unitId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  registrationDate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  results?: Resolver<ResolversTypes['Result'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type RegisteredBlockResolvers<ContextType = any, ParentType extends ResolversParentTypes['RegisteredBlock'] = ResolversParentTypes['RegisteredBlock']> = {
+  unitId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  blockId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  registrationDate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  results?: Resolver<ResolversTypes['Result'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type StudentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Student'] = ResolversParentTypes['Student']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  fname?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  lname?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  registeredUnits?: Resolver<Array<ResolversTypes['RegisteredUnit']>, ParentType, ContextType>;
+  registeredBlocks?: Resolver<Array<ResolversTypes['RegisteredBlock']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -400,6 +451,9 @@ export type Resolvers<ContextType = any> = {
   Identifiable?: IdentifiableResolvers<ContextType>;
   MajorList?: MajorListResolvers<ContextType>;
   CourseList?: CourseListResolvers<ContextType>;
+  Result?: ResultResolvers<ContextType>;
+  RegisteredUnit?: RegisteredUnitResolvers<ContextType>;
+  RegisteredBlock?: RegisteredBlockResolvers<ContextType>;
   Student?: StudentResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

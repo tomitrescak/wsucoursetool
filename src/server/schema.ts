@@ -54,10 +54,31 @@ export const typeDefs = gql`
     core: [Identifiable!]!
   }
 
-  type Student{
+  type Result {
+    date: String! #ISO Encoded
+    result: Int!
+    grade: String!
+  }
+
+  type RegisteredUnit {
+    unitId: String!
+    registrationDate: String! #ISO Encoded
+    results: Result!
+  }
+
+  type RegisteredBlock {
+    unitId: String!
+    blockId: String!
+    registrationDate: String! #ISO Encoded
+    results: Result!
+  }
+
+  type Student {
     id: String!
-    fname: String!
-    lname: String!
+    firstName: String!
+    lastName: String!
+    registeredUnits: [RegisteredUnit!]!
+    registeredBlocks: [RegisteredBlock!]!
   }
 
   type Query {

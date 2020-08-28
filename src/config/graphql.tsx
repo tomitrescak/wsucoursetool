@@ -65,10 +65,31 @@ export type CourseList = {
   core: Array<Identifiable>;
 };
 
+export type Result = {
+  date: Scalars['String'];
+  result: Scalars['Int'];
+  grade: Scalars['String'];
+};
+
+export type RegisteredUnit = {
+  unitId: Scalars['String'];
+  registrationDate: Scalars['String'];
+  results: Result;
+};
+
+export type RegisteredBlock = {
+  unitId: Scalars['String'];
+  blockId: Scalars['String'];
+  registrationDate: Scalars['String'];
+  results: Result;
+};
+
 export type Student = {
   id: Scalars['String'];
-  fname: Scalars['String'];
-  lname: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  registeredUnits: Array<RegisteredUnit>;
+  registeredBlocks: Array<RegisteredBlock>;
 };
 
 export type Query = {
@@ -306,10 +327,21 @@ export type SpecialisationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type SpecialisationsQuery = { specialisations: Array<Pick<SpecialisationList, 'id' | 'name'>> };
 
+export type ResultFragment = Pick<Result, 'date' | 'grade' | 'result'>;
+
 export type StudentListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type StudentListQuery = { students: Array<Pick<Student, 'id' | 'fname' | 'lname'>>, units: Array<Pick<UnitList, 'id' | 'name'>> };
+export type StudentListQuery = { students: Array<(
+    Pick<Student, 'id' | 'firstName' | 'lastName'>
+    & { registeredUnits: Array<(
+      Pick<RegisteredUnit, 'registrationDate' | 'unitId'>
+      & { results: ResultFragment }
+    )>, registeredBlocks: Array<(
+      Pick<RegisteredBlock, 'registrationDate' | 'blockId' | 'unitId'>
+      & { results: ResultFragment }
+    )> }
+  )>, units: Array<Pick<UnitList, 'id' | 'name'>> };
 
 export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -350,7 +382,13 @@ export type UnitsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type UnitsQuery = { units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'id' | 'name'>> };
 
-
+export const ResultFragmentDoc = gql`
+    fragment Result on Result {
+  date
+  grade
+  result
+}
+    `;
 export const AcsDocument = gql`
     query Acs {
   acs
@@ -925,15 +963,30 @@ export const StudentListDocument = gql`
     query StudentList {
   students {
     id
-    fname
-    lname
+    firstName
+    lastName
+    registeredUnits {
+      registrationDate
+      unitId
+      results {
+        ...Result
+      }
+    }
+    registeredBlocks {
+      registrationDate
+      blockId
+      unitId
+      results {
+        ...Result
+      }
+    }
   }
   units {
     id
     name
   }
 }
-    `;
+    ${ResultFragmentDoc}`;
 
 /**
  * __useStudentListQuery__
