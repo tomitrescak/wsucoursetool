@@ -1,106 +1,3 @@
-<<<<<<< HEAD
-=======
-// import React from 'react';123
-// import { useStudentListQuery } from 'config/graphql';
-// import { ProgressView } from 'components/common/progress_view';
-// import { VerticalPane } from 'components/common/vertical_pane';
-
-// import { State, Specialisation, Entity } from '../types';
-// import { buildForm, findMaxId, url } from 'lib/helpers';
-
-// import {
-//   TextInputField,
-//   Pane,
-//   Tablist,
-//   SidebarTab,
-//   Alert,
-//   Heading,
-//   Dialog,
-//   Button,
-//   SelectField,
-//   Text,
-//   Badge,
-//   Checkbox,
-//   TextInput,
-//   IconButton,
-//   toaster,
-//   Tab,
-//   Link
-// } from 'evergreen-ui';
-
-// import { SideTab, Tabs } from 'components/common/tab';
-// import { renderToStringWithData } from '@apollo/react-ssr';
-
-// export const StudentList = () => {
-//   // see an example in tag_editors.tsx
-//   const { loading, error, data } = useStudentListQuery();
-//   if (loading || error) {
-//     return <ProgressView loading={loading} error={error} />;
-//   }
-
-//   interface state {
-//     isOpen: boolean;
-//   }
-
-//   function showDetails(id, name) {
-//     // testing: accessing and printing data
-//     console.log('Student Id: ' + id);
-//     console.log('Student Name: ' + name);
-//   }
-
-//   // now work with data
-//   return (
-//     <div>
-//       <Tablist flexBasis={200} width={200} marginRight={8}>
-//         <VerticalPane title="Student List">
-//           {/* <ul>
-//             {data.students.map(student => (
-//               <li key={student.id}>
-//                 {student.name} [{student.id}]
-//               </li>
-//             ))}
-//           </ul> */}
-
-//           <Tabs>
-//             {data.students.map(student => (
-//               <Link
-//                 onClick={() => { showDetails(student.id, student.name) }}
-//                 key={student.id}
-//                 //href={`/${view}/[category]/[item]`}
-//                 //as={`/${view}/specialisations/${url(student.name)}-${student.id}`}
-//               >
-//                 <a>
-//                   <SideTab
-//                     key={student.id}
-//                     id={student.id}
-//                     //isSelected={selectedItem && student.id === selectedItem.id}
-//                     aria-controls={`panel-${student.name}`}
-//                   >
-//                     {student.name}
-//                   </SideTab>
-//                 </a>
-//               </Link>
-//             ))}
-//           </Tabs>
-
-//           <Pane
-//             display="flex"
-//             alignItems="center"
-//             marginTop={16}
-//             paddingTop={8}
-//             borderTop="dotted 1px #dedede"
-//           >
-//             <Button appearance="primary" iconBefore="plus" /* onClick={() => addStudent() } */>
-//               Add Student
-//             </Button>
-//           </Pane>
-//         </VerticalPane>
-//       </Tablist>
-//     </div>
-//   );
-// };
-
->>>>>>> 43af37262e2bcbca9a6c156ed1f5f0197de335bb
 import React from 'react';
 import { observer, useLocalStore } from 'mobx-react';
 import {
@@ -177,153 +74,153 @@ const Details: React.FC<{ item: Student; owner: StudentListModel }> = observer(
       return <ProgressView loading={loading} error={error} />;
     }
 
-    return (
-      <div style={{ flex: 1 }}>
-        <Pane background="tint3" borderRadius={6} marginLeft={24}>
-          <Heading size={500} marginBottom={16}>
-            {item.firstName + ' ' + item.lastName}
-          </Heading>
+    // return (
+    //   <div style={{ flex: 1 }}>
+    //     <Pane background="tint3" borderRadius={6} marginLeft={24}>
+    //       <Heading size={500} marginBottom={16}>
+    //         {item.firstName + ' ' + item.lastName}
+    //       </Heading>
 
-          <TextInputField
-            label="Student Id"
-            placeholder="Student Id"
-            value={item.id}
-            onChange={form.id}
-            marginBottom={8}
-          />
+    //       <TextInputField
+    //         label="Student Id"
+    //         placeholder="Student Id"
+    //         value={item.id}
+    //         onChange={form.id}
+    //         marginBottom={8}
+    //       />
 
-          <TextInputField
-            label="First Name"
-            placeholder="First Name"
-            value={item.firstName}
-            onChange={form.firstName}
-            marginBottom={8}
-          />
+    //       <TextInputField
+    //         label="First Name"
+    //         placeholder="First Name"
+    //         value={item.firstName}
+    //         onChange={form.firstName}
+    //         marginBottom={8}
+    //       />
 
-          <TextInputField
-            label="Last Name"
-            placeholder="Last Name"
-            value={item.lastName}
-            onChange={form.lastName}
-            marginBottom={8}
-          />
+    //       <TextInputField
+    //         label="Last Name"
+    //         placeholder="Last Name"
+    //         value={item.lastName}
+    //         onChange={form.lastName}
+    //         marginBottom={8}
+    //       />
 
-          <TextEditor owner={item} field="details" label="Details (TEMP)" />
-        </Pane>
+    //       <TextEditor owner={item} field="details" label="Details (TEMP)" />
+    //     </Pane>
 
-        <br></br>
+    //     <br></br>
 
-        <Heading>Registered Units</Heading>
-        {item.registeredUnits.map((unit, i) => {
-          return (
-            <Expander title={item.registeredUnits[i].unitId} id="registeredUnitDetails">
-              <Pane display="flex" marginBottom={8}>
-                <TextInputField
-                  label="Unit Id"
-                  value={item.registeredUnits[i].unitId}
-                  id="unitId"
-                  disabled={true}
-                  margin={0}
-                  marginRight={8}
-                />
-                <TextInputField
-                  label="Registration Date"
-                  value={item.registeredUnits[i].registrationDate}
-                  id="registrationDate"
-                  disabled={true}
-                  margin={0}
-                  marginRight={8}
-                />
-              </Pane>
-              <Pane display="flex" marginBottom={8}>
-                <TextInputField
-                  label="Completion Date"
-                  value={item.registeredUnits[i].results.date}
-                  id="unitId"
-                  disabled={false}
-                  margin={0}
-                  marginRight={8}
-                />
-                <TextInputField
-                  label="Grade"
-                  value={item.registeredUnits[i].results.grade}
-                  id="grade"
-                  disabled={false}
-                  margin={0}
-                  marginRight={8}
-                />
-                <TextInputField
-                  label="Result"
-                  value={item.registeredUnits[i].results.result}
-                  id="result"
-                  disabled={false}
-                  margin={0}
-                  marginRight={8}
-                />
-              </Pane>
-            </Expander>
-          );
-        })}
-        <br></br>
+    //     <Heading>Registered Units</Heading>
+    //     {item.registeredUnits.map((unit, i) => {
+    //       return (
+    //         <Expander title={item.registeredUnits[i].unitId} id="registeredUnitDetails">
+    //           <Pane display="flex" marginBottom={8}>
+    //             <TextInputField
+    //               label="Unit Id"
+    //               value={item.registeredUnits[i].unitId}
+    //               id="unitId"
+    //               disabled={true}
+    //               margin={0}
+    //               marginRight={8}
+    //             />
+    //             <TextInputField
+    //               label="Registration Date"
+    //               value={item.registeredUnits[i].registrationDate}
+    //               id="registrationDate"
+    //               disabled={true}
+    //               margin={0}
+    //               marginRight={8}
+    //             />
+    //           </Pane>
+    //           <Pane display="flex" marginBottom={8}>
+    //             <TextInputField
+    //               label="Completion Date"
+    //               value={item.registeredUnits[i].results.date}
+    //               id="unitId"
+    //               disabled={false}
+    //               margin={0}
+    //               marginRight={8}
+    //             />
+    //             <TextInputField
+    //               label="Grade"
+    //               value={item.registeredUnits[i].results.grade}
+    //               id="grade"
+    //               disabled={false}
+    //               margin={0}
+    //               marginRight={8}
+    //             />
+    //             <TextInputField
+    //               label="Result"
+    //               value={item.registeredUnits[i].results.result}
+    //               id="result"
+    //               disabled={false}
+    //               margin={0}
+    //               marginRight={8}
+    //             />
+    //           </Pane>
+    //         </Expander>
+    //       );
+    //     })}
+    //     <br></br>
 
-        <Heading>Registered Blocks</Heading>
-        {item.registeredBlocks.map((block, i) => {
-          return (
-            <Expander
-              title={item.registeredBlocks[i].unitId + '(' + item.registeredBlocks[i].blockId + ')'}
-              id="registeredUnitDetails"
-            >
-              <Pane display="flex" marginBottom={8}>
-                <TextInputField
-                  label="Block Id"
-                  value={item.registeredBlocks[i].blockId}
-                  id="blockId"
-                  disabled={true}
-                  margin={0}
-                  marginRight={8}
-                />
-                <TextInputField
-                  flex="1"
-                  label="Unit Code"
-                  id="unitId"
-                  placeholder="Unit Code"
-                  value={item.registeredBlocks[i].unitId}
-                  margin={0}
-                  marginRight={8}
-                  disabled={true}
-                />
-              </Pane>
-              <Pane display="flex" marginBottom={8}>
-                <TextInputField
-                  label="Completion Date"
-                  value={item.registeredBlocks[i].results.date}
-                  id="unitId"
-                  disabled={false}
-                  margin={0}
-                  marginRight={8}
-                />
-                <TextInputField
-                  label="Grade"
-                  value={item.registeredBlocks[i].results.grade}
-                  id="grade"
-                  disabled={false}
-                  margin={0}
-                  marginRight={8}
-                />
-                <TextInputField
-                  label="Result"
-                  value={item.registeredBlocks[i].results.result}
-                  id="result"
-                  disabled={false}
-                  margin={0}
-                  marginRight={8}
-                />
-              </Pane>
-            </Expander>
-          );
-        })}
-      </div>
-    );
+    //     <Heading>Registered Blocks</Heading>
+    //     {item.registeredBlocks.map((block, i) => {
+    //       return (
+    //         <Expander
+    //           title={item.registeredBlocks[i].unitId + '(' + item.registeredBlocks[i].blockId + ')'}
+    //           id="registeredUnitDetails"
+    //         >
+    //           <Pane display="flex" marginBottom={8}>
+    //             <TextInputField
+    //               label="Block Id"
+    //               value={item.registeredBlocks[i].blockId}
+    //               id="blockId"
+    //               disabled={true}
+    //               margin={0}
+    //               marginRight={8}
+    //             />
+    //             <TextInputField
+    //               flex="1"
+    //               label="Unit Code"
+    //               id="unitId"
+    //               placeholder="Unit Code"
+    //               value={item.registeredBlocks[i].unitId}
+    //               margin={0}
+    //               marginRight={8}
+    //               disabled={true}
+    //             />
+    //           </Pane>
+    //           <Pane display="flex" marginBottom={8}>
+    //             <TextInputField
+    //               label="Completion Date"
+    //               value={item.registeredBlocks[i].results.date}
+    //               id="unitId"
+    //               disabled={false}
+    //               margin={0}
+    //               marginRight={8}
+    //             />
+    //             <TextInputField
+    //               label="Grade"
+    //               value={item.registeredBlocks[i].results.grade}
+    //               id="grade"
+    //               disabled={false}
+    //               margin={0}
+    //               marginRight={8}
+    //             />
+    //             <TextInputField
+    //               label="Result"
+    //               value={item.registeredBlocks[i].results.result}
+    //               id="result"
+    //               disabled={false}
+    //               margin={0}
+    //               marginRight={8}
+    //             />
+    //           </Pane>
+    //         </Expander>
+    //       );
+    //     })}
+    //   </div>
+    // );
   }
 );
 
