@@ -66,7 +66,7 @@ export type CourseList = {
 };
 
 export type Student = {
-  studentID: Scalars['String'];
+  id: Scalars['String'];
   fname: Scalars['String'];
   lname: Scalars['String'];
 };
@@ -309,7 +309,7 @@ export type SpecialisationsQuery = { specialisations: Array<Pick<SpecialisationL
 export type StudentListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type StudentListQuery = { students: Array<Pick<Student, 'studentID' | 'fname' | 'lname'>>, units: Array<Pick<UnitList, 'id' | 'name'>> };
+export type StudentListQuery = { students: Array<Pick<Student, 'id' | 'fname' | 'lname'>>, units: Array<Pick<UnitList, 'id' | 'name'>> };
 
 export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -924,7 +924,7 @@ export type SpecialisationsQueryResult = ApolloReactCommon.QueryResult<Specialis
 export const StudentListDocument = gql`
     query StudentList {
   students {
-    studentID
+    id
     fname
     lname
   }

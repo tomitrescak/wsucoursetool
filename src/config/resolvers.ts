@@ -65,7 +65,7 @@ export type CourseList = {
 };
 
 export type Student = {
-  studentID: Scalars['String'];
+  id: Scalars['String'];
   fname: Scalars['String'];
   lname: Scalars['String'];
 };
@@ -351,7 +351,7 @@ export type CourseListResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type StudentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Student'] = ResolversParentTypes['Student']> = {
-  studentID?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   fname?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lname?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;

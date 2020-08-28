@@ -1,6 +1,6 @@
 query StudentList {
   students {
-    studentID
+    id
     fname
     lname
   }
