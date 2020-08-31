@@ -105,6 +105,7 @@ export type Query = {
   specialisation: Scalars['JSON'];
   keywords: Array<Scalars['String']>;
   blocks: Array<BlockList>;
+  block?: Maybe<Entity>;
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
   topics: Array<TopicList>;
@@ -139,6 +140,12 @@ export type QueryJobArgs = {
 
 export type QuerySpecialisationArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryBlockArgs = {
+  unitId: Scalars['String'];
+  blockId: Scalars['String'];
 };
 
 export type Mutation = {
@@ -422,6 +429,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   specialisation?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QuerySpecialisationArgs, 'id'>>;
   keywords?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   blocks?: Resolver<Array<ResolversTypes['BlockList']>, ParentType, ContextType>;
+  block?: Resolver<Maybe<ResolversTypes['Entity']>, ParentType, ContextType, RequireFields<QueryBlockArgs, 'unitId' | 'blockId'>>;
   acs?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   sfia?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   topics?: Resolver<Array<ResolversTypes['TopicList']>, ParentType, ContextType>;

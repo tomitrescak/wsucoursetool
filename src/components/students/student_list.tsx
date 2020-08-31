@@ -9,7 +9,8 @@ import {
   IconButton,
   toaster,
   Text,
-  Select
+  Select,
+  Dialog
 } from 'evergreen-ui';
 import { State, Student, Entity, AcsKnowledge, Unit } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
@@ -22,7 +23,14 @@ import { TextEditor } from 'components/common/text_editor';
 import { VerticalPane } from 'components/common/vertical_pane';
 import { model, Model, prop, modelAction, undoMiddleware } from 'mobx-keystone';
 import { TestModel } from 'components/classes';
-import { useSaveConfigMutation, useTopicsQuery } from 'config/graphql';
+import {
+  useSaveConfigMutation,
+  useTopicsQuery,
+  useBlockQuery,
+  RegisteredUnit,
+  UnitList,
+  RegisteredBlock
+} from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 
 import { useStudentListQuery } from 'config/graphql';
@@ -41,6 +49,133 @@ class StudentListModel extends Model({
   //   this.items.splice(ix, 1);
   // }
 }
+
+type UnitDetailsParams = {
+  units: Array<{ id: string; name: string }>;
+  unit: RegisteredUnit;
+};
+
+const UnitResult = ({ units, unit }: UnitDetailsParams) => {
+  return (
+    <Expander title={unit.unitId} id="registeredUnitDetails">
+      <Pane display="flex" marginBottom={8}>
+        <TextInputField
+          label="Unit Id"
+          value={unit.unitId}
+          id="unitId"
+          disabled={true}
+          margin={0}
+          marginRight={8}
+        />
+        <TextInputField
+          label="Registration Date"
+          value={unit.registrationDate}
+          id="registrationDate"
+          disabled={true}
+          margin={0}
+          marginRight={8}
+        />
+        {units.find(u => u.id === unit.unitId)?.name}
+      </Pane>
+      <Pane display="flex" marginBottom={8}>
+        <TextInputField
+          label="Completion Date"
+          value={unit.results.date}
+          id="unitId"
+          disabled={false}
+          margin={0}
+          marginRight={8}
+        />
+        <TextInputField
+          label="Grade"
+          value={unit.results.grade}
+          id="grade"
+          disabled={false}
+          margin={0}
+          marginRight={8}
+        />
+        <TextInputField
+          label="Result"
+          value={unit.results.result}
+          id="result"
+          disabled={false}
+          margin={0}
+          marginRight={8}
+        />
+      </Pane>
+    </Expander>
+  );
+};
+
+type BlockDetailsParams = {
+  units: Array<{ id: string; name: string }>;
+  block: RegisteredBlock;
+};
+
+const BlockResult = ({ units, block }: BlockDetailsParams) => {
+  const { loading, error, data } = useBlockQuery({
+    variables: {
+      blockId: block.blockId,
+      unitId: block.unitId
+    }
+  });
+
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
+  const unitName = units.find(u => u.id === block.unitId)?.name;
+
+  return (
+    <Expander title={block.unitId} id="registeredUnitDetails">
+      <Pane display="flex" marginBottom={8}>
+        <TextInputField
+          label="Unit Id"
+          value={block.unitId}
+          id="unitId"
+          disabled={true}
+          margin={0}
+          marginRight={8}
+        />
+        <TextInputField
+          label="Registration Date"
+          value={block.registrationDate}
+          id="registrationDate"
+          disabled={true}
+          margin={0}
+          marginRight={8}
+        />
+        {unitName}
+        {data.block ? data.block.name : `Block ${unitName} > ${block.blockId} does not exists`}
+      </Pane>
+      <Pane display="flex" marginBottom={8}>
+        <TextInputField
+          label="Completion Date"
+          value={block.results.date}
+          id="unitId"
+          disabled={false}
+          margin={0}
+          marginRight={8}
+        />
+        <TextInputField
+          label="Grade"
+          value={block.results.grade}
+          id="grade"
+          disabled={false}
+          margin={0}
+          marginRight={8}
+        />
+        <TextInputField
+          label="Result"
+          value={block.results.result}
+          id="result"
+          disabled={false}
+          margin={0}
+          marginRight={8}
+        />
+      </Pane>
+    </Expander>
+  );
+};
 
 const Details: React.FC<{ item: Student; owner: StudentListModel }> = observer(
   ({ item, owner }) => {
@@ -74,153 +209,54 @@ const Details: React.FC<{ item: Student; owner: StudentListModel }> = observer(
       return <ProgressView loading={loading} error={error} />;
     }
 
-    // return (
-    //   <div style={{ flex: 1 }}>
-    //     <Pane background="tint3" borderRadius={6} marginLeft={24}>
-    //       <Heading size={500} marginBottom={16}>
-    //         {item.firstName + ' ' + item.lastName}
-    //       </Heading>
+    return (
+      <div style={{ flex: 1 }}>
+        <Pane background="tint3" borderRadius={6} marginLeft={24}>
+          <Heading size={500} marginBottom={16}>
+            {item.firstName + ' ' + item.lastName}
+          </Heading>
 
-    //       <TextInputField
-    //         label="Student Id"
-    //         placeholder="Student Id"
-    //         value={item.id}
-    //         onChange={form.id}
-    //         marginBottom={8}
-    //       />
+          <TextInputField
+            label="Student Id"
+            placeholder="Student Id"
+            value={item.id}
+            onChange={form.id}
+            marginBottom={8}
+          />
 
-    //       <TextInputField
-    //         label="First Name"
-    //         placeholder="First Name"
-    //         value={item.firstName}
-    //         onChange={form.firstName}
-    //         marginBottom={8}
-    //       />
+          <TextInputField
+            label="First Name"
+            placeholder="First Name"
+            value={item.firstName}
+            onChange={form.firstName}
+            marginBottom={8}
+          />
 
-    //       <TextInputField
-    //         label="Last Name"
-    //         placeholder="Last Name"
-    //         value={item.lastName}
-    //         onChange={form.lastName}
-    //         marginBottom={8}
-    //       />
+          <TextInputField
+            label="Last Name"
+            placeholder="Last Name"
+            value={item.lastName}
+            onChange={form.lastName}
+            marginBottom={8}
+          />
 
-    //       <TextEditor owner={item} field="details" label="Details (TEMP)" />
-    //     </Pane>
+          <TextEditor owner={item} field="details" label="Details (TEMP)" />
+        </Pane>
 
-    //     <br></br>
+        <br></br>
 
-    //     <Heading>Registered Units</Heading>
-    //     {item.registeredUnits.map((unit, i) => {
-    //       return (
-    //         <Expander title={item.registeredUnits[i].unitId} id="registeredUnitDetails">
-    //           <Pane display="flex" marginBottom={8}>
-    //             <TextInputField
-    //               label="Unit Id"
-    //               value={item.registeredUnits[i].unitId}
-    //               id="unitId"
-    //               disabled={true}
-    //               margin={0}
-    //               marginRight={8}
-    //             />
-    //             <TextInputField
-    //               label="Registration Date"
-    //               value={item.registeredUnits[i].registrationDate}
-    //               id="registrationDate"
-    //               disabled={true}
-    //               margin={0}
-    //               marginRight={8}
-    //             />
-    //           </Pane>
-    //           <Pane display="flex" marginBottom={8}>
-    //             <TextInputField
-    //               label="Completion Date"
-    //               value={item.registeredUnits[i].results.date}
-    //               id="unitId"
-    //               disabled={false}
-    //               margin={0}
-    //               marginRight={8}
-    //             />
-    //             <TextInputField
-    //               label="Grade"
-    //               value={item.registeredUnits[i].results.grade}
-    //               id="grade"
-    //               disabled={false}
-    //               margin={0}
-    //               marginRight={8}
-    //             />
-    //             <TextInputField
-    //               label="Result"
-    //               value={item.registeredUnits[i].results.result}
-    //               id="result"
-    //               disabled={false}
-    //               margin={0}
-    //               marginRight={8}
-    //             />
-    //           </Pane>
-    //         </Expander>
-    //       );
-    //     })}
-    //     <br></br>
+        <Heading>Registered Units</Heading>
+        {item.registeredUnits.map((unit, i) => {
+          return <UnitResult key={i} units={data.units} unit={item.registeredUnits[i]} />;
+        })}
+        <br></br>
 
-    //     <Heading>Registered Blocks</Heading>
-    //     {item.registeredBlocks.map((block, i) => {
-    //       return (
-    //         <Expander
-    //           title={item.registeredBlocks[i].unitId + '(' + item.registeredBlocks[i].blockId + ')'}
-    //           id="registeredUnitDetails"
-    //         >
-    //           <Pane display="flex" marginBottom={8}>
-    //             <TextInputField
-    //               label="Block Id"
-    //               value={item.registeredBlocks[i].blockId}
-    //               id="blockId"
-    //               disabled={true}
-    //               margin={0}
-    //               marginRight={8}
-    //             />
-    //             <TextInputField
-    //               flex="1"
-    //               label="Unit Code"
-    //               id="unitId"
-    //               placeholder="Unit Code"
-    //               value={item.registeredBlocks[i].unitId}
-    //               margin={0}
-    //               marginRight={8}
-    //               disabled={true}
-    //             />
-    //           </Pane>
-    //           <Pane display="flex" marginBottom={8}>
-    //             <TextInputField
-    //               label="Completion Date"
-    //               value={item.registeredBlocks[i].results.date}
-    //               id="unitId"
-    //               disabled={false}
-    //               margin={0}
-    //               marginRight={8}
-    //             />
-    //             <TextInputField
-    //               label="Grade"
-    //               value={item.registeredBlocks[i].results.grade}
-    //               id="grade"
-    //               disabled={false}
-    //               margin={0}
-    //               marginRight={8}
-    //             />
-    //             <TextInputField
-    //               label="Result"
-    //               value={item.registeredBlocks[i].results.result}
-    //               id="result"
-    //               disabled={false}
-    //               margin={0}
-    //               marginRight={8}
-    //             />
-    //           </Pane>
-    //         </Expander>
-    //       );
-    //     })}
-    //   </div>
-    // );
+        <Heading>Registered Blocks</Heading>
+        {item.registeredBlocks.map((block, i) => {
+          return <BlockResult key={i} units={data.units} block={item.registeredBlocks[i]} />;
+        })}
+      </div>
+    );
   }
 );
 
@@ -272,7 +308,8 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
   const selectedId = split ? split[split.length - 1] : null;
 
   const localState = useLocalStore(() => ({
-    name: ''
+    name: '',
+    isShown: false
   }));
 
   // // useCreateStudentMutation doesnt actually exist
@@ -316,6 +353,13 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
   const form = buildForm(localState, ['name']);
   const view = readonly ? 'view' : 'editor';
 
+  // omit reg date, completion date for now
+  // unit ID, unit name, block name, grade, result, SEMESTER
+  // group by semesters
+  // GRADE - select box
+
+  // add, delete student
+
   return (
     <>
       <VerticalPane title="Student List">
@@ -337,7 +381,45 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
           paddingTop={8}
           borderTop="dotted 1px #dedede"
         >
-          <Button appearance="primary" iconBefore="plus" onClick={() => console.log('Add Student')}>
+          <Dialog
+            isShown={localState.isShown}
+            title="Add New Student"
+            onCloseComplete={() => (localState.isShown = false)}
+            onConfirm={close => {
+              close();
+            }}
+            confirmLabel="Add Student"
+          >
+            <Pane display="flex" alignItems="flex-baseline">
+              <TextInputField
+                label="Student Id"
+                placeholder="Student Id"
+                //onChange={form.newStudentName}
+                marginRight={4}
+                flex={1}
+              />
+            </Pane>
+            <Pane display="flex" alignItems="flex-baseline">
+              <TextInputField
+                label="First Name"
+                placeholder="First Name"
+                //onChange={form.newStudentId}
+                marginRight={4}
+              />
+              <TextInputField
+                label="Last Name"
+                placeholder="Last Name"
+                //onChange={form.newStudentName}
+                marginRight={4}
+                flex={1}
+              />
+            </Pane>
+          </Dialog>
+          <Button
+            appearance="primary"
+            iconBefore="plus"
+            onClick={() => (localState.isShown = true)}
+          >
             Add Student
           </Button>
         </Pane>

@@ -106,6 +106,7 @@ export type Query = {
   specialisation: Scalars['JSON'];
   keywords: Array<Scalars['String']>;
   blocks: Array<BlockList>;
+  block?: Maybe<Entity>;
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
   topics: Array<TopicList>;
@@ -140,6 +141,12 @@ export type QueryJobArgs = {
 
 export type QuerySpecialisationArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryBlockArgs = {
+  unitId: Scalars['String'];
+  blockId: Scalars['String'];
 };
 
 export type Mutation = {
@@ -209,6 +216,14 @@ export type AcsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AcsQuery = Pick<Query, 'acs'>;
+
+export type BlockQueryVariables = Exact<{
+  unitId: Scalars['String'];
+  blockId: Scalars['String'];
+}>;
+
+
+export type BlockQuery = { block?: Maybe<Pick<Entity, 'id' | 'name'>> };
 
 export type BlocksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -419,6 +434,41 @@ export function useAcsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpti
 export type AcsQueryHookResult = ReturnType<typeof useAcsQuery>;
 export type AcsLazyQueryHookResult = ReturnType<typeof useAcsLazyQuery>;
 export type AcsQueryResult = ApolloReactCommon.QueryResult<AcsQuery, AcsQueryVariables>;
+export const BlockDocument = gql`
+    query Block($unitId: String!, $blockId: String!) {
+  block(unitId: $unitId, blockId: $blockId) {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useBlockQuery__
+ *
+ * To run a query within a React component, call `useBlockQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBlockQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBlockQuery({
+ *   variables: {
+ *      unitId: // value for 'unitId'
+ *      blockId: // value for 'blockId'
+ *   },
+ * });
+ */
+export function useBlockQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<BlockQuery, BlockQueryVariables>) {
+        return ApolloReactHooks.useQuery<BlockQuery, BlockQueryVariables>(BlockDocument, baseOptions);
+      }
+export function useBlockLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BlockQuery, BlockQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<BlockQuery, BlockQueryVariables>(BlockDocument, baseOptions);
+        }
+export type BlockQueryHookResult = ReturnType<typeof useBlockQuery>;
+export type BlockLazyQueryHookResult = ReturnType<typeof useBlockLazyQuery>;
+export type BlockQueryResult = ApolloReactCommon.QueryResult<BlockQuery, BlockQueryVariables>;
 export const BlocksDocument = gql`
     query Blocks {
   blocks {

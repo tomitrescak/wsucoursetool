@@ -193,12 +193,12 @@ export const resolvers: IResolvers = {
   },
   Query: {
     students() {
-      const files = fs.readdirSync(path.resolve("./src/data/students"));
-      const students = files.map(fileName => fs.readFileSync(path.resolve(
-        `./src/data/students/${fileName}`),{ encoding: 'utf-8'})
-        );
-        console.log(students);
-        return students.map(studentString => JSON.parse(studentString));
+      const files = fs.readdirSync(path.resolve('./src/data/students'));
+      const students = files.map(fileName =>
+        fs.readFileSync(path.resolve(`./src/data/students/${fileName}`), { encoding: 'utf-8' })
+      );
+      console.log(students);
+      return students.map(studentString => JSON.parse(studentString));
     },
     acs() {
       let db = getDb();
@@ -217,6 +217,14 @@ export const resolvers: IResolvers = {
       // console.log(JSON.stringify(result, null, 2));
 
       return result;
+    },
+    block(_, { blockId, unitId }) {
+      let db = getDb();
+      const unit = db.units.find(u => u.id === unitId);
+      if (unit) {
+        return unit.blocks.find(b => b.id === blockId);
+      }
+      return null;
     },
     jobs() {
       let db = getDb();

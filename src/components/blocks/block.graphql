@@ -1,0 +1,6 @@
+query Block($unitId: String!, $blockId: String!) {
+  block(unitId: $unitId, blockId: $blockId) {
+    id
+    name
+  }
+}

@@ -54,32 +54,32 @@ export const typeDefs = gql`
     core: [Identifiable!]!
   }
 
-  # type Result {
-  #   date: String! #ISO Encoded
-  #   result: Int!
-  #   grade: String!
-  # }
+  type Result {
+    date: String! #ISO Encoded
+    result: Int!
+    grade: String!
+  }
 
-  # type RegisteredUnit {
-  #   unitId: String!
-  #   registrationDate: String! #ISO Encoded
-  #   results: Result!
-  # }
+  type RegisteredUnit {
+    unitId: String!
+    registrationDate: String! #ISO Encoded
+    results: Result!
+  }
 
-  # type RegisteredBlock {
-  #   unitId: String!
-  #   blockId: String!
-  #   registrationDate: String! #ISO Encoded
-  #   results: Result!
-  # }
+  type RegisteredBlock {
+    unitId: String!
+    blockId: String!
+    registrationDate: String! #ISO Encoded
+    results: Result!
+  }
 
-  # type Student {
-  #   id: String!
-  #   firstName: String!
-  #   lastName: String!
-  #   registeredUnits: [RegisteredUnit!]!
-  #   registeredBlocks: [RegisteredBlock!]!
-  # }
+  type Student {
+    id: String!
+    firstName: String!
+    lastName: String!
+    registeredUnits: [RegisteredUnit!]!
+    registeredBlocks: [RegisteredBlock!]!
+  }
 
   type Query {
     legacyUnits: String
@@ -100,6 +100,7 @@ export const typeDefs = gql`
 
     keywords: [String!]!
     blocks: [BlockList!]!
+    block(unitId: String!, blockId: String!): Entity
     acs: JSON!
     sfia: JSON!
     topics: [TopicList!]!
