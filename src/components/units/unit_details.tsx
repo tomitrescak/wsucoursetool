@@ -331,16 +331,6 @@ const UnitDetails: React.FC<{
             </Pane>
 
             <Pane display="flex">
-              <TextInputField
-                label="Group"
-                flex="0 0 200px"
-                value={unit.group}
-                id="group"
-                onChange={form.group}
-                disabled={readonly}
-                margin={0}
-                marginRight={8}
-              />
               <Pane display="flex" marginTop={30}>
                 <Checkbox
                   margin={0}

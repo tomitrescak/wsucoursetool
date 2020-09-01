@@ -34,7 +34,7 @@ const ItemEditor = observer(({ items, completionCriteria, readonly }: ItemEditor
   if (readonly) {
     return (
       <Text>
-        {completionCriteria.id ? items.find(b => b.id === completionCriteria.id).name : null}
+        {completionCriteria.id ? items.find(b => b.id === completionCriteria.id)?.name : null}
       </Text>
     );
   }

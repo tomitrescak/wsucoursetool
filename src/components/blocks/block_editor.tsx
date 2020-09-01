@@ -184,7 +184,9 @@ const ActivityDetail: React.FC<{
                 completionCriteria: {},
                 keywords: [],
                 prerequisites: [],
-                topics: []
+                topics: [],
+                level: undefined,
+                flagged: false
               });
               block.spliceActivity(block.activities.indexOf(activity), 1);
             }}
@@ -239,7 +241,6 @@ const BlockDetails: React.FC<{
       topics: [],
       // credits: 0,
       activities: [],
-      group: '',
       level: '',
       flagged: false
     };
@@ -347,16 +348,6 @@ const BlockDetails: React.FC<{
           </Pane>
 
           <Pane display="flex">
-            {/* GROUP */}
-            <TextInputField
-              label="Group"
-              id="group"
-              value={block.group}
-              disabled={readonly}
-              onChange={form.group}
-              margin={0}
-              marginRight={8}
-            />
             {/* LEVEL */}
             <SelectField
               label="Level"
@@ -643,26 +634,26 @@ const BlocksEditorView: React.FC<Props> = ({
         id: (maxId++).toString()
       }));
 
-      if (unit.completionCriteria && unit.completionCriteria.criteria) {
-        let cc = unit.completionCriteria.criteria.find(c => c.id === nextBlock.id);
-        if (cc) {
-          // fill in the current block
-          currentBlock.completionCriteria.type = 'allOf';
+      // if (unit.completionCriteria && unit.completionCriteria.criteria) {
+      //   let cc = unit.completionCriteria.criteria.find(c => c.id === nextBlock.id);
+      //   if (cc) {
+      //     // fill in the current block
+      //     currentBlock.completionCriteria.type = 'allOf';
 
-          if (currentBlock.completionCriteria.criteria == null) {
-            currentBlock.completionCriteria.criteria = [];
-          }
-          currentBlock.completionCriteria.addCompletionCriteria({
-            ...cc.toJS(),
-            id: activities[0]?.id as any
-          });
+      //     if (currentBlock.completionCriteria.criteria == null) {
+      //       currentBlock.completionCriteria.criteria = [];
+      //     }
+      //     currentBlock.completionCriteria.addCompletionCriteria({
+      //       ...cc.toJS(),
+      //       id: activities[0]?.id as any
+      //     });
 
-          // remove from original
-          unit.completionCriteria.removeCompletionCriteria(
-            unit.completionCriteria.criteria.indexOf(cc)
-          );
-        }
-      }
+      //     // remove from original
+      //     unit.completionCriteria.removeCompletionCriteria(
+      //       unit.completionCriteria.criteria.indexOf(cc)
+      //     );
+      //   }
+      // }
 
       // assign new id
 

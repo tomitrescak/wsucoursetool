@@ -168,24 +168,26 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
         display="flex"
         padding={8}
       >
-        <VerticalPane title="Main Menu">
-          <Tablist marginBottom={16} flexBasis={140} marginRight={8}>
-            {tabs.map((tab, index) => (
-              <Link key={tab} href={`/${view}/[category]`} as={`/${view}/${url(tab)}`}>
-                <a>
-                  <SidebarTab
-                    key={tab}
-                    id={tab}
-                    isSelected={index === selectedIndex}
-                    aria-controls={`panel-${tab}`}
-                  >
-                    {tab}
-                  </SidebarTab>
-                </a>
-              </Link>
-            ))}
-          </Tablist>
-        </VerticalPane>
+        {selectedTab != 'Analysis' && (
+          <VerticalPane title="Main Menu">
+            <Tablist marginBottom={16} flexBasis={140} marginRight={8}>
+              {tabs.map((tab, index) => (
+                <Link key={tab} href={`/${view}/[category]`} as={`/${view}/${url(tab)}`}>
+                  <a>
+                    <SidebarTab
+                      key={tab}
+                      id={tab}
+                      isSelected={index === selectedIndex}
+                      aria-controls={`panel-${tab}`}
+                    >
+                      {tab}
+                    </SidebarTab>
+                  </a>
+                </Link>
+              ))}
+            </Tablist>
+          </VerticalPane>
+        )}
 
         {selectedTab == 'Units' && <UnitsEditor state={state} readonly={readonly} />}
         {selectedTab == 'Courses' && <CoursesEditor state={state} readonly={readonly} />}
@@ -198,7 +200,7 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
         {selectedTab == 'Specialisations' && (
           <SpecialisationEditor state={state} readonly={readonly} />
         )}
-        {selectedTab == 'Analysis' && <Analysis state={state} readonly={readonly} />}
+        {selectedTab == 'Analysis' && <Analysis />}
       </Pane>
     </Admin>
   );

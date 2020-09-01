@@ -120,7 +120,6 @@ export type Block = {
   prerequisites: Prerequisite[];
   completionCriteria: CompletionCriteria;
   activities: Activity[];
-  group: string;
   level: string;
   flagged: boolean;
 };

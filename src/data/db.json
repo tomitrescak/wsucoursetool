@@ -54269,7 +54269,12 @@
             "14",
             "5"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "R",
+            "SQL",
+            "Markdown"
+          ]
         }
       ],
       "description": "This unit covers the use of computers and computer programming for Data Science. After briefly considering spreadsheet systems, the unit will consider programming in the statistical system \"R\" in depth. Finally, other special purpose languages will be touched briefly (eg. SQL).",
@@ -55423,6 +55428,9 @@
           "topics": [
             "9",
             "16"
+          ],
+          "keywords": [
+            "Cloud Technologies"
           ]
         },
         {
@@ -55452,6 +55460,10 @@
           "level": "Fundamentals",
           "topics": [
             "5"
+          ],
+          "flagged": true,
+          "keywords": [
+            "Python"
           ]
         },
         {
@@ -55487,7 +55499,10 @@
           "topics": [
             "9"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "SQL"
+          ]
         },
         {
           "id": "8",
@@ -55504,7 +55519,10 @@
           "topics": [
             "9"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "NoSQL"
+          ]
         },
         {
           "id": "9",
@@ -55527,7 +55545,18 @@
           "topics": [
             "23"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "prerequisites": [
+            {
+              "id": "1",
+              "unitId": "301110",
+              "type": "block"
+            }
+          ],
+          "keywords": [
+            "Python",
+            "Backend"
+          ]
         },
         {
           "id": "12",
@@ -55590,6 +55619,17 @@
           "topics": [
             "16",
             "9"
+          ],
+          "prerequisites": [
+            {
+              "id": "1",
+              "unitId": "301110",
+              "type": "block",
+              "recommended": true
+            }
+          ],
+          "keywords": [
+            "Cloud Technologies"
           ]
         }
       ],
@@ -55628,7 +55668,8 @@
         "9",
         "23"
       ],
-      "group": "Python, Big Data"
+      "group": "Python, Big Data",
+      "processed": true
     },
     {
       "id": "301111",
@@ -61569,7 +61610,10 @@
           "topics": [
             "21"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Maya"
+          ]
         },
         {
           "id": "2",
@@ -61610,7 +61654,10 @@
           "topics": [
             "21"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Maya"
+          ]
         },
         {
           "id": "5",
@@ -61651,7 +61698,10 @@
           "topics": [
             "21"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Maya"
+          ]
         },
         {
           "id": "8",
@@ -61674,7 +61724,10 @@
           "topics": [
             "21"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Maya"
+          ]
         },
         {
           "id": "9",
@@ -61703,7 +61756,10 @@
           "topics": [
             "21"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Maya"
+          ]
         },
         {
           "id": "12",
@@ -61829,7 +61885,10 @@
           "topics": [
             "21"
           ],
-          "level": "Intermediate"
+          "level": "Intermediate",
+          "keywords": [
+            "Maya"
+          ]
         }
       ],
       "description": "This unit will introduce the fundamentals of 3D surface modelling. Students will learn the theory of 3D surface modelling and will gain practical skills in creating 3D assets using a popular software package from Autodesk. They will also learn how to design characters and how to integrate their assets with a purpose of producing complex 3D scenes and animated movies. This unit is aimed at students who have no prior knowledge of 3D modelling and are not familiar with associated software packages.",
@@ -64051,11 +64110,17 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "Artificial Intelligence"
+          ],
+          "topics": [
+            "29"
+          ]
         },
         {
           "id": "1",
-          "name": "Search I: Problem Solving by Search",
+          "name": "AI Search",
           "week": 2,
           "activities": [
             {
@@ -64068,138 +64133,93 @@
               "type": "practical",
               "name": "Practical: Yes",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "2",
-          "name": "Search II: Non-classic Search",
-          "week": 3,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Search II: Non-classic Search",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "2"
             },
             {
-              "id": 1,
+              "id": "3",
               "type": "practical",
               "name": "Practical: Yes",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "3",
-          "name": "Search III: Adversarial Search",
-          "week": 4,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Search III: Adversarial Search",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "4"
             },
             {
-              "id": 1,
+              "id": "5",
               "type": "practical",
               "name": "Practical: Yes",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "4",
-          "name": "Knowledge Representation I: Logical Agent",
-          "week": 5,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Knowledge Representation I: Logical Agent",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "6"
             },
             {
-              "id": 1,
+              "id": "7",
               "type": "practical",
               "name": "Practical: Yes",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "5",
-          "name": "Knowledge Representation II: First-order Logic",
-          "week": 6,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Knowledge Representation II: First-order Logic",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "8"
             },
             {
-              "id": 1,
+              "id": "9",
               "type": "practical",
               "name": "Practical: Yes",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "6",
-          "ass_id": "46201",
-          "name": "Practical: two lab practice demonstrations 1.",
-          "week": 6,
-          "activities": [
+            },
             {
-              "id": 1,
+              "id": "10",
               "type": "assignment",
               "name": "Practical: two lab practice demonstrations 1.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "7",
-          "name": "Knowledge Representation III: Inference in First-order Logic",
-          "week": 7,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Knowledge Representation III: Inference in First-order Logic",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "11"
             },
             {
-              "id": 1,
+              "id": "12",
               "type": "practical",
               "name": "Practical: Yes",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "8",
-          "ass_id": "46200",
-          "name": "Professional Task: two independent assignments 1.",
-          "week": 7,
-          "activities": [
+            },
             {
-              "id": 1,
+              "id": "13",
               "type": "assignment",
               "name": "Professional Task: two independent assignments 1.",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "Artificial Intelligence",
+            "C++"
+          ],
+          "topics": [
+            "29",
+            "5"
+          ]
         },
         {
           "id": "9",
-          "name": "Knowledge Representation IV: Advanced Topics in KR",
+          "name": "AI Logics",
           "week": 8,
           "activities": [
             {
@@ -64214,30 +64234,19 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "10",
-          "name": "No Lecture",
-          "week": 9,
-          "activities": [
-            {
-              "type": "knowledge",
-              "name": "Lecture: No Lecture",
-              "lengthHours": 2
-            },
-            {
-              "id": 1,
-              "type": "practical",
-              "name": "Practical: No Lab Practice",
-              "lengthHours": 2
-            }
+          "completionCriteria": {},
+          "keywords": [
+            "Artificial Intelligence"
           ],
-          "completionCriteria": {}
+          "topics": [
+            "29",
+            "5",
+            "7"
+          ]
         },
         {
           "id": "11",
-          "name": "Classica Planning",
+          "name": "AI Planning",
           "week": 10,
           "activities": [
             {
@@ -64250,28 +64259,29 @@
               "type": "practical",
               "name": "Practical: Yes",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "12",
-          "name": "Planning in the Real World",
-          "week": 11,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Planning in the Real World",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "2"
             },
             {
-              "id": 1,
+              "id": "3",
               "type": "practical",
               "name": "Practical: Yes",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "Artificial Intelligence",
+            "C++"
+          ],
+          "topics": [
+            "29",
+            "5"
+          ]
         },
         {
           "id": "13",
@@ -64290,143 +64300,16 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "14",
-          "ass_id": "46201",
-          "name": "Practical: two lab practice demonstrations 2.",
-          "week": 12,
-          "activities": [
-            {
-              "id": 2,
-              "type": "assignment",
-              "name": "Practical: two lab practice demonstrations 2.",
-              "lengthHours": 2
-            }
+          "completionCriteria": {},
+          "keywords": [
+            "Artificial Intelligence",
+            "Machine Learning"
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "15",
-          "name": "New AI Technology Development, Unit Review",
-          "week": 13,
-          "activities": [
-            {
-              "type": "knowledge",
-              "name": "Lecture: New AI Technology Development, Unit Review",
-              "lengthHours": 2
-            },
-            {
-              "id": 1,
-              "type": "practical",
-              "name": "Practical: Yes",
-              "lengthHours": 2
-            }
+          "topics": [
+            "29",
+            "5"
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "16",
-          "ass_id": "46200",
-          "name": "Professional Task: two independent assignments 2.",
-          "week": 13,
-          "activities": [
-            {
-              "id": 2,
-              "type": "assignment",
-              "name": "Professional Task: two independent assignments 2.",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "17",
-          "name": "Final Examination",
-          "week": 14,
-          "activities": [
-            {
-              "type": "knowledge",
-              "name": "Lecture: Final Examination",
-              "lengthHours": 2
-            },
-            {
-              "id": 1,
-              "type": "practical",
-              "name": "Practical: No Lab Practice",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "18",
-          "ass_id": "46202",
-          "name": "Final Examination",
-          "weight": "50",
-          "ulos": "1,2,3,4,5,6,7",
-          "threshold": "1",
-          "due_date": "Week 14 on 25 October 2019 (Friday).",
-          "week": 14,
-          "activities": [
-            {
-              "type": "exam",
-              "name": "Final Examination",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "19",
-          "ass_id": "46200",
-          "name": "Professional Task: two independent assignments",
-          "weight": "40",
-          "ulos": "1,2,3,4,7",
-          "threshold": "0",
-          "due_date": "Assignment 1 is due in Week 7 on 6 September 2019 (Friday), and Assignment 2 is due in Week 13 on 18 October 2019 (Friday), respectively.",
-          "week": 15,
-          "activities": [
-            {
-              "id": 1,
-              "type": "assignment",
-              "name": "Professional Task: two independent assignments 1.",
-              "lengthHours": 2
-            },
-            {
-              "id": 2,
-              "type": "assignment",
-              "name": "Professional Task: two independent assignments 2.",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "20",
-          "ass_id": "46201",
-          "name": "Practical: two lab practice demonstrations",
-          "weight": "10",
-          "ulos": "2,5,6",
-          "threshold": "0",
-          "due_date": "Lab Practice 1 is due in Week 6 on 30 August 2019 (Friday), and Lab Practice 2 is due in Week 12 on 11 October 2019 (Friday), respectively.",
-          "week": 15,
-          "activities": [
-            {
-              "id": 1,
-              "type": "assignment",
-              "name": "Practical: two lab practice demonstrations 1.",
-              "lengthHours": 2
-            },
-            {
-              "id": 2,
-              "type": "assignment",
-              "name": "Practical: two lab practice demonstrations 2.",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
+          "flagged": true
         }
       ],
       "description": "This unit provides basic studies in the major areas of artificial intelligence: search, knowledge representation, logic programming, machine learning and knowledge based systems, agent planning and learning. The first part of this unit will focus on the foundation of artificial intelligence: search algorithms and their implementations, game playing, logics and knowledge representation, and inference in reasoning systems.\nThe second part will cover the principles of knowledge based systems (intelligent systems), planning, and machine learning.\n",
@@ -64468,7 +64351,8 @@
         "5",
         "7",
         "29"
-      ]
+      ],
+      "processed": true
     },
     {
       "id": "301175",

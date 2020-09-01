@@ -2,7 +2,17 @@ import React from 'react';
 import { observer, useLocalStore, Observer } from 'mobx-react';
 import { useDbQuery } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
-import { Pane, Text, Heading, TextInput, Select, SelectMenu, Button, Icon } from 'evergreen-ui';
+import {
+  Pane,
+  Text,
+  Heading,
+  TextInput,
+  Select,
+  SelectMenu,
+  Button,
+  Icon,
+  Checkbox
+} from 'evergreen-ui';
 import { buildForm } from 'lib/helpers';
 import { Unit, Topic } from 'components/types';
 import styled from '@emotion/styled';
@@ -10,8 +20,11 @@ import { observable } from 'mobx';
 
 const Block = styled.div<{ level: string }>`
   margin: 4px;
+  font-size: 11px;
   background: ${props => {
     switch (props.level) {
+      case 'Flagged':
+        return 'purple';
       case 'Fundamentals':
         return 'green';
       case 'Intermediate':
@@ -26,6 +39,8 @@ const Block = styled.div<{ level: string }>`
   }};
   color: ${props => {
     switch (props.level) {
+      case 'Flagged':
+        return 'white';
       case 'Fundamentals':
         return 'white';
       case 'Intermediate':
@@ -45,28 +60,17 @@ const Block = styled.div<{ level: string }>`
   text-overflow: ellipsis;
 `;
 
-const UnitPanel = styled.div`
-  flex: 1;
-  background: white;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  border: solid 1px #dedede;
-  border-radius: 4px;
-`;
+const groupByStrategies = {
+  keyword: {},
+  topic: {},
+  flag: {},
+  unit: {},
+  unitCoordinator: {},
+  unitLevel: {},
+  blockLevel: {}
+};
 
-const GroupPanel = styled(Text)`
-  flex: 1;
-  background: yellow;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  border: solid 1px #dedede;
-  border-radius: 4px;
-
-  margin-right: 8px;
-  display: flex;
-`;
-
-const Container: React.FC<Props> = ({ state, readonly }) => {
+const Container = () => {
   const localState = useLocalStore(() => ({
     isShown: false,
     selection: [],
@@ -75,7 +79,9 @@ const Container: React.FC<Props> = ({ state, readonly }) => {
     filterName: '',
     filterCode: '',
     level: 'ug',
-    selectedTopics: []
+    keywordOnly: true,
+    selectedTopics: [],
+    groupBy: 'keyword'
   }));
   const form = buildForm(localState, ['filterCode', 'filterName']);
 
@@ -134,39 +140,66 @@ const Container: React.FC<Props> = ({ state, readonly }) => {
   let observableTopics = data.topics.map(t => observable(t));
 
   const topics: Array<Topic & { count: string[] }> = filteredUnits.reduce((prev, unit) => {
-    for (let topicId of unit.topics || []) {
-      let topic = observableTopics.find(t => t.id === topicId);
-      topic.count = [];
-      if (prev.indexOf(topic) === -1) {
-        prev.push(topic);
+    for (let block of unit.blocks) {
+      for (let topicId of block.topics || []) {
+        let topic = observableTopics.find(t => t.id === topicId);
+        (topic as any).count = [];
+        if (prev.indexOf(topic) === -1) {
+          prev.push(topic);
+        }
       }
     }
     return prev;
   }, []);
 
   // grop by group
-  const groups: Array<{ key: string; values: Unit[] }> = filteredUnits.reduce((prev, unit) => {
-    if (unit.group) {
-      for (let groupName of (unit.group || '').split(',')) {
-        let name = groupName.trim();
-        let group = prev.find(p => p.key === name);
-        if (group == null) {
-          group = { key: name, values: [] };
-          prev.push(group);
+  const groups: Array<{ key: string; values: Unit[] }> = filteredUnits.reduce(
+    (prev, unit) => {
+      for (let block of unit.blocks) {
+        if (block.keywords && block.keywords.length > 0) {
+          for (let groupName of block.keywords) {
+            let name = groupName.trim();
+            let group = prev.find(p => p.key === name);
+            if (group == null) {
+              group = { key: name, values: [] };
+              prev.push(group);
+            }
+            if (group.values.every(g => g.id !== unit.id)) {
+              group.values.push(unit);
+            }
+          }
+        } else {
+          let group = prev.find(p => p.key === 'Unknown');
+          if (group.values.every(g => g.id !== unit.id)) {
+            group.values.push(unit);
+          }
         }
-        group.values.push(unit);
       }
-    }
-    return prev;
-  }, []);
+      return prev;
+    },
+    [{ key: 'Unknown', values: [] }]
+  );
 
   // const selectedItem: Entity = selectedId ? data.jobs.find(b => b.id === selectedId) : null;
   // const form = buildForm(localState, ['name']);
   // const view = readonly ? 'view' : 'editor';
 
   return (
-    <Pane flex="1">
-      <Pane display="flex" marginBottom={8} maxWidth={1000}>
+    <Pane>
+      <Pane position="fixed" top={45} display="flex" width="100%" maxWidth={1000}>
+        <Select
+          value={localState.groupBy}
+          onChange={e => (localState.groupBy = e.currentTarget.value)}
+          marginRight={8}
+        >
+          <option value={'keyword'}>By Keyword</option>
+          <option value={'topic'}>By Topic</option>
+          <option value={'unit'}>By Unit</option>
+          <option value={'unitCoordinator'}>By Unit Coordinator</option>
+          <option value={'unitLevel'}>By Unit Level</option>
+          <option value={'blockLevel'}>By Block Level</option>
+          <option value={'flag'}>By Flag</option>
+        </Select>
         <TextInput
           flex={3}
           placeholder="Name ..."
@@ -181,6 +214,7 @@ const Container: React.FC<Props> = ({ state, readonly }) => {
           value={localState.filterCode}
           onChange={form.filterCode}
           width="100%"
+          marginRight={8}
         />
         <Select
           value={localState.level || 'ug'}
@@ -206,6 +240,7 @@ const Container: React.FC<Props> = ({ state, readonly }) => {
 
         {selectedCourse && (
           <Select
+            marginRight={8}
             value={localState.major}
             onChange={e => (localState.major = e.currentTarget.value)}
           >
@@ -242,106 +277,167 @@ const Container: React.FC<Props> = ({ state, readonly }) => {
           </Button>
         </SelectMenu>
       </Pane>
-      <Pane display="flex" flex="1">
-        <Text
-          is="div"
-          size={300}
-          fontWeight="bold"
-          background="pink"
-          flex="0 0 150px"
-          marginRight={8}
-          marginLeft={120}
-          padding={4}
-        >
-          Unknown
-        </Text>
-        {topics.map((g, i) => (
+      <Pane overflow="auto" position="fixed" top={80} left={0} bottom={0} right={0}>
+        <Pane display="flex" flex="1" position="relative" marginLeft={4}>
+          <Pane width={120}>
+            <Checkbox
+              label="Keywords Only"
+              checked={localState.keywordOnly}
+              onChange={e => (localState.keywordOnly = e.currentTarget.checked)}
+            />
+          </Pane>
           <Text
             is="div"
             size={300}
-            key={g.id}
-            background="#f2f2f9"
+            fontWeight="bold"
+            background="pink"
             flex="0 0 150px"
             marginRight={8}
-            fontWeight="bold"
             padding={4}
-            marginLeft={i == 1000 ? 120 : 0}
           >
-            {g.name} <Observer>{() => <span>({g.count.length})</span>}</Observer>
+            Unknown
           </Text>
-        ))}
-      </Pane>
+          {topics.map((g, i) => (
+            <Text
+              is="div"
+              size={300}
+              key={g.id}
+              background="#f2f2f9"
+              flex="0 0 150px"
+              marginRight={8}
+              fontWeight="bold"
+              padding={4}
+              marginLeft={i == 1000 ? 120 : 0}
+            >
+              {g.name} <Observer>{() => <span>({g.count.length})</span>}</Observer>
+            </Text>
+          ))}
+        </Pane>
 
-      <Pane>
-        {groups.map(u => (
-          <GroupPanel is="div" size={300}>
-            <Pane flex="0 0 120px" padding={16}>
-              <Heading size={400}>{u.key}</Heading>
-            </Pane>
-            <Pane flex="1" marginRight={4}>
-              {u.values.map(unit => {
-                const unknownBlocks = unit.blocks.filter(
-                  b => b.topics == null || b.topics.length === 0
-                ).length;
-                return (
-                  <UnitPanel>
-                    <Heading id="div" size={300} margin={4}>
-                      {unit.name}
-                    </Heading>
-                    <Pane display="flex">
-                      {/* Unknwon */}
-                      <Pane flex="0 0 150px" marginRight={8}>
-                        {unknownBlocks > 0 && (
-                          <Block level="Unknown">{unknownBlocks} block(s)</Block>
-                        )}
-                      </Pane>
-                      {topics.map((t, i) => (
-                        <Pane
-                          flex="0 0 150px"
-                          overflow="hidden"
-                          marginRight={i === topics.length - 1 ? 0 : 8}
-                        >
-                          {unit.blocks
-                            .filter(b => b.topics != null && b.topics.some(id => id === t.id))
-                            .map(tp => {
-                              const blockId = unit.id + '-' + tp.id;
-                              if (t.count.indexOf(blockId) === -1) {
-                                t.count.push(blockId);
-                              }
-                              return (
-                                <Block level={tp.level} key={tp.id} title={tp.name}>
-                                  {tp.name}
-                                </Block>
-                              );
-                            })}
+        <Pane position="absolute" top={40} left={0} bottom={0} right={0} overflow="auto">
+          {groups
+            .filter(g => g.values.length > 0)
+            .map(u => (
+              <Pane
+                key={u.key}
+                background="yellow"
+                display="flex"
+                marginBottom={4}
+                borderRadius={6}
+                marginLeft={4}
+              >
+                <Pane width={120} padding={16}>
+                  <Heading size={400}>{u.key}</Heading>
+                </Pane>
+                <Pane>
+                  {u.values.map(unit => {
+                    const unknownBlocks = unit.blocks.filter(
+                      b => b.topics == null || b.topics.length === 0
+                    ).length;
+                    return (
+                      <Pane
+                        key={unit.id}
+                        background="white"
+                        marginTop={2}
+                        marginBottom={4}
+                        borderRadius={6}
+                        marginRight={2}
+                      >
+                        <Pane>
+                          <Heading id="div" size={300} margin={4}>
+                            {unit.name}
+                          </Heading>
                         </Pane>
-                      ))}
-                    </Pane>
-                  </UnitPanel>
-                );
-              })}
-            </Pane>
-          </GroupPanel>
-        ))}
-
-        {/* <Pane background="yellow" flex={1} marginRight={8} display="flex">
-          <Pane flex="0 0 120px">Pyhton</Pane>
-          <Pane flex={1} background="blue" marginRight={8}>
-            Some
-          </Pane>
-          <Pane flex={1} background="blue" marginRight={8}>
-            Some
-          </Pane>
-          <Pane flex={1} background="blue">
-            Some
-          </Pane>
+                        <Pane display="flex">
+                          <Pane width={150} marginRight={8}>
+                            {unknownBlocks > 0 && (
+                              <Block level="Unknown">{unknownBlocks} block(s)</Block>
+                            )}
+                          </Pane>
+                          {topics.map((t, i) => (
+                            <Pane width={150} marginRight={8}>
+                              {unit.blocks
+                                .filter(
+                                  b =>
+                                    b.topics != null &&
+                                    b.topics.some(id => id === t.id) &&
+                                    (!localState.keywordOnly ||
+                                      b.keywords.some(keyword => keyword === u.key))
+                                )
+                                .map(tp => {
+                                  const blockId = unit.id + '-' + tp.id;
+                                  if (t.count.indexOf(blockId) === -1) {
+                                    t.count.push(blockId);
+                                  }
+                                  return (
+                                    <Block
+                                      level={tp.flagged ? 'Flagged' : tp.level}
+                                      key={tp.id}
+                                      title={tp.name}
+                                    >
+                                      {tp.name}
+                                    </Block>
+                                  );
+                                })}
+                            </Pane>
+                          ))}
+                        </Pane>
+                      </Pane>
+                    );
+                  })}
+                </Pane>
+              </Pane>
+            ))}
+          {/* {groups.map(u => (
+              <GroupPanel is="div" size={300}>
+                <Pane flex="0 0 120px" padding={16}>
+                  <Heading size={400}>{u.key}</Heading>
+                </Pane>
+                <Pane flex="1" marginRight={4}>
+                  {u.values.map(unit => {
+                    const unknownBlocks = unit.blocks.filter(
+                      b => b.topics == null || b.topics.length === 0
+                    ).length;
+                    return (
+                      <UnitPanel>
+                        <Heading id="div" size={300} margin={4}>
+                          {unit.name}
+                        </Heading>
+                        <Pane display="flex">
+                          <Pane flex="0 0 150px" marginRight={8}>
+                            {unknownBlocks > 0 && (
+                              <Block level="Unknown">{unknownBlocks} block(s)</Block>
+                            )}
+                          </Pane>
+                          {topics.map((t, i) => (
+                            <Pane
+                              flex="0 0 150px"
+                              overflow="hidden"
+                              marginRight={i === topics.length - 1 ? 0 : 8}
+                            >
+                              {unit.blocks
+                                .filter(b => b.topics != null && b.topics.some(id => id === t.id))
+                                .map(tp => {
+                                  const blockId = unit.id + '-' + tp.id;
+                                  if (t.count.indexOf(blockId) === -1) {
+                                    t.count.push(blockId);
+                                  }
+                                  return (
+                                    <Block level={tp.level} key={tp.id} title={tp.name}>
+                                      {tp.name}
+                                    </Block>
+                                  );
+                                })}
+                            </Pane>
+                          ))}
+                        </Pane>
+                      </UnitPanel>
+                    );
+                  })}
+                </Pane>
+              </GroupPanel>
+            ))} */}
         </Pane>
-        <Pane background="yellow" flex={1} marginRight={8}>
-          Fundamentals
-        </Pane>
-        <Pane background="yellow" flex={1} marginRight={8}>
-          Fundamentals
-        </Pane> */}
       </Pane>
     </Pane>
   );
