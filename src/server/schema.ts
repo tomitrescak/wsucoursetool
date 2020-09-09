@@ -11,6 +11,8 @@ export const typeDefs = gql`
     obsolete: Boolean
     outdated: Boolean
     processed: Boolean
+    proposed: Boolean
+    hidden: Boolean
     topics: [String!]!
     level: Int
   }
@@ -64,12 +66,35 @@ export const typeDefs = gql`
     units: [UnitList!]!
   }
 
+  type Prerequisite {
+    id: String
+    unitId: String
+    type: String
+    recommended: Boolean
+    prerequisites: JSON
+  }
+
+  type BlockDependency {
+    id: String
+    name: String
+    prerequisites: [Prerequisite!]
+  }
+
+  type UnitDependency {
+    id: String!
+    name: String!
+    prerequisites: [Prerequisite!]
+    blocks: JSON
+    level: Int
+  }
+
   type Query {
     legacyUnits: String
 
     unit(id: String!): JSON!
     unitBase(id: String!): JSON
     units: [UnitList!]!
+    unitDepenendencies(id: String!): [UnitDependency!]!
 
     coordinators: [Coordinator!]!
 

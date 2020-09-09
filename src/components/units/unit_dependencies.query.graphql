@@ -1,0 +1,15 @@
+query UnitDependencies($id: String!) {
+  unitDepenendencies(id: $id) {
+    id
+    name
+    prerequisites {
+      id
+      unitId
+      type
+      recommended
+      prerequisites
+    }
+    blocks
+    level
+  }
+}

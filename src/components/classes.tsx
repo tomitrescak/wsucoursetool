@@ -75,8 +75,19 @@ function createMajor(model: Major) {
 @model('Course/Course')
 class CourseModel extends ExtendedModel(EntityModel, {
   core: prop<CourseUnitModel[]>({ setterAction: true }),
-  majors: prop<MajorModel[]>({ setterAction: true })
-}) {}
+  majors: prop<MajorModel[]>({ setterAction: true }),
+  positions: prop<any>(() => [], { setterAction: true })
+}) {
+  toJS() {
+    return removeEmpty({
+      // ...super.toJS(),
+      // ...toJS(this.$),
+      positions: this.positions.map(p => toJS(p))
+      // core: this.core.map(b => b.toJS()),
+      // majors: this.majors.map(b => b.toJS())
+    });
+  }
+}
 
 export function createCourse(model: Course) {
   return new CourseModel({
@@ -90,7 +101,7 @@ export function createCourse(model: Course) {
 export class UnitModel extends ExtendedModel(EntityModel, {
   approachToLearning: prop<string>({ setterAction: true }),
   assumedKnowledge: prop<string>({ setterAction: true }),
-  blocks: prop<BlockModel[]>({ setterAction: true }),
+  blocks: prop<BlockModel[]>(() => [], { setterAction: true }),
   // blockTopics: prop<string[]>({ setterAction: true }),
   completionCriteria: prop<CompletionCriteriaModel>({ setterAction: true }),
   corequisites: prop<string>({ setterAction: true }),
@@ -103,22 +114,26 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   level: prop<number>({ setterAction: true }),
   lgId: prop<string>({ setterAction: true }),
   outcome: prop<string>({ setterAction: true }),
-  outcomes: prop<OutcomeModel[]>({ setterAction: true }),
-  prerequisite: prop<string[]>({ setterAction: true }),
-  prerequisites: prop<PrerequisiteModel[]>({ setterAction: true }),
-  topics: prop<string[]>({ setterAction: true }),
+  outcomes: prop<OutcomeModel[]>(() => [], { setterAction: true }),
+  prerequisite: prop<string[]>(() => [], { setterAction: true }),
+  prerequisites: prop<PrerequisiteModel[]>(() => [], { setterAction: true }),
+  topics: prop<string[]>(() => [], { setterAction: true }),
   unitPrerequisites: prop<string>({ setterAction: true }),
   notes: prop<string>({ setterAction: true }),
   processed: prop<boolean>({ setterAction: true }),
   obsolete: prop<boolean>({ setterAction: true }),
   outdated: prop<boolean>({ setterAction: true }),
   duplicate: prop<boolean>({ setterAction: true }),
-  group: prop<string>({ setterAction: true })
+  proposed: prop<boolean>({ setterAction: true }),
+  hidden: prop<boolean>({ setterAction: true }),
+  group: prop<string>({ setterAction: true }),
+  positions: prop<any>(() => [], { setterAction: true })
 }) {
   toJS() {
     return removeEmpty({
       ...super.toJS(),
       ...toJS(this.$),
+      positions: this.positions.map(p => toJS(p)),
       blocks: this.blocks.map(b => b.toJS()),
       completionCriteria: this.completionCriteria.toJS(),
       outcomes: this.outcomes.map(b => b.toJS()),
@@ -263,7 +278,10 @@ export class BlockModel extends ExtendedModel(EntityModel, {
   activities: prop<ActivityModel[]>({ setterAction: true }),
   level: prop<string>({ setterAction: true }),
   group: prop<string>({ setterAction: true }),
-  flagged: prop<boolean>({ setterAction: true })
+  flagged: prop<boolean>({ setterAction: true }),
+  proposed: prop<boolean>({ setterAction: true }),
+  replacedByUnit: prop<string>({ setterAction: true }),
+  replacedByBlock: prop<string>({ setterAction: true })
 }) {
   toJS() {
     return {

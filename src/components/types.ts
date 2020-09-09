@@ -5,7 +5,7 @@ export type User = {
   name: string;
 };
 
-export type PrerequisiteType = 'block' | 'skill' | 'topic' | 'or' | 'and' | 'container';
+export type PrerequisiteType = 'block' | 'unit' | 'skill' | 'topic' | 'or' | 'and' | 'container';
 
 export type Prerequisite = {
   type: PrerequisiteType;
@@ -66,6 +66,8 @@ export type Unit = {
   processed: boolean;
   outdated: boolean;
   obsolete: boolean;
+  proposed?: boolean;
+  hidden?: boolean;
   // blockTopics: string[];
 
   unitPrerequisites?: string;
@@ -77,7 +79,6 @@ export type Unit = {
   approachToLearning?: string;
 
   prerequisites?: Prerequisite[];
-  group: string;
 };
 
 export type CompletionCriteriaType = '' | 'simple' | 'allOf' | 'someOf';
@@ -122,6 +123,8 @@ export type Block = {
   activities: Activity[];
   level: string;
   flagged: boolean;
+  replacedByUnit?: string;
+  replacedByBlock?: string;
 };
 
 export type Specialisation = {

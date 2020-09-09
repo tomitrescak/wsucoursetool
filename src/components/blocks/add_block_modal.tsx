@@ -36,23 +36,20 @@ export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
             outcome: '',
             outcomes: [],
             activities: [],
-            topics: []
+            topics: [],
+            level: '',
+            flagged: false
           };
           unit.addBlock(newBlock);
-          if (unit) {
-            unit.blocks.push(createBlock(newBlock));
-          }
 
-          state.save().then(() => {
-            Router.push(
-              '/editor/[category]/[item]',
-              unit
-                ? `/editor/units/${url(unit.name)}-${unit.id}--${url(localState.name)}-${
-                    newBlock.id
-                  }`
-                : `/editor/blocks/${url(localState.name)}-${newBlock.id}`
-            );
-          });
+          state.save();
+
+          Router.push(
+            '/editor/[category]/[item]',
+            unit
+              ? `/editor/units/${url(unit.name)}-${unit.id}--${url(localState.name)}-${newBlock.id}`
+              : `/editor/blocks/${url(localState.name)}-${newBlock.id}`
+          );
 
           close();
         }}

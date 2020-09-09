@@ -8,6 +8,8 @@ query CourseList {
     obsolete
     outdated
     processed
+    proposed
+    hidden
     topics
   }
 

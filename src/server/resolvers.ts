@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { CourseConfig, User } from 'components/types';
-import { IResolvers } from 'config/resolvers';
+import { CourseConfig, User, Prerequisite, Unit } from 'components/types';
+import { IResolvers, UnitDependency } from 'config/resolvers';
 import { calculateDependencies } from 'config/utils';
 import GraphQLJSON from 'graphql-type-json';
 
@@ -63,6 +63,64 @@ function withDb<T>(action: (db: CourseConfig) => T): T {
   return result;
 }
 
+function addUnit(list: UnitDependency[], value: Unit, level: number) {
+  list.push({
+    id: value.id,
+    name: value.name,
+    prerequisites: value.prerequisites || [],
+    blocks: value.blocks.map(b => ({
+      id: b.id,
+      name: b.name,
+      prerequisites: b.prerequisites || []
+    })),
+    level
+  });
+}
+
+function addUnique(db: CourseConfig, list: UnitDependency[], value: Unit, level: number) {
+  if (!value) {
+    console.warn('Unknown unit');
+    return;
+  }
+  if (list.every(l => l.id !== value.id)) {
+    console.log('Adding: ' + value.name);
+
+    addUnit(list, value, level);
+    addUnitPrerequisites(db, list, value, level + 1);
+  }
+}
+function addPrerequisites(
+  db: CourseConfig,
+  list: UnitDependency[],
+  prerequisites: Prerequisite[],
+  level: number
+) {
+  for (let pre of prerequisites) {
+    if (pre.prerequisites && pre.prerequisites.length) {
+      addPrerequisites(db, list, pre.prerequisites, level);
+    }
+    if (pre.type === 'unit') {
+      let unit = db.units.find(u => u.id === pre.id);
+      addUnique(db, list, unit, level);
+    }
+    if (pre.type === 'block') {
+      let unit = db.units.find(u => u.id === pre.unitId);
+      addUnique(db, list, unit, level);
+    }
+  }
+}
+
+function addUnitPrerequisites(db: CourseConfig, list: UnitDependency[], unit: Unit, level: number) {
+  if (unit.prerequisites && unit.prerequisites.length) {
+    addPrerequisites(db, list, unit.prerequisites, level);
+  }
+  for (let block of unit.blocks) {
+    if (block.prerequisites && block.prerequisites.length) {
+      addPrerequisites(db, list, block.prerequisites, level);
+    }
+  }
+}
+
 export const resolvers: IResolvers = {
   JSON: GraphQLJSON,
   Mutation: {
@@ -93,6 +151,14 @@ export const resolvers: IResolvers = {
         if (part === 'unit') {
           let ix = db.units.findIndex(j => j.id === id);
           db.units[ix] = body;
+          return true;
+        }
+        if (part === 'course') {
+          let ix = db.courses.findIndex(j => j.id === id);
+          db.courses[ix] = {
+            ...db.courses[ix],
+            ...body
+          };
           return true;
         }
         throw new Error('Not supported: ' + part);
@@ -214,7 +280,7 @@ export const resolvers: IResolvers = {
     blocks() {
       let db = getDb();
       const result = db.units.flatMap(u =>
-        u.blocks.map(b => ({ id: b.id, name: u.name + ' > ' + b.name, unitId: u.id }))
+        (u.blocks || []).map(b => ({ id: b.id, name: u.name + ' > ' + b.name, unitId: u.id }))
       );
 
       // console.log(JSON.stringify(result, null, 2));
@@ -246,7 +312,7 @@ export const resolvers: IResolvers = {
     keywords() {
       let db = getDb();
 
-      let keywords = db.units.flatMap(u => u.blocks).flatMap(b => b.keywords);
+      let keywords = db.units.flatMap(u => u.blocks || []).flatMap(b => b.keywords);
       keywords = keywords.filter((item, index) => item && keywords.indexOf(item) === index).sort();
       return keywords;
     },
@@ -275,14 +341,14 @@ export const resolvers: IResolvers = {
         // add individual blocks that belong to the same topic
         blocks.push(
           ...db.units
-            .flatMap(u => u.blocks)
+            .flatMap(u => u.blocks || [])
             .filter(b => (b.topics || []).some(t => unit.topics.indexOf(t) >= 0))
         );
         // add all blocks from a unit that has a dynamic unit's topic
         blocks.push(
           ...db.units
             .filter(u => !u.dynamic && u.topics.some(t => unit.topics.indexOf(t) >= 0))
-            .flatMap(u => u.blocks)
+            .flatMap(u => u.blocks || [])
             .filter(b => blocks.indexOf(b) === -1)
         );
       }
@@ -310,6 +376,43 @@ export const resolvers: IResolvers = {
       }
       return units;
     },
+    unitDepenendencies(_, { id }) {
+      debugger;
+      let db = getDb();
+      let unit = db.units.find(u => u.id === id);
+
+      function filterSingle(p: Prerequisite) {
+        return p.id === unit.id || p.unitId === unit.id;
+      }
+
+      function filterPrerequisites(p: Prerequisite[]) {
+        return (
+          p &&
+          p.length > 0 &&
+          p.some(one => filterSingle(one) || filterPrerequisites(one.prerequisites))
+        );
+      }
+
+      let dependencies = db.units.filter(
+        u =>
+          filterPrerequisites(u.prerequisites) ||
+          (u.blocks || []).some(b => filterPrerequisites(b.prerequisites))
+      );
+
+      let neededUnits = [];
+
+      for (let dep of dependencies) {
+        if (dep.id !== id) {
+          addUnit(neededUnits, dep, -1);
+        }
+      }
+
+      addUnique(db, neededUnits, unit, 0);
+
+      console.log(neededUnits);
+
+      return neededUnits;
+    },
     units() {
       let db = getDb();
       return db.units.map(u => ({
@@ -321,6 +424,8 @@ export const resolvers: IResolvers = {
         outdated: u.outdated,
         processed: u.processed,
         obsolete: u.obsolete,
+        proposed: u.proposed,
+        hidden: u.hidden,
         topics: u.topics || []
       }));
     },

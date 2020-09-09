@@ -14,11 +14,11 @@ import {
   Checkbox
 } from 'evergreen-ui';
 import { buildForm } from 'lib/helpers';
-import { Unit, Topic } from 'components/types';
+import { Unit, Topic, Block } from 'components/types';
 import styled from '@emotion/styled';
 import { observable } from 'mobx';
 
-const Block = styled.div<{ level: string }>`
+const BlockView = styled.div<{ level: string }>`
   margin: 4px;
   font-size: 11px;
   background: ${props => {
@@ -60,14 +60,102 @@ const Block = styled.div<{ level: string }>`
   text-overflow: ellipsis;
 `;
 
-const groupByStrategies = {
-  keyword: {},
-  topic: {},
-  flag: {},
-  unit: {},
-  unitCoordinator: {},
-  unitLevel: {},
-  blockLevel: {}
+type Collections = {
+  topics: Topic[];
+};
+
+const groupByStrategies: {
+  [index: string]: {
+    groups(unit: Unit, collections: Collections): string[];
+    inGroup(block: Block, group: string, collections: Collections): boolean;
+  };
+} = {
+  keyword: {
+    groups(unit) {
+      return unit.blocks.reduce((groups, block) => {
+        groups.push(...(block.keywords || ['Unknown']));
+        return groups;
+      }, []);
+    },
+    inGroup(block, group, collections) {
+      return block.keywords.some(keyword => keyword === group);
+    }
+  },
+  topic: {
+    groups(unit, collections) {
+      return unit.blocks.reduce((groups, block) => {
+        if (block.topics && block.topics.length) {
+          groups.push(...block.topics.map(t => collections.topics.find(p => p.id === t).name));
+        } else {
+          groups.push('Unknown');
+        }
+
+        return groups;
+      }, []);
+    },
+    inGroup(block, group, collections) {
+      let tp = collections.topics.find(t => t.name === group);
+      return block.topics.some(t => t === tp.id);
+    }
+  },
+  flag: {
+    groups(unit, collections) {
+      return unit.blocks.reduce((groups, block) => {
+        groups.push(
+          block.flagged
+            ? 'Flagged'
+            : unit.outdated
+            ? 'Outdated'
+            : unit.obsolete
+            ? 'Obsolete'
+            : unit.dynamic
+            ? 'Dynamic'
+            : unit.proposed
+            ? 'Proposed'
+            : 'Unflagged'
+        );
+        return groups;
+      }, []);
+    },
+    inGroup(block, group, collections) {
+      return true;
+    }
+  },
+  unit: {
+    groups(unit) {
+      return [unit.name];
+    },
+    inGroup() {
+      return true;
+    }
+  },
+  unitCoordinator: {
+    groups(unit) {
+      return [unit.coordinator];
+    },
+    inGroup() {
+      return true;
+    }
+  },
+  unitLevel: {
+    groups(unit) {
+      return [unit.level.toString()];
+    },
+    inGroup() {
+      return true;
+    }
+  },
+  blockLevel: {
+    groups(unit, collections) {
+      return unit.blocks.reduce((groups, block) => {
+        groups.push(block.level || 'Unknown');
+        return groups;
+      }, []);
+    },
+    inGroup(block, group, collections) {
+      return block.level === group || (group === 'Unknown' && block.level == null);
+    }
+  }
 };
 
 const Container = () => {
@@ -101,8 +189,8 @@ const Container = () => {
   let db: Unit[] = data.db;
 
   const filteredUnits = db
-    .filter(u => u.group)
     .slice()
+    .filter(u => u.blocks.some(b => b.level))
     .filter(f => {
       let isOk = true;
       if (selectedCourse) {
@@ -153,28 +241,25 @@ const Container = () => {
   }, []);
 
   // grop by group
+  const strategy = groupByStrategies[localState.groupBy];
+  const collections = {
+    topics
+  };
   const groups: Array<{ key: string; values: Unit[] }> = filteredUnits.reduce(
     (prev, unit) => {
-      for (let block of unit.blocks) {
-        if (block.keywords && block.keywords.length > 0) {
-          for (let groupName of block.keywords) {
-            let name = groupName.trim();
-            let group = prev.find(p => p.key === name);
-            if (group == null) {
-              group = { key: name, values: [] };
-              prev.push(group);
-            }
-            if (group.values.every(g => g.id !== unit.id)) {
-              group.values.push(unit);
-            }
-          }
-        } else {
-          let group = prev.find(p => p.key === 'Unknown');
-          if (group.values.every(g => g.id !== unit.id)) {
-            group.values.push(unit);
-          }
+      let groupNames = strategy.groups(unit, collections);
+      for (let groupName of groupNames) {
+        let name = groupName.trim();
+        let group = prev.find(p => p.key === name);
+        if (group == null) {
+          group = { key: name, values: [] };
+          prev.push(group);
+        }
+        if (group.values.every(g => g.id !== unit.id)) {
+          group.values.push(unit);
         }
       }
+
       return prev;
     },
     [{ key: 'Unknown', values: [] }]
@@ -279,9 +364,9 @@ const Container = () => {
       </Pane>
       <Pane overflow="auto" position="fixed" top={80} left={0} bottom={0} right={0}>
         <Pane display="flex" flex="1" position="relative" marginLeft={4}>
-          <Pane width={120}>
+          <Pane width={120} minWidth={120}>
             <Checkbox
-              label="Keywords Only"
+              label="Group"
               checked={localState.keywordOnly}
               onChange={e => (localState.keywordOnly = e.currentTarget.checked)}
             />
@@ -314,7 +399,7 @@ const Container = () => {
           ))}
         </Pane>
 
-        <Pane position="absolute" top={40} left={0} bottom={0} right={0} overflow="auto">
+        <Pane position="absolute" top={40} left={0} bottom={0} overflow="auto">
           {groups
             .filter(g => g.values.length > 0)
             .map(u => (
@@ -326,7 +411,7 @@ const Container = () => {
                 borderRadius={6}
                 marginLeft={4}
               >
-                <Pane width={120} padding={16}>
+                <Pane width={120} padding={16} minWidth={120}>
                   <Heading size={400}>{u.key}</Heading>
                 </Pane>
                 <Pane>
@@ -351,7 +436,7 @@ const Container = () => {
                         <Pane display="flex">
                           <Pane width={150} marginRight={8}>
                             {unknownBlocks > 0 && (
-                              <Block level="Unknown">{unknownBlocks} block(s)</Block>
+                              <BlockView level="Unknown">{unknownBlocks} block(s)</BlockView>
                             )}
                           </Pane>
                           {topics.map((t, i) => (
@@ -362,7 +447,7 @@ const Container = () => {
                                     b.topics != null &&
                                     b.topics.some(id => id === t.id) &&
                                     (!localState.keywordOnly ||
-                                      b.keywords.some(keyword => keyword === u.key))
+                                      strategy.inGroup(b, u.key, collections))
                                 )
                                 .map(tp => {
                                   const blockId = unit.id + '-' + tp.id;
@@ -370,13 +455,13 @@ const Container = () => {
                                     t.count.push(blockId);
                                   }
                                   return (
-                                    <Block
+                                    <BlockView
                                       level={tp.flagged ? 'Flagged' : tp.level}
                                       key={tp.id}
                                       title={tp.name}
                                     >
                                       {tp.name}
-                                    </Block>
+                                    </BlockView>
                                   );
                                 })}
                             </Pane>

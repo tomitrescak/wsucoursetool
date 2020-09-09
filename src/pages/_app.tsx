@@ -2,6 +2,7 @@
 import React from 'react';
 // import App from 'next/app';
 
+import 'cytoscape-context-menus/cytoscape-context-menus.css';
 import 'react-vis/dist/style.css';
 import './global.css';
 

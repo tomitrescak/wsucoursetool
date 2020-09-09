@@ -14,7 +14,8 @@ import {
   TextInput,
   Text,
   SelectField,
-  Checkbox
+  Checkbox,
+  Combobox
 } from 'evergreen-ui';
 import Router from 'next/router';
 import { State, Block, BlockType as ActivityType, Activity, Unit, AcsKnowledge } from '../types';
@@ -33,178 +34,15 @@ import { Dnd, DragContainer } from 'components/common/dnd';
 import { BlockModel, UnitModel, ActivityModel } from 'components/classes';
 import units from 'pages/units';
 import { Expander } from 'components/common/expander';
+import { Handler, ActivityEditor } from './activity_editor';
+import { useUnitsQuery, useUnitBaseQuery } from 'config/graphql';
+import { ProgressView } from 'components/common/progress_view';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
     return block.completionCriteria.credit;
   }
 }
-
-const Handler = ({ dnd }) => (
-  <Pane width={10} height={20} marginRight="2" pointer="drag" color="#999" {...dnd.handlerProps}>
-    <Icon icon="drag-handle-vertical" size={14} />
-  </Pane>
-);
-
-const ActivityDetail: React.FC<{
-  unit: UnitModel;
-  activity: ActivityModel;
-  block: BlockModel;
-  state: State;
-  dnd: Dnd;
-  readonly: boolean;
-}> = observer(({ block, activity, dnd, unit, readonly }) => {
-  const form = React.useMemo(
-    () => buildForm(activity, ['name', 'type', 'description', 'lengthHours']),
-    [activity]
-  );
-  const activityModifier = React.useMemo(
-    () => ({
-      splice(position: number, count: number, element?: ActivityModel): void {
-        block.spliceActivity(position, count, element);
-      },
-      findIndex(condition: (c: Activity) => boolean): number {
-        return block.activities.findIndex(condition);
-      }
-    }),
-    [block]
-  );
-
-  return (
-    <div
-      {...dnd.props(activity, activityModifier, true)}
-      style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}
-    >
-      <div style={{ flex: '0 0 10px', marginRight: '8px' }}>
-        <Handler dnd={dnd} />
-      </div>
-
-      <Badge
-        marginRight={8}
-        color={
-          activity.type === 'knowledge'
-            ? 'green'
-            : activity.type === 'exam'
-            ? 'red'
-            : activity.type === 'practical'
-            ? 'blue'
-            : activity.type === 'assignment'
-            ? 'yellow'
-            : 'teal'
-        }
-        title={
-          activity.type === 'knowledge'
-            ? 'Lecture'
-            : activity.type === 'exam'
-            ? 'Exam or Assessment'
-            : activity.type === 'practical'
-            ? 'Practical'
-            : activity.type === 'assignment'
-            ? 'Assignment or Project'
-            : 'WIL'
-        }
-      >
-        {activity.type === 'knowledge'
-          ? 'K'
-          : activity.type === 'exam'
-          ? 'E'
-          : activity.type === 'practical'
-          ? 'P'
-          : activity.type === 'assignment'
-          ? 'A'
-          : 'W'}
-      </Badge>
-
-      {readonly ? (
-        <Text is="div" flex={1} size={400}>
-          {activity.name}
-        </Text>
-      ) : (
-        <TextInput
-          flex="1"
-          placeholder="Activity Name"
-          value={activity.name}
-          onChange={form.name}
-          width="100%"
-          marginRight={4}
-        />
-      )}
-
-      {/* <td>
-          <TextInput
-            placeholder="Activity Description Name"
-            value={activity.description}
-            onChange={form.description}
-            width="100%"
-          />
-        </td> */}
-
-      {!readonly && (
-        <>
-          <Select
-            flex="0 0 100px"
-            value={activity.type}
-            id="type"
-            placeholder="Activity Type"
-            onChange={form.type}
-            marginRight={4}
-          >
-            <option value="">Please Select ...</option>
-            <option value="knowledge">Knowledge</option>
-            <option value="practical">Practical</option>
-            <option value="assignment">Assignment (Project)</option>
-            <option value="exam">Exam / Quiz</option>
-            <option value="wif">WIL</option>
-          </Select>
-          <TextInput
-            flex="0 0 50px"
-            placeholder="Hours"
-            width={40}
-            marginRight={4}
-            value={activity.lengthHours}
-            onChange={form.lengthHours}
-          />
-
-          <IconButton
-            icon="eject"
-            iconSize={12}
-            width={24}
-            marginRight={4}
-            intent="warning"
-            appearance="primary"
-            onClick={() => {
-              const clone = activity.toJS();
-              unit.addBlock({
-                id: findMaxId(unit.blocks),
-                name: activity.name,
-                outcome: '',
-                outcomes: [],
-                description: '',
-                activities: [clone],
-                completionCriteria: {},
-                keywords: [],
-                prerequisites: [],
-                topics: [],
-                level: undefined,
-                flagged: false
-              });
-              block.spliceActivity(block.activities.indexOf(activity), 1);
-            }}
-          />
-
-          <IconButton
-            icon="trash"
-            iconSize={12}
-            width={24}
-            intent="danger"
-            appearance="primary"
-            onClick={() => block.spliceActivity(block.activities.indexOf(activity), 1)}
-          />
-        </>
-      )}
-    </div>
-  );
-});
 
 const BlockDetails: React.FC<{
   block: BlockModel;
@@ -217,9 +55,18 @@ const BlockDetails: React.FC<{
   const form = React.useMemo(() => buildForm(block, ['name', 'description', 'outcome']), [block]);
   const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'activity' }), []);
 
-  const [expanded, setExpanded] = React.useState(
-    block.completionCriteria != null && Object.keys(block.completionCriteria).length > 0
-  );
+  const [expanded, setExpanded] = React.useState(localStorage.getItem('blockDetails') === 'true');
+
+  const { loading, error, data } = useUnitsQuery();
+  const { loading: unitLoading, data: unitData } = useUnitBaseQuery({
+    variables: {
+      id: block.replacedByUnit || ''
+    }
+  });
+  if (loading || unitLoading || error) {
+    return <ProgressView loading={loading || unitLoading} error={error} />;
+  }
+
   const view = readonly ? 'view' : 'editor';
 
   function addBlock(name = '<New Block>') {
@@ -347,10 +194,47 @@ const BlockDetails: React.FC<{
             <KeywordEditor owner={block} keywords={keywords} readonly={readonly} />
           </Pane>
 
+          <Pane display="flex" marginBottom={8}>
+            <Pane flex={1} marginRight={8}>
+              <Text fontWeight={500} display="block">
+                Replace by Unit:
+              </Text>
+              <Combobox
+                id="block"
+                width="100%"
+                label="sddsfdsf"
+                selectedItem={
+                  block.replacedByUnit && data.units.find(u => u.id === block.replacedByUnit)
+                }
+                items={data.units}
+                itemToString={item => (item ? item.name : '')}
+                onChange={selected => (block.replacedByUnit = selected.id)}
+              />
+            </Pane>
+
+            <Pane flex={1}>
+              <Text fontWeight={500} display="block">
+                Replace by Block:
+              </Text>
+              <Combobox
+                width="100%"
+                id="block"
+                selectedItem={
+                  block.replacedByBlock &&
+                  unitData.unitBase.blocks.find(u => u.id === block.replacedByBlock)
+                }
+                items={unitData.unitBase ? unitData.unitBase.blocks : []}
+                itemToString={item => (item ? item.name : '')}
+                onChange={selected => (block.replacedByBlock = selected.id)}
+              />
+            </Pane>
+          </Pane>
+
           <Pane display="flex">
             {/* LEVEL */}
             <SelectField
               label="Level"
+              value={block.level}
               id="level"
               onChange={e => (block.level = e.currentTarget.value)}
               margin={0}
@@ -362,6 +246,7 @@ const BlockDetails: React.FC<{
               <option value="Advanced">Advanced</option>
               <option value="Applied">Applied</option>
             </SelectField>
+
             <Checkbox
               margin={0}
               marginTop={30}
@@ -370,114 +255,57 @@ const BlockDetails: React.FC<{
               checked={block.flagged}
               disabled={readonly}
             />
+            <Checkbox
+              flex={1}
+              margin={0}
+              marginTop={30}
+              marginLeft={16}
+              label="Proposed"
+              onChange={e => (block.proposed = e.currentTarget.checked)}
+              checked={block.proposed}
+              disabled={readonly}
+            />
+            <Button
+              onClick={action(() => {
+                for (let ob of unit.blocks) {
+                  if (ob.topics.length === 0) {
+                    block.topics.forEach(t => ob.addTopic(t));
+                  }
+                  if (ob.keywords.length === 0) {
+                    block.keywords.forEach(t => ob.addKeyword(t));
+                  }
+                  if (ob.level == null) {
+                    ob.level = block.level;
+                  }
+                }
+              })}
+              marginTop={20}
+            >
+              Copy To Other Blocks
+            </Button>
           </Pane>
         </Expander>
 
-        {/* ACTIVITIES */}
-
-        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
-          <Pane
-            display="flex"
-            alignItems="center"
-            marginBottom={16}
-            paddingBottom={4}
-            borderBottom="dashed 1px #dedede"
-          >
-            <Heading size={500} flex="1">
-              Activities
-            </Heading>
-            {!readonly && (
-              <>
-                <Button
-                  appearance="primary"
-                  intent="success"
-                  marginRight={8}
-                  iconBefore="plus"
-                  onClick={() => {
-                    addActivity('knowledge', 'Lecture');
-                  }}
-                >
-                  Lecture
-                </Button>
-                <Button
-                  appearance="primary"
-                  intent="none"
-                  iconBefore="plus"
-                  marginRight={8}
-                  onClick={() => {
-                    addActivity('practical', 'Practical'); // - ' + block.name);
-                  }}
-                >
-                  Practical
-                </Button>
-                <Button
-                  appearance="primary"
-                  intent="warning"
-                  iconBefore="plus"
-                  marginRight={8}
-                  onClick={() => {
-                    addActivity('assignment', 'Portfolio'); // - ' + block.name);
-                  }}
-                >
-                  Assig.
-                </Button>
-                <Button
-                  appearance="primary"
-                  intent="danger"
-                  iconBefore="plus"
-                  onClick={() => {
-                    addActivity('exam', 'Exam');
-                  }}
-                >
-                  Exam
-                </Button>
-              </>
-            )}
-          </Pane>
-
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-            <div style={{ flex: '0 0 50px' }} />
-            <div style={{ flex: 1 }}>
-              <Heading size={400}>Name</Heading>
-            </div>
-            {/* <th style={{ width: '100%' }}>
-                    <Heading size={400}>Description</Heading>
-                  </th> */}
-            {!readonly && (
-              <>
-                <div style={{ flex: ' 0 0 100px' }}>
-                  <Heading size={400}>Type</Heading>
-                </div>
-                <div style={{ flex: '0 0 78px' }}>
-                  <Heading size={400}>Hrs.</Heading>
-                </div>
-              </>
-            )}
-          </div>
-
-          <DragContainer>
-            {block.activities.map(a => (
-              <ActivityDetail
-                unit={unit}
-                block={block}
-                activity={a}
-                state={state}
-                key={a.id}
-                dnd={dnd}
-                readonly={readonly}
-              />
-            ))}
-          </DragContainer>
-        </Pane>
-
         {/* PREREQUSTIES */}
-        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
           <PrerequisiteEditor
             state={state}
             owner={block}
             unit={unit}
             activities={block.activities}
             readonly={readonly}
+          />
+        </Pane>
+
+        {/* ACTIVITIES */}
+
+        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
+          <ActivityEditor
+            addActivity={addActivity}
+            block={block}
+            dnd={dnd}
+            readonly={readonly}
+            unit={unit}
           />
         </Pane>
 
@@ -496,7 +324,11 @@ const BlockDetails: React.FC<{
               marginRight={8}
               icon={expanded ? 'chevron-down' : 'chevron-right'}
               cursor="pointer"
-              onClick={() => setExpanded(!expanded)}
+              onClick={() => {
+                const exp = !expanded;
+                setExpanded(exp);
+                localStorage.setItem('blockDetails', exp.toString());
+              }}
             />
             Completion Criteria
           </Heading>
@@ -573,7 +405,11 @@ function createRanges(arr: number[]) {
 
 function requisiteRanges(blocks: Block[], block: Block, recommended: boolean) {
   const prerequisites = (block.prerequisites || [])
-    .filter(p => p.type === 'block' && p.recommended === recommended)
+    .filter(
+      p =>
+        p.type === 'block' &&
+        (p.recommended == recommended || (recommended === false && p.recommended == null))
+    )
     .sort((a, b) =>
       blocks.findIndex(s => s.id === a.id) < blocks.findIndex(s => s.id === b.id) ? -1 : 1
     );
@@ -717,6 +553,8 @@ const BlocksEditorView: React.FC<Props> = ({
                         aria-controls={`panel-${block.name}`}
                         display="flex"
                         alignItems="center"
+                        color={block.replacedByBlock ? 'red' : block.proposed ? 'green' : undefined}
+                        textDecoration={block.replacedByBlock ? 'line-through' : undefined}
                       >
                         <Badge color={blockColor(block)} marginRight={8}>
                           {index + 1}

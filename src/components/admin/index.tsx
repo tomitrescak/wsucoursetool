@@ -11,7 +11,7 @@ import 'mobx-react-lite/batchingForReactDom';
 import { url } from 'lib/helpers';
 
 import { TopicEditor } from 'components/topics/topics';
-import { Graph } from 'components/blocks/block_graph';
+import { BlockDependencyGraph } from 'components/blocks/block_graph';
 import { AcsEditor } from 'components/acs/acs_knowledge_areas';
 import { JobsEditor } from 'components/jobs/jobs';
 import { SfiaEditor } from 'components/sfia/sfia_skills';

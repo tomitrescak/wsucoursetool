@@ -4,4 +4,9 @@ query Unit($id: String!) {
   acs
 
   keywords
+
+  topics {
+    id
+    name
+  }
 }

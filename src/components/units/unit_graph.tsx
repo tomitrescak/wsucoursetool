@@ -124,7 +124,8 @@ export const UnitGraph: React.FC<Props> = ({ units, colorMap, height = '800px', 
 
   return (
     <>
-      <Pane display="flex" marginTop={16}>
+      <Pane display="flex" marginTop={8}>
+        {buttons}
         <Button
           style={{ height: '30px' }}
           onClick={() => {
@@ -136,7 +137,6 @@ export const UnitGraph: React.FC<Props> = ({ units, colorMap, height = '800px', 
         >
           Layout
         </Button>
-        {buttons}
       </Pane>
       <div ref={ref} id="graph" style={{ height, width: '100%' }} />
     </>

@@ -33,12 +33,14 @@ import {
   CourseList,
   useCreateCourseMutation,
   useCourseQuery,
-  useDeleteCourseMutation
+  useDeleteCourseMutation,
+  useSaveConfigMutation
 } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 import { createCourse } from 'components/classes';
-import { Graph } from 'components/blocks/block_graph';
+import { BlockDependencyGraph } from 'components/blocks/block_graph';
 import { AcsUnitGraph } from 'components/acs/acs_graph';
+import { undoMiddleware } from 'mobx-keystone';
 
 /*!
  * Group items from an array together by some criteria or value.
@@ -338,6 +340,7 @@ type Props = {
   courseUnits: Unit[];
   selectedUnits: CourseUnit[];
   acs: AcsKnowledge[];
+  course: Course;
 };
 
 const AcsGraphContainer = observer(({ courseUnits, selectedUnits, acs }: Props) => {
@@ -376,32 +379,40 @@ const TabContent = observer(
   }
 );
 
-const Visualisations = observer(({ acs, courseUnits, selectedUnits }: Props) => {
+const Visualisations = observer(({ acs, course, courseUnits, selectedUnits }: Props) => {
   const state = useLocalStore(() => ({
-    tab: 'acs'
+    tab: 'dep'
   }));
   return (
     <Pane>
       <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
-        <TabHeader tab="acs" state={state}>
-          ACS CBOK
-        </TabHeader>
         <TabHeader tab="dep" state={state}>
           Dependencies
         </TabHeader>
+        <TabHeader tab="acs" state={state}>
+          ACS CBOK
+        </TabHeader>
       </Tablist>
       <TabContent tab="acs" state={state}>
-        <AcsGraphContainer acs={acs} courseUnits={courseUnits} selectedUnits={selectedUnits} />
+        <AcsGraphContainer
+          acs={acs}
+          courseUnits={courseUnits}
+          selectedUnits={selectedUnits}
+          course={course}
+        />
       </TabContent>
       <TabContent tab="dep" state={state}>
-        <Graph units={selectedUnits.map(u => courseUnits.find(cu => u.id === cu.id))} />
+        <BlockDependencyGraph
+          units={selectedUnits.map(u => courseUnits.find(cu => u.id === cu.id))}
+          owner={course}
+        />
       </TabContent>
     </Pane>
   );
 });
 
-const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = observer(
-  ({ course: courseListItem, readonly }) => {
+const CourseDetails: React.FC<{ course: CourseList; readonly: boolean; state: State }> = observer(
+  ({ course: courseListItem, readonly, state }) => {
     const { loading, error, data, refetch } = useCourseQuery({
       variables: {
         id: courseListItem.id
@@ -426,11 +437,35 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
       semesterSelection: []
     }));
     const router = useRouter();
+
+    const [save] = useSaveConfigMutation({
+      onCompleted() {
+        toaster.notify('Saved');
+        refetch();
+      },
+      onError(e) {
+        toaster.danger('Error ;(: ' + e.message);
+      }
+    });
+
     const course = React.useMemo(() => {
       if (loading) {
         return null;
       }
-      return createCourse(data.course);
+      const model = createCourse(data.course);
+      const undoManager = undoMiddleware(model);
+      state.undoManager = undoManager;
+      state.save = () => {
+        const body = model.toJS();
+        save({
+          variables: {
+            body,
+            id: course.id,
+            part: 'course'
+          }
+        });
+      };
+      return model;
     }, [loading]);
 
     const form = React.useMemo(() => buildForm(course, ['name', 'id']), [course]);
@@ -610,6 +645,7 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean }> = obser
             acs={data.acs}
             selectedUnits={selectedUnits}
             courseUnits={data.courseUnits}
+            course={course}
           />
         </VerticalPane>
       </>
@@ -747,7 +783,9 @@ const CoursesEditorView: React.FC<{ state: State; readonly: boolean }> = ({ stat
           <Alert flex={1}>There are no courses defined</Alert>
         </VerticalPane>
       )}
-      {course && <CourseDetails key={course.id} course={course} readonly={readonly} />}
+      {course && (
+        <CourseDetails key={course.id} course={course} readonly={readonly} state={state} />
+      )}
     </>
   );
 };

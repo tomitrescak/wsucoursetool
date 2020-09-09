@@ -21,6 +21,8 @@ export type UnitList = {
   obsolete?: Maybe<Scalars['Boolean']>;
   outdated?: Maybe<Scalars['Boolean']>;
   processed?: Maybe<Scalars['Boolean']>;
+  proposed?: Maybe<Scalars['Boolean']>;
+  hidden?: Maybe<Scalars['Boolean']>;
   topics: Array<Scalars['String']>;
   level?: Maybe<Scalars['Int']>;
 };
@@ -74,11 +76,34 @@ export type Coordinator = {
   units: Array<UnitList>;
 };
 
+export type Prerequisite = {
+  id?: Maybe<Scalars['String']>;
+  unitId?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  recommended?: Maybe<Scalars['Boolean']>;
+  prerequisites?: Maybe<Scalars['JSON']>;
+};
+
+export type BlockDependency = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  prerequisites?: Maybe<Array<Prerequisite>>;
+};
+
+export type UnitDependency = {
+  id: Scalars['String'];
+  name: Scalars['String'];
+  prerequisites?: Maybe<Array<Prerequisite>>;
+  blocks?: Maybe<Scalars['JSON']>;
+  level?: Maybe<Scalars['Int']>;
+};
+
 export type Query = {
   legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
   unitBase?: Maybe<Scalars['JSON']>;
   units: Array<UnitList>;
+  unitDepenendencies: Array<UnitDependency>;
   coordinators: Array<Coordinator>;
   course: Scalars['JSON'];
   courses: Array<CourseList>;
@@ -102,6 +127,11 @@ export type QueryUnitArgs = {
 
 
 export type QueryUnitBaseArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryUnitDepenendenciesArgs = {
   id: Scalars['String'];
 };
 
@@ -267,6 +297,9 @@ export type ResolversTypes = {
   MajorList: ResolverTypeWrapper<MajorList>;
   CourseList: ResolverTypeWrapper<CourseList>;
   Coordinator: ResolverTypeWrapper<Coordinator>;
+  Prerequisite: ResolverTypeWrapper<Prerequisite>;
+  BlockDependency: ResolverTypeWrapper<BlockDependency>;
+  UnitDependency: ResolverTypeWrapper<UnitDependency>;
   Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
 };
@@ -287,6 +320,9 @@ export type ResolversParentTypes = {
   MajorList: MajorList;
   CourseList: CourseList;
   Coordinator: Coordinator;
+  Prerequisite: Prerequisite;
+  BlockDependency: BlockDependency;
+  UnitDependency: UnitDependency;
   Query: {};
   Mutation: {};
 };
@@ -303,6 +339,8 @@ export type UnitListResolvers<ContextType = any, ParentType extends ResolversPar
   obsolete?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   outdated?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   processed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  proposed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  hidden?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   topics?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
@@ -366,11 +404,37 @@ export type CoordinatorResolvers<ContextType = any, ParentType extends Resolvers
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type PrerequisiteResolvers<ContextType = any, ParentType extends ResolversParentTypes['Prerequisite'] = ResolversParentTypes['Prerequisite']> = {
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  unitId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  recommended?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  prerequisites?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type BlockDependencyResolvers<ContextType = any, ParentType extends ResolversParentTypes['BlockDependency'] = ResolversParentTypes['BlockDependency']> = {
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  prerequisites?: Resolver<Maybe<Array<ResolversTypes['Prerequisite']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UnitDependencyResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnitDependency'] = ResolversParentTypes['UnitDependency']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  prerequisites?: Resolver<Maybe<Array<ResolversTypes['Prerequisite']>>, ParentType, ContextType>;
+  blocks?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   legacyUnits?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   unit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryUnitArgs, 'id'>>;
   unitBase?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryUnitBaseArgs, 'id'>>;
   units?: Resolver<Array<ResolversTypes['UnitList']>, ParentType, ContextType>;
+  unitDepenendencies?: Resolver<Array<ResolversTypes['UnitDependency']>, ParentType, ContextType, RequireFields<QueryUnitDepenendenciesArgs, 'id'>>;
   coordinators?: Resolver<Array<ResolversTypes['Coordinator']>, ParentType, ContextType>;
   course?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseArgs, 'id'>>;
   courses?: Resolver<Array<ResolversTypes['CourseList']>, ParentType, ContextType>;
@@ -411,6 +475,9 @@ export type Resolvers<ContextType = any> = {
   MajorList?: MajorListResolvers<ContextType>;
   CourseList?: CourseListResolvers<ContextType>;
   Coordinator?: CoordinatorResolvers<ContextType>;
+  Prerequisite?: PrerequisiteResolvers<ContextType>;
+  BlockDependency?: BlockDependencyResolvers<ContextType>;
+  UnitDependency?: UnitDependencyResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 };

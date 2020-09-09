@@ -14,7 +14,8 @@ import {
   Text,
   SelectMenu,
   Icon,
-  IconButton
+  IconButton,
+  Checkbox
 } from 'evergreen-ui';
 import { Unit, State } from '../types';
 import { url, buildForm } from 'lib/helpers';
@@ -58,6 +59,88 @@ function exportToCsv(rows: string[][]) {
   link.click();
 }
 
+const UnitListItem = ({ unit, view, unitId, topics, selectedCourse }) => {
+  return (
+    <Pane key={unit.id}>
+      <Link href={`/${view}/[category]/[item]`} as={`/${view}/units/${url(unit.name)}-${unit.id}`}>
+        <a>
+          <SidebarTab
+            whiteSpace="nowrap"
+            key={unit.id}
+            id={unit.id}
+            isSelected={unit.id === unitId}
+            onSelect={() => {}}
+            aria-controls={`panel-${unit.name}`}
+          >
+            {/* <input
+                    type="checkbox"
+                    checked={localState.selection.indexOf(unit.id) >= 0}
+                    onClick={e => e.stopPropagation()}
+                    onChange={e =>
+                      e.currentTarget.checked
+                        ? localState.selection.push(unit.id)
+                        : localState.selection.splice(localState.selection.indexOf(unit.id), 1)
+                    }
+                  /> */}
+
+            <Badge size={300} marginRight={8} color={unit.level < 7 ? 'green' : 'red'}>
+              {unit.id}
+            </Badge>
+
+            {unit.dynamic && (
+              <Badge color="orange" marginRight={8}>
+                D
+              </Badge>
+            )}
+
+            {selectedCourse && selectedCourse.core.some(s => s.id === unit.id) && (
+              <Badge color="yellow" marginRight={8}>
+                C
+              </Badge>
+            )}
+            {unit.name}
+
+            <Badge color={unit.blockCount > 0 ? 'green' : 'neutral'} marginLeft={8}>
+              {unit.blockCount}
+            </Badge>
+          </SidebarTab>
+        </a>
+      </Link>
+
+      <Pane marginLeft={65} marginTop={-10} marginBottom={8} maxWidth={300}>
+        {unit.outdated && (
+          <Badge color="red" marginRight={8}>
+            Outdated
+          </Badge>
+        )}
+        {unit.obsolete && (
+          <Badge color="red" marginRight={8}>
+            Obsolete
+          </Badge>
+        )}
+        {unit.processed && (
+          <Badge color="green" marginRight={8}>
+            Processed
+          </Badge>
+        )}
+        {unit.proposed && (
+          <Badge color="purple" marginRight={8}>
+            Proposed
+          </Badge>
+        )}
+        {unit.hidden && (
+          <Badge color="red" marginRight={8}>
+            Hidden
+          </Badge>
+        )}
+        {unit.topics.map(t => (
+          <TopicBadge key={t}>{topics.find(p => p.id === t).name.replace(/ /g, '\xa0')}</TopicBadge>
+        ))}
+      </Pane>
+    </Pane>
+  );
+};
+
 const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state, readonly }) => {
   const view = readonly ? 'view' : 'editor';
   const localState = useLocalStore(() => ({
@@ -70,7 +153,8 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
     filterName: '',
     filterCode: '',
     level: 'ug',
-    selectedTopics: []
+    selectedTopics: [],
+    showHidden: false
   }));
   const form = buildForm(localState, ['newUnitName', 'newUnitId', 'filterCode', 'filterName']);
   const router = useRouter();
@@ -109,6 +193,9 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
 
   const filteredUnits = data.units.slice().filter(f => {
     let isOk = true;
+    if (localState.showHidden == false && f.hidden) {
+      return false;
+    }
     if (selectedCourse) {
       isOk =
         selectedCourse.core.findIndex(c => c.id === f.id) >= 0 ||
@@ -142,24 +229,25 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
     <>
       <VerticalPane title="Unit List">
         <Pane paddingRight={8}>
-          <Pane marginBottom={8} paddingRight={22}>
-            <Pane display="flex" width="100%" marginBottom={8}>
-              <TextInput
-                flex={3}
-                placeholder="Name ..."
-                value={localState.filterName}
-                onChange={form.filterName}
-                marginRight={8}
-                width="100%"
-              />
-              <TextInput
-                flex={1}
-                placeholder="Code ..."
-                value={localState.filterCode}
-                onChange={form.filterCode}
-                width="100%"
-              />
-            </Pane>
+          <Pane paddingRight={22} display="flex" marginBottom={8}>
+            <TextInput
+              flex={3}
+              placeholder="Name ..."
+              value={localState.filterName}
+              onChange={form.filterName}
+              marginRight={8}
+              width="100%"
+            />
+            <TextInput
+              flex={1}
+              placeholder="Code ..."
+              value={localState.filterCode}
+              onChange={form.filterCode}
+              width="100%"
+            />
+          </Pane>
+
+          <Pane display="flex" width="100%" marginBottom={8}>
             <Select
               value={localState.level || 'ug'}
               onChange={e => (localState.level = e.currentTarget.value)}
@@ -181,7 +269,6 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
                 </option>
               ))}
             </Select>
-
             {selectedCourse && (
               <Select
                 value={localState.major}
@@ -196,6 +283,7 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
               </Select>
             )}
           </Pane>
+
           <Pane display="flex">
             <SelectMenu
               isMultiSelect
@@ -228,84 +316,26 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
                 )
               }
             />
+            <Checkbox
+              marginTop={8}
+              label="Show Hidden"
+              checked={localState.showHidden}
+              onChange={e => {
+                localState.showHidden = !localState.showHidden;
+              }}
+            />
           </Pane>
 
           <Tablist>
             {filteredUnits.map((unit, index) => (
-              <Pane key={unit.id}>
-                <Link
-                  href={`/${view}/[category]/[item]`}
-                  as={`/${view}/units/${url(unit.name)}-${unit.id}`}
-                >
-                  <a>
-                    <SidebarTab
-                      whiteSpace="nowrap"
-                      key={unit.id}
-                      id={unit.id}
-                      isSelected={unit.id === unitId}
-                      onSelect={() => {}}
-                      aria-controls={`panel-${unit.name}`}
-                    >
-                      {/* <input
-                    type="checkbox"
-                    checked={localState.selection.indexOf(unit.id) >= 0}
-                    onClick={e => e.stopPropagation()}
-                    onChange={e =>
-                      e.currentTarget.checked
-                        ? localState.selection.push(unit.id)
-                        : localState.selection.splice(localState.selection.indexOf(unit.id), 1)
-                    }
-                  /> */}
-
-                      <Badge size={300} marginRight={8} color={unit.level < 7 ? 'green' : 'red'}>
-                        {unit.id}
-                      </Badge>
-
-                      {unit.dynamic && (
-                        <Badge color="orange" marginRight={8}>
-                          D
-                        </Badge>
-                      )}
-
-                      {selectedCourse && selectedCourse.core.some(s => s.id === unit.id) && (
-                        <Badge color="yellow" marginRight={8}>
-                          C
-                        </Badge>
-                      )}
-                      {unit.name}
-
-                      <Badge color={unit.blockCount > 0 ? 'green' : 'neutral'} marginLeft={8}>
-                        {unit.blockCount}
-                      </Badge>
-                    </SidebarTab>
-                  </a>
-                </Link>
-
-                <Pane marginLeft={65} marginTop={-10} marginBottom={8} maxWidth={300}>
-                  {unit.outdated && (
-                    <Badge color="red" marginRight={8}>
-                      Outdated
-                    </Badge>
-                  )}
-                  {unit.obsolete && (
-                    <Badge color="red" marginRight={8}>
-                      Obsolete
-                    </Badge>
-                  )}
-                  {unit.processed && (
-                    <Badge color="green" marginRight={8}>
-                      Processed
-                    </Badge>
-                  )}
-                  {unit.topics.map(t => (
-                    <>
-                      <TopicBadge key={t}>
-                        {data.topics.find(p => p.id === t).name.replace(/ /g, '\xa0')}
-                      </TopicBadge>{' '}
-                    </>
-                  ))}
-                </Pane>
-              </Pane>
+              <UnitListItem
+                key={unit.id}
+                unit={unit}
+                unitId={unitId}
+                topics={data.topics}
+                selectedCourse={selectedCourse}
+                view={view}
+              />
             ))}
 
             {/* <Button

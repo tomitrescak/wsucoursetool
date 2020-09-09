@@ -22,6 +22,8 @@ export type UnitList = {
   obsolete?: Maybe<Scalars['Boolean']>;
   outdated?: Maybe<Scalars['Boolean']>;
   processed?: Maybe<Scalars['Boolean']>;
+  proposed?: Maybe<Scalars['Boolean']>;
+  hidden?: Maybe<Scalars['Boolean']>;
   topics: Array<Scalars['String']>;
   level?: Maybe<Scalars['Int']>;
 };
@@ -75,11 +77,34 @@ export type Coordinator = {
   units: Array<UnitList>;
 };
 
+export type Prerequisite = {
+  id?: Maybe<Scalars['String']>;
+  unitId?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  recommended?: Maybe<Scalars['Boolean']>;
+  prerequisites?: Maybe<Scalars['JSON']>;
+};
+
+export type BlockDependency = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  prerequisites?: Maybe<Array<Prerequisite>>;
+};
+
+export type UnitDependency = {
+  id: Scalars['String'];
+  name: Scalars['String'];
+  prerequisites?: Maybe<Array<Prerequisite>>;
+  blocks?: Maybe<Scalars['JSON']>;
+  level?: Maybe<Scalars['Int']>;
+};
+
 export type Query = {
   legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
   unitBase?: Maybe<Scalars['JSON']>;
   units: Array<UnitList>;
+  unitDepenendencies: Array<UnitDependency>;
   coordinators: Array<Coordinator>;
   course: Scalars['JSON'];
   courses: Array<CourseList>;
@@ -103,6 +128,11 @@ export type QueryUnitArgs = {
 
 
 export type QueryUnitBaseArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryUnitDepenendenciesArgs = {
   id: Scalars['String'];
 };
 
@@ -249,7 +279,7 @@ export type CourseQuery = (
 export type CourseListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CourseListQuery = { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'level' | 'obsolete' | 'outdated' | 'processed' | 'topics'>>, topics: Array<Pick<TopicList, 'id' | 'name'>>, courses: Array<(
+export type CourseListQuery = { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'level' | 'obsolete' | 'outdated' | 'processed' | 'proposed' | 'hidden' | 'topics'>>, topics: Array<Pick<TopicList, 'id' | 'name'>>, courses: Array<(
     Pick<CourseList, 'id' | 'name'>
     & { core: Array<Pick<Identifiable, 'id'>>, majors: Array<(
       Pick<MajorList, 'id' | 'name'>
@@ -365,12 +395,25 @@ export type UnitQueryVariables = Exact<{
 }>;
 
 
-export type UnitQuery = Pick<Query, 'unit' | 'acs' | 'keywords'>;
+export type UnitQuery = (
+  Pick<Query, 'unit' | 'acs' | 'keywords'>
+  & { topics: Array<Pick<TopicList, 'id' | 'name'>> }
+);
+
+export type UnitDependenciesQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type UnitDependenciesQuery = { unitDepenendencies: Array<(
+    Pick<UnitDependency, 'id' | 'name' | 'blocks' | 'level'>
+    & { prerequisites?: Maybe<Array<Pick<Prerequisite, 'id' | 'unitId' | 'type' | 'recommended' | 'prerequisites'>>> }
+  )> };
 
 export type UnitsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UnitsQuery = { topics: Array<Pick<TopicList, 'id' | 'name'>>, units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'topics' | 'id' | 'name' | 'level' | 'outdated' | 'obsolete' | 'processed'>> };
+export type UnitsQuery = { topics: Array<Pick<TopicList, 'id' | 'name'>>, units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'topics' | 'id' | 'name' | 'level' | 'outdated' | 'obsolete' | 'processed' | 'proposed'>> };
 
 
 export const AcsDocument = gql`
@@ -641,6 +684,8 @@ export const CourseListDocument = gql`
     obsolete
     outdated
     processed
+    proposed
+    hidden
     topics
   }
   topics {
@@ -1176,6 +1221,10 @@ export const UnitDocument = gql`
   unit(id: $id)
   acs
   keywords
+  topics {
+    id
+    name
+  }
 }
     `;
 
@@ -1204,6 +1253,49 @@ export function useUnitLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpt
 export type UnitQueryHookResult = ReturnType<typeof useUnitQuery>;
 export type UnitLazyQueryHookResult = ReturnType<typeof useUnitLazyQuery>;
 export type UnitQueryResult = ApolloReactCommon.QueryResult<UnitQuery, UnitQueryVariables>;
+export const UnitDependenciesDocument = gql`
+    query UnitDependencies($id: String!) {
+  unitDepenendencies(id: $id) {
+    id
+    name
+    prerequisites {
+      id
+      unitId
+      type
+      recommended
+      prerequisites
+    }
+    blocks
+    level
+  }
+}
+    `;
+
+/**
+ * __useUnitDependenciesQuery__
+ *
+ * To run a query within a React component, call `useUnitDependenciesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUnitDependenciesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUnitDependenciesQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUnitDependenciesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<UnitDependenciesQuery, UnitDependenciesQueryVariables>) {
+        return ApolloReactHooks.useQuery<UnitDependenciesQuery, UnitDependenciesQueryVariables>(UnitDependenciesDocument, baseOptions);
+      }
+export function useUnitDependenciesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<UnitDependenciesQuery, UnitDependenciesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<UnitDependenciesQuery, UnitDependenciesQueryVariables>(UnitDependenciesDocument, baseOptions);
+        }
+export type UnitDependenciesQueryHookResult = ReturnType<typeof useUnitDependenciesQuery>;
+export type UnitDependenciesLazyQueryHookResult = ReturnType<typeof useUnitDependenciesLazyQuery>;
+export type UnitDependenciesQueryResult = ApolloReactCommon.QueryResult<UnitDependenciesQuery, UnitDependenciesQueryVariables>;
 export const UnitsDocument = gql`
     query Units {
   topics {
@@ -1220,6 +1312,7 @@ export const UnitsDocument = gql`
     outdated
     obsolete
     processed
+    proposed
   }
 }
     `;
