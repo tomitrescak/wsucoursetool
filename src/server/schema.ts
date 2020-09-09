@@ -13,7 +13,7 @@ export const typeDefs = gql`
     processed: Boolean
     proposed: Boolean
     hidden: Boolean
-    topics: [String!]!
+    topics: [String!]
     level: Int
   }
 
@@ -36,6 +36,20 @@ export const typeDefs = gql`
   type TopicList {
     id: String!
     name: String!
+  }
+
+  type TopicBlock {
+    unitId: String!
+    unitName: String!
+    blockId: String!
+    blockName: String!
+  }
+
+  type TopicDetails {
+    id: String!
+    name: String!
+    description: String
+    blocks: [TopicBlock!]!
   }
 
   type BlockList {
@@ -86,6 +100,7 @@ export const typeDefs = gql`
     prerequisites: [Prerequisite!]
     blocks: JSON
     level: Int
+    processed: Boolean
   }
 
   type Query {
@@ -113,6 +128,7 @@ export const typeDefs = gql`
     acs: JSON!
     sfia: JSON!
     topics: [TopicList!]!
+    topicsDetails: [TopicDetails!]!
 
     db: JSON!
   }

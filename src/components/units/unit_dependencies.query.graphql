@@ -11,5 +11,6 @@ query UnitDependencies($id: String!) {
     }
     blocks
     level
+    processed
   }
 }

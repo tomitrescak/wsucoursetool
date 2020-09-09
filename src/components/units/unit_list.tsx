@@ -133,7 +133,7 @@ const UnitListItem = ({ unit, view, unitId, topics, selectedCourse }) => {
             Hidden
           </Badge>
         )}
-        {unit.topics.map(t => (
+        {(unit.topics || []).map(t => (
           <TopicBadge key={t}>{topics.find(p => p.id === t).name.replace(/ /g, '\xa0')}</TopicBadge>
         ))}
       </Pane>

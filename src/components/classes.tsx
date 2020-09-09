@@ -248,8 +248,17 @@ export function createCompletionCriteria(model: CompletionCriteria) {
   });
 }
 
+type TypeBlock = {
+  blockId: string;
+  blockName: string;
+  unitId: string;
+  unitName: string;
+};
+
 @model('Course/Topic')
-class TopicModel extends ExtendedModel(EntityModel, {}) {}
+export class TopicModel extends ExtendedModel(EntityModel, {
+  blocks: prop<TypeBlock[]>(() => [])
+}) {}
 
 @model('Course/Activity')
 export class ActivityModel extends ExtendedModel(EntityModel, {

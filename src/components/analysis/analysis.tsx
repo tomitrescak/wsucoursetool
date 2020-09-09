@@ -190,7 +190,7 @@ const Container = () => {
 
   const filteredUnits = db
     .slice()
-    .filter(u => u.blocks.some(b => b.level))
+    .filter(u => u.processed == true)
     .filter(f => {
       let isOk = true;
       if (selectedCourse) {

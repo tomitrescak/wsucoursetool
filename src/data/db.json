@@ -29,7 +29,11 @@
           "semester": 2
         },
         {
-          "id": "300104",
+          "id": "300569",
+          "semester": 3
+        },
+        {
+          "id": "900001",
           "semester": 2
         },
         {
@@ -38,10 +42,6 @@
         },
         {
           "id": "300095",
-          "semester": 3
-        },
-        {
-          "id": "300144",
           "semester": 3
         },
         {
@@ -116,6 +116,14 @@
             },
             {
               "id": "300166",
+              "semester": 0
+            },
+            {
+              "id": "300147",
+              "semester": 0
+            },
+            {
+              "id": "900004",
               "semester": 0
             }
           ]
@@ -241,181 +249,833 @@
       ],
       "positions": [
         {
+          "id": "level_1",
+          "x": 139.20417652286858,
+          "y": -692.9825993235381
+        },
+        {
           "id": "u_300580",
-          "x": -328.61979680145174,
-          "y": -608.5848205484752
-        },
-        {
-          "id": "u_100483",
-          "x": -15.549761687919869,
-          "y": -579.2286228750208
-        },
-        {
-          "id": "u_300585",
-          "x": 618.1030270948207,
-          "y": -583.1160632970007
-        },
-        {
-          "id": "u_300700",
-          "x": 297.3891922814702,
-          "y": -581.1723430860108
-        },
-        {
-          "id": "u_300565",
-          "x": -27.212082953860104,
-          "y": -445.1119283167106
-        },
-        {
-          "id": "u_300581",
-          "x": -332.3761560792906,
-          "y": -443.16820810572057
-        },
-        {
-          "id": "u_300104",
-          "x": 281.83943059355033,
-          "y": -454.83052937166053
-        },
-        {
-          "id": "u_300582",
-          "x": -56.367886118710466,
-          "y": -309.0515135474105
-        },
-        {
-          "id": "u_300095",
-          "x": 231.30270510781008,
-          "y": -309.0515135474106
-        },
-        {
-          "id": "u_300144",
-          "x": 588.9472239299707,
-          "y": -310.99523375840045
-        },
-        {
-          "id": "u_300583",
-          "x": -42.76184464177992,
-          "y": -163.27249772316006
-        },
-        {
-          "id": "u_300570",
-          "x": -344.03847734523055,
-          "y": -29.155803164850017
-        },
-        {
-          "id": "u_300578",
-          "x": -15.549761687920155,
-          "y": -21.380922320890036
-        },
-        {
-          "id": "u_300579",
-          "x": -17.493481898909856,
-          "y": 99.12973076049023
-        },
-        {
-          "id": "u_300096",
-          "x": -448.99936873869024,
-          "y": -149.66645624623047
-        },
-        {
-          "id": "u_300103",
-          "x": -345.98219755622034,
-          "y": -289.6143114375103
-        },
-        {
-          "id": "u_301124",
-          "x": 13.606041476930194,
-          "y": 274.0645497495904
-        },
-        {
-          "id": "u_300128",
-          "x": 254.62734763969038,
-          "y": -165.2162179341502
-        },
-        {
-          "id": "u_300143",
-          "x": -266.2896689056303,
-          "y": 276.00826996058044
-        },
-        {
-          "id": "u_300698",
-          "x": 318.7701146023606,
-          "y": 351.8133581891907
-        },
-        {
-          "id": "u_300167",
-          "x": -268.23338911661995,
-          "y": 375.13800072107045
-        },
-        {
-          "id": "u_300130",
-          "x": 19.43720210990012,
-          "y": 365.41939966612057
-        },
-        {
-          "id": "u_300958",
-          "x": 608.3844260398711,
-          "y": 347.92591776721065
-        },
-        {
-          "id": "u_300165",
-          "x": 297.3891922814703,
-          "y": 272.1208295386006
-        },
-        {
-          "id": "u_300166",
-          "x": 592.8346643519503,
-          "y": 268.2333891166205
+          "x": -422.06093989070837,
+          "y": -842.9605024586253
         },
         {
           "id": "n_300580_0",
-          "x": -328.61979680145174,
-          "y": -608.5848205484752
+          "x": -422.0609398907083,
+          "y": -842.9605024586253
+        },
+        {
+          "id": "u_100483",
+          "x": -7.702936215818227,
+          "y": -684.4138399642122
+        },
+        {
+          "id": "n_100483_0",
+          "x": -138.6528518847232,
+          "y": -827.5154334707273
+        },
+        {
+          "id": "n_100483_1",
+          "x": 134.25117404711239,
+          "y": -532.6030183508406
+        },
+        {
+          "id": "n_100483_2",
+          "x": -147.45620755994372,
+          "y": -537.0046961884508
+        },
+        {
+          "id": "n_100483_3",
+          "x": -140.8536908035283,
+          "y": -603.0298637526046
+        },
+        {
+          "id": "n_100483_4",
+          "x": -147.45620755994372,
+          "y": -671.2558702355634
+        },
+        {
+          "id": "n_100483_5",
+          "x": 129.8494962095022,
+          "y": -596.4273469961892
+        },
+        {
+          "id": "n_100483_6",
+          "x": 123.24697945308682,
+          "y": -647.0466421287069
+        },
+        {
+          "id": "n_100483_7",
+          "x": -149.65704647874884,
+          "y": -752.6869102313531
+        },
+        {
+          "id": "n_100483_8",
+          "x": 114.44362377786629,
+          "y": -695.4650983424198
+        },
+        {
+          "id": "n_100483_9",
+          "x": 107.84110702145094,
+          "y": -752.6869102313531
+        },
+        {
+          "id": "n_100483_10",
+          "x": 96.8369124274253,
+          "y": -803.306205363871
+        },
+        {
+          "id": "n_100483_12",
+          "x": 88.03355675220476,
+          "y": -847.3229837399736
+        },
+        {
+          "id": "level_2",
+          "x": 394.8622947565474,
+          "y": 19.644742068964888
+        },
+        {
+          "id": "u_300585",
+          "x": 1201.5676097142875,
+          "y": -137.03380637222168
+        },
+        {
+          "id": "n_300585_0",
+          "x": 1194.9664295089062,
+          "y": -272.75878738612414
+        },
+        {
+          "id": "n_300585_1",
+          "x": 1194.9664295089062,
+          "y": -215.54855893948692
+        },
+        {
+          "id": "n_300585_2",
+          "x": 1203.768003116081,
+          "y": 6.691174641680789
+        },
+        {
+          "id": "n_300585_3",
+          "x": 1208.1687899196688,
+          "y": -37.31669339419403
+        },
+        {
+          "id": "n_300585_4",
+          "x": 1203.768003116081,
+          "y": -94.52692184083091
+        },
+        {
+          "id": "n_300585_5",
+          "x": 1199.3672163124936,
+          "y": -156.13793709105573
+        },
+        {
+          "id": "u_300700",
+          "x": 706.4692929364455,
+          "y": -780.8961383382098
+        },
+        {
+          "id": "n_300700_0",
+          "x": 704.2684540176406,
+          "y": -827.5154334707277
+        },
+        {
+          "id": "n_300700_2",
+          "x": 708.6701318552502,
+          "y": -772.4944605005992
+        },
+        {
+          "id": "n_300700_14",
+          "x": 708.6701318552505,
+          "y": -726.2768432056919
+        },
+        {
+          "id": "u_300565",
+          "x": 521.1326675694228,
+          "y": -227.27129170020265
+        },
+        {
+          "id": "n_300565_0",
+          "x": 516.3789092049236,
+          "y": -280.1895044446288
+        },
+        {
+          "id": "n_300565_2",
+          "x": 519.5822855688717,
+          "y": -227.2712917002026
+        },
+        {
+          "id": "n_300565_13",
+          "x": 525.8864259339219,
+          "y": -174.35307895577648
+        },
+        {
+          "id": "u_300581",
+          "x": -409.57557692720025,
+          "y": -208.5769070441512
+        },
+        {
+          "id": "n_300581_0",
+          "x": -410.38949163365646,
+          "y": -288.34054827686475
+        },
+        {
+          "id": "n_300581_1",
+          "x": -408.76166222074403,
+          "y": -239.5056658894892
+        },
+        {
+          "id": "n_300581_2",
+          "x": -408.76166222074403,
+          "y": -190.6707835021134
+        },
+        {
+          "id": "n_300581_3",
+          "x": -410.38949163365646,
+          "y": -128.81326581143765
+        },
+        {
+          "id": "level_3",
+          "x": 321.7845361235654,
+          "y": 1149.5675527848593
+        },
+        {
+          "id": "u_300569",
+          "x": 223.27907901383037,
+          "y": 753.0960363052944
+        },
+        {
+          "id": "n_300569_0",
+          "x": 220.84013575594702,
+          "y": 497.2850141459355
+        },
+        {
+          "id": "n_300569_4",
+          "x": 224.09274965017323,
+          "y": 580.2795973848995
+        },
+        {
+          "id": "n_300569_6",
+          "x": 222.46540837748762,
+          "y": 839.0268597419181
+        },
+        {
+          "id": "n_300569_8",
+          "x": 219.21072583211628,
+          "y": 653.5099546557535
+        },
+        {
+          "id": "n_300569_10",
+          "x": 225.72205257480675,
+          "y": 715.3491370162026
+        },
+        {
+          "id": "n_300569_12",
+          "x": 222.4654083774875,
+          "y": 902.4931693766582
+        },
+        {
+          "id": "n_300569_17",
+          "x": 220.84027842154262,
+          "y": 773.9333515000881
+        },
+        {
+          "id": "n_300569_19",
+          "x": 222.4654083774875,
+          "y": 959.4501139206559
+        },
+        {
+          "id": "n_300569_24",
+          "x": 227.34743219554446,
+          "y": 1016.4070584646533
+        },
+        {
+          "id": "u_900001",
+          "x": 408.50120343645676,
+          "y": -705.9846243446227
+        },
+        {
+          "id": "n_900001_0",
+          "x": 401.1939904515813,
+          "y": -834.1423279615416
+        },
+        {
+          "id": "n_900001_1",
+          "x": 404.4486729969528,
+          "y": -775.5580421448577
+        },
+        {
+          "id": "n_900001_2",
+          "x": 410.958038087695,
+          "y": -716.9737563281745
+        },
+        {
+          "id": "n_900001_3",
+          "x": 412.58537936038095,
+          "y": -661.644153056862
+        },
+        {
+          "id": "n_900001_4",
+          "x": 415.80841642133214,
+          "y": -585.326920727704
+        },
+        {
+          "id": "u_300582",
+          "x": -87.75005622513999,
+          "y": -156.7207006574783
+        },
+        {
+          "id": "n_300582_0",
+          "x": -92.84176090365669,
+          "y": -295.7600826265011
+        },
+        {
+          "id": "n_300582_1",
+          "x": -94.64527213354263,
+          "y": -256.0828355690096
+        },
+        {
+          "id": "n_300582_2",
+          "x": -91.76611306663678,
+          "y": -209.2711977866151
+        },
+        {
+          "id": "n_300582_6",
+          "x": -91.79691115269078,
+          "y": -161.84121362269437
+        },
+        {
+          "id": "n_300582_12",
+          "x": -83.7473826563606,
+          "y": -59.96491981352332
+        },
+        {
+          "id": "n_300582_14",
+          "x": -80.85484031673737,
+          "y": -111.38708054465866
+        },
+        {
+          "id": "n_300582_15",
+          "x": -84.39081098848074,
+          "y": -17.681318688455477
+        },
+        {
+          "id": "u_300095",
+          "x": 528.0004995023046,
+          "y": 524.4580241652666
+        },
+        {
+          "id": "n_300095_0",
+          "x": 525.7423390449012,
+          "y": 484.1137359315926
+        },
+        {
+          "id": "n_300095_8",
+          "x": 527.3701684578141,
+          "y": 523.181641841493
+        },
+        {
+          "id": "n_300095_9",
+          "x": 530.2586599597079,
+          "y": 564.8023123989406
+        },
+        {
+          "id": "u_300583",
+          "x": -230.18312173796494,
+          "y": 1356.8825849323055
+        },
+        {
+          "id": "u_300570",
+          "x": -220.5443365751235,
+          "y": 1481.2323030131408
+        },
+        {
+          "id": "u_300578",
+          "x": 377.42149533484735,
+          "y": 1519.497662796384
+        },
+        {
+          "id": "u_300579",
+          "x": 88.09453532915951,
+          "y": 1508.592413337904
+        },
+        {
+          "id": "u_300096",
+          "x": 217.7797785280211,
+          "y": -216.43264822919207
+        },
+        {
+          "id": "n_300096_0",
+          "x": 215.59986495551104,
+          "y": -291.3367765898489
+        },
+        {
+          "id": "n_300096_2",
+          "x": 218.90206922782218,
+          "y": -236.00232434435486
+        },
+        {
+          "id": "n_300096_11",
+          "x": 218.63909913717194,
+          "y": -184.44849334626028
+        },
+        {
+          "id": "n_300096_16",
+          "x": 219.95969210053116,
+          "y": -141.52851986853523
+        },
+        {
+          "id": "u_300103",
+          "x": -405.8430202011927,
+          "y": 155.40656092809996
+        },
+        {
+          "id": "n_300103_0",
+          "x": -411.27910623482535,
+          "y": -19.137137692713537
+        },
+        {
+          "id": "n_300103_36",
+          "x": -407.67216282834397,
+          "y": 33.16354170126206
+        },
+        {
+          "id": "n_300103_33",
+          "x": -403.8377828098851,
+          "y": 141.82671711965045
+        },
+        {
+          "id": "n_300103_27",
+          "x": -404.06521942186305,
+          "y": 294.66693867114043
+        },
+        {
+          "id": "n_300103_24",
+          "x": -400.4582760153819,
+          "y": 337.95025954891344
+        },
+        {
+          "id": "n_300103_21",
+          "x": -400.40693416756005,
+          "y": 194.5822697375819
+        },
+        {
+          "id": "n_300103_9",
+          "x": -402.0343111066445,
+          "y": 249.35270947814874
+        },
+        {
+          "id": "n_300103_3",
+          "x": -409.47563453158455,
+          "y": 87.26769279847818
+        },
+        {
+          "id": "u_301124",
+          "x": -151.02562383847922,
+          "y": 1751.8960676693314
+        },
+        {
+          "id": "u_300128",
+          "x": 65.5782411305931,
+          "y": 1410.2850647603416
+        },
+        {
+          "id": "u_300143",
+          "x": -430.92133422103996,
+          "y": 1753.8397878803216
+        },
+        {
+          "id": "u_300698",
+          "x": 154.13844928695107,
+          "y": 1829.644876108929
+        },
+        {
+          "id": "u_300167",
+          "x": 856.1263394151941,
+          "y": -62.02516756415362
+        },
+        {
+          "id": "n_300167_0",
+          "x": 849.5238226587785,
+          "y": -281.707381607056
+        },
+        {
+          "id": "n_300167_3",
+          "x": 864.9296950904147,
+          "y": 149.65704647874875
+        },
+        {
+          "id": "n_300167_5",
+          "x": 862.7288561716093,
+          "y": 79.23020107698476
+        },
+        {
+          "id": "n_300167_6",
+          "x": 858.3271783339992,
+          "y": 19.80755026924637
+        },
+        {
+          "id": "n_300167_9",
+          "x": 856.1263394151943,
+          "y": -41.815939457297276
+        },
+        {
+          "id": "n_300167_13",
+          "x": 856.126339415194,
+          "y": -99.03775134623058
+        },
+        {
+          "id": "n_300167_14",
+          "x": 853.9255004963886,
+          "y": -145.25536864113826
+        },
+        {
+          "id": "n_300167_16",
+          "x": 847.3229837399736,
+          "y": -191.47298593604583
+        },
+        {
+          "id": "n_300167_18",
+          "x": 849.5238226587785,
+          "y": -237.6906032309534
+        },
+        {
+          "id": "u_300130",
+          "x": -145.19446320550932,
+          "y": 1843.250917585859
+        },
+        {
+          "id": "u_300958",
+          "x": 443.7527607244615,
+          "y": 1825.7574356869504
+        },
+        {
+          "id": "u_300165",
+          "x": 132.75752696606077,
+          "y": 1749.9523474583411
+        },
+        {
+          "id": "u_300166",
+          "x": 428.20299903654086,
+          "y": 1746.0649070363615
+        },
+        {
+          "id": "u_300147",
+          "x": 861.6284367122065,
+          "y": 298.9124151198868
+        },
+        {
+          "id": "n_300147_0",
+          "x": 860.528017252804,
+          "y": 248.6947978249791
+        },
+        {
+          "id": "n_300147_15",
+          "x": 862.728856171609,
+          "y": 341.1300324147945
+        },
+        {
+          "id": "u_900004",
+          "x": 939.5679825659274,
+          "y": 710.7270687793775
+        },
+        {
+          "id": "n_900004_0",
+          "x": 825.1475256726528,
+          "y": 470.8841879838598
+        },
+        {
+          "id": "n_900004_1",
+          "x": 825.1475256726529,
+          "y": 519.2928428233224
+        },
+        {
+          "id": "n_900004_8",
+          "x": 820.7467388690656,
+          "y": 561.1003174574032
+        },
+        {
+          "id": "n_900004_6",
+          "x": 818.5463454672716,
+          "y": 605.1081854932781
+        },
+        {
+          "id": "n_900004_2",
+          "x": 818.5463454672716,
+          "y": 657.9176271363277
+        },
+        {
+          "id": "n_900004_4",
+          "x": 1064.9904064681707,
+          "y": 492.88812200179774
+        },
+        {
+          "id": "n_900004_5",
+          "x": 1047.3872592538207,
+          "y": 602.9077920914842
+        },
+        {
+          "id": "n_900004_7",
+          "x": 816.3459520654777,
+          "y": 847.1514596905896
+        },
+        {
+          "id": "n_900004_9",
+          "x": 814.1455586636843,
+          "y": 950.5699495748953
+        },
+        {
+          "id": "n_900004_10",
+          "x": 818.5463454672716,
+          "y": 899.9609013336395
         },
         {
           "id": "config",
           "pan": {
-            "x": 402.9201536998918,
-            "y": 341.82667311881926
+            "x": 271.8894905891887,
+            "y": 497.21204060141935
           },
-          "zoom": 0.5143646038536799
+          "zoom": 0.4543646038536798
         },
         {
-          "id": "l_300581_0",
+          "id": "l_u_300585_u_300581",
           "points": [
             {
-              "x": -269.39708327008884,
-              "y": -515.7947807424175
+              "x": 1079.269591906056,
+              "y": -376.75335406268914
+            },
+            {
+              "x": -239.03292045821487,
+              "y": -374.552515143884
             }
           ]
         },
         {
-          "id": "l_300582_300581"
-        },
-        {
-          "id": "l_300095_300565"
-        },
-        {
-          "id": "l_300096_300580",
+          "id": "l_n_300565_2_n_300565_0",
           "points": [
             {
-              "x": -547.6874341447419,
-              "y": -292.79265117596987
+              "x": 646.6304606738809,
+              "y": -251.0750202820198
             },
             {
-              "x": -551.4779575885088,
-              "y": -471.44087521169797
+              "x": 646.5196517447349,
+              "y": -285.1741233513738
             }
           ]
         },
         {
-          "id": "l_300103_300581",
+          "id": "l_n_300565_13_n_300565_2",
           "points": [
             {
-              "x": -504.8314562166015,
-              "y": -293.2442013254417
+              "x": 651.5124844919379,
+              "y": -177.84466301117442
             },
             {
-              "x": -506.77517642759153,
-              "y": -437.0794969387021
+              "x": 649.3696806287778,
+              "y": -237.76839025847954
+            }
+          ]
+        },
+        {
+          "id": "l_u_300581_n_300580_0"
+        },
+        {
+          "id": "l_n_300569_0_n_300565_2",
+          "points": [
+            {
+              "x": 389.7963387666367,
+              "y": 492.2377401153118
+            },
+            {
+              "x": 382.3169692145701,
+              "y": -223.22787436536188
+            }
+          ]
+        },
+        {
+          "id": "l_n_300569_17_n_300582_2",
+          "points": [
+            {
+              "x": 86.99862448457635,
+              "y": 771.0888286414055
+            },
+            {
+              "x": 59.21803935002853,
+              "y": -215.41322053170452
+            }
+          ]
+        },
+        {
+          "id": "l_n_300569_17_n_300582_12",
+          "points": [
+            {
+              "x": 74.51126357643412,
+              "y": 781.0541994375716
+            },
+            {
+              "x": 52.42462483447112,
+              "y": -68.1894080294131
+            }
+          ]
+        },
+        {
+          "id": "l_n_900001_1_n_900001_0",
+          "points": [
+            {
+              "x": 536.7603921521429,
+              "y": -784.7948558201454
+            },
+            {
+              "x": 535.1327020133399,
+              "y": -831.9606378192858
+            }
+          ]
+        },
+        {
+          "id": "l_n_900001_2_n_900001_1",
+          "points": [
+            {
+              "x": 539.659609630582,
+              "y": -730.2957469336881
+            },
+            {
+              "x": 538.5155435862716,
+              "y": -771.4516952569076
+            }
+          ]
+        },
+        {
+          "id": "l_n_900001_3_n_900001_2",
+          "points": [
+            {
+              "x": 540.0646990502094,
+              "y": -660.6928406477621
+            },
+            {
+              "x": 539.9033375323498,
+              "y": -712.5375284701381
+            }
+          ]
+        },
+        {
+          "id": "l_n_300582_2_u_300581"
+        },
+        {
+          "id": "l_n_300582_6_u_300581"
+        },
+        {
+          "id": "l_u_300095_u_300565"
+        },
+        {
+          "id": "l_u_300096_u_300580",
+          "points": [
+            {
+              "x": 105.19936609309474,
+              "y": -419.3352130284877
+            },
+            {
+              "x": -377.6857723429376,
+              "y": -416.3684546011817
+            }
+          ]
+        },
+        {
+          "id": "l_n_300096_2_n_300096_0",
+          "points": [
+            {
+              "x": 352.5489795415723,
+              "y": -236.60907471486408
+            },
+            {
+              "x": 351.45556355399526,
+              "y": -292.3732900812988
+            }
+          ]
+        },
+        {
+          "id": "l_n_300096_11_n_300096_0",
+          "points": [
+            {
+              "x": 352.7363720270148,
+              "y": -183.12761670754992
+            },
+            {
+              "x": 351.0660264884217,
+              "y": -292.81715095248876
+            }
+          ]
+        },
+        {
+          "id": "l_n_300096_16_n_300096_0",
+          "points": [
+            {
+              "x": 352.6681720778762,
+              "y": -144.65960666357532
+            },
+            {
+              "x": 349.4674490129305,
+              "y": -294.17823579425567
+            }
+          ]
+        },
+        {
+          "id": "l_u_300103_u_300147"
+        },
+        {
+          "id": "l_u_300103_u_300581"
+        },
+        {
+          "id": "l_n_300103_21_n_300103_33",
+          "points": [
+            {
+              "x": -266.83388454582894,
+              "y": 188.47658773361772
+            },
+            {
+              "x": -269.968167576578,
+              "y": 139.64042732646746
+            }
+          ]
+        },
+        {
+          "id": "l_n_300103_9_n_300103_21",
+          "points": [
+            {
+              "x": -269.47264614910557,
+              "y": 250.90214865211996
+            },
+            {
+              "x": -269.47264614910574,
+              "y": 197.19870966233057
+            }
+          ]
+        },
+        {
+          "id": "l_u_300167_n_300147_0"
+        },
+        {
+          "id": "l_n_300147_15_n_300147_0",
+          "points": [
+            {
+              "x": 883.3949281323995,
+              "y": 296.70335509168143
+            }
+          ]
+        },
+        {
+          "id": "l_u_900004_u_300582",
+          "points": [
+            {
+              "x": 582.9921715126037,
+              "y": -56.312760815610176
+            }
+          ]
+        },
+        {
+          "id": "l_u_900004_u_900001",
+          "points": [
+            {
+              "x": 657.4826347967064,
+              "y": -443.10441459847294
             }
           ]
         }
@@ -549,13 +1209,10 @@
         {
           "id": "0",
           "name": "Communication & Perception",
-          "description": "",
           "week": 1,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: What is communication – meaning or message?",
               "lengthHours": 2
             },
@@ -568,7 +1225,6 @@
             {
               "id": 2,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Perception – is the truth really ‘out there’?",
               "lengthHours": 2
             },
@@ -580,18 +1236,21 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "topics": [
+            "27"
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "1",
           "name": "Language & communication",
-          "description": "",
           "week": 3,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Language & communication – I know what you said but not what you mean",
               "lengthHours": 2
             },
@@ -603,18 +1262,21 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "topics": [
+            "27"
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "2",
           "name": "Non-verbal communication – more than just words",
-          "description": "",
           "week": 4,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Non-verbal communication – more than just words",
               "lengthHours": 2
             },
@@ -626,18 +1288,21 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "topics": [
+            "27"
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "3",
           "name": "Censorship",
-          "description": "",
           "week": 5,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Censorship – not just dirty pictures ",
               "lengthHours": 2
             },
@@ -649,18 +1314,21 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "topics": [
+            "27"
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "4",
           "name": "Mediated Communication – the impact of technology on communication",
-          "description": "",
           "week": 6,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Mediated Communication – the impact of technology on communication",
               "lengthHours": 2
             },
@@ -672,18 +1340,21 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "topics": [
+            "27"
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "5",
           "name": "Intercultural Communication",
-          "description": "",
           "week": 7,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Intercultural Communication",
               "lengthHours": 2
             },
@@ -695,18 +1366,21 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "topics": [
+            "27"
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "6",
           "name": "Writing a business report",
-          "description": "",
           "week": 8,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Writing a business report I.",
               "lengthHours": 2
             },
@@ -719,7 +1393,6 @@
             {
               "id": 2,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Writing a business report II.",
               "lengthHours": 2
             },
@@ -737,18 +1410,21 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "topics": [
+            "27"
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "7",
           "name": "Issues in professional writing",
-          "description": "",
           "week": 11,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Issues in professional writing: what is a cliché anyway?\n\nLECTURE POD: \nWriting the intro and method sections (MG)",
               "lengthHours": 2
             },
@@ -760,18 +1436,21 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "topics": [
+            "27"
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "8",
           "name": "Visual communication",
-          "description": "",
           "week": 12,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Visual communication – a picture paints a thousand words\n</p>\n<p>\nLECTURE PODS:\n1. Why are visuals important? (MG)\n2 &amp; 3: Preparing effective tables and graphs (RA)\n</p>",
               "lengthHours": 2
             },
@@ -783,18 +1462,21 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "topics": [
+            "27"
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "9",
           "name": "Mediated Communication & Ethics",
-          "description": "",
           "week": 13,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Mediated Communication &amp; Ethics\n</p>\n<p>\nLECTURE PODS:\n1. What are ‘ethics’ (RA)\n2. IT ethics (RA)</p>",
               "lengthHours": 2
             },
@@ -806,81 +1488,39 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "topics": [
+            "27"
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "10",
           "name": "Editing your report",
-          "description": "",
           "week": 14,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Editing your report\n\nLECTURE POD\n1. Editing tips (MG)",
               "lengthHours": 2
             },
             {
               "id": "301318",
               "name": "Portfolio",
-              "description": "",
               "type": "assignment",
               "lengthHours": 2
             }
           ],
           "completionCriteria": {},
-          "topics": []
-        },
-        {
-          "id": "11",
-          "ass_id": "52513",
-          "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading.",
-          "weight": "20",
-          "ulos": "2, 7, 8, 9",
-          "threshold": "0",
-          "due_date": "The group, topic and date for the presentation will be arranged in class in the first session.",
-          "week": 15,
-          "activities": [
-            {
-              "id": 1,
-              "type": "assignment",
-              "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 1.",
-              "lengthHours": 2
-            },
-            {
-              "id": 2,
-              "type": "assignment",
-              "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 2.",
-              "lengthHours": 2
-            },
-            {
-              "id": 3,
-              "type": "assignment",
-              "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 3.",
-              "lengthHours": 2
-            },
-            {
-              "id": 4,
-              "type": "assignment",
-              "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 4.",
-              "lengthHours": 2
-            },
-            {
-              "id": 5,
-              "type": "assignment",
-              "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 5.",
-              "lengthHours": 2
-            },
-            {
-              "id": 6,
-              "type": "assignment",
-              "name": "Oral Presentation: with a partner, prepare an oral presentation based on an allocated weekly topic and set reading. 6.",
-              "lengthHours": 2
-            }
+          "topics": [
+            "27"
           ],
-          "completionCriteria": {},
-          "topics": []
+          "keywords": [
+            "Communication"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "12",
@@ -910,11 +1550,18 @@
               "name": "Written Report 3.",
               "lengthHours": 2
             }
-          ]
+          ],
+          "keywords": [
+            "Communication"
+          ],
+          "topics": [
+            "27"
+          ],
+          "completionCriteria": {},
+          "level": "Fundamentals"
         }
       ],
       "description": "The unit provides students with an introductory understanding of a range of communication theories and practices necessary for academic work and professional success.",
-      "assumedKnowledge": null,
       "approachToLearning": "Expectations of Students\n\nStudents are expected to be familiar with and abide by the terms of the Student Code of Conduct and the Student Misconduct Rule. Students should also be familiar with the Work Health and Safety Policy at Western Sydney University.\n \nWorkplace Health and Safety\n\nThe Western Sydney University Work Health and Safety Policy states that it is the responsibility of employees, students, contractors, visitors and others to ensure this policy is carried out and to regard accident prevention and safe working as a collective and individual responsibility.\n \nAwareness and implementation of Workplace Health and Safety procedures is not only an important consideration to ensure the health and welfare of you and your colleagues, but is an integral component of all professional practice. Each unit may have safety inductions particular to that unit’s activities. Students will be required to complete any such inductions and meet requirements necessary to safely participate in that unit’s activities. Material regarding Workplace Health and Safety procedures for that unit will be available on the vUWS site for that unit.\n \nStudents should also be familiar with the Western Sydney University’s Work Health and Safety Policy which can be viewed at http://policies.uws.edu.au/view.current.php?id=00081 \n\nHow to raise concerns\n\nIf you have a concern about this unit, please contact your lecturer or tutor in the first instance. If the matter is not resolved, then you may contact the unit coordinator. If you would prefer to speak to someone else, you are advised to contact the Academic Course Advisor (ACA) or Director of Academic Program (DAP) of the School of Computing, Engineering and Mathematics.\n \nThe University also has a confidential Complaints Resolution Unit (see link below). Staff in that unit can provide you with advice on addressing your concerns within the School and, in some circumstances, they may undertake an investigation. Concerns must be raised with the Complaints Resolution Unit  within a six month timeframe.\n\nGetting Help with Your Studies: Assistance with Academic Literacy\n\nWe take academic literacy very seriously at Western Sydney University. While tutors are happy to help we also expect you to take responsibility for developing your skills, particularly if you are struggling. There are many resources available within the unit and the University to help you. Resources on study skills, essay writing and referencing can be found via the fantastic Library Study Smart program, including face-to-face and online assistance), and on the Communication Academic Literacy site. The University also runs free online and face-to-face workshops. \n\nTo find out more please visit: http://www.hca.westernsydney.edu.au/cal/ \n\nHealth and Wellbeing \n\nIf you feel like you’re not coping during the semester due to stress, illness or other issues please make sure you discuss your concerns with someone. You can talk to your tutor, unit coordinator, course advisor or to a member of the University’s counselling services. The counselling team offers online, telephone and face-to-face appointments. The Communication Academic Literacy site also lists a number of resources for mental health and wellbeing. See http://www.hca.westernsydney.edu.au/cal/. \n\nStudent Workload \n\nThe expected workload in this unit is: 10 hours per week (for all 10 credit point units), including 2.5 hours in class and 6.5 hours in own study time. Lectures add an extra hour of class time for the first 7 weeks. Lectures during weeks 9-14 will be delivered via a series of short (7-12 min) video ‘lecture pods’ that students are expected to watch in their own time before coming to class. \n\nAttendance\n\nAttendance in lectures, tutorials and practicals is an essential part of academic success and engagement in all units in the Bachelor of Communication/Screen Media/Creative Industries and related double degrees. Students need to be aware of the issues and fine details of weekly content and assessment criteria, as they arise week-by-week. Students also informally learn from each other through social interaction and class group activities.\n \nTo ensure you have the best possible chance of success in your units, you are expected to attend 80% of classes – whether online or face-to-face. Please note that where attendance is critical to the completion of assessments, an attendance mark may be given as part of the overall assessment criteria for that assignment.\n \nAttendance records will be taken in all tutorials and practicals and you will be asked to explain if your attendance falls below the required minimum without explanation (for example, doctors’ certificates in the case of illness).",
       "lgId": "18557",
       "name": "Principles of Professional Communication 1",
@@ -974,7 +1621,8 @@
       ],
       "topics": [
         "27"
-      ]
+      ],
+      "processed": true
     },
     {
       "id": "200022",
@@ -1657,7 +2305,14 @@
             }
           ],
           "completionCriteria": {},
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Mathematics"
+          ],
+          "topics": [
+            "7"
+          ],
+          "proposed": true
         },
         {
           "id": "2",
@@ -1755,7 +2410,13 @@
             }
           ],
           "completionCriteria": {},
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Mathematics"
+          ],
+          "topics": [
+            "7"
+          ]
         },
         {
           "id": "12",
@@ -1799,7 +2460,13 @@
             }
           ],
           "completionCriteria": {},
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Mathematics"
+          ],
+          "topics": [
+            "7"
+          ]
         },
         {
           "id": "17",
@@ -1825,7 +2492,13 @@
             }
           ],
           "completionCriteria": {},
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Mathematics"
+          ],
+          "topics": [
+            "7"
+          ]
         },
         {
           "id": "19",
@@ -1858,7 +2531,13 @@
               "type": "block"
             }
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Mathematics"
+          ],
+          "topics": [
+            "7"
+          ]
         },
         {
           "id": "21",
@@ -1903,7 +2582,13 @@
               "type": "block"
             }
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "keywords": [
+            "Mathematics"
+          ],
+          "topics": [
+            "7"
+          ]
         }
       ],
       "description": "This unit introduces set theory, symbolic logic, graph theory and some counting problems.  It provides a solid foundation for further study in mathematics or computing.",
@@ -7053,7 +7738,15 @@
           "topics": [
             "26"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "prerequisites": [
+            {
+              "id": "0",
+              "unitId": "300096",
+              "type": "block",
+              "recommended": true
+            }
+          ]
         },
         {
           "id": "11",
@@ -7103,7 +7796,15 @@
           "topics": [
             "26"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "prerequisites": [
+            {
+              "id": "0",
+              "unitId": "300096",
+              "type": "block",
+              "recommended": true
+            }
+          ]
         },
         {
           "id": "16",
@@ -7189,7 +7890,15 @@
           "topics": [
             "26"
           ],
-          "level": "Fundamentals"
+          "level": "Fundamentals",
+          "prerequisites": [
+            {
+              "id": "0",
+              "unitId": "300096",
+              "type": "block",
+              "recommended": true
+            }
+          ]
         }
       ],
       "description": "This unit is designed for computer science students, particularly those interested in systems programming and hardware development. The students will learn about the interface between the hardware and software of a computer system. This will involve study of some aspects of computer architecture and low level interfacing to gain an insight into central processing unit (CPU) organisation at the assembly language level. After completing this unit students will be able to write procedures in an assembly language, use their understanding of the relationship between the instruction set architecture and the implementation of high level languages to write efficient programs.",
@@ -7289,7 +7998,8 @@
           "completionCriteria": {},
           "keywords": [
             "Programming",
-            "C++"
+            "C++",
+            "Java"
           ],
           "topics": [
             "5"
@@ -7310,7 +8020,8 @@
           "completionCriteria": {},
           "keywords": [
             "Programming",
-            "C++"
+            "C++",
+            "Java"
           ],
           "topics": [
             "5"
@@ -7337,7 +8048,8 @@
           "completionCriteria": {},
           "keywords": [
             "Programming",
-            "C++"
+            "C++",
+            "Java"
           ],
           "topics": [
             "5"
@@ -7358,7 +8070,8 @@
           "completionCriteria": {},
           "keywords": [
             "Programming",
-            "C++"
+            "C++",
+            "Java"
           ],
           "topics": [
             "5"
@@ -7379,7 +8092,8 @@
           "completionCriteria": {},
           "keywords": [
             "Programming",
-            "C++"
+            "C++",
+            "Java"
           ],
           "topics": [
             "5"
@@ -7418,7 +8132,8 @@
           "completionCriteria": {},
           "keywords": [
             "Programming",
-            "C++"
+            "C++",
+            "Java"
           ],
           "topics": [
             "5"
@@ -7446,7 +8161,8 @@
           "completionCriteria": {},
           "keywords": [
             "Programming",
-            "C++"
+            "C++",
+            "Java"
           ],
           "topics": [
             "5"
@@ -7474,7 +8190,8 @@
           "completionCriteria": {},
           "keywords": [
             "Programming",
-            "C++"
+            "C++",
+            "Java"
           ],
           "topics": [
             "5"
@@ -12897,7 +13614,22 @@
               "type": "assignment",
               "name": "Ten practical sessions. Each session contains 1 to 5 theoretical or programming tasks except two sessions that are used for assignment demonstration. 6.",
               "lengthHours": 2
-            },
+            }
+          ],
+          "completionCriteria": {},
+          "keywords": [
+            "C++",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate"
+        },
+        {
+          "id": "15",
+          "name": "Object Oriented Programming in C++",
+          "activities": [
             {
               "type": "knowledge",
               "name": "Lecture: Polymorphism & virtual functions",
@@ -12936,14 +13668,14 @@
             },
             {
               "id": "31",
-              "type": "practical",
-              "name": "Practical: Assignment 2 demonstration",
+              "type": "assignment",
+              "name": "Assignment: five to seven sub-tasks in one programming task 2.",
               "lengthHours": 2
             },
             {
               "id": "32",
-              "type": "assignment",
-              "name": "Assignment: five to seven sub-tasks in one programming task 2.",
+              "type": "practical",
+              "name": "Practical: Assignment 2 demonstration",
               "lengthHours": 2
             },
             {
@@ -12968,10 +13700,17 @@
               "type": "exam",
               "name": "Final Exam",
               "lengthHours": 2,
-              "id": "48"
+              "id": "36"
             }
           ],
           "completionCriteria": {},
+          "prerequisites": [
+            {
+              "id": "0",
+              "unitId": "300147",
+              "type": "block"
+            }
+          ],
           "keywords": [
             "C++",
             "Programming"
@@ -12985,7 +13724,7 @@
       "description": "This unit presents the concepts and principles of programming languages with the emphasis on object oriented paradigm. It addresses the importance of the separation of behaviour and implementation as well as effective use of encapsulation, inheritance and polymorphism. The students will gain intensive training in programming skills with supervised laboratory sessions and task oriented assignments.",
       "approachToLearning": "TEACHING ACTIVITIES:\n- Two hours lecture per week, 13 lectures in total.\n- Two-hour compulsory practical session per week, ten practical sessions and three online tutorials in total.\n\nTo achieve all the learning outcomes, the students are required to attend all teaching activities. Attendance of practical sessions and attempt of online tutorials are compulsory. Each practical session is two hours, sitting in a three hours time slot.  Students work on practical tasks will be checked face-to-face by the tutors during the practical sessions. No email submission is acceptable. There is no practical class in Week 1 but an online survey is due at the end of the first week. \n\nTIPS OF LEARNING:\n- Attend all lectures, which are where you learn the theory of object-oriented programming.\n- Pay particular attention to the example code your lecturer demonstrates during each lecture. Download the code and run it offline.\n- Prepare your answer of practical tasks before you attend practical class. It will save your time.  Practice is most important for learning programming languages.\n- Watch out for the deadlines of the three online tutorials. They are important practice for multiple choice questions in the final examination. You cannot access online tutorials after their deadlines.\n- Object-oriented may not be the most intuitive way of programming but once you get used to it, it might be the simplest and most efficient way of programming.",
       "lgId": "16321",
-      "name": "Object Oriented Programming",
+      "name": "C++ Programming",
       "outcome": "Upon successfully completing this unit, students will be able to:\n\n Outcomes\n\n1. Explain the principles of object oriented programming\n2. Explain the concepts of abstract data types, encapsulation and information hiding, class inheritance and polymorphism\n3. Write programs to demonstrate understanding of encapsulation, data hiding, compositions and basic data operations\n4. Write program in object oriented style to solve real-world problems using inheritance and polymorphism",
       "unitPrerequisites": "300580 Programming Fundamentals",
       "prerequisite": [
@@ -13015,12 +13754,12 @@
         ]
       },
       "coordinator": "Dongmo Zhang",
-      "obsolete": true,
       "notes": "This just Programming Techniques in C++",
       "duplicate": true,
       "topics": [
         "5"
-      ]
+      ],
+      "processed": true
     },
     {
       "id": "300150",
@@ -14854,7 +15593,7 @@
       "blocks": [
         {
           "id": "0",
-          "name": "Lect 1\nIntroduction, review of the C programming language",
+          "name": "C Programming",
           "week": 1,
           "activities": [
             {
@@ -14867,51 +15606,46 @@
               "type": "practical",
               "name": "Practical: No  Prac/Lab",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "1",
-          "name": "Lect 2\nPointers and data structure",
-          "week": 2,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Lect 2\nPointers and data structure",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "2"
             },
             {
-              "id": 1,
+              "id": "3",
               "type": "practical",
               "name": "Practical: Prac/Lab 1",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "2",
-          "name": "Lect 3\nC Functions and More",
-          "week": 3,
-          "activities": [
+            },
             {
               "type": "knowledge",
               "name": "Lecture: Lect 3\nC Functions and More",
-              "lengthHours": 2
+              "lengthHours": 2,
+              "id": "4"
             },
             {
-              "id": 1,
+              "id": "5",
               "type": "practical",
               "name": "Practical: Prac/Lab 2",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "C++"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate",
+          "replacedByUnit": "300147",
+          "replacedByBlock": "0"
         },
         {
           "id": "3",
-          "name": "Lect 4\nUnix and System Calls, Error Processing",
+          "name": "Unix and System Calls, Error Processing",
           "week": 4,
           "activities": [
             {
@@ -14924,28 +15658,27 @@
               "type": "practical",
               "name": "Practical: Prac/Lab 3",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "4",
-          "ass_id": "51646",
-          "name": "Five selected Tutorial questions, lab practicals 1.",
-          "week": 4,
-          "activities": [
+            },
             {
-              "id": 1,
+              "id": "2",
               "type": "assignment",
               "name": "Five selected Tutorial questions, lab practicals 1.",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "C++",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate"
         },
         {
           "id": "5",
-          "name": "Lect 5\nDirectories and File Systems",
+          "name": "Directories and File Systems",
           "week": 5,
           "activities": [
             {
@@ -14960,11 +15693,19 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "C++",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate"
         },
         {
           "id": "6",
-          "name": "Lect 6\nDevices and Terminal Control (at Penrith)</p>\n<p>No lecture at Parramatta due to public holiday</p>",
+          "name": "Devices and Terminal Control",
           "week": 6,
           "activities": [
             {
@@ -14977,47 +15718,27 @@
               "type": "practical",
               "name": "Practical: Prac/Lab 5",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "7",
-          "ass_id": "51646",
-          "name": "Five selected Tutorial questions, lab practicals 2.",
-          "week": 6,
-          "activities": [
+            },
             {
-              "id": 2,
+              "id": "2",
               "type": "assignment",
               "name": "Five selected Tutorial questions, lab practicals 2.",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "8",
-          "name": "Lect 6 Devices and Terminal Control (at Parramatta)</p>\n<p>No lecture at Penrith due to public holiday</p>",
-          "week": 7,
-          "activities": [
-            {
-              "type": "knowledge",
-              "name": "Lecture: Lect 6 Devices and Terminal Control (at Parramatta)</p>\n<p>No lecture at Penrith due to public holiday</p>",
-              "lengthHours": 2
-            },
-            {
-              "id": 1,
-              "type": "practical",
-              "name": "Practical: No Prac/Lab due to public holiday",
-              "lengthHours": 2
-            }
+          "completionCriteria": {},
+          "keywords": [
+            "C++",
+            "Programming"
           ],
-          "completionCriteria": {}
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate"
         },
         {
           "id": "9",
-          "name": "Lect 7 Event Driven Programming</p>",
+          "name": "Event Driven Programming",
           "week": 8,
           "activities": [
             {
@@ -15030,62 +15751,33 @@
               "type": "practical",
               "name": "Practical: Prac/Lab 6",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "10",
-          "ass_id": "51646",
-          "name": "Five selected Tutorial questions, lab practicals 3.",
-          "week": 8,
-          "activities": [
+            },
             {
-              "id": 3,
+              "id": "2",
               "type": "assignment",
               "name": "Five selected Tutorial questions, lab practicals 3.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "11",
-          "name": "Break",
-          "week": 9,
-          "activities": [
-            {
-              "type": "knowledge",
-              "name": "Lecture: Break",
-              "lengthHours": 2
             },
             {
-              "id": 1,
-              "type": "practical",
-              "name": "Practical: Break",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "12",
-          "ass_id": "51645",
-          "name": "Assignment, Programming Projects 1.",
-          "week": 9,
-          "activities": [
-            {
-              "id": 1,
+              "id": "3",
               "type": "assignment",
               "name": "Assignment, Programming Projects 1.",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "C++",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate"
         },
         {
           "id": "13",
-          "name": "Lect 8 Processes</p>",
+          "name": "Processes",
           "week": 10,
           "activities": [
             {
@@ -15100,11 +15792,19 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "C++",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate"
         },
         {
           "id": "14",
-          "name": "Lect 9 Shell</p>",
+          "name": "Shell",
           "week": 11,
           "activities": [
             {
@@ -15117,28 +15817,27 @@
               "type": "practical",
               "name": "Practical: Prac/Lab 8",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "15",
-          "ass_id": "51646",
-          "name": "Five selected Tutorial questions, lab practicals 4.",
-          "week": 11,
-          "activities": [
+            },
             {
-              "id": 4,
+              "id": "2",
               "type": "assignment",
               "name": "Five selected Tutorial questions, lab practicals 4.",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "C++",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate"
         },
         {
           "id": "16",
-          "name": "Lect 10 I/O Redirection &amp; Pipes</p>",
+          "name": "I/O Redirection & Pipes",
           "week": 12,
           "activities": [
             {
@@ -15151,28 +15850,27 @@
               "type": "practical",
               "name": "Practical: Prac/Lab 9",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "17",
-          "ass_id": "51646",
-          "name": "Five selected Tutorial questions, lab practicals 6.",
-          "week": 12,
-          "activities": [
+            },
             {
-              "id": 6,
+              "id": "2",
               "type": "assignment",
               "name": "Five selected Tutorial questions, lab practicals 6.",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "C++",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate"
         },
         {
           "id": "18",
-          "name": "Lect 11 Servers &amp; Sockets",
+          "name": "Servers & Sockets",
           "week": 13,
           "activities": [
             {
@@ -15185,143 +15883,29 @@
               "type": "practical",
               "name": "Practical: Prac/Lab 10",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "19",
-          "ass_id": "51645",
-          "name": "Assignment, Programming Projects 2.",
-          "week": 13,
-          "activities": [
+            },
             {
-              "id": 2,
+              "id": "2",
               "type": "assignment",
               "name": "Assignment, Programming Projects 2.",
               "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "20",
-          "ass_id": "51646",
-          "name": "Five selected Tutorial questions, lab practicals 5.",
-          "week": 13,
-          "activities": [
+            },
             {
-              "id": 5,
+              "id": "3",
               "type": "assignment",
               "name": "Five selected Tutorial questions, lab practicals 5.",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "21",
-          "name": "Review",
-          "week": 14,
-          "activities": [
-            {
-              "type": "knowledge",
-              "name": "Lecture: Review",
-              "lengthHours": 2
-            },
-            {
-              "id": 1,
-              "type": "practical",
-              "name": "Practical: Prac/Lab 11",
-              "lengthHours": 2
-            }
+          "completionCriteria": {},
+          "keywords": [
+            "C++",
+            "Programming"
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "22",
-          "ass_id": "51645",
-          "name": "Assignment, Programming Projects",
-          "weight": "30",
-          "ulos": "1, 2, 3, 5",
-          "threshold": "0",
-          "due_date": "Assignment 1: 5 pm Friday 01/05/2020 week 9; Assignment 2: 5 pm Friday 29/05/2020, week 13",
-          "week": 15,
-          "activities": [
-            {
-              "id": 1,
-              "type": "assignment",
-              "name": "Assignment, Programming Projects 1.",
-              "lengthHours": 2
-            },
-            {
-              "id": 2,
-              "type": "assignment",
-              "name": "Assignment, Programming Projects 2.",
-              "lengthHours": 2
-            }
+          "topics": [
+            "5"
           ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "23",
-          "ass_id": "51646",
-          "name": "Five selected Tutorial questions, lab practicals",
-          "weight": "20",
-          "ulos": "1, 2, 3, 4, 5, 6, 7",
-          "threshold": "0",
-          "due_date": "Refer to the Table of Activities",
-          "week": 15,
-          "activities": [
-            {
-              "id": 1,
-              "type": "assignment",
-              "name": "Five selected Tutorial questions, lab practicals 1.",
-              "lengthHours": 2
-            },
-            {
-              "id": 2,
-              "type": "assignment",
-              "name": "Five selected Tutorial questions, lab practicals 2.",
-              "lengthHours": 2
-            },
-            {
-              "id": 3,
-              "type": "assignment",
-              "name": "Five selected Tutorial questions, lab practicals 3.",
-              "lengthHours": 2
-            },
-            {
-              "id": 4,
-              "type": "assignment",
-              "name": "Five selected Tutorial questions, lab practicals 4.",
-              "lengthHours": 2
-            },
-            {
-              "id": 5,
-              "type": "assignment",
-              "name": "Five selected Tutorial questions, lab practicals 5.",
-              "lengthHours": 2
-            },
-            {
-              "id": 6,
-              "type": "assignment",
-              "name": "Five selected Tutorial questions, lab practicals 6.",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {}
-        },
-        {
-          "id": "24",
-          "ass_id": "51647",
-          "name": "Final Exam - Closed Book",
-          "weight": "50",
-          "ulos": "2, 4, 5, 6",
-          "threshold": "1",
-          "due_date": "Formal Examination Period",
-          "week": 15,
-          "completionCriteria": {}
+          "level": "Intermediate"
         }
       ],
       "description": "This unit provides an introduction to the knowledge and skills required for the design, writing and support of technical software and other such functions normally falling within the role of the systems programmer. It provides for detailed study of a systems programming environment and its application to systems programming tasks.",
@@ -15366,7 +15950,14 @@
         "5"
       ],
       "coordinator": "Chun Ruan",
-      "obsolete": true
+      "prerequisites": [
+        {
+          "id": "0",
+          "unitId": "300147",
+          "type": "block"
+        }
+      ],
+      "processed": true
     },
     {
       "id": "300252",
@@ -19771,7 +20362,8 @@
       "coordinator": "Tomas Trescak",
       "topics": [
         "12"
-      ]
+      ],
+      "processed": true
     },
     {
       "id": "300570",
@@ -23323,7 +23915,15 @@
               "type": "block",
               "activityId": 4
             }
-          ]
+          ],
+          "keywords": [
+            "Programming",
+            "Java"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         }
       ],
       "description": "As a first unit in computer programming, Programming Fundamentals covers the basics of developing software with an emphasis on procedural programming. Students will learn about basic data structures, the concept of algorithms, fundamental programming constructs, common programming language features and functions, program design and good programming style. A high level programming language is combined with a highly visual framework to teach problem solving using software.",
@@ -23464,7 +24064,15 @@
           ],
           "completionCriteria": {
             "credit": 1
-          }
+          },
+          "keywords": [
+            "Programming",
+            "Java"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "1",
@@ -23599,7 +24207,15 @@
           ],
           "completionCriteria": {
             "credit": 1
-          }
+          },
+          "keywords": [
+            "Programming",
+            "Java"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "2",
@@ -23646,7 +24262,15 @@
               "acsSkillId": "d2",
               "bloomRating": 2
             }
-          ]
+          ],
+          "keywords": [
+            "Programming",
+            "Java"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "3",
@@ -23689,7 +24313,15 @@
               "acsSkillId": "d1",
               "bloomRating": 2
             }
-          ]
+          ],
+          "keywords": [
+            "Programming",
+            "Java"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         }
       ],
       "description": "This unit is intended as a second unit of study in programming. It builds on a basic understanding of procedural programming as would be developed in a first unit. This unit continues the development of programming skills and methodologies required for professional programming and for further study in later computing units. Topics covered include multi-dimensional arrays, file I/O, searching and sorting, and an introduction to object-oriented programming involving classes and inheritance.",
@@ -23766,7 +24398,8 @@
           "unitId": "300580",
           "type": "block"
         }
-      ]
+      ],
+      "processed": true
     },
     {
       "id": "300582",
@@ -23788,7 +24421,15 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "Full-Stack Development",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "1",
@@ -23807,7 +24448,15 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "Full-Stack Development",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "2",
@@ -23863,7 +24512,15 @@
               "id": "300581",
               "type": "unit"
             }
-          ]
+          ],
+          "keywords": [
+            "Full-Stack Development",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "6",
@@ -23946,7 +24603,15 @@
               "id": "300581",
               "type": "unit"
             }
-          ]
+          ],
+          "keywords": [
+            "Full-Stack Development",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "12",
@@ -23973,7 +24638,15 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "Full-Stack Development",
+            "Security"
+          ],
+          "topics": [
+            "12"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "14",
@@ -23992,7 +24665,15 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "Full-Stack Development",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "15",
@@ -24019,7 +24700,15 @@
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {}
+          "completionCriteria": {},
+          "keywords": [
+            "Full-Stack Development",
+            "Programming"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Fundamentals"
         }
       ],
       "description": "Building on material covered in Programming Fundamentals this unit introduces students to some of the key technologies for developing interactive and dynamic web applications from both the client and server perspective. The unit covers web site design, web site development, web page accessibility and usability, HTML, CSS, client side and server side scripting, database interaction, web site promotion (Search Engine Optimisation) and web security.",
@@ -24106,21 +24795,19 @@
         "23"
       ],
       "coordinator": "Paul Davies",
-      "notes": "PHP Should be dropped and go full stack on javascript"
+      "notes": "PHP Should be dropped and go full stack on javascript",
+      "processed": true
     },
     {
       "id": "300583",
       "blocks": [
         {
           "id": "0",
-          "name": "Intro to ASP.NET Core, Visual Studio, MVC;\nAdd a Controller;",
-          "description": "",
+          "name": "ASP.NET fundamentals",
           "week": 1,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Intro to ASP.NET Core, Visual Studio, MVC;\nAdd a Controller;",
               "lengthHours": 2
             },
@@ -24129,40 +24816,29 @@
               "type": "practical",
               "name": "Practical: No practical classes this week.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "1",
-          "name": "Add a View;\nRazor Syntax;",
-          "description": "",
-          "week": 2,
-          "activities": [
-            {
-              "id": 0,
-              "type": "knowledge",
-              "description": "",
-              "name": "Lecture: Add a View;\nRazor Syntax;",
-              "lengthHours": 2
             },
             {
-              "id": 1,
+              "type": "knowledge",
+              "name": "Lecture: Add a View;\nRazor Syntax;",
+              "lengthHours": 2,
+              "id": "2"
+            },
+            {
+              "id": "3",
               "type": "practical",
               "name": "Practical: Working on Prac1",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "2",
           "name": "Bootstrap",
-          "description": "",
           "week": 3,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Bootstrap",
               "lengthHours": 2
             },
@@ -24171,33 +24847,23 @@
               "type": "practical",
               "name": "Practical: Prac1 Checkpoint;\nWorking on Prac1;",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "3",
-          "ass_id": "43269",
-          "name": "Three sets of practical exercises 1.",
-          "week": 3,
-          "activities": [
+            },
             {
-              "id": 1,
+              "id": "2",
               "type": "assignment",
               "name": "Three sets of practical exercises 1.",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "4",
-          "name": "Add a Model;\nSQL Express LocalDB and SQLite;\nDependency injection;\n",
-          "description": "",
+          "name": "Handling Data with SQL and Entity Framework",
           "week": 4,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Add a Model;\nSQL Express LocalDB and SQLite;\nDependency injection;\n",
               "lengthHours": 2
             },
@@ -24206,166 +24872,95 @@
               "type": "practical",
               "name": "Practical: Working on Prac1;",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "5",
-          "name": "Data annotation and validation;\n",
-          "description": "",
-          "week": 5,
-          "activities": [
-            {
-              "id": 0,
-              "type": "knowledge",
-              "description": "",
-              "name": "Lecture: Data annotation and validation;\n",
-              "lengthHours": 2
             },
             {
-              "id": 1,
+              "type": "knowledge",
+              "name": "Lecture: Data annotation and validation;\n",
+              "lengthHours": 2,
+              "id": "2"
+            },
+            {
+              "id": "3",
               "type": "practical",
               "name": "Practical: Prac1 due on Friday 8pm;",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "6",
-          "ass_id": "43269",
-          "name": "Three sets of practical exercises 2.",
-          "week": 5,
-          "activities": [
+            },
             {
-              "id": 2,
+              "id": "4",
               "type": "assignment",
               "name": "Three sets of practical exercises 2.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "7",
-          "name": "HTML helper and Tag helper;\nLambda expression;",
-          "description": "",
-          "week": 6,
-          "activities": [
-            {
-              "id": 0,
-              "type": "knowledge",
-              "description": "",
-              "name": "Lecture: HTML helper and Tag helper;\nLambda expression;",
-              "lengthHours": 2
             },
             {
-              "id": 1,
+              "type": "knowledge",
+              "name": "Lecture: HTML helper and Tag helper;\nLambda expression;",
+              "lengthHours": 2,
+              "id": "5"
+            },
+            {
+              "id": "6",
               "type": "practical",
               "name": "Practical: Working on Prac2;\n",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "8",
-          "name": "Entity Framework Core;\nDbContext and DbSet;\n",
-          "description": "",
-          "week": 7,
-          "activities": [
-            {
-              "id": 0,
-              "type": "knowledge",
-              "description": "",
-              "name": "Lecture: Entity Framework Core;\nDbContext and DbSet;\n",
-              "lengthHours": 2
             },
             {
-              "id": 1,
+              "type": "knowledge",
+              "name": "Lecture: Entity Framework Core;\nDbContext and DbSet;\n",
+              "lengthHours": 2,
+              "id": "7"
+            },
+            {
+              "id": "8",
               "type": "practical",
               "name": "Practical: Prac2 Checkpoint;\nWorking on Prac2;",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "9",
-          "ass_id": "43269",
-          "name": "Three sets of practical exercises 3.",
-          "week": 7,
-          "activities": [
+            },
             {
-              "id": 3,
+              "id": "9",
               "type": "assignment",
               "name": "Three sets of practical exercises 3.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "10",
-          "name": "Relationship in Database;\nNavigation properties;",
-          "description": "",
-          "week": 8,
-          "activities": [
-            {
-              "id": 0,
-              "type": "knowledge",
-              "description": "",
-              "name": "Lecture: Relationship in Database;\nNavigation properties;",
-              "lengthHours": 2
             },
             {
-              "id": 1,
+              "type": "knowledge",
+              "name": "Lecture: Relationship in Database;\nNavigation properties;",
+              "lengthHours": 2,
+              "id": "10"
+            },
+            {
+              "id": "11",
               "type": "practical",
               "name": "Practical: Tutor Meeting 1 on project;\nWorking on Prac2;",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "11",
-          "ass_id": "43269",
-          "name": "Three sets of practical exercises 4.",
-          "week": 8,
-          "activities": [
+            },
             {
-              "id": 4,
+              "id": "12",
               "type": "assignment",
               "name": "Three sets of practical exercises 4.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "12",
-          "name": "Break",
-          "description": "",
-          "week": 9,
-          "activities": [
-            {
-              "id": 0,
-              "type": "knowledge",
-              "description": "",
-              "name": "Lecture: Break",
-              "lengthHours": 2
             },
             {
-              "id": 1,
+              "type": "knowledge",
+              "name": "Lecture: Query by raw SQL;",
+              "lengthHours": 2,
+              "id": "13"
+            },
+            {
+              "id": "14",
               "type": "practical",
-              "name": "Practical: ",
+              "name": "Practical: Tutor Meeting 2 on Project;\nPrac3 due on Friday 8pm;\nWorking on Project;",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "13",
-          "name": "Authentication and Authorization;\nASP.NET Identity;",
-          "description": "",
+          "name": "Authentication and Authorization of Web Applications",
           "week": 10,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Authentication and Authorization;\nASP.NET Identity;",
               "lengthHours": 2
             },
@@ -24374,33 +24969,23 @@
               "type": "practical",
               "name": "Practical: Prac2 due on Friday 8pm;\nWorking on Prac3, Project;",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "14",
-          "ass_id": "43269",
-          "name": "Three sets of practical exercises 5.",
-          "week": 10,
-          "activities": [
+            },
             {
-              "id": 5,
+              "id": "2",
               "type": "assignment",
               "name": "Three sets of practical exercises 5.",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "15",
-          "name": "How to implement sorting, statistics;\nLINQ;",
-          "description": "",
+          "name": "Data View",
           "week": 11,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: How to implement sorting, statistics;\nLINQ;",
               "lengthHours": 2
             },
@@ -24409,89 +24994,29 @@
               "type": "practical",
               "name": "Practical: Prac3 Checkpoint;\nWorking on Prac3, Project;",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "16",
-          "ass_id": "43269",
-          "name": "Three sets of practical exercises 6.",
-          "week": 11,
-          "activities": [
+            },
             {
-              "id": 6,
+              "id": "2",
               "type": "assignment",
               "name": "Three sets of practical exercises 6.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "17",
-          "name": "Lectures cancelled at all three campuses due to Labour Day. Self study lecture materials posted on vUWS. \nCollaborative Web Development;\nSession state (Mandatory for 300902 students, not for 300583 students);\nError handling (Mandatory for 300902 students, not for 300583 students);\n",
-          "description": "",
-          "week": 12,
-          "activities": [
-            {
-              "id": 0,
-              "type": "knowledge",
-              "description": "",
-              "name": "Lecture: Lectures cancelled at all three campuses due to Labour Day. Self study lecture materials posted on vUWS. \nCollaborative Web Development;\nSession state (Mandatory for 300902 students, not for 300583 students);\nError handling (Mandatory for 300902 students, not for 300583 students);\n",
-              "lengthHours": 2
             },
             {
-              "id": 1,
-              "type": "practical",
-              "name": "Practical: Due to Labour Day, Monday practical classes won't run. Students in these classes can visit any other class to get help.\nWorking on Prac3;\nWorking on Project;",
-              "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "18",
-          "name": "Query by raw SQL;",
-          "description": "",
-          "week": 13,
-          "activities": [
-            {
-              "id": 0,
-              "type": "knowledge",
-              "description": "",
-              "name": "Lecture: Query by raw SQL;",
-              "lengthHours": 2
-            },
-            {
-              "id": 1,
-              "type": "practical",
-              "name": "Practical: Tutor Meeting 2 on Project;\nPrac3 due on Friday 8pm;\nWorking on Project;",
-              "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "19",
-          "ass_id": "43269",
-          "name": "Three sets of practical exercises 7.",
-          "week": 13,
-          "activities": [
-            {
-              "id": 7,
+              "id": "3",
               "type": "assignment",
               "name": "Three sets of practical exercises 7.",
               "lengthHours": 2
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "20",
-          "name": "Some general topics: Color schemes, Content organization;\nUnit review;",
-          "description": "",
+          "name": "Theming",
           "week": 14,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Some general topics: Color schemes, Content organization;\nUnit review;",
               "lengthHours": 2
             },
@@ -24501,228 +25026,8 @@
               "name": "Practical: Working on Project;\nProject due on Friday 8pm.",
               "lengthHours": 2
             }
-          ]
-        },
-        {
-          "id": "21",
-          "ass_id": "43269",
-          "name": "Three sets of practical exercises 8.",
-          "week": 14,
-          "activities": [
-            {
-              "id": 8,
-              "type": "assignment",
-              "name": "Three sets of practical exercises 8.",
-              "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "22",
-          "ass_id": "43269",
-          "name": "Three sets of practical exercises",
-          "weight": "50",
-          "ulos": "1, 2, 3, 4, 5, 6,7",
-          "threshold": "0",
-          "due_date": "Prac 1: 8pm Fri 23 Aug; Prac 2: 8pm Fri 27 Sep; Prac 3: 8pm Fri 18 Oct.",
-          "week": 15,
-          "activities": [
-            {
-              "id": 1,
-              "type": "assignment",
-              "name": "Three sets of practical exercises 1.",
-              "lengthHours": 2
-            },
-            {
-              "id": 2,
-              "type": "assignment",
-              "name": "Three sets of practical exercises 2.",
-              "lengthHours": 2
-            },
-            {
-              "id": 3,
-              "type": "assignment",
-              "name": "Three sets of practical exercises 3.",
-              "lengthHours": 2
-            },
-            {
-              "id": 4,
-              "type": "assignment",
-              "name": "Three sets of practical exercises 4.",
-              "lengthHours": 2
-            },
-            {
-              "id": 5,
-              "type": "assignment",
-              "name": "Three sets of practical exercises 5.",
-              "lengthHours": 2
-            },
-            {
-              "id": 6,
-              "type": "assignment",
-              "name": "Three sets of practical exercises 6.",
-              "lengthHours": 2
-            },
-            {
-              "id": 7,
-              "type": "assignment",
-              "name": "Three sets of practical exercises 7.",
-              "lengthHours": 2
-            },
-            {
-              "id": 8,
-              "type": "assignment",
-              "name": "Three sets of practical exercises 8.",
-              "lengthHours": 2
-            }
           ],
-          "completionCriteria": {},
-          "outcomes": [
-            {
-              "acsSkillId": "b1",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "a4",
-              "bloomRating": 3
-            },
-            {
-              "acsSkillId": "c0",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "c2",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "d0",
-              "bloomRating": 5
-            },
-            {
-              "acsSkillId": "d2",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "e1",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "e3",
-              "bloomRating": 4
-            }
-          ]
-        },
-        {
-          "id": "23",
-          "ass_id": "43270",
-          "name": "Group based Complex Web Application Project",
-          "weight": "25",
-          "ulos": "1-8",
-          "threshold": "0",
-          "due_date": "8pm Fri 25 Oct",
-          "week": 15,
-          "activities": [],
-          "completionCriteria": {},
-          "outcomes": [
-            {
-              "acsSkillId": "b1",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "a2",
-              "bloomRating": 3
-            },
-            {
-              "acsSkillId": "a3",
-              "bloomRating": 3
-            },
-            {
-              "acsSkillId": "a4",
-              "bloomRating": 3
-            },
-            {
-              "acsSkillId": "c0",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "c2",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "d0",
-              "bloomRating": 5
-            },
-            {
-              "acsSkillId": "d2",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "e1",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "e3",
-              "bloomRating": 4
-            }
-          ]
-        },
-        {
-          "id": "24",
-          "ass_id": "43271",
-          "name": "Final Exam",
-          "weight": "25",
-          "ulos": "1-8",
-          "threshold": "0",
-          "due_date": "Scheduled by the university in the exam period",
-          "week": 15,
-          "activities": [
-            {
-              "id": "301317",
-              "name": "Exam",
-              "description": "",
-              "type": "exam",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {},
-          "outcomes": [
-            {
-              "acsSkillId": "b0",
-              "bloomRating": 3
-            },
-            {
-              "acsSkillId": "b1",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "a4",
-              "bloomRating": 3
-            },
-            {
-              "acsSkillId": "c0",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "c2",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "d0",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "d2",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "e1",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "e3",
-              "bloomRating": 4
-            }
-          ]
+          "completionCriteria": {}
         }
       ],
       "description": "In this unit students further develop their theoretical and practical skills in designing and developing web based information systems using systems analysis, programming, database, human computer interaction and web technologies skills that they have learnt in previous units. Current web development technologies and/or frameworks will be utilised to build a complex web information system in a collaborative web development team. Techniques of porting web systems to mobile platforms will also be explored.",
@@ -24808,7 +25113,9 @@
         "23",
         "9"
       ],
-      "coordinator": "Weisheng Si"
+      "coordinator": "Weisheng Si",
+      "notes": "Has to be rode to full-stack development",
+      "obsolete": true
     },
     {
       "id": "300584",
@@ -25152,14 +25459,11 @@
       "blocks": [
         {
           "id": "0",
-          "name": "Systems Analysis",
-          "description": "",
+          "name": "Introduction to Systems Analysis",
           "week": 1,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Introduction to SAD",
               "lengthHours": 2
             },
@@ -25172,7 +25476,6 @@
             {
               "id": 2,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: System Development Methods",
               "lengthHours": 2
             },
@@ -25272,7 +25575,13 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "keywords": [
+            "Analysis and Design"
+          ],
+          "topics": [
+            "6"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "1",
@@ -25281,7 +25590,6 @@
           "week": 8,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
               "description": "Workshop 6 due Monday 11.59pm.</p><p>Please remember Online quiz covering topics 1-5 (inclusive) would be held during your workshop sessions this week.",
               "name": "Lecture: Systems Design",
@@ -25301,7 +25609,13 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "keywords": [
+            "Analysis and Design"
+          ],
+          "topics": [
+            "6"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "2",
@@ -25310,7 +25624,6 @@
           "week": 10,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
               "description": " No workshop submission.</p><p>Portfolio 2 marks released Friday 11.59pm</p>",
               "name": "Lecture: Designing Interfaces",
@@ -25330,7 +25643,13 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "keywords": [
+            "Analysis and Design"
+          ],
+          "topics": [
+            "6"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "3",
@@ -25339,7 +25658,6 @@
           "week": 11,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
               "description": "Workshop 7 due Monday 11.59pm.",
               "name": "Lecture: Data Design",
@@ -25359,7 +25677,13 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "keywords": [
+            "Analysis and Design"
+          ],
+          "topics": [
+            "6"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "4",
@@ -25368,7 +25692,6 @@
           "week": 12,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
               "description": "Workshop 8 due Monday 11.59pm",
               "name": "Lecture: Systems Architecture and Implementation",
@@ -25388,7 +25711,13 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
+          "keywords": [
+            "Analysis and Design"
+          ],
+          "topics": [
+            "6"
+          ],
+          "level": "Fundamentals"
         },
         {
           "id": "5",
@@ -25397,7 +25726,6 @@
           "week": 13,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
               "description": "Workshop 9 due Monday 11.59pm",
               "name": "Lecture: Systems Support and Security",
@@ -25417,103 +25745,13 @@
             }
           ],
           "completionCriteria": {},
-          "topics": []
-        },
-        {
-          "id": "6",
-          "name": "Systems Design Quiz",
-          "prerequisites": [],
-          "completionCriteria": {},
-          "description": "",
-          "keywords": [],
-          "outcome": "",
-          "outcomes": [],
-          "credits": 0,
-          "activities": [
-            {
-              "id": "301318",
-              "name": "Quiz",
-              "description": "",
-              "type": "exam",
-              "lengthHours": 2
-            }
+          "keywords": [
+            "Analysis and Design"
           ],
-          "topics": []
-        },
-        {
-          "id": "7",
-          "ass_id": "51248",
-          "name": "Quizzes",
-          "weight": "20",
-          "ulos": "1, 2, 3",
-          "threshold": "0",
-          "due_date": "Week 8 during respective workshop session",
-          "week": 15,
-          "activities": [
-            {
-              "id": 1,
-              "type": "exam",
-              "name": "Systems Analysis Quiz",
-              "lengthHours": 2
-            },
-            {
-              "id": 2,
-              "type": "exam",
-              "name": "Systems Design Quiz",
-              "lengthHours": 2
-            }
+          "topics": [
+            "6"
           ],
-          "completionCriteria": {},
-          "topics": []
-        },
-        {
-          "id": "8",
-          "ass_id": "51249",
-          "name": "Final Examination",
-          "weight": "50",
-          "ulos": "2, 3, 4, 6",
-          "threshold": "1",
-          "due_date": "During formal examination period",
-          "week": 15,
-          "activities": [
-            {
-              "id": 1,
-              "type": "exam",
-              "name": "Exam",
-              "lengthHours": 2
-            }
-          ],
-          "completionCriteria": {},
-          "outcomes": [
-            {
-              "acsSkillId": "a5",
-              "bloomRating": 5
-            },
-            {
-              "acsSkillId": "c0",
-              "bloomRating": 5
-            },
-            {
-              "acsSkillId": "c1",
-              "bloomRating": 5
-            },
-            {
-              "acsSkillId": "d1",
-              "bloomRating": 5
-            },
-            {
-              "acsSkillId": "d2",
-              "bloomRating": 2
-            },
-            {
-              "acsSkillId": "d3",
-              "bloomRating": 4
-            },
-            {
-              "acsSkillId": "e0",
-              "bloomRating": 2
-            }
-          ]
+          "level": "Fundamentals"
         }
       ],
       "description": "This unit introduces the concepts of System Analysis and Design. The study of methodologies and techniques for problem recognition, requirement analysis, process modelling and/or data modelling are essential elements of this unit. The Systems Development Life Cycle model is employed as the prime approach to teach the unit, providing students with the basic skills required for analysis and design of logical solutions to information systems problems. The use of Computer Aided System Engineering tools will be discussed in practical sessions.",
@@ -25524,7 +25762,7 @@
       "outcome": " Outcomes\n\n1. Recognise the key role of a systems analyst and describe the generic roles and responsibilities of users, developers and managers within the context of business information systems\n2. Recall the fundamental building blocks and architecture of information systems\n3. Describe and apply the various phases of the System Development Life Cycle, including related documentation and appropriate project management approaches\n4. Analyse user and system requirements for the purposes of producing abstract models based on real business problems\n5. Explain the use and application of Computer Aided Software Engineering (CASE) Tools in the creation of systems development artefacts\n6. Explain the issues around information systems governance, consumer and information security and professional ethics in regards to their impact on information systems design and operation",
       "passCriteria": "Submit all assessments including subparts of an assessment \nAchieve at least 40% in the Final Exam\nAchieve a total mark of at least 50% in the unit",
       "credits": "10",
-      "level": "1",
+      "level": 2,
       "completionCriteria": {
         "type": "allOf",
         "criteria": [
@@ -25627,7 +25865,15 @@
         "6",
         "25"
       ],
-      "coordinator": "Simi Kamini Bajaj"
+      "coordinator": "Simi Kamini Bajaj",
+      "processed": true,
+      "prerequisites": [
+        {
+          "id": "300581",
+          "type": "unit",
+          "recommended": true
+        }
+      ]
     },
     {
       "id": "300672",
@@ -29974,14 +30220,11 @@
       "blocks": [
         {
           "id": "0",
-          "name": "Module 01 - Collecting Data",
-          "description": "",
+          "name": "Manipulating Statistical Data",
           "week": 1,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Module 01 - Collecting Data",
               "lengthHours": 2
             },
@@ -29990,40 +30233,36 @@
               "type": "practical",
               "name": "Workshop: <i>no workshop</i></p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "1",
-          "name": "Module 02 - Describing Data</p>",
-          "description": "",
-          "week": 2,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "2",
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Module 02 - Describing Data</p>",
               "lengthHours": 2
             },
             {
-              "id": 1,
+              "id": "3",
               "type": "practical",
               "name": "Workshop: Module 01 - Collecting Data</p>",
               "lengthHours": 2
             }
-          ]
+          ],
+          "keywords": [
+            "Data Science"
+          ],
+          "topics": [
+            "14"
+          ],
+          "completionCriteria": {},
+          "level": "Fundamentals"
         },
         {
           "id": "2",
-          "name": "Module 03 - Probability Basics</p>",
-          "description": "",
+          "name": "Statistical Probability",
           "week": 3,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Module 03 - Probability Basics</p>",
               "lengthHours": 2
             },
@@ -30032,215 +30271,116 @@
               "type": "practical",
               "name": "Workshop: Module 02 - Describing Data</p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "3",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises 1.",
-          "week": 3,
-          "activities": [
+            },
             {
-              "id": 1,
+              "id": "2",
               "type": "assignment",
               "name": "Short Workshop Exercises 1.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "4",
-          "name": "Module 04 - Confidence Intervals</p>",
-          "description": "",
-          "week": 4,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "3",
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Module 04 - Confidence Intervals</p>",
               "lengthHours": 2
             },
             {
-              "id": 1,
+              "id": "4",
               "type": "practical",
               "name": "Workshop: Module 03 - Probability Basics</p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "5",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises 2.",
-          "week": 4,
-          "activities": [
+            },
             {
-              "id": 2,
+              "id": "5",
               "type": "assignment",
               "name": "Short Workshop Exercises 2.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "6",
-          "name": "Module 05 - Hypothesis Tests</p>",
-          "description": "",
-          "week": 5,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "6",
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Module 05 - Hypothesis Tests</p>",
               "lengthHours": 2
             },
             {
-              "id": 1,
+              "id": "7",
               "type": "practical",
               "name": "Workshop: Module 04 - Confidence Intervals</p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "7",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises 3.",
-          "week": 5,
-          "activities": [
+            },
             {
-              "id": 3,
+              "id": "8",
               "type": "assignment",
               "name": "Short Workshop Exercises 3.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "8",
-          "name": "CTN:  <i>no lecture<br><br></i>KWD, PTA:  Module 06 - Random Variables and Probability Distributions</p>",
-          "description": "",
-          "week": 6,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "9",
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: CTN:  <i>no lecture<br><br></i>KWD, PTA:  Module 06 - Random Variables and Probability Distributions</p>",
               "lengthHours": 2
             },
             {
-              "id": 1,
+              "id": "10",
               "type": "practical",
               "name": "Workshop: <i>no workshop</i>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "9",
-          "name": "CTN:  Module 06 - Random Variables and Probability Distributions<br><br>KWD, PTA:<i>  no lecture</i>",
-          "description": "",
-          "week": 7,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "11",
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: CTN:  Module 06 - Random Variables and Probability Distributions<br><br>KWD, PTA:<i>  no lecture</i>",
               "lengthHours": 2
             },
             {
-              "id": 1,
+              "id": "12",
               "type": "practical",
               "name": "Workshop: Module 05 - Hypothesis Tests</p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "10",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises 4.",
-          "week": 7,
-          "activities": [
+            },
             {
-              "id": 4,
+              "id": "13",
               "type": "assignment",
               "name": "Short Workshop Exercises 4.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "11",
-          "name": "Module 07 - Continuous Probability Distributions",
-          "description": "",
-          "week": 8,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "14",
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Module 07 - Continuous Probability Distributions",
               "lengthHours": 2
             },
             {
-              "id": 1,
+              "id": "15",
               "type": "practical",
               "name": "Workshop: Module 06 - Random Variables and Probability Distributions</p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "12",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises 5.",
-          "week": 8,
-          "activities": [
+            },
             {
-              "id": 5,
+              "id": "16",
               "type": "assignment",
               "name": "Short Workshop Exercises 5.",
               "lengthHours": 2
             }
-          ]
-        },
-        {
-          "id": "13",
-          "name": " <i> Intra Session Break</i>",
-          "description": "",
-          "week": 9,
-          "activities": [
-            {
-              "id": 0,
-              "type": "knowledge",
-              "description": "",
-              "name": "Lecture:  <i> Intra Session Break</i>",
-              "lengthHours": 2
-            },
-            {
-              "id": 1,
-              "type": "practical",
-              "name": "Workshop: <i> Intra Session Break</i>",
-              "lengthHours": 2
-            }
-          ]
+          ],
+          "keywords": [
+            "Mathematics",
+            "Data Science"
+          ],
+          "topics": [
+            "7",
+            "14"
+          ],
+          "completionCriteria": {},
+          "level": "Fundamentals"
         },
         {
           "id": "14",
-          "name": "Module 08 - Inference for Means and Proportions: Single Sample",
-          "description": "",
+          "name": "Statistical Inference",
           "week": 10,
           "activities": [
             {
-              "id": 0,
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Module 08 - Inference for Means and Proportions: Single Sample",
               "lengthHours": 2
             },
@@ -30249,341 +30389,177 @@
               "type": "practical",
               "name": "Workshop: Module 07 - Continuous Probability Distributions</p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "15",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises 6.",
-          "week": 10,
-          "activities": [
+            },
             {
-              "id": 6,
+              "id": "2",
               "type": "assignment",
               "name": "Short Workshop Exercises 6.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "16",
-          "name": "Module 09 - Inference for Means and Proportions: Two Samples",
-          "description": "",
-          "week": 11,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "3",
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Module 09 - Inference for Means and Proportions: Two Samples",
               "lengthHours": 2
             },
             {
-              "id": 1,
+              "id": "4",
               "type": "practical",
               "name": "Workshop: Module 08 - Inference for Means and Proportions: Single Sample</p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "17",
-          "ass_id": "53163",
-          "name": "Short Answer Test",
-          "weight": "11",
-          "ulos": "1, 3, 4",
-          "threshold": "1",
-          "due_date": "15/05 (Friday of Week 11), 23:59",
-          "week": 11,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "5",
               "type": "exam",
               "name": "Short Answer Test",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "18",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises 7.",
-          "week": 11,
-          "activities": [
+            },
             {
-              "id": 7,
+              "id": "6",
               "type": "assignment",
               "name": "Short Workshop Exercises 7.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "19",
-          "name": "Module 10 - Chi-square Tests for Categorical Variables",
-          "description": "",
-          "week": 12,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "7",
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Module 10 - Chi-square Tests for Categorical Variables",
               "lengthHours": 2
             },
             {
-              "id": 1,
+              "id": "8",
               "type": "practical",
               "name": "Workshop: Module 09 - Inference for Means and Proportions: Two Samples</p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "20",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises 8.",
-          "week": 12,
-          "activities": [
+            },
             {
-              "id": 8,
+              "id": "9",
               "type": "assignment",
               "name": "Short Workshop Exercises 8.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "21",
-          "name": "Module 11 - ANOVA to Compare Means",
-          "description": "",
-          "week": 13,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "10",
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Module 11 - ANOVA to Compare Means",
               "lengthHours": 2
             },
             {
-              "id": 1,
+              "id": "11",
               "type": "practical",
               "name": "Workshop: Module 10 - Chi-square Tests for Categorical Variables</p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "22",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises 9.",
-          "week": 13,
-          "activities": [
+            },
             {
-              "id": 9,
+              "id": "12",
               "type": "assignment",
               "name": "Short Workshop Exercises 9.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "23",
-          "name": "Revision",
-          "description": "",
-          "week": 14,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "13",
               "type": "knowledge",
-              "description": "",
               "name": "Lecture: Revision",
               "lengthHours": 2
             },
             {
-              "id": 1,
+              "id": "14",
               "type": "practical",
               "name": "Workshop: Module 11 - ANOVA to Compare Means</p>",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "24",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises 10.",
-          "week": 14,
-          "activities": [
+            },
             {
-              "id": 10,
+              "id": "15",
               "type": "assignment",
               "name": "Short Workshop Exercises 10.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "25",
-          "ass_id": "53165",
-          "name": "Team Project",
-          "weight": "15",
-          "ulos": "1, 2, 4",
-          "threshold": "0",
-          "due_date": "05/06 (Friday of Week 14), 23:59",
-          "week": 14,
-          "activities": [
+            },
             {
-              "id": 0,
+              "id": "16",
               "type": "assignment",
               "name": "Team Project",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "26",
-          "ass_id": "53164",
-          "name": "Short Workshop Exercises",
-          "weight": "24",
-          "ulos": "1, 2, 4",
-          "threshold": "0",
-          "due_date": "Workshops in Weeks 3-5, 7-8, 10-14",
-          "week": 15,
-          "activities": [
+            },
             {
-              "id": 1,
+              "id": "17",
               "type": "assignment",
               "name": "Short Workshop Exercises 1.",
               "lengthHours": 2
             },
             {
-              "id": 2,
+              "id": "18",
               "type": "assignment",
               "name": "Short Workshop Exercises 2.",
               "lengthHours": 2
             },
             {
-              "id": 3,
+              "id": "19",
               "type": "assignment",
               "name": "Short Workshop Exercises 3.",
               "lengthHours": 2
             },
             {
-              "id": 4,
+              "id": "20",
               "type": "assignment",
               "name": "Short Workshop Exercises 4.",
               "lengthHours": 2
             },
             {
-              "id": 5,
+              "id": "21",
               "type": "assignment",
               "name": "Short Workshop Exercises 5.",
               "lengthHours": 2
             },
             {
-              "id": 6,
+              "id": "22",
               "type": "assignment",
               "name": "Short Workshop Exercises 6.",
               "lengthHours": 2
             },
             {
-              "id": 7,
+              "id": "23",
               "type": "assignment",
               "name": "Short Workshop Exercises 7.",
               "lengthHours": 2
             },
             {
-              "id": 8,
+              "id": "24",
               "type": "assignment",
               "name": "Short Workshop Exercises 8.",
               "lengthHours": 2
             },
             {
-              "id": 9,
+              "id": "25",
               "type": "assignment",
               "name": "Short Workshop Exercises 9.",
               "lengthHours": 2
             },
             {
-              "id": 10,
+              "id": "26",
               "type": "assignment",
               "name": "Short Workshop Exercises 10.",
               "lengthHours": 2
-            }
-          ]
-        },
-        {
-          "id": "27",
-          "ass_id": "53166",
-          "name": "Final Exam",
-          "weight": "50",
-          "ulos": "1, 3, 4",
-          "threshold": "1",
-          "due_date": "Examination period (15/06-28/06); you must be available throughout this period.",
-          "week": 15,
-          "activities": [
+            },
             {
-              "id": 1,
+              "id": "27",
               "type": "exam",
               "name": "Exam",
               "lengthHours": 2
             }
           ],
-          "completionCriteria": {},
-          "outcomes": [
-            {
-              "acsSkillId": "b0",
-              "bloomRating": 2
-            },
-            {
-              "acsSkillId": "b1",
-              "bloomRating": 2
-            },
-            {
-              "acsSkillId": "c1",
-              "bloomRating": 2
-            },
-            {
-              "acsSkillId": "d0",
-              "bloomRating": 2
-            }
-          ]
-        },
-        {
-          "id": "28",
-          "name": "Assignments",
-          "prerequisites": [],
-          "completionCriteria": {},
-          "description": "",
-          "keywords": [],
-          "outcome": "",
-          "outcomes": [
-            {
-              "acsSkillId": "a0",
-              "bloomRating": 3
-            },
-            {
-              "acsSkillId": "a1",
-              "bloomRating": 3
-            },
-            {
-              "acsSkillId": "d0",
-              "bloomRating": 3
-            },
-            {
-              "acsSkillId": "d2",
-              "bloomRating": 3
-            }
+          "keywords": [
+            "Mathematics",
+            "Data Science"
           ],
-          "credits": 0,
-          "activities": [],
-          "topics": []
+          "topics": [
+            "7",
+            "14"
+          ],
+          "completionCriteria": {},
+          "level": "Fundamentals"
         }
       ],
       "description": "Statistical Decision Making introduces students to various statistical techniques supporting the study of computing and science.  Presentation of the content will emphasize the correct principles and procedures for collecting and analysing scientific data, using information and communication technologies. Topics include describing different sets of data, probability distributions, statistical inference, and simple linear regression and correlation.",
-      "assumedKnowledge": null,
       "approachToLearning": "<p>This unit will be offered on the Parramatta, Kingswood and Campbelltown campuses over a semester.   In each teaching week there will be a two hour lecture, as well as a two hour workshop class held in the computer labs.  The workshop class will consist of a one hour tutorial and a one hour practical.</p>\n<p>The assessment will consist of weekly short workshop exercises, of which the best 8 marks are counted; an online test with a threshold requirement and unlimited attempts allowed; a group project; and a final examination.   The assessment items during the semester are designed to gauge your achievement and performance in relation to the unit learning outcomes; they are also an excellent preparation for the final examination, which is a summative examination with a threshold requirement.</p>\n<p>All teaching materials will be released on vUWS as the semester progresses.  Moreover, all lectures will be recorded and uploaded to vUWS. – Please note that <b>these online resources are meant to aid revision; ONLINE RESOURCES CANNOT REPLACE FACE TO FACE TIME during the weekly lecture and workshop classes</b>.   Active participation in lectures and workshops is crucial for mastering the learning outcomes:  Records from previous years show that <b>poor attendance in lectures and workshops is highly correlated with failing the unit</b>.  We cannot prevent you from ignoring this advice and choosing not to attend classes, but in this case, please don't blame the teaching team if you fail the unit:  The members of the teaching team are there to help you achieve the learning outcomes and succeed in this unit, but you need to make use of this offer.</p>\n<p><br></p>\n<p><b>Lectures</b>\n\n</p>\n<p>Mathematics/statistics is not a collection of recipes and formulae which you rote-learn \"because the teacher says so\"; the very reason why mathematics and statistics are powerful is that they <b>prove</b> that the methods they use are correct.</p>\n<p>While this unit is too short to give rigorous proofs for the correctness of the techniques you will see, it is crucial that you know <b>why</b> and <b>when</b> a statistical method works; only then can you decide whether it is applicable to a situation in which you're interested.   Moreover, understanding the reasons behind the techniques helps remember them.</p>\n<p>The objective of the lectures is to explain both, <b>how</b> a statistical technique is used, and <b>why/when</b> it works.</p>\n<p>Some students, especially those who did no mathematics or only a lower level of mathematics at high school, may find parts of the lectures somewhat intimidating.  If you find that this applies to you:<b> DON'T PANIC!</b></p>\n<ul>\n<li>You will <b>not</b> be tested on proofs as such.</li>\n<li>You may find the explanations from the textbook more accessible; this is perfectly OK:  Textbook and lectures complement each other in that they use slightly different approaches to the material, but both cover the entire assessable content.  (The rationale for this is that seeing things twice from different angles should make it easier for many students.)</li>\n</ul>\n<p><br></p>\n<p><b>Workshops</b></p>\n<p>Understanding how and why a method works is the first step; being able to apply it in practice is the second.</p>\n<p>The workshops have a tutorial and a practical component.   The former will reinforce the \"how and why\" behind the methods we teach you; the latter will give you the opportunity to use them in practice:  We use the powerful open source statistics software R for teaching; it is a standard for professional statisticians all over the world.</p>\n<p>Short tasks conducted during the workshops every week starting in Week 3 form part of the assessment for the unit.</p>\n<p><b>STUDENTS CAN ONLY ATTEND THE WORKSHOP CLASS FOR WHICH THEY ARE REGISTERED.</b></p>",
       "lgId": "18766",
       "name": "Statistical Decision Making",
@@ -30639,7 +30615,8 @@
         "13",
         "7"
       ],
-      "coordinator": "Volker Gebhardt"
+      "coordinator": "Volker Gebhardt",
+      "processed": true
     },
     {
       "id": "300743",
@@ -66955,7 +66932,9 @@
           "level": "Intermediate",
           "proposed": true
         }
-      ]
+      ],
+      "level": 1,
+      "processed": true
     },
     {
       "id": "900002",
@@ -66970,7 +66949,8 @@
           "completionCriteria": {},
           "proposed": true
         }
-      ]
+      ],
+      "processed": true
     },
     {
       "id": "900003",
@@ -66984,10 +66964,12 @@
           "name": "Introduction to NoSQL Databases",
           "completionCriteria": {},
           "keywords": [
-            "Databases"
+            "Databases",
+            "NoSQL"
           ],
           "topics": [
-            "16"
+            "16",
+            "9"
           ],
           "level": "Fundamentals",
           "proposed": true
@@ -66997,10 +66979,12 @@
           "name": "Document Databases",
           "completionCriteria": {},
           "keywords": [
-            "Databases"
+            "Databases",
+            "NoSQL"
           ],
           "topics": [
-            "16"
+            "16",
+            "9"
           ],
           "level": "Fundamentals",
           "proposed": true
@@ -67010,13 +66994,199 @@
           "name": "Graph Databases",
           "completionCriteria": {},
           "keywords": [
-            "Databases"
+            "Databases",
+            "NoSQL"
           ],
           "topics": [
-            "16"
+            "16",
+            "9"
           ],
           "level": "Fundamentals",
           "proposed": true
+        }
+      ],
+      "processed": true,
+      "level": 1
+    },
+    {
+      "id": "900004",
+      "name": "Full-Stack Development",
+      "delivery": "1",
+      "completionCriteria": {},
+      "level": 3,
+      "proposed": true,
+      "blocks": [
+        {
+          "id": "0",
+          "name": "Advanced Javascript",
+          "completionCriteria": {},
+          "keywords": [
+            "Programming",
+            "Javascript"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate",
+          "proposed": true
+        },
+        {
+          "id": "1",
+          "name": "Typescript Fundamentals",
+          "completionCriteria": {},
+          "keywords": [
+            "Programming",
+            "Typescript",
+            "Javascript"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate",
+          "proposed": true
+        },
+        {
+          "id": "8",
+          "name": "Git Fundamentals",
+          "completionCriteria": {},
+          "keywords": [
+            "Programming",
+            "Git"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate",
+          "proposed": true
+        },
+        {
+          "id": "6",
+          "name": "Node.JS Ecosystem",
+          "completionCriteria": {},
+          "keywords": [
+            "Programming",
+            "Typescript",
+            "Javascript"
+          ],
+          "topics": [
+            "5"
+          ],
+          "level": "Intermediate",
+          "proposed": true
+        },
+        {
+          "id": "2",
+          "name": "Frontend Programming with React and Vue",
+          "completionCriteria": {},
+          "keywords": [
+            "Programming",
+            "Full-Stack Development"
+          ],
+          "topics": [
+            "5",
+            "23"
+          ],
+          "level": "Intermediate",
+          "proposed": true
+        },
+        {
+          "id": "4",
+          "name": "Backend Programming with GraphQL and PostgreSQL",
+          "completionCriteria": {},
+          "keywords": [
+            "Programming",
+            "Full-Stack Development",
+            "SQL"
+          ],
+          "topics": [
+            "5",
+            "23",
+            "9"
+          ],
+          "level": "Intermediate",
+          "proposed": true
+        },
+        {
+          "id": "5",
+          "name": "Authentication and Authorisation",
+          "completionCriteria": {},
+          "keywords": [
+            "Programming",
+            "Full-Stack Development"
+          ],
+          "topics": [
+            "5",
+            "23"
+          ],
+          "level": "Intermediate",
+          "proposed": true
+        },
+        {
+          "id": "7",
+          "name": "Quality Checking and Assurance",
+          "completionCriteria": {},
+          "keywords": [
+            "Programming",
+            "Typescript",
+            "Javascript",
+            "CI/CD"
+          ],
+          "topics": [
+            "5"
+          ],
+          "outcome": "Linting, Git Hooks, CI/CD",
+          "level": "Intermediate",
+          "proposed": true
+        },
+        {
+          "id": "9",
+          "name": "Unit Testing",
+          "completionCriteria": {},
+          "keywords": [
+            "Programming",
+            "Typescript",
+            "Javascript",
+            "CI/CD"
+          ],
+          "topics": [
+            "5",
+            "23"
+          ],
+          "level": "Intermediate",
+          "proposed": true
+        },
+        {
+          "id": "10",
+          "name": "End To End Testing",
+          "completionCriteria": {},
+          "keywords": [
+            "Programming",
+            "Typescript",
+            "Javascript",
+            "CI/CD"
+          ],
+          "topics": [
+            "5",
+            "23"
+          ],
+          "level": "Intermediate",
+          "proposed": true
+        }
+      ],
+      "processed": true,
+      "prerequisites": [
+        {
+          "id": "300582",
+          "type": "unit"
+        },
+        {
+          "id": "900001",
+          "type": "unit"
+        },
+        {
+          "id": "900003",
+          "type": "unit",
+          "recommended": true
         }
       ]
     }

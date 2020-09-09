@@ -320,6 +320,31 @@ export const resolvers: IResolvers = {
       let db = getDb();
       return db.topics;
     },
+    topicsDetails() {
+      let db = getDb();
+      return db.topics.map(t => {
+        let blocks = [];
+        let topicalUnits = db.units.filter(u =>
+          u.blocks.some(b => (b.topics || []).some(bt => bt === t.id))
+        );
+        for (let u of topicalUnits) {
+          let topicalBlocks = u.blocks.filter(b => b.topics.some(bt => bt === t.id));
+          for (let b of topicalBlocks) {
+            blocks.push({
+              blockId: b.id,
+              blockName: b.name,
+              unitId: u.id,
+              unitName: u.name
+            });
+          }
+        }
+        return {
+          id: t.id,
+          name: t.name,
+          blocks
+        };
+      });
+    },
     specialisations() {
       let db = getDb();
       return db.specialisations;

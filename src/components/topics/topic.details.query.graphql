@@ -1,0 +1,13 @@
+query TopicsDetails {
+  topicsDetails {
+    blocks {
+      blockId
+      blockName
+      unitId
+      unitName
+    }
+    id
+    name
+    description
+  }
+}

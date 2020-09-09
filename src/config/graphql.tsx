@@ -24,7 +24,7 @@ export type UnitList = {
   processed?: Maybe<Scalars['Boolean']>;
   proposed?: Maybe<Scalars['Boolean']>;
   hidden?: Maybe<Scalars['Boolean']>;
-  topics: Array<Scalars['String']>;
+  topics?: Maybe<Array<Scalars['String']>>;
   level?: Maybe<Scalars['Int']>;
 };
 
@@ -47,6 +47,20 @@ export type JobList = {
 export type TopicList = {
   id: Scalars['String'];
   name: Scalars['String'];
+};
+
+export type TopicBlock = {
+  unitId: Scalars['String'];
+  unitName: Scalars['String'];
+  blockId: Scalars['String'];
+  blockName: Scalars['String'];
+};
+
+export type TopicDetails = {
+  id: Scalars['String'];
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  blocks: Array<TopicBlock>;
 };
 
 export type BlockList = {
@@ -97,6 +111,7 @@ export type UnitDependency = {
   prerequisites?: Maybe<Array<Prerequisite>>;
   blocks?: Maybe<Scalars['JSON']>;
   level?: Maybe<Scalars['Int']>;
+  processed?: Maybe<Scalars['Boolean']>;
 };
 
 export type Query = {
@@ -118,6 +133,7 @@ export type Query = {
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
   topics: Array<TopicList>;
+  topicsDetails: Array<TopicDetails>;
   db: Scalars['JSON'];
 };
 
@@ -363,6 +379,14 @@ export type SpecialisationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type SpecialisationsQuery = { specialisations: Array<Pick<SpecialisationList, 'id' | 'name'>> };
 
+export type TopicsDetailsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TopicsDetailsQuery = { topicsDetails: Array<(
+    Pick<TopicDetails, 'id' | 'name' | 'description'>
+    & { blocks: Array<Pick<TopicBlock, 'blockId' | 'blockName' | 'unitId' | 'unitName'>> }
+  )> };
+
 export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -406,7 +430,7 @@ export type UnitDependenciesQueryVariables = Exact<{
 
 
 export type UnitDependenciesQuery = { unitDepenendencies: Array<(
-    Pick<UnitDependency, 'id' | 'name' | 'blocks' | 'level'>
+    Pick<UnitDependency, 'id' | 'name' | 'blocks' | 'level' | 'processed'>
     & { prerequisites?: Maybe<Array<Pick<Prerequisite, 'id' | 'unitId' | 'type' | 'recommended' | 'prerequisites'>>> }
   )> };
 
@@ -1086,6 +1110,46 @@ export function useSpecialisationsLazyQuery(baseOptions?: ApolloReactHooks.LazyQ
 export type SpecialisationsQueryHookResult = ReturnType<typeof useSpecialisationsQuery>;
 export type SpecialisationsLazyQueryHookResult = ReturnType<typeof useSpecialisationsLazyQuery>;
 export type SpecialisationsQueryResult = ApolloReactCommon.QueryResult<SpecialisationsQuery, SpecialisationsQueryVariables>;
+export const TopicsDetailsDocument = gql`
+    query TopicsDetails {
+  topicsDetails {
+    blocks {
+      blockId
+      blockName
+      unitId
+      unitName
+    }
+    id
+    name
+    description
+  }
+}
+    `;
+
+/**
+ * __useTopicsDetailsQuery__
+ *
+ * To run a query within a React component, call `useTopicsDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTopicsDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTopicsDetailsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTopicsDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<TopicsDetailsQuery, TopicsDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<TopicsDetailsQuery, TopicsDetailsQueryVariables>(TopicsDetailsDocument, baseOptions);
+      }
+export function useTopicsDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<TopicsDetailsQuery, TopicsDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<TopicsDetailsQuery, TopicsDetailsQueryVariables>(TopicsDetailsDocument, baseOptions);
+        }
+export type TopicsDetailsQueryHookResult = ReturnType<typeof useTopicsDetailsQuery>;
+export type TopicsDetailsLazyQueryHookResult = ReturnType<typeof useTopicsDetailsLazyQuery>;
+export type TopicsDetailsQueryResult = ApolloReactCommon.QueryResult<TopicsDetailsQuery, TopicsDetailsQueryVariables>;
 export const TopicsDocument = gql`
     query Topics {
   topics {
@@ -1267,6 +1331,7 @@ export const UnitDependenciesDocument = gql`
     }
     blocks
     level
+    processed
   }
 }
     `;

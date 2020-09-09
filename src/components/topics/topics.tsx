@@ -1,6 +1,16 @@
 import React from 'react';
 import { observer, useLocalStore } from 'mobx-react';
-import { TextInputField, Pane, Tablist, Heading, Button, IconButton, toaster } from 'evergreen-ui';
+import {
+  TextInputField,
+  Pane,
+  Tablist,
+  Heading,
+  Button,
+  IconButton,
+  toaster,
+  Badge,
+  Text
+} from 'evergreen-ui';
 import { State, Topic, Entity } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
 import Link from 'next/link';
@@ -11,17 +21,17 @@ import { useRouter } from 'next/router';
 import { TextEditor } from 'components/common/text_editor';
 import { VerticalPane } from 'components/common/vertical_pane';
 import { model, Model, prop, modelAction, undoMiddleware } from 'mobx-keystone';
-import { EntityModel } from 'components/classes';
-import { useSaveConfigMutation, useTopicsQuery } from 'config/graphql';
+import { TopicModel } from 'components/classes';
+import { useSaveConfigMutation, useTopicsDetailsQuery, TopicDetails } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 
 @model('Editor/Topics')
 class TopicEditorModel extends Model({
-  items: prop<EntityModel[]>()
+  items: prop<TopicModel[]>()
 }) {
   @modelAction
   add(pre: Entity) {
-    this.items.push(new EntityModel(pre));
+    this.items.push(new TopicModel(pre));
   }
 
   @modelAction
@@ -73,7 +83,7 @@ const Details: React.FC<{ item: Topic; owner: TopicEditorModel }> = observer(({ 
   );
 });
 
-const DetailsReadonly: React.FC<{ item: Topic }> = observer(({ item }) => {
+const DetailsReadonly: React.FC<{ item: TopicDetails }> = observer(({ item }) => {
   return (
     <div style={{ flex: 1 }}>
       <Pane background="tint3" borderRadius={6} marginLeft={24}>
@@ -85,6 +95,37 @@ const DetailsReadonly: React.FC<{ item: Topic }> = observer(({ item }) => {
           label="Description"
           html={marked(item.description || 'This topic has no description')}
         />
+
+        <Pane marginTop={16}>
+          <Heading size={400}>Blocks</Heading>
+          {item.blocks.length === 0 && <Text>This topic is not covered in any block</Text>}
+
+          <ul>
+            {item.blocks.map(b => (
+              <li key={b.unitId + '_' + b.blockId}>
+                <Link
+                  href={`/view/[category]/[item]`}
+                  as={`/view/units/${url(b.unitName)}-${b.unitId}`}
+                >
+                  <a>
+                    <Text>{b.unitName}</Text>
+                  </a>
+                </Link>
+                {' > '}
+                <Link
+                  href={`/view/[category]/[item]`}
+                  as={`/view/units/${url(b.unitName)}-${b.unitId}--${url(b.blockName)}-${
+                    b.blockId
+                  }`}
+                >
+                  <a>
+                    <Text>{b.blockName}</Text>
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Pane>
       </Pane>
     </div>
   );
@@ -109,7 +150,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
     name: ''
   }));
 
-  const { loading, error, data, refetch } = useTopicsQuery();
+  const { loading, error, data, refetch } = useTopicsDetailsQuery();
   const [save] = useSaveConfigMutation({
     onCompleted() {
       toaster.notify('Saved');
@@ -123,7 +164,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
   const model = React.useMemo(() => {
     if (data) {
       let model = new TopicEditorModel({
-        items: data.topics.map(t => new EntityModel(t))
+        items: data.topicsDetails.map(t => new TopicModel(t))
       });
       state.undoManager = undoMiddleware(model);
       state.save = () => {
@@ -170,7 +211,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
                       isSelected={selectedItem && topic.id === selectedItem.id}
                       aria-controls={`panel-${topic.name}`}
                     >
-                      {topic.name}
+                      {topic.name} <Badge marginLeft={8}>{topic.blocks.length}</Badge>
                     </SideTab>
                   </a>
                 </Link>

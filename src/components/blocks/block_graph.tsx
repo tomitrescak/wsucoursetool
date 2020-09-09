@@ -1,6 +1,7 @@
 import React from 'react';
 
 import cytoscape from 'cytoscape';
+
 import cola from 'cytoscape-cola';
 import fcose from 'cytoscape-fcose';
 import edgeEditing from 'cytoscape-edge-editing';
@@ -8,12 +9,14 @@ import contextMenus from 'cytoscape-context-menus';
 
 import { State, Block, Unit } from '../types';
 import { UnitDependency, BlockDependency, Prerequisite } from 'config/graphql';
-import { Button } from 'evergreen-ui';
+import { Button, Checkbox, Pane, Select, IconButton } from 'evergreen-ui';
 import { toJS } from 'mobx';
 import { saveAs } from 'file-saver';
 import $ from 'jquery';
+import { url } from 'lib/helpers';
 
-console.log('EDITING');
+global.cytoscape = cytoscape;
+require('cytoscape-undo-redo');
 
 if (edgeEditing.initialised == undefined) {
   edgeEditing(cytoscape, $);
@@ -21,7 +24,7 @@ if (edgeEditing.initialised == undefined) {
   edgeEditing.initialised = true;
 }
 
-global.$ = $;
+(global as any).$ = $;
 
 cytoscape.use(cola);
 cytoscape.use(fcose);
@@ -29,6 +32,8 @@ cytoscape.use(fcose);
 type Props = {
   owner: any;
   units: UnitDependency[];
+  allBlocks?: boolean;
+  byLevel?: boolean;
 };
 
 function nodeColor(block: BlockDependency) {
@@ -45,6 +50,16 @@ function nodeColor(block: BlockDependency) {
   //   case 'wil':
   //     return 'teal';
   // }
+}
+
+function nodeClass(unit: Unit) {
+  if (unit.obsolete || unit.outdated) {
+    return 'obsolete';
+  }
+  if (unit.proposed) {
+    return 'proposed';
+  }
+  return 'normal';
 }
 
 function textColor(block: BlockDependency) {
@@ -101,7 +116,6 @@ function savePositions(cy, owner) {
         };
       })
     );
-  console.log(owner.positions);
 }
 
 function delaySavePositions(cy, owner) {
@@ -111,9 +125,42 @@ function delaySavePositions(cy, owner) {
   interval = setTimeout(() => savePositions(cy, owner), 500);
 }
 
-export const BlockDependencyGraph: React.FC<Props> = ({ owner, units }) => {
+export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks, byLevel }) => {
   const ref = React.useRef(null);
   const cy = React.useRef(null);
+  const ur = React.useRef(null);
+
+  const [showAllBlocks, toggleAllBlocks] = React.useState(true);
+
+  var initialZoom = 1;
+  if (owner) {
+    const config = owner.positions.find(p => p.id === 'config');
+    initialZoom = config.zoom;
+  }
+  const [zoom, setZoom] = React.useState(initialZoom);
+
+  function checkAddLevel(level: number) {
+    const id = 'level_' + level;
+    if (elements.some(e => e.data.id === id)) {
+      return id;
+    }
+    if (owner) {
+      var position = toJS(owner.positions.find(n => n.id === id));
+    }
+
+    elements.push({
+      position,
+      // classes: 'level' + unit.level,
+      data: {
+        id,
+        backgroundColor: '#dedede', // nodeColor(block),
+        color: 'black', // textColor(block),
+        label: 'Level ' + level
+      }
+    });
+
+    return id;
+  }
 
   const elements: any = [];
   for (let unit of units) {
@@ -124,14 +171,21 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units }) => {
 
     elements.push({
       position,
-      classes: 'level' + unit.level,
+      classes: byLevel ? 'level' + unit.level : nodeClass(unit),
       data: {
         id,
+        // parent: checkAddLevel(unit.level),
         backgroundColor: '#cdcdcd',
         color: 'black',
         label: `${unit.name} (${unit.id})`
       }
     });
+
+    if (showAllBlocks && unit.processed) {
+      for (let block of unit.blocks) {
+        checkAddBlock(unit.id, block.id);
+      }
+    }
   }
 
   function checkAddBlock(unitId: string, blockId: string) {
@@ -151,18 +205,20 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units }) => {
 
     elements.push({
       position,
-      classes: 'level' + unit.level,
+      // classes: 'level' + unit.level,
       data: {
         id: 'n_' + unit.id + '_' + block.id,
         parent: 'u_' + unit.id,
-        backgroundColor: nodeColor(block),
-        color: textColor(block),
+        backgroundColor: 'rgb(251, 230, 162)', // nodeColor(block),
+        color: block.replacedByUnit ? 'red' : 'black', // textColor(block),
         label: block.name
       }
     });
   }
 
   function addUnitPrerequisites(prerequisites: Prerequisite[], u: UnitDependency) {
+    const sourceId = 'u_' + u.id;
+
     for (let pre of prerequisites) {
       if (pre.prerequisites && pre.prerequisites.length > 0) {
         addUnitPrerequisites(pre.prerequisites, u);
@@ -174,8 +230,8 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units }) => {
           elements.push({
             classes: pre.recommended === true ? 'recommended' : 'required',
             data: {
-              id: 'l_' + u.id + '_' + pre.id,
-              source: 'u_' + u.id,
+              id: 'l_' + sourceId + '_' + id,
+              source: sourceId,
               target: id
               // cyedgebendeditingWeights: [1],
               // cyedgebendeditingDistances: [175]
@@ -188,8 +244,8 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units }) => {
           elements.push({
             classes: pre.recommended === true ? 'recommended' : 'required',
             data: {
-              id: 'l_' + u.id + '_' + pre.id,
-              source: 'u_' + u.id,
+              id: 'l_' + sourceId + '_' + id,
+              source: sourceId,
               target: id
               // cyedgebendeditingWeights: [1],
               // cyedgebendeditingDistances: [175]
@@ -203,35 +259,39 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units }) => {
   function addBlockPrerequisites(
     prerequisites: Prerequisite[],
     u: UnitDependency,
-    b: BlockDependency
+    b: BlockDependency,
+    allBlocks: boolean
   ) {
+    const sourceId = 'n_' + u.id + '_' + b.id;
+
     for (let pre of prerequisites) {
       if (pre.prerequisites && pre.prerequisites.length > 0) {
-        addBlockPrerequisites(pre.prerequisites, u, b);
-      } else if (pre.type == 'block' && pre.unitId !== u.id) {
+        addBlockPrerequisites(pre.prerequisites, u, b, allBlocks);
+      } else if (pre.type == 'block' && (allBlocks || pre.unitId !== u.id)) {
         checkAddBlock(u.id, b.id);
         checkAddBlock(pre.unitId, pre.id);
 
         const id = 'n_' + pre.unitId + '_' + pre.id;
-        if (pre.unitId && elements.some(e => e.data.id === id))
+        if (pre.unitId && elements.some(e => e.data.id === id)) {
           elements.push({
             classes: pre.recommended === true ? 'recommended' : 'required',
             data: {
-              id: 'l_' + u.id + '_' + pre.id,
-              source: 'n_' + u.id + '_' + b.id,
+              id: 'l_' + sourceId + '_' + id,
+              source: sourceId,
               target: id
               // cyedgebendeditingWeights: [1],
               // cyedgebendeditingDistances: [175]
             }
           });
+        }
       } else if (pre.type === 'unit') {
         const id = 'u_' + pre.id;
         if (elements.some(e => e.data.id === id)) {
           elements.push({
             classes: pre.recommended === true ? 'recommended' : 'required',
             data: {
-              id: 'l_' + u.id + '_' + pre.id,
-              source: 'u_' + u.id,
+              id: 'l_' + sourceId + '_' + id,
+              source: sourceId,
               target: id
               // cyedgebendeditingWeights: [1],
               // cyedgebendeditingDistances: [175]
@@ -250,7 +310,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units }) => {
     // add block prerequisites
     for (let b of u.blocks) {
       if (b.prerequisites && b.prerequisites.length > 0) {
-        addBlockPrerequisites(b.prerequisites, u, b);
+        addBlockPrerequisites(b.prerequisites, u, b, showAllBlocks);
       }
     }
   }
@@ -298,7 +358,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units }) => {
             'line-color': 'pink',
             // 'target-arrow-color': '#ccc',
             'target-arrow-shape': 'triangle',
-            'curve-style': 'bezier'
+            'curve-style': 'linear'
           }
         },
         {
@@ -314,6 +374,27 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units }) => {
           style: {
             backgroundColor: 'rgb(221, 235, 247)',
             color: 'black'
+          }
+        },
+        {
+          selector: '.normal',
+          style: {
+            backgroundColor: 'rgb(212, 238, 226)'
+          }
+        },
+        {
+          selector: '.obsolete',
+          style: {
+            backgroundColor: 'red',
+            color: 'black'
+          }
+        },
+        {
+          selector: '.proposed',
+          style: {
+            backgroundColor: 'purple',
+            color: 'black',
+            fontWeight: 'bold'
           }
         },
         {
@@ -393,41 +474,98 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units }) => {
       }
     }
 
+    cy.current.userZoomingEnabled(false);
     cy.current.edgeEditing({
-      undoable: false,
-      bendRemovalSensitivity: 16,
-      bendPositionsFunction: function (ele) {
-        if (owner) {
-          const position = owner.positions.find(p => p.id === ele.id());
-          return position ? toJS(position.points) : [];
-        }
-        return [];
-      }
+      undoable: true,
+      bendRemovalSensitivity: 16
+      // bendPositionsFunction: function (ele) {
+      //   if (owner) {
+      //     const position = owner.positions.find(p => p.id === ele.id());
+      //     return position ? toJS(position.points) : [];
+      //   }
+      //   return [];
+      // }
     });
-  }, []);
+    ur.current = cy.current.undoRedo({});
+  }, [showAllBlocks]);
+
+  React.useEffect(() => {
+    cy.current.zoom(zoom);
+  }, [zoom]);
+
+  // React.useEffect(() => {
+  //   console.log(cy.current);
+  //   cy.current.forceRender();
+  //   // cy.current.initRerender();
+  // });
 
   return (
     <>
-      <Button
-        onClick={() => {
-          const layout = cy.current.layout({
-            name: 'fcose'
-          });
-          layout.run();
-        }}
-      >
-        Layout
-      </Button>
-      <Button
-        marginLeft={8}
-        iconBefore="floppy-disk"
-        onClick={() => {
-          saveAs(cy.current.png(), 'graph.png');
-        }}
-      >
-        png
-      </Button>
-      <div ref={ref} id="graph" style={{ height: '800px', minWidth: '700px', width: '100%' }} />
+      <Pane display="flex" alignItems="center">
+        <IconButton
+          icon="zoom-in"
+          onClick={() => {
+            setZoom(zoom + 0.02);
+          }}
+          marginRight={8}
+        >
+          Layout
+        </IconButton>
+        <IconButton
+          icon="zoom-out"
+          onClick={() => {
+            setZoom(zoom - 0.02);
+          }}
+          marginRight={8}
+        >
+          Layout
+        </IconButton>
+        <IconButton
+          icon="undo"
+          onClick={() => {
+            ur.current.undo();
+          }}
+          marginRight={8}
+        >
+          Layout
+        </IconButton>
+        <IconButton
+          icon="redo"
+          onClick={() => {
+            ur.current.redo();
+          }}
+          marginRight={8}
+        >
+          Layout
+        </IconButton>
+        <Button
+          onClick={() => {
+            const layout = cy.current.layout({
+              name: 'fcose'
+            });
+            layout.run();
+          }}
+        >
+          Layout
+        </Button>
+        <Button
+          marginLeft={8}
+          iconBefore="floppy-disk"
+          onClick={() => {
+            saveAs(cy.current.png(), 'graph.png');
+          }}
+        >
+          png
+        </Button>
+        <Checkbox
+          label="All Blocks"
+          margin={0}
+          marginLeft={8}
+          checked={showAllBlocks}
+          onChange={e => toggleAllBlocks(e.currentTarget.checked)}
+        />
+      </Pane>
+      <div ref={ref} id="graph" style={{ height: '1800px', minWidth: '700px', width: '100%' }} />
     </>
   );
 };

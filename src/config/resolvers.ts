@@ -23,7 +23,7 @@ export type UnitList = {
   processed?: Maybe<Scalars['Boolean']>;
   proposed?: Maybe<Scalars['Boolean']>;
   hidden?: Maybe<Scalars['Boolean']>;
-  topics: Array<Scalars['String']>;
+  topics?: Maybe<Array<Scalars['String']>>;
   level?: Maybe<Scalars['Int']>;
 };
 
@@ -46,6 +46,20 @@ export type JobList = {
 export type TopicList = {
   id: Scalars['String'];
   name: Scalars['String'];
+};
+
+export type TopicBlock = {
+  unitId: Scalars['String'];
+  unitName: Scalars['String'];
+  blockId: Scalars['String'];
+  blockName: Scalars['String'];
+};
+
+export type TopicDetails = {
+  id: Scalars['String'];
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  blocks: Array<TopicBlock>;
 };
 
 export type BlockList = {
@@ -96,6 +110,7 @@ export type UnitDependency = {
   prerequisites?: Maybe<Array<Prerequisite>>;
   blocks?: Maybe<Scalars['JSON']>;
   level?: Maybe<Scalars['Int']>;
+  processed?: Maybe<Scalars['Boolean']>;
 };
 
 export type Query = {
@@ -117,6 +132,7 @@ export type Query = {
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
   topics: Array<TopicList>;
+  topicsDetails: Array<TopicDetails>;
   db: Scalars['JSON'];
 };
 
@@ -292,6 +308,8 @@ export type ResolversTypes = {
   SpecialisationList: ResolverTypeWrapper<SpecialisationList>;
   JobList: ResolverTypeWrapper<JobList>;
   TopicList: ResolverTypeWrapper<TopicList>;
+  TopicBlock: ResolverTypeWrapper<TopicBlock>;
+  TopicDetails: ResolverTypeWrapper<TopicDetails>;
   BlockList: ResolverTypeWrapper<BlockList>;
   Identifiable: ResolverTypeWrapper<Identifiable>;
   MajorList: ResolverTypeWrapper<MajorList>;
@@ -315,6 +333,8 @@ export type ResolversParentTypes = {
   SpecialisationList: SpecialisationList;
   JobList: JobList;
   TopicList: TopicList;
+  TopicBlock: TopicBlock;
+  TopicDetails: TopicDetails;
   BlockList: BlockList;
   Identifiable: Identifiable;
   MajorList: MajorList;
@@ -341,7 +361,7 @@ export type UnitListResolvers<ContextType = any, ParentType extends ResolversPar
   processed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   proposed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   hidden?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  topics?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  topics?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -368,6 +388,22 @@ export type JobListResolvers<ContextType = any, ParentType extends ResolversPare
 export type TopicListResolvers<ContextType = any, ParentType extends ResolversParentTypes['TopicList'] = ResolversParentTypes['TopicList']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type TopicBlockResolvers<ContextType = any, ParentType extends ResolversParentTypes['TopicBlock'] = ResolversParentTypes['TopicBlock']> = {
+  unitId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  unitName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  blockId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  blockName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type TopicDetailsResolvers<ContextType = any, ParentType extends ResolversParentTypes['TopicDetails'] = ResolversParentTypes['TopicDetails']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  blocks?: Resolver<Array<ResolversTypes['TopicBlock']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -426,6 +462,7 @@ export type UnitDependencyResolvers<ContextType = any, ParentType extends Resolv
   prerequisites?: Resolver<Maybe<Array<ResolversTypes['Prerequisite']>>, ParentType, ContextType>;
   blocks?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  processed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -448,6 +485,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   acs?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   sfia?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   topics?: Resolver<Array<ResolversTypes['TopicList']>, ParentType, ContextType>;
+  topicsDetails?: Resolver<Array<ResolversTypes['TopicDetails']>, ParentType, ContextType>;
   db?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
 };
 
@@ -470,6 +508,8 @@ export type Resolvers<ContextType = any> = {
   SpecialisationList?: SpecialisationListResolvers<ContextType>;
   JobList?: JobListResolvers<ContextType>;
   TopicList?: TopicListResolvers<ContextType>;
+  TopicBlock?: TopicBlockResolvers<ContextType>;
+  TopicDetails?: TopicDetailsResolvers<ContextType>;
   BlockList?: BlockListResolvers<ContextType>;
   Identifiable?: IdentifiableResolvers<ContextType>;
   MajorList?: MajorListResolvers<ContextType>;

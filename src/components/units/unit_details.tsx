@@ -379,8 +379,10 @@ const UnitDetails: React.FC<{
                   label="Level"
                   flex="0 0 50px"
                   value={unit.level}
+                  onChange={e => (unit.level = parseInt(e.currentTarget.value))}
                   id="level"
-                  disabled={true}
+                  disabled={readonly}
+                  type="number"
                   margin={0}
                   marginRight={8}
                 />
