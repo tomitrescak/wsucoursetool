@@ -42,7 +42,7 @@ export const UnitGraph: React.FC<Props> = ({ units, colorMap, height = '800px', 
   const ref = React.useRef(null);
   const cy = React.useRef(null);
 
-  const elements: any = units.map(b => ({
+  const elements: any = units.map((b, i) => ({
     // css: {
     //   'background-color': colorMap ? colorMap[b.id] : 'rgb(221, 235, 247)',
     //   // color: textColor(b),

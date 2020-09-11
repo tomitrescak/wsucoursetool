@@ -4,27 +4,26 @@ import cytoscape from 'cytoscape';
 
 import cola from 'cytoscape-cola';
 import fcose from 'cytoscape-fcose';
-import edgeEditing from 'cytoscape-edge-editing';
-import contextMenus from 'cytoscape-context-menus';
+// import edgeEditing from 'cytoscape-edge-editing';
+// import contextMenus from 'cytoscape-context-menus';
 
 import { State, Block, Unit } from '../types';
 import { UnitDependency, BlockDependency, Prerequisite } from 'config/graphql';
 import { Button, Checkbox, Pane, Select, IconButton } from 'evergreen-ui';
 import { toJS } from 'mobx';
 import { saveAs } from 'file-saver';
-import $ from 'jquery';
-import { url } from 'lib/helpers';
+// import $ from 'jquery';
+// import { url } from 'lib/helpers';
 
 global.cytoscape = cytoscape;
 require('cytoscape-undo-redo');
 
-if (edgeEditing.initialised == undefined) {
-  edgeEditing(cytoscape, $);
-  cytoscape.use(contextMenus, $);
-  edgeEditing.initialised = true;
-}
-
-(global as any).$ = $;
+// if (edgeEditing.initialised == undefined) {
+//   edgeEditing(cytoscape, $);
+//   cytoscape.use(contextMenus, $);
+//   edgeEditing.initialised = true;
+// }
+// (global as any).$ = $;
 
 cytoscape.use(cola);
 cytoscape.use(fcose);
@@ -82,7 +81,7 @@ function textColor(block: BlockDependency) {
 let interval = null;
 
 function savePositions(cy, owner) {
-  const edges = cy.edgeEditing('get');
+  // const edges = cy.edgeEditing('get');
 
   owner.positions = cy
     .nodes()
@@ -97,25 +96,25 @@ function savePositions(cy, owner) {
         pan: cy.pan(),
         zoom: cy.zoom()
       }
-    ])
-    .concat(
-      cy.edges().map(e => {
-        const pointArray = edges.getSegmentPoints(e);
-        if (pointArray) {
-          var points = [];
-          for (let i = 0; i < pointArray.length; i += 2) {
-            points.push({
-              x: pointArray[i],
-              y: pointArray[i + 1]
-            });
-          }
-        }
-        return {
-          id: e.id(),
-          points
-        };
-      })
-    );
+    ]);
+  // .concat(
+  //   cy.edges().map(e => {
+  //     const pointArray = edges.getSegmentPoints(e);
+  //     if (pointArray) {
+  //       var points = [];
+  //       for (let i = 0; i < pointArray.length; i += 2) {
+  //         points.push({
+  //           x: pointArray[i],
+  //           y: pointArray[i + 1]
+  //         });
+  //       }
+  //     }
+  //     return {
+  //       id: e.id(),
+  //       points
+  //     };
+  //   })
+  // );
 }
 
 function delaySavePositions(cy, owner) {
@@ -135,7 +134,9 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
   var initialZoom = 1;
   if (owner) {
     const config = owner.positions.find(p => p.id === 'config');
-    initialZoom = config.zoom;
+    if (config) {
+      initialZoom = config.zoom;
+    }
   }
   const [zoom, setZoom] = React.useState(initialZoom);
 
@@ -171,7 +172,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
 
     elements.push({
       position,
-      classes: byLevel ? 'level' + unit.level : nodeClass(unit),
+      classes: byLevel ? 'level' + unit.level : nodeClass(unit as any),
       data: {
         id,
         // parent: checkAddLevel(unit.level),
@@ -460,9 +461,9 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
       cy.current.on('pan', () => {
         delaySavePositions(cy.current, owner);
       });
-      cy.current.on('select', 'edge', () => {
-        delaySavePositions(cy.current, owner);
-      });
+      // cy.current.on('select', 'edge', () => {
+      //   delaySavePositions(cy.current, owner);
+      // });
       // cy.current.on('cyedgebendediting.moveBendPoints', 'edge', () => {
       //   console.log('Bendpoints moved');
       // });
@@ -475,17 +476,17 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
     }
 
     cy.current.userZoomingEnabled(false);
-    cy.current.edgeEditing({
-      undoable: true,
-      bendRemovalSensitivity: 16
-      // bendPositionsFunction: function (ele) {
-      //   if (owner) {
-      //     const position = owner.positions.find(p => p.id === ele.id());
-      //     return position ? toJS(position.points) : [];
-      //   }
-      //   return [];
-      // }
-    });
+    // cy.current.edgeEditing({
+    //   undoable: true,
+    //   bendRemovalSensitivity: 16
+    //   // bendPositionsFunction: function (ele) {
+    //   //   if (owner) {
+    //   //     const position = owner.positions.find(p => p.id === ele.id());
+    //   //     return position ? toJS(position.points) : [];
+    //   //   }
+    //   //   return [];
+    //   // }
+    // });
     ur.current = cy.current.undoRedo({});
   }, [showAllBlocks]);
 

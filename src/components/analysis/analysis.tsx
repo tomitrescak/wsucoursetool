@@ -245,25 +245,27 @@ const Container = () => {
   const collections = {
     topics
   };
-  const groups: Array<{ key: string; values: Unit[] }> = filteredUnits.reduce(
-    (prev, unit) => {
-      let groupNames = strategy.groups(unit, collections);
-      for (let groupName of groupNames) {
-        let name = groupName.trim();
-        let group = prev.find(p => p.key === name);
-        if (group == null) {
-          group = { key: name, values: [] };
-          prev.push(group);
+  const groups: Array<{ key: string; values: Unit[] }> = filteredUnits
+    .reduce(
+      (prev, unit) => {
+        let groupNames = strategy.groups(unit, collections);
+        for (let groupName of groupNames) {
+          let name = (groupName || 'Unknown').trim();
+          let group = prev.find(p => p.key === name);
+          if (group == null) {
+            group = { key: name, values: [] };
+            prev.push(group);
+          }
+          if (group.values.every(g => g.id !== unit.id)) {
+            group.values.push(unit);
+          }
         }
-        if (group.values.every(g => g.id !== unit.id)) {
-          group.values.push(unit);
-        }
-      }
 
-      return prev;
-    },
-    [{ key: 'Unknown', values: [] }]
-  );
+        return prev;
+      },
+      [{ key: 'Unknown', values: [] }]
+    )
+    .sort((a, b) => (a.key || '').localeCompare(b.key));
 
   // const selectedItem: Entity = selectedId ? data.jobs.find(b => b.id === selectedId) : null;
   // const form = buildForm(localState, ['name']);
