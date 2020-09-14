@@ -8,13 +8,6 @@ query StudentList {
     id
     firstName
     lastName
-    registeredUnits {
-      registrationDate
-      unitId
-      results {
-        ...Result
-      }
-    }
     registeredBlocks {
       registrationDate
       blockId

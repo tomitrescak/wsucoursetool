@@ -77,8 +77,7 @@ export const typeDefs = gql`
     id: String!
     firstName: String!
     lastName: String!
-    registeredUnits: [RegisteredUnit]
-    registeredBlocks: [RegisteredBlock]
+    registeredBlocks: [RegisteredBlock]!
   }
 
   type Query {

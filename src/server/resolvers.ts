@@ -94,6 +94,23 @@ export const resolvers: IResolvers = {
           db.units[ix] = body;
           return true;
         }
+        if (part === 'student') {
+          // 1. contruct a correct file name based on id (e.g. data/students/3000343.json)
+          // 2. if file exists save a backup file (e.g. data/students/3000343.json.bak)
+          // 3. overwrite the student file with "body"
+
+          // READ:
+          // const existing = fs.readFileSync(" data/students/3000343.json", { encoding: 'utf-8' });
+          // WRITE
+          // fs.writeFileSync(" data/students/3000343.json", JSON.stringify(body, null, 2), { encoding: 'utf-8' });
+
+          // example of (2)
+          if (fs.existsSync('data/students/3000343.json')) {
+            fs.copyFileSync(' data/students/3000343.json', ' data/students/3000343.json.bak');
+          }
+
+          return true;
+        }
         throw new Error('Not supported: ' + part);
       });
     },

@@ -15,7 +15,8 @@ import {
   Course,
   Unit,
   Entity,
-  Outcome
+  Outcome,
+  Student
 } from './types';
 import { toJS } from 'mobx';
 
@@ -53,17 +54,30 @@ type RegisteredBlock = {
 };
 
 @model('Course/Entity')
-export class TestModel extends Model({
+export class StudentModel extends Model({
   id: prop<string>({ setterAction: true }),
   firstName: prop<string>({ setterAction: true }),
   lastName: prop<string>({ setterAction: true }),
-  details: prop<string>({ setterAction: true }),
-  registeredUnits: prop<RegisteredUnit[]>({ setterAction: true }),
-  registeredBlocks: prop<RegisteredBlock[]>({ setterAction: true })
+  // details: prop<string>({ setterAction: true }),
+  registeredBlocks: prop<RegisteredBlockModel[]>({ setterAction: true })
 }) {
-  toJS() {
-    return toJS(this.$);
+  @modelAction
+  addRegisteredBlock(block: RegisteredBlock) {
+    this.registeredBlocks.push(createRegisteredBlock(block));
   }
+  toJS() {
+    return {
+      ...toJS(this.$),
+      registeredBlocks: this.registeredBlocks.map(b => b.toJS())
+    };
+  }
+}
+
+export function createStudent(student: Student) {
+  return new StudentModel({
+    ...student,
+    registeredBlocks: student.registeredBlocks.map(b => createRegisteredBlock(b))
+  });
 }
 
 @model('Course/Entity')
@@ -94,7 +108,7 @@ export class RegisteredBlockModel extends Model({
   toJS() {
     return {
       ...toJS(this.$),
-      results: this.results.$
+      results: toJS(this.results.$)
     };
   }
 }
@@ -527,22 +541,6 @@ export class SfiaSkillModel extends ExtendedModel(EntityModel, {
 
 export function createSfias(skills?: SfiaSkill[]) {
   return (skills || []).map(c => new SfiaSkillModel(c));
-}
-
-@model('Editor/Student')
-export class StudentModel extends Model({
-  firstName: prop<string>({ setterAction: true }),
-  lastName: prop<string>({ setterAction: true }),
-  id: prop<string>()
-}) {
-  // @modelAction
-  // add(pre: Entity) {
-  //   this.items.push(new EntityModel(pre));
-  // }
-  // @modelAction
-  // remove(ix: number) {
-  //   this.items.splice(ix, 1);
-  // }
 }
 
 // @model('Course/CourseConfig')

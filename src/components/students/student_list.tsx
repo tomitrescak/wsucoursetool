@@ -23,10 +23,11 @@ import { TextEditor } from 'components/common/text_editor';
 import { VerticalPane } from 'components/common/vertical_pane';
 import { model, Model, prop, modelAction, undoMiddleware, jsonPatchToPatch } from 'mobx-keystone';
 import {
-  TestModel,
+  StudentModel,
   RegisteredBlockModel,
-  RegisteredUnitModel,
-  ResultModel
+  // RegisteredUnitModel,
+  ResultModel,
+  createStudent
 } from 'components/classes';
 import {
   useSaveConfigMutation,
@@ -40,20 +41,21 @@ import { ProgressView } from 'components/common/progress_view';
 
 import { useStudentListQuery } from 'config/graphql';
 import { BlocksEditor } from 'components/blocks/block_editor';
+import build from 'next/dist/build';
 
 @model('Editor/Students')
 class StudentListModel extends Model({
-  items: prop<TestModel[]>()
+  students: prop<StudentModel[]>()
   //blocks: prop<RegisteredBlock[]>()
 }) {
   @modelAction
   add(pre: Student) {
-    this.items.push(new TestModel(pre));
+    this.students.push(new StudentModel(pre));
   }
 
   @modelAction
   remove(ix: number) {
-    this.items.splice(ix, 1);
+    this.students.splice(ix, 1);
   }
 }
 
@@ -72,20 +74,20 @@ class BlockListModel extends Model({
   }
 }
 
-@model('Editor/Units')
-class UnitListModel extends Model({
-  units: prop<RegisteredUnitModel[]>()
-}) {
-  @modelAction
-  addUnit(pre: RegisteredUnit) {
-    this.units.push(new RegisteredUnitModel(pre));
-  }
+// @model('Editor/Units')
+// class UnitListModel extends Model({
+//   units: prop<RegisteredUnitModel[]>()
+// }) {
+//   @modelAction
+//   addUnit(pre: RegisteredUnit) {
+//     this.units.push(new RegisteredUnitModel(pre));
+//   }
 
-  @modelAction
-  removeUnit(ix: number) {
-    this.units.splice(ix, 1);
-  }
-}
+//   @modelAction
+//   removeUnit(ix: number) {
+//     this.units.splice(ix, 1);
+//   }
+// }
 
 type UnitDetailsParams = {
   units: Array<{ id: string; name: string }>;
@@ -241,11 +243,13 @@ const BlockResult = observer(({ units, block }: BlockDetailsParams) => {
   );
 });
 
-const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }> = observer(
-  ({ item, owner, state }) => {
+const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: State }> = observer(
+  ({ item: student, owner, state }) => {
     const { loading, error, data } = useStudentListQuery({});
 
-    const form = React.useMemo(() => buildForm(item, ['id', 'firstName', 'lastName']), [item]);
+    const form = React.useMemo(() => buildForm(student, ['id', 'firstName', 'lastName']), [
+      student
+    ]);
 
     const [save] = useSaveConfigMutation({
       onCompleted() {
@@ -256,81 +260,47 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
       }
     });
 
-    const blockModel = React.useMemo(() => {
-      if (item.registeredBlocks) {
-        let model = new BlockListModel({
-          blocks: item.registeredBlocks.map(
-            block =>
-              new RegisteredBlockModel({
-                unitId: block.unitId,
-                blockId: block.blockId,
-                results: new ResultModel({
-                  grade: block.results.grade,
-                  result: block.results.result
-                })
-              })
-          )
-        });
+    // const unitModel = React.useMemo(() => {
+    //   if (item.registeredUnits) {
+    //     let model = new UnitListModel({
+    //       units: item.registeredUnits.map(
+    //         unit =>
+    //           new RegisteredUnitModel({
+    //             unitId: unit.unitId,
+    //             results: new ResultModel({
+    //               grade: unit.results.grade,
+    //               result: unit.results.result
+    //             })
+    //           })
+    //       )
+    //     });
 
-        state.undoManager = undoMiddleware(model);
-        state.save = () => {
-          const body = model.blocks.map(i => i.toJS());
-          save({
-            variables: {
-              body,
-              part: 'blocks'
-            }
-          });
-        };
-        return model;
-      }
+    //     state.undoManager = undoMiddleware(model);
+    //     state.save = () => {
+    //       const body = model.units.map(i => i.toJS());
+    //       save({
+    //         variables: {
+    //           body,
+    //           part: 'units'
+    //         }
+    //       });
+    //     };
+    //     return model;
+    //   }
 
-      return null;
-    }, [item.registeredBlocks]);
-
-    const unitModel = React.useMemo(() => {
-      if (item.registeredUnits) {
-        let model = new UnitListModel({
-          units: item.registeredUnits.map(
-            unit =>
-              new RegisteredUnitModel({
-                unitId: unit.unitId,
-                results: new ResultModel({
-                  grade: unit.results.grade,
-                  result: unit.results.result
-                })
-              })
-          )
-        });
-
-        state.undoManager = undoMiddleware(model);
-        state.save = () => {
-          const body = model.units.map(i => i.toJS());
-          save({
-            variables: {
-              body,
-              part: 'units'
-            }
-          });
-        };
-        return model;
-      }
-
-      return null;
-    }, [item.registeredUnits]);
+    //   return null;
+    // }, [item.registeredUnits]);
 
     const localState = useLocalStore(() => ({
+      isShownBlock: false,
+      isShownUnit: false,
       unitId: '',
       blockId: '',
-      grade: '',
-      result: '',
-      results: '',
-      isShownBlock: false,
-      isShownUnit: false
+      result: '0',
+      grade: ''
     }));
 
-    const blockForm = buildForm(localState, ['unitId', 'blockId', 'grade', 'result']);
-    const unitForm = buildForm(localState, ['unitId', 'grade', 'result']);
+    const blockForm = buildForm(localState, ['unitId', 'blockId', 'result', 'grade']);
 
     if (loading || error) {
       return <ProgressView loading={loading} error={error} />;
@@ -340,13 +310,13 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
       <div style={{ flex: 1 }}>
         <Pane background="tint3" borderRadius={6} marginLeft={24}>
           <Heading size={500} marginBottom={16}>
-            {item.firstName + ' ' + item.lastName}
+            {student.firstName + ' ' + student.lastName}
           </Heading>
 
           <TextInputField
             label="Student Id"
             placeholder="Student Id"
-            value={item.id}
+            value={student.id}
             disabled={true}
             //onChange={form.id}
             marginBottom={8}
@@ -355,7 +325,7 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
           <TextInputField
             label="First Name"
             placeholder="First Name"
-            value={item.firstName}
+            value={student.firstName}
             onChange={form.firstName}
             marginBottom={8}
           />
@@ -363,12 +333,12 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
           <TextInputField
             label="Last Name"
             placeholder="Last Name"
-            value={item.lastName}
+            value={student.lastName}
             onChange={form.lastName}
             marginBottom={8}
           />
 
-          <TextEditor owner={item} field="details" label="Details (TEMP)" />
+          <TextEditor owner={student} field="details" label="Details (TEMP)" />
           <Button
             intent="danger"
             iconBefore="trash"
@@ -376,7 +346,7 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
             marginTop={8}
             onClick={() => {
               if (confirm('Are You Sure?')) {
-                owner.remove(owner.items.findIndex(p => p === item));
+                owner.remove(owner.students.findIndex(p => p === student));
               }
             }}
           >
@@ -430,20 +400,8 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
           </thead>
 
           <tbody>
-            {blockModel.blocks &&
-              blockModel.blocks.slice().map((block, i) => {
-                // creates a unique 'key' by combining unitId and blockId
-                if (localStorage.getItem(block.unitId + block.blockId + 'result') != null) {
-                  block.results.result = parseInt(
-                    localStorage.getItem(block.unitId + block.blockId + 'result')
-                  );
-                }
-                if (localStorage.getItem(block.unitId + block.blockId + 'grade') != null) {
-                  block.results.grade = localStorage.getItem(
-                    block.unitId + block.blockId + 'grade'
-                  );
-                }
-
+            {student.registeredBlocks &&
+              student.registeredBlocks.slice().map((block, i) => {
                 return (
                   <tr key={block.unitId + block.blockId}>
                     <td>
@@ -482,37 +440,27 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
                       </Select>
                     </td>
                     <td>
-                      <TextInputField
-                        value={block.results.result}
-                        onChange={e => {
-                          block.results.result = e.currentTarget.value;
-                        }}
-                        id="result"
-                        disabled={false}
-                        margin={0}
-                        marginRight={8}
-                      />
-                    </td>
-                    <td>
-                      <Button
-                        intent="warning"
-                        appearance="primary"
-                        margin={0}
-                        width={60}
-                        onClick={() => {
-                          toaster.notify('Results Updated.');
-                          localStorage.setItem(
-                            block.unitId + block.blockId + 'result',
-                            String(block.results.result)
-                          );
-                          localStorage.setItem(
-                            block.unitId + block.blockId + 'grade',
-                            block.results.grade
-                          );
-                        }}
-                      >
-                        Save
-                      </Button>
+                      <Pane display="flex">
+                        <TextInputField
+                          style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+                          value="13 Jan 2020"
+                          width={90}
+                          margin={0}
+                          marginRight={-1}
+                          disabled
+                        />
+                        <TextInputField
+                          style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                          value={block.results.result}
+                          onChange={e => {
+                            block.results.result = e.currentTarget.value;
+                          }}
+                          id="result"
+                          disabled={false}
+                          margin={0}
+                          marginRight={8}
+                        />
+                      </Pane>
                     </td>
                     <td>
                       <Button
@@ -535,128 +483,40 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
                   </tr>
                 );
               })}
-
-            {unitModel.units &&
-              unitModel.units.slice().map((unit, i) => {
-                // creates a unique 'key' by using unitId
-                if (localStorage.getItem(unit.unitId + 'result') != null) {
-                  unit.results.result = parseInt(localStorage.getItem(unit.unitId + 'result'));
-                }
-                if (localStorage.getItem(unit.unitId + 'grade') != null) {
-                  unit.results.grade = localStorage.getItem(unit.unitId + 'grade');
-                }
-
-                return (
-                  <tr key={unit.unitId}>
-                    <td>
-                      <TextInputField
-                        value={unit.unitId}
-                        id="unitId"
-                        disabled={true}
-                        margin={0}
-                        marginRight={8}
-                      />
-                    </td>
-                    <td>
-                      {/* <TextInputField
-                            value={unit.blockId}
-                            id="blockId"
-                            disabled={true}
-                            margin={0}
-                            marginRight={8}
-                          /> */}
-                    </td>
-                    <td>
-                      <Select
-                        value={unit.results.grade}
-                        onChange={e => (unit.results.grade = e.currentTarget.value)}
-                        margin={0}
-                        marginRight={8}
-                        flex="0 0 140px"
-                        label="Grade"
-                      >
-                        <option value="">No Grade</option>
-                        <option value="f">F - Fail</option>
-                        <option value="p">P - Pass</option>
-                        <option value="c">C - Credit</option>
-                        <option value="d">D - Distinction</option>
-                        <option value="hd">HD - High Distinction</option>
-                      </Select>
-                    </td>
-                    <td>
-                      <TextInputField
-                        value={unit.results.result}
-                        onChange={e => (unit.results.result = e.currentTarget.value)}
-                        id="result"
-                        disabled={false}
-                        margin={0}
-                        marginRight={8}
-                      />
-                    </td>
-                    <td>
-                      <Button
-                        intent="warning"
-                        appearance="primary"
-                        margin={0}
-                        width={60}
-                        onClick={() => {
-                          toaster.notify('Results Updated.');
-                          localStorage.setItem(unit.unitId + 'result', String(unit.results.result));
-                          localStorage.setItem(unit.unitId + 'grade', unit.results.grade);
-                        }}
-                      >
-                        Save
-                      </Button>
-                    </td>
-                    <td>
-                      <Button
-                        intent="danger"
-                        iconBefore="trash"
-                        appearance="primary"
-                        margin={0}
-                        width={80}
-                        onClick={() => {
-                          toaster.notify('Results Reset.');
-                          localStorage.removeItem(unit.unitId + 'result');
-                          localStorage.removeItem(unit.unitId + 'grade');
-                          unit.results.result = 0;
-                          unit.results.grade = '';
-                        }}
-                      >
-                        Reset
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })}
           </tbody>
-          <td>
-            <Button
-              iconBefore="plus"
-              appearance="primary"
-              margin={0}
-              width={110}
-              onClick={() => {
-                localState.isShownBlock = true;
-              }}
-            >
-              Add Block
-            </Button>
-          </td>
-          <td>
-            <Button
-              iconBefore="plus"
-              appearance="primary"
-              margin={0}
-              width={100}
-              onClick={() => {
-                localState.isShownUnit = true;
-              }}
-            >
-              Add Unit
-            </Button>
-          </td>
         </table>
+
+        <Pane display="flex" alignItems="center" marginTop={16}>
+          <Button
+            iconBefore="plus"
+            appearance="primary"
+            width={110}
+            onClick={() => {
+              localState.isShownBlock = true;
+            }}
+            marginRight={8}
+          >
+            Add Block
+          </Button>
+          <Button
+            intent="warning"
+            appearance="primary"
+            margin={0}
+            width={60}
+            onClick={() => {
+              console.log(student.toJS());
+              // save({
+              //   variables: {
+              //     part: 'student',
+              //     id: student.id,
+              //     body: student.toJS()
+              //   }
+              // });
+            }}
+          >
+            Save
+          </Button>
+        </Pane>
 
         <br></br>
 
@@ -681,7 +541,7 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
           title="Add New Block"
           onCloseComplete={() => (localState.isShownBlock = false)}
           onConfirm={close => {
-            blockModel.addBlock({
+            student.addRegisteredBlock({
               unitId: localState.unitId,
               blockId: localState.blockId,
               registrationDate: '',
@@ -691,7 +551,6 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
                 result: parseInt(localState.result)
               }
             });
-            console.log(blockModel);
             close();
           }}
           confirmLabel="Add Block"
@@ -737,66 +596,12 @@ const Details: React.FC<{ item: Student; owner: StudentListModel; state: State }
             />
           </Pane>
         </Dialog>
-
-        <Dialog
-          isShown={localState.isShownUnit}
-          title="Add New Unit"
-          onCloseComplete={() => (localState.isShownUnit = false)}
-          onConfirm={close => {
-            unitModel.addUnit({
-              unitId: localState.unitId,
-              registrationDate: '',
-              results: {
-                date: '',
-                grade: localState.grade,
-                result: parseInt(localState.result)
-              }
-            });
-            console.log(unitModel);
-            close();
-          }}
-          confirmLabel="Add Unit"
-        >
-          <Pane display="flex" alignItems="flex-baseline">
-            <TextInputField
-              label="Unit Id"
-              placeholder="Unit Id"
-              onChange={unitForm.unitId}
-              marginRight={4}
-              flex={1}
-            />
-          </Pane>
-          <Pane display="flex" alignItems="flex-baseline">
-            <Select
-              onChange={unitForm.grade}
-              margin={0}
-              marginTop={24}
-              marginRight={8}
-              flex="0 0 140px"
-              label="Grade"
-            >
-              <option value="">No Grade</option>
-              <option value="f">F - Fail</option>
-              <option value="p">P - Pass</option>
-              <option value="c">C - Credit</option>
-              <option value="d">D - Distinction</option>
-              <option value="hd">HD - High Distinction</option>
-            </Select>
-            <TextInputField
-              label="Result"
-              placeholder="Result"
-              onChange={unitForm.result}
-              marginRight={4}
-              flex={1}
-            />
-          </Pane>
-        </Dialog>
       </div>
     );
   }
 );
 
-const DetailsReadonly: React.FC<{ item: TestModel }> = observer(({ item }) => {
+const DetailsReadonly: React.FC<{ item: StudentModel }> = observer(({ item }) => {
   return (
     <div style={{ flex: 1 }}>
       <Pane background="tint3" borderRadius={6} marginLeft={24}>
@@ -804,7 +609,7 @@ const DetailsReadonly: React.FC<{ item: TestModel }> = observer(({ item }) => {
           {item.id}
         </Heading>
 
-        <TextField label="Description" html={marked(item.details)} />
+        {/* <TextField label="Description" html={marked(item.details)} /> */}
       </Pane>
     </div>
   );
@@ -864,32 +669,12 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
   const model = React.useMemo(() => {
     if (data) {
       let model = new StudentListModel({
-        items: data.students.map(
-          student =>
-            new TestModel({
-              id: student.id,
-              firstName: student.firstName,
-              lastName: student.lastName,
-              registeredUnits: student.registeredUnits.map(units => {
-                return new RegisteredUnitModel({
-                  unitId: units.unitId,
-                  results: new ResultModel(units.results)
-                });
-              }),
-              registeredBlocks: student.registeredBlocks.map(block => {
-                return new RegisteredBlockModel({
-                  unitId: block.unitId,
-                  blockId: block.blockId,
-                  results: new ResultModel(block.results)
-                });
-              })
-            })
-        )
+        students: data.students.map(student => createStudent(student))
       });
 
       state.undoManager = undoMiddleware(model);
       state.save = () => {
-        const body = model.items.map(i => i.toJS());
+        const body = model.students.map(i => i.toJS());
         save({
           variables: {
             body,
@@ -907,7 +692,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
     return <ProgressView loading={loading} error={error} />;
   }
 
-  const selectedItem = selectedId ? model.items.find(b => b.id === selectedId) : null;
+  const selectedItem = selectedId ? model.students.find(b => b.id === selectedId) : null;
   const form = buildForm(localState, ['id', 'firstName', 'lastName']);
   const view = readonly ? 'view' : 'editor';
 
@@ -916,7 +701,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
       <VerticalPane title="Student List">
         <Tablist flexBasis={200} width={200} marginRight={8}>
           <Tabs>
-            {model.items
+            {model.students
               .slice()
               .sort((a, b) => a.firstName.localeCompare(b.firstName))
               .map(student => (
@@ -941,9 +726,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
                 id: localState.id,
                 firstName: localState.firstName,
                 lastName: localState.lastName,
-                details: '',
-                registeredBlocks: [],
-                registeredUnits: []
+                registeredBlocks: []
               });
               console.log(model);
               close();

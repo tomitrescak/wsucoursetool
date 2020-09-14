@@ -173,12 +173,6 @@ export type Result = {
   grade: string;
 };
 
-export type RegisteredUnit = {
-  unitId: string;
-  registrationDate: string;
-  results: Result;
-};
-
 export type RegisteredBlock = {
   unitId: string;
   blockId: string;
@@ -190,7 +184,6 @@ export type Student = {
   id: string;
   firstName: string;
   lastName: string;
-  details: string;
-  registeredUnits: RegisteredUnit[];
+  // details: string;
   registeredBlocks: RegisteredBlock[];
 };

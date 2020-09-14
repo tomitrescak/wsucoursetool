@@ -88,8 +88,7 @@ export type Student = {
   id: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
-  registeredUnits?: Maybe<Array<Maybe<RegisteredUnit>>>;
-  registeredBlocks?: Maybe<Array<Maybe<RegisteredBlock>>>;
+  registeredBlocks: Array<Maybe<RegisteredBlock>>;
 };
 
 export type Query = {
@@ -349,13 +348,10 @@ export type StudentListQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type StudentListQuery = { students: Array<(
     Pick<Student, 'id' | 'firstName' | 'lastName'>
-    & { registeredUnits?: Maybe<Array<Maybe<(
-      Pick<RegisteredUnit, 'registrationDate' | 'unitId'>
-      & { results: ResultFragment }
-    )>>>, registeredBlocks?: Maybe<Array<Maybe<(
+    & { registeredBlocks: Array<Maybe<(
       Pick<RegisteredBlock, 'registrationDate' | 'blockId' | 'unitId'>
       & { results: ResultFragment }
-    )>>> }
+    )>> }
   )>, units: Array<Pick<UnitList, 'id' | 'name'>> };
 
 export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1015,13 +1011,6 @@ export const StudentListDocument = gql`
     id
     firstName
     lastName
-    registeredUnits {
-      registrationDate
-      unitId
-      results {
-        ...Result
-      }
-    }
     registeredBlocks {
       registrationDate
       blockId
