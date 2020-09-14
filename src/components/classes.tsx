@@ -67,6 +67,46 @@ export class TestModel extends Model({
 }
 
 @model('Course/Entity')
+export class ResultModel extends Model({
+  date: prop<string>({ setterAction: true }),
+  result: prop<number>({ setterAction: true }),
+  grade: prop<string>({ setterAction: true })
+}) {}
+
+// @model('Course/Entity')
+// export class RegisteredUnitModel extends Model({
+//   unitId: prop<string>({ setterAction: true }),
+//   results: prop<Result>({ setterAction: true }),
+//   registrationDate: prop<string>({ setterAction: true })
+// }) {
+//   toJS() {
+//     return toJS(this.$);
+//   }
+// }
+
+@model('Course/Entity')
+export class RegisteredBlockModel extends Model({
+  unitId: prop<string>({ setterAction: true }),
+  blockId: prop<string>({ setterAction: true }),
+  registrationDate: prop<string>({ setterAction: true }),
+  results: prop<ResultModel>({ setterAction: true })
+}) {
+  toJS() {
+    return {
+      ...toJS(this.$),
+      results: this.results.$
+    };
+  }
+}
+
+function createRegisteredBlock(block: RegisteredBlock) {
+  return new RegisteredBlockModel({
+    ...block,
+    results: new ResultModel(block.results)
+  });
+}
+
+@model('Course/Entity')
 export class EntityModel extends Model({
   id: prop<string>({ setterAction: true }),
   name: prop<string>({ setterAction: true }),
