@@ -40,17 +40,11 @@ type Result = {
   grade: string;
 };
 
-type RegisteredUnit = {
-  unitId: string;
-  registrationDate: string;
-  results: Result;
-};
-
 type RegisteredBlock = {
   unitId: string;
   blockId: string;
   registrationDate: string;
-  results: Result;
+  results: Result[];
 };
 
 @model('Course/Entity')
@@ -85,30 +79,29 @@ export class ResultModel extends Model({
   date: prop<string>({ setterAction: true }),
   result: prop<number>({ setterAction: true }),
   grade: prop<string>({ setterAction: true })
-}) {}
-
-// @model('Course/Entity')
-// export class RegisteredUnitModel extends Model({
-//   unitId: prop<string>({ setterAction: true }),
-//   results: prop<Result>({ setterAction: true }),
-//   registrationDate: prop<string>({ setterAction: true })
-// }) {
-//   toJS() {
-//     return toJS(this.$);
-//   }
-// }
+}) {
+  toJS() {
+    return toJS(this.$);
+  }
+}
 
 @model('Course/Entity')
 export class RegisteredBlockModel extends Model({
   unitId: prop<string>({ setterAction: true }),
   blockId: prop<string>({ setterAction: true }),
   registrationDate: prop<string>({ setterAction: true }),
-  results: prop<ResultModel>({ setterAction: true })
+  results: prop<ResultModel[]>({ setterAction: true })
 }) {
+  @modelAction
+  addResult(result: Result) {
+    this.results.push(createResult(result));
+  }
+
   toJS() {
     return {
       ...toJS(this.$),
-      results: toJS(this.results.$)
+      //results: toJS(this.results.$)
+      results: this.results.map(r => r.toJS())
     };
   }
 }
@@ -116,8 +109,13 @@ export class RegisteredBlockModel extends Model({
 function createRegisteredBlock(block: RegisteredBlock) {
   return new RegisteredBlockModel({
     ...block,
-    results: new ResultModel(block.results)
+    //results: new ResultModel(block.results)
+    results: block.results.map(r => createResult(r))
   });
+}
+
+function createResult(result: Result) {
+  return new ResultModel(result);
 }
 
 @model('Course/Entity')

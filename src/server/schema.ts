@@ -70,7 +70,7 @@ export const typeDefs = gql`
     unitId: String!
     blockId: String!
     registrationDate: String! #ISO Encoded
-    results: Result!
+    results: [Result]!
   }
 
   type Student {

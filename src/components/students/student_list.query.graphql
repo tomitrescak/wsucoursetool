@@ -22,4 +22,10 @@ query StudentList {
     id
     name
   }
+
+  blocks {
+    id
+    name
+    unitId
+  }
 }

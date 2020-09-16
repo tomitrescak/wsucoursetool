@@ -10,7 +10,10 @@ import {
   toaster,
   Text,
   Select,
-  Dialog
+  Dialog,
+  Combobox,
+  TextInput,
+  Icon
 } from 'evergreen-ui';
 import { State, Student, Entity, AcsKnowledge, Unit } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
@@ -35,7 +38,9 @@ import {
   useBlockQuery,
   RegisteredUnit,
   UnitList,
-  RegisteredBlock
+  RegisteredBlock,
+  useUnitsQuery,
+  useUnitBaseQuery
 } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 
@@ -56,21 +61,6 @@ class StudentListModel extends Model({
   @modelAction
   remove(ix: number) {
     this.students.splice(ix, 1);
-  }
-}
-
-@model('Editor/Blocks')
-class BlockListModel extends Model({
-  blocks: prop<RegisteredBlockModel[]>()
-}) {
-  @modelAction
-  addBlock(pre: RegisteredBlock) {
-    this.blocks.push(new RegisteredBlockModel(pre));
-  }
-
-  @modelAction
-  removeBlock(ix: number) {
-    this.blocks.splice(ix, 1);
   }
 }
 
@@ -161,6 +151,164 @@ type BlockDetailsParams = {
   block: RegisteredBlock;
 };
 
+type ResultLineParams = {
+  index: number;
+  localState: any;
+  student: StudentModel;
+  block: RegisteredBlockModel;
+};
+
+const ResultLine = observer(({ index, localState, student, block }: ResultLineParams) => {
+  const { loading, error, data: unitsData } = useUnitsQuery();
+  const { loading: unitLoading, data: unitData } = useUnitBaseQuery({
+    variables: {
+      id: block.unitId
+    }
+  });
+  if (loading || unitLoading || error) {
+    return <ProgressView loading={loading || unitLoading} error={error} />;
+  }
+
+  if (localState.editLineIndex == index) {
+    return (
+      <Pane display="flex" key={index}>
+        <Pane flex={1}>
+          <Combobox
+            width="100%"
+            id="unitId"
+            //selectedItem={data.units.find(u => u.id === block.unitId)}
+            items={unitsData.units}
+            itemToString={item => (item ? item.name : '')}
+            selectedItem={unitsData.units.find(unit => unit.id === block.unitId)}
+            onChange={selected => (block.unitId = selected.id)}
+          />
+        </Pane>
+        <Pane flex={1} marginLeft={8}>
+          <Combobox
+            width="100%"
+            id="blockName"
+            selectedItem={
+              unitData.unitBase ? unitData.unitBase.blocks.find(b => b.id === block.blockId) : ''
+            }
+            //items={student.registeredBlocks}
+            items={unitData.unitBase ? unitData.unitBase.blocks : []}
+            itemToString={item => (item ? item.name : '')}
+            onChange={selected => (block.blockId = selected.id)}
+          />
+        </Pane>
+        <Pane flex={1} marginLeft={8}>
+          {/* Results */}
+          {block.results.map((result, index) => (
+            <Pane key={index} display="flex" marginBottom={8}>
+              <Pane flex={3} marginRight={8}>
+                <Select
+                  value={result.grade}
+                  onChange={e => (result.grade = e.currentTarget.value)}
+                  //margin={0}
+
+                  width="100%"
+                  label="Grade"
+                >
+                  <option value="">No Grade</option>
+                  <option value="f">F - Fail</option>
+                  <option value="p">P - Pass</option>
+                  <option value="c">C - Credit</option>
+                  <option value="d">D - Distinction</option>
+                  <option value="hd">HD - High Distinction</option>
+                </Select>
+              </Pane>
+
+              <TextInput
+                style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+                value={result.date}
+                width={90}
+                margin={0}
+                marginRight={-1}
+                disabled
+                flex={2}
+              />
+              <TextInput
+                style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                value={result.result}
+                onChange={e => {
+                  result.result = e.currentTarget.value;
+                }}
+                id="result"
+                disabled={false}
+                margin={0}
+                marginRight={8}
+                flex={1}
+                width={50}
+              />
+
+              <IconButton
+                intent="danger"
+                icon="trash"
+                appearance="primary"
+                //margin={0}
+                onClick={() => {
+                  toaster.notify('Results Removed.');
+                }}
+              />
+            </Pane>
+          ))}
+
+          <IconButton
+            icon="plus"
+            marginTop={4}
+            marginBottom={4}
+            intent="success"
+            appearance="primary"
+            //margin={0}
+            onClick={() => {
+              block.addResult({
+                date: new Date().toLocaleDateString(),
+                grade: 0,
+                result: ''
+              });
+            }}
+          />
+        </Pane>
+        <IconButton
+          intent="success"
+          icon="tick"
+          appearance="primary"
+          marginLeft={8}
+          onClick={() => (localState.editLineIndex = -1)}
+        />
+      </Pane>
+    );
+  } else {
+    return (
+      <Pane display="flex" key={index} marginBottom={4}>
+        <Pane flex={1}>{unitsData.units.find(unit => unit.id === block.unitId)?.name}</Pane>
+        <Pane flex={1} marginLeft={8}>
+          {unitData.unitBase.blocks.find(b => b.id === block.blockId)?.name}
+        </Pane>
+        <Pane flex={1} marginLeft={8}>
+          {/* Results */}
+          {block.results.map((result, index) => (
+            <Pane key={index} display="flex" marginBottom={8}>
+              <Pane flex={3} marginRight={8}>
+                {result.grade}
+              </Pane>
+
+              <Pane flex={2}>{result.date}</Pane>
+              <Pane flex={1}>{result.result}</Pane>
+            </Pane>
+          ))}
+        </Pane>
+        <IconButton
+          intent="none"
+          icon="edit"
+          marginLeft={8}
+          onClick={() => (localState.editLineIndex = index)}
+        />
+      </Pane>
+    );
+  }
+});
+
 const BlockResult = observer(({ units, block }: BlockDetailsParams) => {
   const { loading, error, data } = useBlockQuery({
     variables: {
@@ -247,6 +395,8 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
   ({ item: student, owner, state }) => {
     const { loading, error, data } = useStudentListQuery({});
 
+    // data.block ? data.block.name : `Block ${unitName} > ${block.blockId} does not exists
+
     const form = React.useMemo(() => buildForm(student, ['id', 'firstName', 'lastName']), [
       student
     ]);
@@ -260,47 +410,18 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
       }
     });
 
-    // const unitModel = React.useMemo(() => {
-    //   if (item.registeredUnits) {
-    //     let model = new UnitListModel({
-    //       units: item.registeredUnits.map(
-    //         unit =>
-    //           new RegisteredUnitModel({
-    //             unitId: unit.unitId,
-    //             results: new ResultModel({
-    //               grade: unit.results.grade,
-    //               result: unit.results.result
-    //             })
-    //           })
-    //       )
-    //     });
-
-    //     state.undoManager = undoMiddleware(model);
-    //     state.save = () => {
-    //       const body = model.units.map(i => i.toJS());
-    //       save({
-    //         variables: {
-    //           body,
-    //           part: 'units'
-    //         }
-    //       });
-    //     };
-    //     return model;
-    //   }
-
-    //   return null;
-    // }, [item.registeredUnits]);
-
     const localState = useLocalStore(() => ({
       isShownBlock: false,
       isShownUnit: false,
       unitId: '',
       blockId: '',
-      result: '0',
-      grade: ''
+      results: [],
+      date: '',
+      grade: '',
+      editLineIndex: -1
     }));
 
-    const blockForm = buildForm(localState, ['unitId', 'blockId', 'result', 'grade']);
+    const blockForm = buildForm(localState, ['unitId', 'blockId', 'result', 'date', 'grade']);
 
     if (loading || error) {
       return <ProgressView loading={loading} error={error} />;
@@ -352,18 +473,6 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
           >
             Delete Student
           </Button>
-          <Button
-            intent="danger"
-            appearance="primary"
-            marginTop={8}
-            onClick={() => {
-              if (confirm('Are You Sure?')) {
-                localStorage.clear();
-              }
-            }}
-          >
-            Reset All
-          </Button>
         </Pane>
 
         <br></br>
@@ -381,6 +490,29 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
             );
           })} */}
 
+        <Pane display="flex">
+          <Heading size={400} flex={1}>
+            Unit Name
+          </Heading>
+          <Heading size={400} flex={1}>
+            Block Name
+          </Heading>
+          <Heading size={400} flex={1}>
+            Results
+          </Heading>
+        </Pane>
+
+        {student.registeredBlocks.map((block, index) => (
+          <ResultLine
+            block={block}
+            index={index}
+            localState={localState}
+            student={student}
+            key={index}
+          />
+        ))}
+
+        {/*
         <table>
           <thead>
             <tr>
@@ -396,21 +528,37 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
               <th style={{ textAlign: 'left' }}>
                 <Heading size={400}>Result</Heading>
               </th>
+              <td>
+                <Button
+                  iconBefore="plus"
+                  appearance="primary"
+                  //margin={0}
+                  marginTop={4}
+                  width={110}
+                  onClick={() => {
+                    toaster.notify('Result Added.');
+                  }}
+                >
+                  Add Result
+                </Button>
+              </td>
             </tr>
           </thead>
-
           <tbody>
             {student.registeredBlocks &&
               student.registeredBlocks.slice().map((block, i) => {
+                // units.find(u => u.id === block.unitId)?.name
                 return (
                   <tr key={block.unitId + block.blockId}>
                     <td>
-                      <TextInputField
-                        value={block.unitId}
+                      <Combobox
+                        flex="1"
+                        width={160}
                         id="unitId"
-                        disabled={true}
-                        margin={0}
-                        marginRight={8}
+                        //selectedItem={data.units.find(u => u.id === block.unitId)}
+                        items={student.registeredBlocks}
+                        itemToString={item => (item ? item.unitId : '')}
+                        onChange={selected => (localState.unitId = selected.unitId)}
                       />
                     </td>
                     <td>
@@ -426,7 +574,8 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
                       <Select
                         value={block.results.grade}
                         onChange={e => (block.results.grade = e.currentTarget.value)}
-                        margin={0}
+                        //margin={0}
+                        marginTop={4}
                         marginRight={8}
                         flex="0 0 140px"
                         label="Grade"
@@ -463,28 +612,23 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
                       </Pane>
                     </td>
                     <td>
-                      <Button
+                      <IconButton
                         intent="danger"
-                        iconBefore="trash"
+                        icon="trash"
                         appearance="primary"
-                        margin={0}
-                        width={80}
+                        //margin={0}
+                        marginTop={4}
                         onClick={() => {
-                          toaster.notify('Results Reset.');
-                          localStorage.removeItem(block.unitId + block.blockId + 'result');
-                          localStorage.removeItem(block.unitId + block.blockId + 'grade');
-                          block.results.result = 0;
-                          block.results.grade = '';
+                          toaster.notify('Results Removed.');
                         }}
-                      >
-                        Reset
-                      </Button>
+                      ></IconButton>
                     </td>
                   </tr>
                 );
               })}
           </tbody>
         </table>
+            */}
 
         <Pane display="flex" alignItems="center" marginTop={16}>
           <Button
@@ -505,37 +649,20 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
             width={60}
             onClick={() => {
               console.log(student.toJS());
-              // save({
-              //   variables: {
-              //     part: 'student',
-              //     id: student.id,
-              //     body: student.toJS()
-              //   }
-              // });
+              if (confirm('Changes cannot be reverted. Are you sure?')) {
+                save({
+                  variables: {
+                    part: 'student',
+                    id: student.id,
+                    body: student.toJS()
+                  }
+                });
+              }
             }}
           >
             Save
           </Button>
         </Pane>
-
-        <br></br>
-
-        {/* <Button
-          intent="warning"
-          //iconBefore="trash"
-          appearance="primary"
-          margin={0}
-          width={100}
-          onClick={() => {
-            if (confirm('Save all Block and Unit Results?')) {
-              localStorage.setItem(item.id, JSON.stringify(item));
-              //localStorage.clear();
-            }
-          }}
-        >
-          Save All
-        </Button> */}
-
         <Dialog
           isShown={localState.isShownBlock}
           title="Add New Block"
@@ -545,6 +672,7 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
               unitId: localState.unitId,
               blockId: localState.blockId,
               registrationDate: '',
+              // ========== FIX THIS ==========
               results: {
                 date: '',
                 grade: localState.grade,
@@ -556,22 +684,44 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
           confirmLabel="Add Block"
         >
           <Pane display="flex" alignItems="flex-baseline">
-            <TextInputField
-              label="Unit Id"
-              placeholder="Unit Id"
-              onChange={blockForm.unitId}
-              marginRight={4}
-              flex={1}
+            <Combobox
+              flex="1"
+              width={400}
+              marginTop={4}
+              id="unitId"
+              //selectedItem={data.units.find(u => u.id === block.unitId)}
+              items={data.units}
+              itemToString={item => (item ? item.name : '')}
+              onChange={selected => (blockForm.unitId = selected.id)}
             />
             <TextInputField
-              label="Block Id"
-              placeholder="Block Id"
-              onChange={blockForm.blockId}
-              marginRight={4}
-              flex={1}
+              value={blockForm.unitId}
+              id="unitName"
+              disabled={true}
+              margin={0}
+              marginRight={8}
+              wdith={32}
             />
           </Pane>
           <Pane display="flex" alignItems="flex-baseline">
+            <Combobox
+              flex="1"
+              width={80}
+              marginTop={24}
+              id="blockId"
+              //selectedItem={data.units.find(u => u.id === block.unitId)}
+              items={data.blocks.filter(b => b.unitId === blockForm.unitId)}
+              itemToString={item => (item ? item.id : '')}
+              onChange={selected => (blockForm.blockId = selected.blockId)}
+            />
+            <TextInputField
+              label="Date"
+              //style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+              type="date"
+              marginRight={8}
+              onChange={blockForm.date}
+            />
+
             <Select
               onChange={blockForm.grade}
               margin={0}
@@ -592,7 +742,7 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
               placeholder="Result"
               onChange={blockForm.result}
               marginRight={4}
-              flex={1}
+              //flex={1}
             />
           </Pane>
         </Dialog>

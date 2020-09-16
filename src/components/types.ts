@@ -177,7 +177,7 @@ export type RegisteredBlock = {
   unitId: string;
   blockId: string;
   registrationDate: string;
-  results: Result;
+  results: Result[];
 };
 
 export type Student = {

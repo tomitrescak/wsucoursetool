@@ -80,7 +80,7 @@ export type RegisteredBlock = {
   unitId: Scalars['String'];
   blockId: Scalars['String'];
   registrationDate: Scalars['String'];
-  results: Result;
+  results: Array<Maybe<Result>>;
 };
 
 export type Student = {
@@ -401,7 +401,7 @@ export type RegisteredBlockResolvers<ContextType = any, ParentType extends Resol
   unitId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   blockId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   registrationDate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  results?: Resolver<ResolversTypes['Result'], ParentType, ContextType>;
+  results?: Resolver<Array<Maybe<ResolversTypes['Result']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
