@@ -138,6 +138,27 @@ export const resolvers: IResolvers = {
           db.sfiaSkills = body;
           return true;
         }
+        if (part === 'sfiaSkill') {
+          const unitId = body.unitId;
+          const action = body.action;
+          const level = body.level;
+          const flagged = body.flagged;
+          const unit = db.units.find(u => u.id === unitId);
+
+          if (unit == null) {
+            console.log(`Unit "${unitId}" not found`);
+          }
+
+          if (action === 'remove') {
+            unit.sfiaSkills = unit.sfiaSkills.filter(s => s.id !== id);
+          } else if (action === 'add') {
+            if (unit.sfiaSkills == null) {
+              unit.sfiaSkills = [];
+            }
+            unit.sfiaSkills.push({ id, level, flagged });
+          }
+          return true;
+        }
         if (part === 'job') {
           let ix = db.jobs.findIndex(j => j.id === id);
           db.jobs[ix] = body;
@@ -184,25 +205,25 @@ export const resolvers: IResolvers = {
         return true;
       });
     },
-    createJob(_, { id, name }) {
-      return withDb(db => {
-        db.jobs.push({
-          id,
-          name,
-          skills: []
-        });
-        return true;
-      });
-    },
-    deleteJob(_, { id }) {
-      return withDb(db => {
-        db.jobs.splice(
-          db.jobs.findIndex(j => j.id === id),
-          1
-        );
-        return true;
-      });
-    },
+    // createJob(_, { id, name }) {
+    //   return withDb(db => {
+    //     db.jobs.push({
+    //       id,
+    //       name,
+    //       skills: []
+    //     });
+    //     return true;
+    //   });
+    // },
+    // deleteJob(_, { id }) {
+    //   return withDb(db => {
+    //     db.jobs.splice(
+    //       db.jobs.findIndex(j => j.id === id),
+    //       1
+    //     );
+    //     return true;
+    //   });
+    // },
     createSpecialisation(_, { id, name }) {
       return withDb(db => {
         db.specialisations.push({
@@ -229,6 +250,7 @@ export const resolvers: IResolvers = {
           id,
           name,
           topics: [],
+          sfiaSkills: [],
           keywords: [],
           coordinator: '',
           // blockTopics: [],
@@ -275,7 +297,21 @@ export const resolvers: IResolvers = {
     },
     sfia() {
       let db = getDb();
-      return db.sfiaSkills;
+      return db.sfiaSkills.map(s => ({
+        ...s,
+        count: db.units.filter(u => (u.sfiaSkills || []).some(k => k.id === s.id)).length
+      }));
+    },
+    sfiaUnits(_, { id }) {
+      let db = getDb();
+      return db.units
+        .filter(u => (u.sfiaSkills || []).some(s => s.id === id))
+        .map(u => ({
+          id: u.id,
+          name: u.name,
+          level: u.sfiaSkills.find(s => s.id === id).level,
+          flagged: u.sfiaSkills.find(s => s.id === id).flagged
+        }));
     },
     blocks() {
       let db = getDb();
@@ -303,7 +339,19 @@ export const resolvers: IResolvers = {
     },
     jobs() {
       let db = getDb();
-      return db.jobs;
+      const result = db.jobs.sort((a, b) => a.name.localeCompare(b.name));
+
+      for (let job of result) {
+        job.invalid = job.sfia
+          .filter(sfia =>
+            db.units.every(u =>
+              (u.sfiaSkills || []).every(s => s.id !== sfia.id || s.level < sfia.level)
+            )
+          )
+          .map(s => s.id);
+      }
+
+      return result;
     },
     job(_, { id }) {
       let db = getDb();
@@ -325,10 +373,10 @@ export const resolvers: IResolvers = {
       return db.topics.map(t => {
         let blocks = [];
         let topicalUnits = db.units.filter(u =>
-          u.blocks.some(b => (b.topics || []).some(bt => bt === t.id))
+          (u.blocks || []).some(b => (b.topics || []).some(bt => bt === t.id))
         );
         for (let u of topicalUnits) {
-          let topicalBlocks = u.blocks.filter(b => b.topics.some(bt => bt === t.id));
+          let topicalBlocks = u.blocks.filter(b => (b.topics || []).some(bt => bt === t.id));
           for (let b of topicalBlocks) {
             blocks.push({
               blockId: b.id,
@@ -440,19 +488,21 @@ export const resolvers: IResolvers = {
     },
     units() {
       let db = getDb();
-      return db.units.map(u => ({
-        id: u.id,
-        name: u.name,
-        dynamic: !!u.dynamic,
-        blockCount: (u.blocks || []).length,
-        level: u.level,
-        outdated: u.outdated,
-        processed: u.processed,
-        obsolete: u.obsolete,
-        proposed: u.proposed,
-        hidden: u.hidden,
-        topics: u.topics || []
-      }));
+      return db.units
+        .map(u => ({
+          id: u.id,
+          name: u.name,
+          dynamic: !!u.dynamic,
+          blockCount: (u.blocks || []).length,
+          level: u.level,
+          outdated: u.outdated,
+          processed: u.processed,
+          obsolete: u.obsolete,
+          proposed: u.proposed,
+          hidden: u.hidden,
+          topics: u.topics || []
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name));
     },
     legacyUnits(parent, args, context) {
       return fs.readFileSync(path.resolve('./src/data/units.json'), {

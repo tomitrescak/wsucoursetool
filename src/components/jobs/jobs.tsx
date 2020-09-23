@@ -14,7 +14,9 @@ import {
   Tooltip,
   Paragraph,
   Select,
-  toaster
+  toaster,
+  InfoSignIcon,
+  Position
 } from 'evergreen-ui';
 import { State, Job, AcsKnowledge, Entity } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
@@ -37,6 +39,31 @@ import { undoMiddleware } from 'mobx-keystone';
 import { TextEditor } from 'components/common/text_editor';
 import { AcsGraph } from 'components/acs/acs_graph';
 import { skills } from 'components/outcomes/outcome_editor';
+import { DetailsReadonly as SfiaDetails } from 'components/sfia/sfia_skills';
+import { VerticalPane } from 'components/common/vertical_pane';
+
+const apsSkills = {
+  Guru: [
+    '5 years +',
+    'A Guru has five years or more of experience in the discipline and is generally considered an authority in their area or expertise.'
+  ],
+  Expert: [
+    '3 - 5 years',
+    'An Expert has between three and five years of experience in the discipline and is often sought for guidance in their area or expertise.'
+  ],
+  Competent: [
+    '1 - 3 years',
+    'A Competent has between one and three years of experience in the discipline and is able to operate confidently with minimal guidance.'
+  ],
+  Beginner: [
+    '6 months to 1 year',
+    'A Beginner has between six months and a year of experience in the discipline and generally requires guidance.'
+  ],
+  Novice: [
+    '< 6 months',
+    'A Novice may not have any experience in the discipline and will require guidance and support to be effective.'
+  ]
+};
 
 const Details: React.FC<{
   item: Entity;
@@ -233,7 +260,18 @@ const Details: React.FC<{
   );
 });
 
+const Field = ({ title, children }) => (
+  <Pane marginRight={16}>
+    <Heading size={400} marginBottom={4}>
+      {title}
+    </Heading>
+    <Text>{children}</Text>
+  </Pane>
+);
+
 const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
+  const [skill, setSkill] = React.useState(null);
+
   const { loading, error, data } = useJobQuery({
     variables: {
       id: item.id
@@ -259,30 +297,82 @@ const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
       className="scroll1"
     >
       <Pane background="tint3" borderRadius={6} marginLeft={24}>
-        <Heading size={500} marginBottom={16}>
+        <Heading size={600} marginBottom={16}>
           {job.name}
         </Heading>
 
         <Text dangerouslySetInnerHTML={{ __html: marked(job.description || '') }} />
 
-        <Heading size={400} marginBottom={8}>
-          Skills
-        </Heading>
-
-        <Pane display="flex">
-          <Pane marginRight={16}>
-            <Pane padding={8} elevation={2} borderRadius={4} background="tint2">
-              {bloom.map((b, i) => (
-                <Text is="div" key={i}>
-                  {i + 1} - {b.title}
-                </Text>
-              ))}
-            </Pane>
-          </Pane>
-          <Pane>
-            <AcsGraph acs={acs} bars={bars} />
-          </Pane>
+        <Pane display="flex" paddingBottom={16}>
+          <Field title="Family">{job.family}</Field>
+          <Field title="Function">{job.familyFunction}</Field>
+          <Field title="Role">{job.familyRole}</Field>
+          {job.aka && <Field title="Aka">{job.aka}</Field>}
         </Pane>
+
+        <Pane display="flex" paddingBottom={16}>
+          <Field title="APS">{job.aps}</Field>
+          <Field title="Discipline">{job.discipline}</Field>
+          <Field title="Classification">{job.apsClassification}</Field>
+          <Field title="Knowledge">
+            {job.knowledge} ({apsSkills[job.knowledge][0]}, {apsSkills[job.knowledge][1]})
+          </Field>
+        </Pane>
+
+        {job.sfia && job.sfia.length ? (
+          <>
+            <Heading size={400} marginBottom={8}>
+              SFIA Skills
+            </Heading>
+
+            <Pane display="flex">
+              <Pane>
+                {job.sfia.map((b, i) => (
+                  <Text is="div" key={i} whiteSpace="nowrap" cursor="pointer">
+                    <Badge
+                      title={b.critical ? 'Critical' : 'Not Critical'}
+                      color={b.critical ? 'red' : 'green'}
+                      marginRight={8}
+                      key={i}
+                    >
+                      Level {b.level}
+                    </Badge>
+
+                    <a onClick={() => setSkill(data.sfia.find(s => s.id === b.id))}>
+                      {data.sfia.find(s => s.id === b.id)?.name} ({b.id})
+                    </a>
+                  </Text>
+                ))}
+              </Pane>
+              <Pane background="tint2" elevation={3} marginLeft={16} paddingTop={16}>
+                {skill && <SfiaDetails item={skill} />}
+              </Pane>
+            </Pane>
+          </>
+        ) : null}
+
+        {job.skills && job.skills.length ? (
+          <>
+            <Heading size={400} marginBottom={8}>
+              ACS Skills
+            </Heading>
+
+            <Pane display="flex">
+              <Pane marginRight={16}>
+                <Pane padding={8} elevation={2} borderRadius={4} background="tint2">
+                  {bloom.map((b, i) => (
+                    <Text is="div" key={i}>
+                      {i + 1} - {b.title}
+                    </Text>
+                  ))}
+                </Pane>
+              </Pane>
+              <Pane>
+                <AcsGraph acs={acs} bars={bars} />
+              </Pane>
+            </Pane>
+          </>
+        ) : null}
       </Pane>
     </div>
   );
@@ -325,64 +415,73 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
   const view = readonly ? 'view' : 'editor';
 
   return (
-    <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
-      <Tablist flexBasis={200} width={200} marginRight={8}>
-        <Tabs>
-          {data.jobs.map(block => (
-            <Link
-              key={block.id}
-              href={`/${view}/[category]/[item]`}
-              as={`/${view}/jobs/${url(block.name)}-${block.id}`}
-            >
-              <a>
-                <SideTab
-                  key={block.id}
-                  id={block.id}
-                  isSelected={selectedItem && block.id === selectedItem.id}
-                  aria-controls={`panel-${block.name}`}
-                >
-                  {block.name}
-                </SideTab>
-              </a>
-            </Link>
+    <>
+      <VerticalPane>
+        <Tablist marginRight={8}>
+          <Tabs>
+            {data.jobs.map(block => (
+              <Link
+                key={block.id}
+                href={`/${view}/[category]/[item]`}
+                as={`/${view}/jobs/${url(block.name)}-${block.id}`}
+              >
+                <a>
+                  <SideTab
+                    key={block.id}
+                    id={block.id}
+                    isSelected={selectedItem && block.id === selectedItem.id}
+                    aria-controls={`panel-${block.name}`}
+                  >
+                    {block.name}{' '}
+                    {block.invalid.slice(0, 4).map((id, index) => (
+                      <Badge color="red" key={index} marginRight={4}>
+                        {id}
+                      </Badge>
+                    ))}
+                    {block.invalid.length > 4 && <span>...</span>}
+                  </SideTab>
+                </a>
+              </Link>
+            ))}
+          </Tabs>
+          {!readonly && (
+            <Pane marginTop={16} display="flex" alignItems="center">
+              <TextInputField
+                flex={1}
+                label="Name"
+                value={localState.name}
+                placeholder="Please specify name ..."
+                onChange={form.name}
+                marginRight={4}
+              />
+              <IconButton
+                appearance="primary"
+                intent="success"
+                icon="plus"
+                onClick={() => {
+                  createJob({
+                    variables: {
+                      id: findMaxId(data.jobs),
+                      name: localState.name
+                    }
+                  }).then(() => {
+                    refetch();
+                  });
+                }}
+              />
+            </Pane>
+          )}
+        </Tablist>
+      </VerticalPane>
+      <VerticalPane shrink={true}>
+        {selectedItem &&
+          (readonly ? (
+            <DetailsReadonly item={selectedItem} />
+          ) : (
+            <Details item={selectedItem} state={state} refetch={refetch} />
           ))}
-        </Tabs>
-        {!readonly && (
-          <Pane marginTop={16} display="flex" alignItems="center">
-            <TextInputField
-              flex={1}
-              label="Name"
-              value={localState.name}
-              placeholder="Please specify name ..."
-              onChange={form.name}
-              marginRight={4}
-            />
-            <IconButton
-              appearance="primary"
-              intent="success"
-              icon="plus"
-              onClick={() => {
-                createJob({
-                  variables: {
-                    id: findMaxId(data.jobs),
-                    name: localState.name
-                  }
-                }).then(() => {
-                  refetch();
-                });
-              }}
-            />
-          </Pane>
-        )}
-      </Tablist>
-
-      {selectedItem &&
-        (readonly ? (
-          <DetailsReadonly item={selectedItem} />
-        ) : (
-          <Details item={selectedItem} state={state} refetch={refetch} />
-        ))}
-    </Pane>
+      </VerticalPane>
+    </>
   );
 };
 

@@ -47,6 +47,12 @@ export type ListOwner<T> = {
   items: T[];
 };
 
+export type SfiaSkillMapping = {
+  id: string;
+  level: number;
+  flagged: boolean;
+};
+
 export type Unit = {
   id: string;
   name: string;
@@ -79,6 +85,7 @@ export type Unit = {
   approachToLearning?: string;
 
   prerequisites?: Prerequisite[];
+  sfiaSkills: SfiaSkillMapping[];
 };
 
 export type CompletionCriteriaType = '' | 'simple' | 'allOf' | 'someOf';
@@ -145,8 +152,27 @@ type SkillLevel = {
   bloomRating: number;
 };
 
+type SfiaSkillLevel = {
+  id: string;
+  level: number;
+  critical: boolean;
+};
+
 export type Job = Entity & {
   skills: SkillLevel[];
+  sfia: SfiaSkillLevel[];
+  family: string;
+  familyFunction: string;
+  familyRole: string;
+  aps: string;
+  discipline: string;
+  aka: string;
+  description: string;
+  apsClassification: string;
+  knowledge: string;
+  spanOfInfluence: string;
+  required: string[];
+  invalid: string[];
 };
 
 export type AcsKnowledge = {
@@ -158,6 +184,9 @@ export type AcsKnowledge = {
 
 export type SfiaSkill = Entity & {
   acsSkillId: string;
+  category: string;
+  subCategory: string;
+  url: string;
 };
 
 export type CourseConfig = {

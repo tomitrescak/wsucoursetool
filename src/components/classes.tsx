@@ -15,7 +15,8 @@ import {
   Course,
   Unit,
   Entity,
-  Outcome
+  Outcome,
+  SfiaSkillMapping
 } from './types';
 import { toJS } from 'mobx';
 
@@ -97,6 +98,13 @@ export function createCourse(model: Course) {
   });
 }
 
+@model('Course/SfiaMapping')
+class SfiaSkillMappingModel extends Model({
+  id: prop<string>({ setterAction: true }),
+  level: prop<number>({ setterAction: true }),
+  flagged: prop<boolean>({ setterAction: true })
+}) {}
+
 @model('Course/Unit')
 export class UnitModel extends ExtendedModel(EntityModel, {
   approachToLearning: prop<string>({ setterAction: true }),
@@ -127,12 +135,14 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   proposed: prop<boolean>({ setterAction: true }),
   hidden: prop<boolean>({ setterAction: true }),
   group: prop<string>({ setterAction: true }),
-  positions: prop<any>(() => [], { setterAction: true })
+  positions: prop<any>(() => [], { setterAction: true }),
+  sfiaSkills: prop<SfiaSkillMappingModel[]>(() => [], { setterAction: true })
 }) {
   toJS() {
     return removeEmpty({
       ...super.toJS(),
       ...toJS(this.$),
+      sfiaSkills: this.sfiaSkills.map(p => toJS(p.$)),
       positions: this.positions.map(p => toJS(p)),
       blocks: this.blocks.map(b => b.toJS()),
       completionCriteria: this.completionCriteria.toJS(),
@@ -200,6 +210,16 @@ export class UnitModel extends ExtendedModel(EntityModel, {
     }
     //}
   }
+
+  @modelAction
+  addSfiaSkill(p: SfiaSkillMapping) {
+    this.sfiaSkills.push(new SfiaSkillMappingModel(p));
+  }
+
+  @modelAction
+  removeSfiaSkill(ix: number) {
+    this.sfiaSkills.splice(ix, 1);
+  }
 }
 
 export function createUnit(model: Unit) {
@@ -211,7 +231,8 @@ export function createUnit(model: Unit) {
     completionCriteria: createCompletionCriteria(model.completionCriteria || {}),
     outcomes: (model.outcomes || []).map(u => new OutcomeModel(u)),
     prerequisites: createPrerequisites(model.prerequisites),
-    blocks: createBlocks(model.blocks)
+    blocks: createBlocks(model.blocks),
+    sfiaSkills: (model.sfiaSkills || []).map(u => new SfiaSkillMappingModel(u))
   });
 }
 
@@ -536,7 +557,12 @@ export function createAcs(c?: AcsKnowledge) {
 
 @model('Course/SfiaModel')
 export class SfiaSkillModel extends ExtendedModel(EntityModel, {
-  acsSkillId: prop<string>({ setterAction: true })
+  acsSkillId: prop<string>({ setterAction: true }),
+  url: prop<string>({ setterAction: true }),
+  code: prop<string>({ setterAction: true }),
+  category: prop<string>({ setterAction: true }),
+  subCategory: prop<string>({ setterAction: true }),
+  count: prop()
 }) {}
 
 export function createSfias(skills?: SfiaSkill[]) {

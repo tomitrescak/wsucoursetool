@@ -65,6 +65,8 @@ const Details: React.FC<{ item: Topic; owner: TopicEditorModel }> = observer(({ 
 
         <TextEditor owner={item} field="description" label="Description" readonly={false} />
 
+        <RelatedBlocks item={item} />
+
         <Button
           intent="danger"
           iconBefore="trash"
@@ -83,6 +85,34 @@ const Details: React.FC<{ item: Topic; owner: TopicEditorModel }> = observer(({ 
   );
 });
 
+const RelatedBlocks = ({ item }) => (
+  <Pane marginTop={16}>
+    <Heading size={400}>Blocks</Heading>
+    {item.blocks.length === 0 && <Text>This topic is not covered in any block</Text>}
+
+    <ul>
+      {item.blocks.map(b => (
+        <li key={b.unitId + '_' + b.blockId}>
+          <Link href={`/view/[category]/[item]`} as={`/view/units/${url(b.unitName)}-${b.unitId}`}>
+            <a>
+              <Text>{b.unitName}</Text>
+            </a>
+          </Link>
+          {' > '}
+          <Link
+            href={`/view/[category]/[item]`}
+            as={`/view/units/${url(b.unitName)}-${b.unitId}--${url(b.blockName)}-${b.blockId}`}
+          >
+            <a>
+              <Text>{b.blockName}</Text>
+            </a>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </Pane>
+);
+
 const DetailsReadonly: React.FC<{ item: TopicDetails }> = observer(({ item }) => {
   return (
     <div style={{ flex: 1 }}>
@@ -96,36 +126,7 @@ const DetailsReadonly: React.FC<{ item: TopicDetails }> = observer(({ item }) =>
           html={marked(item.description || 'This topic has no description')}
         />
 
-        <Pane marginTop={16}>
-          <Heading size={400}>Blocks</Heading>
-          {item.blocks.length === 0 && <Text>This topic is not covered in any block</Text>}
-
-          <ul>
-            {item.blocks.map(b => (
-              <li key={b.unitId + '_' + b.blockId}>
-                <Link
-                  href={`/view/[category]/[item]`}
-                  as={`/view/units/${url(b.unitName)}-${b.unitId}`}
-                >
-                  <a>
-                    <Text>{b.unitName}</Text>
-                  </a>
-                </Link>
-                {' > '}
-                <Link
-                  href={`/view/[category]/[item]`}
-                  as={`/view/units/${url(b.unitName)}-${b.unitId}--${url(b.blockName)}-${
-                    b.blockId
-                  }`}
-                >
-                  <a>
-                    <Text>{b.blockName}</Text>
-                  </a>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Pane>
+        <RelatedBlocks item={item} />
       </Pane>
     </div>
   );

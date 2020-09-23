@@ -11,7 +11,8 @@ import {
   SelectMenu,
   Button,
   Icon,
-  Checkbox
+  Checkbox,
+  Badge
 } from 'evergreen-ui';
 import { buildForm } from 'lib/helpers';
 import { Unit, Topic, Block } from 'components/types';
@@ -182,9 +183,10 @@ const Container = () => {
     ? data.courses.find(c => c.id === localState.course)
     : null;
 
-  let selectedMajor = localState.major
-    ? selectedCourse.majors.find(m => m.id === localState.major)
-    : null;
+  let selectedMajor =
+    localState.major && selectedCourse
+      ? selectedCourse.majors.find(m => m.id === localState.major)
+      : null;
 
   let db: Unit[] = data.db;
 
@@ -273,7 +275,14 @@ const Container = () => {
 
   return (
     <Pane>
-      <Pane position="fixed" top={45} display="flex" width="100%" maxWidth={1000}>
+      <Pane
+        position="fixed"
+        top={45}
+        display="flex"
+        width="100%"
+        maxWidth={1000}
+        alignItems="center"
+      >
         <Select
           value={localState.groupBy}
           onChange={e => (localState.groupBy = e.currentTarget.value)}
@@ -363,6 +372,8 @@ const Container = () => {
             <Icon size={12} icon="caret-down" marginLeft={4} />
           </Button>
         </SelectMenu>
+
+        <Badge>{filteredUnits.flatMap(u => u.blocks).length} Block(s)</Badge>
       </Pane>
       <Pane overflow="auto" position="fixed" top={80} left={0} bottom={0} right={0}>
         <Pane display="flex" flex="1" position="relative" marginLeft={4}>

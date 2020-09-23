@@ -31,6 +31,7 @@ export const typeDefs = gql`
   type JobList {
     id: String!
     name: String!
+    invalid: [String!]!
   }
 
   type TopicList {
@@ -103,6 +104,13 @@ export const typeDefs = gql`
     processed: Boolean
   }
 
+  type SfiaUnit {
+    id: String
+    name: String
+    level: Int
+    flagged: Boolean
+  }
+
   type Query {
     legacyUnits: String
 
@@ -127,6 +135,7 @@ export const typeDefs = gql`
     blocks: [BlockList!]!
     acs: JSON!
     sfia: JSON!
+    sfiaUnits(id: String!): [SfiaUnit!]!
     topics: [TopicList!]!
     topicsDetails: [TopicDetails!]!
 

@@ -42,6 +42,7 @@ export type SpecialisationList = {
 export type JobList = {
   id: Scalars['String'];
   name: Scalars['String'];
+  invalid: Array<Scalars['String']>;
 };
 
 export type TopicList = {
@@ -114,6 +115,13 @@ export type UnitDependency = {
   processed?: Maybe<Scalars['Boolean']>;
 };
 
+export type SfiaUnit = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  level?: Maybe<Scalars['Int']>;
+  flagged?: Maybe<Scalars['Boolean']>;
+};
+
 export type Query = {
   legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
@@ -132,6 +140,7 @@ export type Query = {
   blocks: Array<BlockList>;
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
+  sfiaUnits: Array<SfiaUnit>;
   topics: Array<TopicList>;
   topicsDetails: Array<TopicDetails>;
   db: Scalars['JSON'];
@@ -169,6 +178,11 @@ export type QueryJobArgs = {
 
 
 export type QuerySpecialisationArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QuerySfiaUnitsArgs = {
   id: Scalars['String'];
 };
 
@@ -323,12 +337,12 @@ export type JobQueryVariables = Exact<{
 }>;
 
 
-export type JobQuery = Pick<Query, 'job' | 'acs'>;
+export type JobQuery = Pick<Query, 'job' | 'acs' | 'sfia'>;
 
 export type JobsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type JobsQuery = { jobs: Array<Pick<JobList, 'id' | 'name'>> };
+export type JobsQuery = { jobs: Array<Pick<JobList, 'id' | 'name' | 'invalid'>> };
 
 export type PrerequisitesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -351,6 +365,13 @@ export type SfiaQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SfiaQuery = Pick<Query, 'sfia' | 'acs'>;
+
+export type SfiaUnitsQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type SfiaUnitsQuery = { sfiaUnits: Array<Pick<SfiaUnit, 'id' | 'name' | 'level' | 'flagged'>>, units: Array<Pick<UnitList, 'id' | 'name'>> };
 
 export type CreateSpecialisationMutationVariables = Exact<{
   id: Scalars['String'];
@@ -822,6 +843,7 @@ export const JobDocument = gql`
     query Job($id: String!) {
   job(id: $id)
   acs
+  sfia
 }
     `;
 
@@ -855,6 +877,7 @@ export const JobsDocument = gql`
   jobs {
     id
     name
+    invalid
   }
 }
     `;
@@ -985,6 +1008,46 @@ export function useSfiaLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpt
 export type SfiaQueryHookResult = ReturnType<typeof useSfiaQuery>;
 export type SfiaLazyQueryHookResult = ReturnType<typeof useSfiaLazyQuery>;
 export type SfiaQueryResult = ApolloReactCommon.QueryResult<SfiaQuery, SfiaQueryVariables>;
+export const SfiaUnitsDocument = gql`
+    query SfiaUnits($id: String!) {
+  sfiaUnits(id: $id) {
+    id
+    name
+    level
+    flagged
+  }
+  units {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useSfiaUnitsQuery__
+ *
+ * To run a query within a React component, call `useSfiaUnitsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSfiaUnitsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSfiaUnitsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSfiaUnitsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SfiaUnitsQuery, SfiaUnitsQueryVariables>) {
+        return ApolloReactHooks.useQuery<SfiaUnitsQuery, SfiaUnitsQueryVariables>(SfiaUnitsDocument, baseOptions);
+      }
+export function useSfiaUnitsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SfiaUnitsQuery, SfiaUnitsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<SfiaUnitsQuery, SfiaUnitsQueryVariables>(SfiaUnitsDocument, baseOptions);
+        }
+export type SfiaUnitsQueryHookResult = ReturnType<typeof useSfiaUnitsQuery>;
+export type SfiaUnitsLazyQueryHookResult = ReturnType<typeof useSfiaUnitsLazyQuery>;
+export type SfiaUnitsQueryResult = ApolloReactCommon.QueryResult<SfiaUnitsQuery, SfiaUnitsQueryVariables>;
 export const CreateSpecialisationDocument = gql`
     mutation CreateSpecialisation($id: String!, $name: String!) {
   createSpecialisation(id: $id, name: $name)

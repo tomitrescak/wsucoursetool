@@ -19,7 +19,7 @@ import {
   toaster,
   Tab
 } from 'evergreen-ui';
-import { Unit, State, Course, CourseUnit, Topic, AcsKnowledge } from '../types';
+import { Unit, State, Course, CourseUnit, Topic, AcsKnowledge, Major } from '../types';
 import { url, buildForm } from 'lib/helpers';
 import Link from 'next/link';
 
@@ -41,6 +41,54 @@ import { createCourse } from 'components/classes';
 import { BlockDependencyGraph } from 'components/blocks/block_graph';
 import { AcsUnitGraph } from 'components/acs/acs_graph';
 import { undoMiddleware } from 'mobx-keystone';
+
+const classes = [
+  {
+    selector: '.required',
+    style: {
+      'target-arrow-color': 'red',
+      'background-color': 'red',
+      'line-color': 'red'
+    }
+  },
+  {
+    selector: '.proposed',
+    style: {
+      backgroundColor: 'purple',
+      color: 'black',
+      fontWeight: 'bold'
+    }
+  },
+  {
+    selector: '.core',
+    style: {
+      backgroundColor: '#efefe0',
+      color: 'black'
+    }
+  },
+  {
+    selector: '.elective',
+    style: {
+      backgroundColor: 'rgb(212, 238, 226)',
+      color: 'black'
+    }
+  },
+  {
+    selector: '.proposed',
+    style: {
+      color: 'purple',
+      fontWeight: 'bold',
+      borderColor: 'purple',
+      borderWidth: '4px'
+    }
+  },
+  {
+    selector: '.obsolete',
+    style: {
+      border: 'solid red 3px'
+    }
+  }
+];
 
 /*!
  * Group items from an array together by some criteria or value.
@@ -341,6 +389,7 @@ type Props = {
   selectedUnits: CourseUnit[];
   acs: AcsKnowledge[];
   course: Course;
+  majorId: string;
 };
 
 const AcsGraphContainer = observer(({ courseUnits, selectedUnits, acs }: Props) => {
@@ -379,10 +428,32 @@ const TabContent = observer(
   }
 );
 
-const Visualisations = observer(({ acs, course, courseUnits, selectedUnits }: Props) => {
+const Visualisations = observer(({ acs, course, majorId, courseUnits, selectedUnits }: Props) => {
   const state = useLocalStore(() => ({
     tab: 'dep'
   }));
+
+  function unitClass(unit: Unit) {
+    let cls = [course.core.some(c => c.id === unit.id) ? 'core' : 'elective'];
+    if (unit.proposed) {
+      cls.push('proposed');
+    }
+    if (unit.obsolete || unit.outdated) {
+      cls.push('obsolete');
+    }
+    return cls;
+  }
+
+  function blockClass() {
+    return null;
+  }
+
+  const units = selectedUnits.map(u => {
+    let unit = { ...courseUnits.find(cu => u.id === cu.id) };
+    unit.name += ` [${u.semester}]`;
+    return unit;
+  });
+
   return (
     <Pane>
       <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
@@ -399,12 +470,17 @@ const Visualisations = observer(({ acs, course, courseUnits, selectedUnits }: Pr
           courseUnits={courseUnits}
           selectedUnits={selectedUnits}
           course={course}
+          majorId={majorId}
         />
       </TabContent>
       <TabContent tab="dep" state={state}>
         <BlockDependencyGraph
-          units={selectedUnits.map(u => courseUnits.find(cu => u.id === cu.id))}
+          key={course.id + '_' + majorId}
+          units={units}
           owner={course}
+          classes={classes}
+          unitClass={unitClass}
+          blockClass={blockClass}
         />
       </TabContent>
     </Pane>
@@ -646,6 +722,7 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean; state: St
             selectedUnits={selectedUnits}
             courseUnits={data.courseUnits}
             course={course}
+            majorId={selectedMajorId}
           />
         </VerticalPane>
       </>

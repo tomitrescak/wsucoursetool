@@ -1,0 +1,13 @@
+query SfiaUnits($id: String!) {
+  sfiaUnits(id: $id) {
+    id
+    name
+    level
+    flagged
+  }
+
+  units {
+    id
+    name
+  }
+}

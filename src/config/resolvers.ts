@@ -41,6 +41,7 @@ export type SpecialisationList = {
 export type JobList = {
   id: Scalars['String'];
   name: Scalars['String'];
+  invalid: Array<Scalars['String']>;
 };
 
 export type TopicList = {
@@ -113,6 +114,13 @@ export type UnitDependency = {
   processed?: Maybe<Scalars['Boolean']>;
 };
 
+export type SfiaUnit = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  level?: Maybe<Scalars['Int']>;
+  flagged?: Maybe<Scalars['Boolean']>;
+};
+
 export type Query = {
   legacyUnits?: Maybe<Scalars['String']>;
   unit: Scalars['JSON'];
@@ -131,6 +139,7 @@ export type Query = {
   blocks: Array<BlockList>;
   acs: Scalars['JSON'];
   sfia: Scalars['JSON'];
+  sfiaUnits: Array<SfiaUnit>;
   topics: Array<TopicList>;
   topicsDetails: Array<TopicDetails>;
   db: Scalars['JSON'];
@@ -168,6 +177,11 @@ export type QueryJobArgs = {
 
 
 export type QuerySpecialisationArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QuerySfiaUnitsArgs = {
   id: Scalars['String'];
 };
 
@@ -318,6 +332,7 @@ export type ResolversTypes = {
   Prerequisite: ResolverTypeWrapper<Prerequisite>;
   BlockDependency: ResolverTypeWrapper<BlockDependency>;
   UnitDependency: ResolverTypeWrapper<UnitDependency>;
+  SfiaUnit: ResolverTypeWrapper<SfiaUnit>;
   Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
 };
@@ -343,6 +358,7 @@ export type ResolversParentTypes = {
   Prerequisite: Prerequisite;
   BlockDependency: BlockDependency;
   UnitDependency: UnitDependency;
+  SfiaUnit: SfiaUnit;
   Query: {};
   Mutation: {};
 };
@@ -382,6 +398,7 @@ export type SpecialisationListResolvers<ContextType = any, ParentType extends Re
 export type JobListResolvers<ContextType = any, ParentType extends ResolversParentTypes['JobList'] = ResolversParentTypes['JobList']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  invalid?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -466,6 +483,14 @@ export type UnitDependencyResolvers<ContextType = any, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type SfiaUnitResolvers<ContextType = any, ParentType extends ResolversParentTypes['SfiaUnit'] = ResolversParentTypes['SfiaUnit']> = {
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  flagged?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   legacyUnits?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   unit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryUnitArgs, 'id'>>;
@@ -484,6 +509,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   blocks?: Resolver<Array<ResolversTypes['BlockList']>, ParentType, ContextType>;
   acs?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   sfia?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
+  sfiaUnits?: Resolver<Array<ResolversTypes['SfiaUnit']>, ParentType, ContextType, RequireFields<QuerySfiaUnitsArgs, 'id'>>;
   topics?: Resolver<Array<ResolversTypes['TopicList']>, ParentType, ContextType>;
   topicsDetails?: Resolver<Array<ResolversTypes['TopicDetails']>, ParentType, ContextType>;
   db?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
@@ -518,6 +544,7 @@ export type Resolvers<ContextType = any> = {
   Prerequisite?: PrerequisiteResolvers<ContextType>;
   BlockDependency?: BlockDependencyResolvers<ContextType>;
   UnitDependency?: UnitDependencyResolvers<ContextType>;
+  SfiaUnit?: SfiaUnitResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 };

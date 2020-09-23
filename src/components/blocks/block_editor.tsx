@@ -195,39 +195,50 @@ const BlockDetails: React.FC<{
           </Pane>
 
           <Pane display="flex" marginBottom={8}>
-            <Pane flex={1} marginRight={8}>
-              <Text fontWeight={500} display="block">
-                Replace by Unit:
-              </Text>
-              <Combobox
-                id="block"
-                width="100%"
-                label="sddsfdsf"
-                selectedItem={
-                  block.replacedByUnit && data.units.find(u => u.id === block.replacedByUnit)
-                }
-                items={data.units}
-                itemToString={item => (item ? item.name : '')}
-                onChange={selected => (block.replacedByUnit = selected.id)}
-              />
-            </Pane>
+            {(!readonly || block.replacedByUnit) && (
+              <Pane flex={1} marginRight={8}>
+                <Text fontWeight={500} display="block">
+                  Replace by Unit:
+                </Text>
+                {!readonly ? (
+                  <Combobox
+                    id="block"
+                    width="100%"
+                    selectedItem={
+                      block.replacedByUnit && data.units.find(u => u.id === block.replacedByUnit)
+                    }
+                    items={data.units}
+                    itemToString={item => (item ? item.name : '')}
+                    onChange={selected => (block.replacedByUnit = selected.id)}
+                  />
+                ) : (
+                  <span>{block.replacedByUnit}</span>
+                )}
+              </Pane>
+            )}
 
-            <Pane flex={1}>
-              <Text fontWeight={500} display="block">
-                Replace by Block:
-              </Text>
-              <Combobox
-                width="100%"
-                id="block"
-                selectedItem={
-                  block.replacedByBlock &&
-                  unitData.unitBase.blocks.find(u => u.id === block.replacedByBlock)
-                }
-                items={unitData.unitBase ? unitData.unitBase.blocks : []}
-                itemToString={item => (item ? item.name : '')}
-                onChange={selected => (block.replacedByBlock = selected.id)}
-              />
-            </Pane>
+            {(!readonly || block.replacedByBlock) && (
+              <Pane flex={1}>
+                <Text fontWeight={500} display="block">
+                  Replace by Block:
+                </Text>
+                {!readonly ? (
+                  <Combobox
+                    width="100%"
+                    id="block"
+                    selectedItem={
+                      block.replacedByBlock &&
+                      unitData.unitBase.blocks.find(u => u.id === block.replacedByBlock)
+                    }
+                    items={unitData.unitBase ? unitData.unitBase.blocks : []}
+                    itemToString={item => (item ? item.name : '')}
+                    onChange={selected => (block.replacedByBlock = selected.id)}
+                  />
+                ) : (
+                  <span>{block.replacedByBlock}</span>
+                )}
+              </Pane>
+            )}
           </Pane>
 
           <Pane display="flex">

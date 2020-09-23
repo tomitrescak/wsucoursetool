@@ -12,10 +12,11 @@ import { UnitDependency, BlockDependency, Prerequisite } from 'config/graphql';
 import { Button, Checkbox, Pane, Select, IconButton } from 'evergreen-ui';
 import { toJS } from 'mobx';
 import { saveAs } from 'file-saver';
+import { AddBlockModalView } from './add_block_modal';
 // import $ from 'jquery';
 // import { url } from 'lib/helpers';
 
-global.cytoscape = cytoscape;
+(global as any).cytoscape = cytoscape;
 require('cytoscape-undo-redo');
 
 // if (edgeEditing.initialised == undefined) {
@@ -33,57 +34,18 @@ type Props = {
   units: UnitDependency[];
   allBlocks?: boolean;
   byLevel?: boolean;
+  classes: Array<{ selector: string; style: any }>;
+  unitClass: (node: Unit | UnitDependency) => string[];
+  blockClass: (node: Block) => string;
 };
-
-function nodeColor(block: BlockDependency) {
-  return 'rgb(251, 230, 162)';
-  // switch (block.type) {
-  //   case 'assignment':
-  //     return 'rgb(251, 230, 162)';
-  //   case 'exam':
-  //     return 'rgb(250, 226, 226)';
-  //   case 'knowledge':
-  //     return 'rgb(212, 238, 226)';
-  //   case 'practical':
-  //     return 'rgb(221, 235, 247)';
-  //   case 'wil':
-  //     return 'teal';
-  // }
-}
-
-function nodeClass(unit: Unit) {
-  if (unit.obsolete || unit.outdated) {
-    return 'obsolete';
-  }
-  if (unit.proposed) {
-    return 'proposed';
-  }
-  return 'normal';
-}
-
-function textColor(block: BlockDependency) {
-  return 'rgb(66, 90, 112)';
-
-  // switch (block.type) {
-  //   case 'assignment':
-  //     return 'rgb(66, 90, 112);';
-  //   case 'exam':
-  //     return 'rgb(191, 14, 8)';
-  //   case 'knowledge':
-  //     return 'rgb(0, 120, 62)';
-  //   case 'practical':
-  //     return 'rgb(8, 75, 138)';
-  //   case 'wil':
-  //     return 'black';
-  // }
-}
 
 let interval = null;
 
 function savePositions(cy, owner) {
   // const edges = cy.edgeEditing('get');
 
-  owner.positions = cy
+  const originalPositions = [...owner.positions];
+  const newPositions = cy
     .nodes()
     .map(node => ({
       id: node.id(),
@@ -97,6 +59,11 @@ function savePositions(cy, owner) {
         zoom: cy.zoom()
       }
     ]);
+
+  const finalPositions = newPositions.concat(
+    originalPositions.filter(p => newPositions.every(np => np.id !== p.id))
+  );
+  owner.positions = finalPositions;
   // .concat(
   //   cy.edges().map(e => {
   //     const pointArray = edges.getSegmentPoints(e);
@@ -124,7 +91,15 @@ function delaySavePositions(cy, owner) {
   interval = setTimeout(() => savePositions(cy, owner), 500);
 }
 
-export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks, byLevel }) => {
+export const BlockDependencyGraph: React.FC<Props> = ({
+  owner,
+  units,
+  allBlocks,
+  byLevel,
+  classes,
+  unitClass,
+  blockClass
+}) => {
   const ref = React.useRef(null);
   const cy = React.useRef(null);
   const ur = React.useRef(null);
@@ -139,6 +114,29 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
     }
   }
   const [zoom, setZoom] = React.useState(initialZoom);
+
+  const elements: any = [];
+  function checkAddUnit(unitId: string) {
+    const id = 'n_' + unitId;
+    if (elements.some(e => e.data.id === 'n_' + unitId)) {
+      return;
+    }
+
+    if (owner) {
+      var position = toJS(owner.positions.find(n => n.id === id));
+    }
+
+    elements.push({
+      position,
+      // classes: 'level' + unit.level,
+      data: {
+        id,
+        backgroundColor: 'red', // nodeColor(block),
+        color: 'black', // textColor(block),
+        label: unitId
+      }
+    });
+  }
 
   function checkAddLevel(level: number) {
     const id = 'level_' + level;
@@ -163,7 +161,6 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
     return id;
   }
 
-  const elements: any = [];
   for (let unit of units) {
     let id = 'u_' + unit.id;
     if (owner) {
@@ -172,7 +169,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
 
     elements.push({
       position,
-      classes: byLevel ? 'level' + unit.level : nodeClass(unit as any),
+      classes: unitClass(unit),
       data: {
         id,
         // parent: checkAddLevel(unit.level),
@@ -181,7 +178,9 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
         label: `${unit.name} (${unit.id})`
       }
     });
+  }
 
+  for (let unit of units) {
     if (showAllBlocks && unit.processed) {
       for (let block of unit.blocks) {
         checkAddBlock(unit.id, block.id);
@@ -197,24 +196,54 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
 
     const unit = units.find(u => u.id === unitId);
     if (unit == null) {
+      elements.push({
+        position,
+        classes: ['unknown'],
+        data: {
+          id: id,
+          parent: 'u_' + unitId,
+          backgroundColor: 'red', // nodeColor(block),
+          color: 'white', // textColor(block),
+          label: id
+        }
+      });
       return;
     }
-    const block = unit.blocks.find(b => b.id === blockId);
+    const block: Block = unit.blocks.find(b => b.id === blockId);
     if (owner) {
       var position = toJS(owner.positions.find(n => n.id === id));
     }
-
+    const newBlockId = 'n_' + unit.id + '_' + block.id;
     elements.push({
       position,
-      // classes: 'level' + unit.level,
+      classes: blockClass(block),
       data: {
-        id: 'n_' + unit.id + '_' + block.id,
+        id: newBlockId,
         parent: 'u_' + unit.id,
         backgroundColor: 'rgb(251, 230, 162)', // nodeColor(block),
         color: block.replacedByUnit ? 'red' : 'black', // textColor(block),
         label: block.name
       }
     });
+
+    // if block is replaced add replacement connection
+
+    if (block.replacedByUnit) {
+      // checkAddUnit(block.replacedByUnit);
+      checkAddBlock(block.replacedByUnit, block.replacedByBlock);
+
+      elements.push({
+        classes: ['replaced'],
+        data: {
+          id: 'lr_' + block.id + '_' + block.replacedByUnit + '_' + block.replacedByBlock,
+          source: newBlockId,
+          target:
+            'n_' + block.replacedByUnit + (block.replacedByBlock ? '_' + block.replacedByBlock : '')
+          // cyedgebendeditingWeights: [1],
+          // cyedgebendeditingDistances: [175]
+        }
+      });
+    }
   }
 
   function addUnitPrerequisites(prerequisites: Prerequisite[], u: UnitDependency) {
@@ -356,81 +385,21 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
           selector: 'edge',
           style: {
             width: 3,
-            'line-color': 'pink',
+            // 'line-color': 'pink',
             // 'target-arrow-color': '#ccc',
             'target-arrow-shape': 'triangle',
-            'curve-style': 'linear'
+            'curve-style': 'bezier'
           }
         },
         {
-          selector: '.required',
+          selector: '.replaced',
           style: {
-            'target-arrow-color': 'red',
-            'background-color': 'red',
-            'line-color': 'red'
+            width: 3,
+            'line-color': '#dedede',
+            'line-style': 'dashed'
           }
         },
-        {
-          selector: '.level-1',
-          style: {
-            backgroundColor: 'rgb(221, 235, 247)',
-            color: 'black'
-          }
-        },
-        {
-          selector: '.normal',
-          style: {
-            backgroundColor: 'rgb(212, 238, 226)'
-          }
-        },
-        {
-          selector: '.obsolete',
-          style: {
-            backgroundColor: 'red',
-            color: 'black'
-          }
-        },
-        {
-          selector: '.proposed',
-          style: {
-            backgroundColor: 'purple',
-            color: 'black',
-            fontWeight: 'bold'
-          }
-        },
-        {
-          selector: '.level0',
-          style: {
-            backgroundColor: 'rgb(251, 230, 162)'
-          }
-        },
-        {
-          selector: '.level1',
-          style: {
-            backgroundColor: 'rgb(212, 238, 226)'
-          }
-        },
-        {
-          selector: '.level2',
-          style: {
-            backgroundColor: 'rgb(221, 235, 247)'
-          }
-        },
-        {
-          selector: '.level3',
-          style: {
-            backgroundColor: 'rgb(221, 235, 247)'
-          }
-        },
-
-        {
-          selector: '.recommended',
-          style: {
-            'target-arrow-color': 'green',
-            'background-color': 'green',
-            'line-color': 'green'
-          }
-        }
+        ...classes
         // switch (block.type) {
         //   case 'assignment':
         //     return 'rgb(251, 230, 162)';
@@ -461,9 +430,9 @@ export const BlockDependencyGraph: React.FC<Props> = ({ owner, units, allBlocks,
       cy.current.on('pan', () => {
         delaySavePositions(cy.current, owner);
       });
-      // cy.current.on('select', 'edge', () => {
-      //   delaySavePositions(cy.current, owner);
-      // });
+      cy.current.on('select', 'edge', () => {
+        delaySavePositions(cy.current, owner);
+      });
       // cy.current.on('cyedgebendediting.moveBendPoints', 'edge', () => {
       //   console.log('Bendpoints moved');
       // });

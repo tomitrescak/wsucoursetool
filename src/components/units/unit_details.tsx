@@ -10,9 +10,13 @@ import {
   TabNavigation,
   Tab,
   Checkbox,
-  toaster
+  toaster,
+  Combobox,
+  TextInput,
+  IconButton,
+  Badge
 } from 'evergreen-ui';
-import { State, AcsKnowledge, Block, Topic, Entity } from '../types';
+import { State, AcsKnowledge, Block, Topic, Entity, Prerequisite } from '../types';
 import { buildForm, url } from 'lib/helpers';
 import Link from 'next/link';
 
@@ -36,7 +40,8 @@ import {
   useDeleteUnitMutation,
   CourseListDocument,
   useSaveConfigMutation,
-  useUnitDependenciesQuery
+  useUnitDependenciesQuery,
+  useSfiaQuery
 } from 'config/graphql';
 import { model, prop, Model, undoMiddleware } from 'mobx-keystone';
 import { TopicBlockEditor } from 'components/completion_criteria/completion_criteria_editor';
@@ -46,8 +51,89 @@ import { Dependency } from 'config/utils';
 import { UnitGraph } from './unit_graph';
 import { BlocksEditor } from 'components/blocks/block_editor';
 import { BlockDependencyGraph } from 'components/blocks/block_graph';
+import { UnitDependency } from 'config/resolvers';
 
 const selfColor = 'rgb(251, 230, 162)';
+
+function unitClass(unit: UnitDependency) {
+  return 'level' + unit.level;
+}
+
+function blockClass(block: Block) {
+  return undefined;
+}
+
+const nodeClasses = [
+  {
+    selector: '.required',
+    style: {
+      'target-arrow-color': 'red',
+      'background-color': 'red',
+      'line-color': 'red'
+    }
+  },
+  {
+    selector: '.level-1',
+    style: {
+      backgroundColor: 'rgb(221, 235, 247)',
+      color: 'black'
+    }
+  },
+  {
+    selector: '.normal',
+    style: {
+      backgroundColor: 'rgb(212, 238, 226)'
+    }
+  },
+  {
+    selector: '.obsolete',
+    style: {
+      backgroundColor: 'red',
+      color: 'black'
+    }
+  },
+  {
+    selector: '.proposed',
+    style: {
+      backgroundColor: 'purple',
+      color: 'black',
+      fontWeight: 'bold'
+    }
+  },
+  {
+    selector: '.level0',
+    style: {
+      backgroundColor: 'rgb(251, 230, 162)'
+    }
+  },
+  {
+    selector: '.level1',
+    style: {
+      backgroundColor: 'rgb(212, 238, 226)'
+    }
+  },
+  {
+    selector: '.level2',
+    style: {
+      backgroundColor: 'rgb(221, 235, 247)'
+    }
+  },
+  {
+    selector: '.level3',
+    style: {
+      backgroundColor: 'rgb(221, 235, 247)'
+    }
+  },
+
+  {
+    selector: '.recommended',
+    style: {
+      'target-arrow-color': 'green',
+      'background-color': 'green',
+      'line-color': 'green'
+    }
+  }
+];
 
 function urlParse(view: string) {
   return function (text) {
@@ -84,6 +170,120 @@ type Props = {
   readonly: boolean;
   state: State;
 };
+
+const SfiaSkill = ({ data, skill, unit, index, readonly }) => {
+  const selected = data.sfia.find(s => s.id === skill.id);
+  const form = React.useMemo(() => buildForm(skill, ['level']), [skill]);
+  return (
+    <Pane display="flex" marginTop={8}>
+      <Pane flex="1" marginRight={8}>
+        {readonly ? (
+          <>
+            <Badge marginRight={8}>Level {skill.level}</Badge>
+            <Text>
+              {selected.name} ({selected.id})
+            </Text>
+          </>
+        ) : (
+          <Combobox
+            id="skill"
+            width="100%"
+            initialSelectedItem={{ label: '' }}
+            items={data.sfia}
+            itemToString={item => (item ? item.name : '')}
+            selectedItem={selected}
+            onChange={selected => (skill.id = selected.id)}
+          />
+        )}
+      </Pane>
+      {!readonly && (
+        <TextInput
+          width={60}
+          placeholder="Level"
+          value={skill.level}
+          type="number"
+          onChange={form.level}
+          marginRight={8}
+        />
+      )}
+      {!readonly && (
+        <IconButton
+          icon="trash"
+          onClick={() => unit.removeSfiaSkill(index)}
+          intent="danger"
+          appearance="primary"
+        />
+      )}
+    </Pane>
+  );
+};
+
+const SfiaEditor = observer(({ unit, readonly }: { unit: UnitModel; readonly: boolean }) => {
+  const { loading, error, data, refetch } = useSfiaQuery();
+  const localState = useLocalStore(() => ({ newSkill: '', newLevel: 0, flagged: false }));
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
+
+  return (
+    <>
+      {unit.sfiaSkills.map((skill, index) => (
+        <SfiaSkill
+          key={index + '_' + skill.id}
+          data={data}
+          index={index}
+          skill={skill}
+          unit={unit}
+          readonly={readonly}
+        />
+      ))}
+
+      {!readonly && (
+        <Pane display="flex" alignItems="center" marginTop={16}>
+          <Heading>Add: </Heading>
+          <Pane flex="2" marginRight={8} marginLeft={8}>
+            <Combobox
+              id="skill"
+              placeholder={'SFIA Skill'}
+              width="100%"
+              initialSelectedItem={{ label: '' }}
+              items={data.sfia}
+              itemToString={item => (item ? item.name : '')}
+              onChange={selected =>
+                selected ? (localState.newSkill = selected.id) : (localState.newSkill = '')
+              }
+            />
+          </Pane>
+          <TextInput
+            width={80}
+            placeholder="Level"
+            value={localState.newLevel}
+            type="number"
+            onChange={e => (localState.newLevel = parseInt(e.currentTarget.value))}
+            marginRight={8}
+          />
+          <Checkbox
+            checked={localState.flagged}
+            onChange={e => (localState.flagged = e.currentTarget.checked)}
+            marginRight={8}
+          />
+          <IconButton
+            icon="plus"
+            onClick={() =>
+              unit.addSfiaSkill({
+                id: localState.newSkill,
+                level: localState.newLevel,
+                flagged: localState.flagged
+              })
+            }
+            intent="success"
+            appearance="primary"
+          />
+        </Pane>
+      )}
+    </>
+  );
+});
 
 export const UnitDetailContainer = ({ id, readonly, state }: Props) => {
   const { loading, error, data, refetch } = useUnitQuery({
@@ -185,7 +385,14 @@ const BlockGraphContainer = observer(({ unit, changeTab }: { unit: UnitModel; ch
       >
         Level
       </Button>
-      <BlockDependencyGraph key={localState.level} units={filteredUnits} owner={unit} />
+      <BlockDependencyGraph
+        key={localState.level}
+        units={filteredUnits}
+        owner={unit}
+        classes={nodeClasses}
+        unitClass={unitClass as any}
+        blockClass={blockClass}
+      />
     </Pane>
   );
 });
@@ -551,6 +758,11 @@ const UnitDetails: React.FC<{
                 onChange={selected => (unit.mappedTopic = selected.id)}
                 marginBottom={8}
               /> */}
+
+            <Expander title="SFIA Skills" id="sfiaSkillsUnit">
+              <SfiaEditor unit={unit} readonly={readonly} />
+            </Expander>
+
             {/* COMPLETION CRITERIA */}
             <Expander title="Completion Criteria" id="unitCompletionCriteria">
               <TopicBlockEditor
