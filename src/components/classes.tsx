@@ -59,6 +59,12 @@ export class StudentModel extends Model({
   addRegisteredBlock(block: RegisteredBlock) {
     this.registeredBlocks.push(createRegisteredBlock(block));
   }
+
+  @modelAction
+  removeBlock(ix: number) {
+    this.registeredBlocks.splice(ix, 1);
+  }
+
   toJS() {
     return {
       ...toJS(this.$),
@@ -95,6 +101,11 @@ export class RegisteredBlockModel extends Model({
   @modelAction
   addResult(result: Result) {
     this.results.push(createResult(result));
+  }
+
+  @modelAction
+  removeResult(ix: number) {
+    this.results.splice(ix, 1);
   }
 
   toJS() {
