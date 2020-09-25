@@ -37,6 +37,8 @@ type Props = {
   classes: Array<{ selector: string; style: any }>;
   unitClass: (node: Unit | UnitDependency) => string[];
   blockClass: (node: Block) => string;
+  buttons?: React.ReactNode;
+  height?: number;
 };
 
 let interval = null;
@@ -94,11 +96,13 @@ function delaySavePositions(cy, owner) {
 export const BlockDependencyGraph: React.FC<Props> = ({
   owner,
   units,
+  height,
   allBlocks,
   byLevel,
   classes,
   unitClass,
-  blockClass
+  blockClass,
+  buttons
 }) => {
   const ref = React.useRef(null);
   const cy = React.useRef(null);
@@ -317,6 +321,8 @@ export const BlockDependencyGraph: React.FC<Props> = ({
       } else if (pre.type === 'unit') {
         const id = 'u_' + pre.id;
         if (elements.some(e => e.data.id === id)) {
+          checkAddBlock(u.id, b.id);
+
           elements.push({
             classes: pre.recommended === true ? 'recommended' : 'required',
             data: {
@@ -472,6 +478,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({
   return (
     <>
       <Pane display="flex" alignItems="center">
+        {buttons}
         <IconButton
           icon="zoom-in"
           onClick={() => {
@@ -535,7 +542,11 @@ export const BlockDependencyGraph: React.FC<Props> = ({
           onChange={e => toggleAllBlocks(e.currentTarget.checked)}
         />
       </Pane>
-      <div ref={ref} id="graph" style={{ height: '1800px', minWidth: '700px', width: '100%' }} />
+      <div
+        ref={ref}
+        id="graph"
+        style={{ height: height ? height + 'px' : '1800px', minWidth: '700px', width: '100%' }}
+      />
     </>
   );
 };

@@ -234,7 +234,7 @@ export const UnitDetailContainer = ({ id, readonly, state }: Props) => {
   );
 };
 
-const BlockGraphContainer = observer(({ unit, changeTab }: { unit: UnitModel; changeTab: any }) => {
+const BlockGraphContainer = observer(({ unit, height }: { unit: UnitModel; height?: number }) => {
   const localState = useLocalStore(() => ({
     units: [],
     level: 1
@@ -254,24 +254,6 @@ const BlockGraphContainer = observer(({ unit, changeTab }: { unit: UnitModel; ch
 
   return (
     <Pane marginTop={8}>
-      <Button onClick={changeTab}>Unit Dependencies</Button>
-      <Button
-        onClick={() => localState.level++}
-        marginLeft={8}
-        iconBefore="plus"
-        disabled={data.unitDepenendencies.every(d => d.level <= localState.level)}
-      >
-        Level
-      </Button>
-      <Button
-        onClick={() => localState.level--}
-        marginLeft={8}
-        iconBefore="minus"
-        disabled={localState.level === 1}
-        marginRight={8}
-      >
-        Level
-      </Button>
       <BlockDependencyGraph
         key={localState.level}
         units={filteredUnits}
@@ -279,6 +261,27 @@ const BlockGraphContainer = observer(({ unit, changeTab }: { unit: UnitModel; ch
         classes={nodeClasses}
         unitClass={unitClass as any}
         blockClass={blockClass}
+        height={500}
+        buttons={
+          <>
+            <Button
+              onClick={() => localState.level++}
+              iconBefore="plus"
+              disabled={data.unitDepenendencies.every(d => d.level <= localState.level)}
+            >
+              Level
+            </Button>
+            <Button
+              onClick={() => localState.level--}
+              marginLeft={8}
+              iconBefore="minus"
+              disabled={localState.level === 1}
+              marginRight={8}
+            >
+              Level
+            </Button>
+          </>
+        }
       />
     </Pane>
   );
@@ -286,14 +289,10 @@ const BlockGraphContainer = observer(({ unit, changeTab }: { unit: UnitModel; ch
 
 const Constraints = observer(({ dependencies, unit }) => {
   const localState = useLocalStore(() => ({
-    tab: 'units',
     level: 1
   }));
   let colorMap: { [id: string]: string } = { [unit.id]: selfColor };
 
-  if (localState.tab === 'blocks') {
-    return <BlockGraphContainer unit={unit} changeTab={() => (localState.tab = 'units')} />;
-  }
   return (
     <UnitGraph
       units={(dependencies || []).filter(d => d.level <= localState.level)}
@@ -301,7 +300,6 @@ const Constraints = observer(({ dependencies, unit }) => {
       height="300px"
       buttons={
         <>
-          <Button onClick={() => (localState.tab = 'blocks')}>Block Dependencies</Button>
           <Button
             onClick={() => localState.level++}
             marginLeft={8}
@@ -646,9 +644,15 @@ const UnitDetails: React.FC<{
                 marginBottom={8}
               /> */}
 
+            {/* SFIA SKills */}
             <Expander title="SFIA Skills" id="sfiaSkillsUnit">
               <SfiaOwnerEditor owner={unit} readonly={readonly} hasMax={false} />
             </Expander>
+
+            {/* ACS Skills */}
+            <Pane marginTop={16} elevation={2} padding={16} borderRadius={8} background="tint1">
+              <OutcomeEditor acss={acs} owner={unit} state={state} readonly={readonly} />
+            </Pane>
 
             {/* COMPLETION CRITERIA */}
             <Expander title="Completion Criteria" id="unitCompletionCriteria">
@@ -701,8 +705,13 @@ const UnitDetails: React.FC<{
               <PrerequisiteEditor owner={unit} unit={unit} state={state} readonly={readonly} />
             </Pane>
 
+            {/* Block CRITERIA */}
+            <Expander title="Block Dependencies" id="blockConstraints">
+              <BlockGraphContainer unit={unit} height={400} />
+            </Expander>
+
             {/* Prerequisited CRITERIA */}
-            <Expander title="Unit Constraints" id="unitConstraints">
+            <Expander title="Legacy Dependencies" id="unitConstraints">
               {unit.unitPrerequisites && (
                 <TextEditor
                   readonly={readonly}
@@ -733,10 +742,6 @@ const UnitDetails: React.FC<{
 
               <Constraints dependencies={dependencies} unit={unit} />
             </Expander>
-            {/* OUTCOMES */}
-            <Pane marginTop={16} elevation={2} padding={16} borderRadius={8} background="tint1">
-              <OutcomeEditor acss={acs} owner={unit} state={state} readonly={readonly} />
-            </Pane>
           </Pane>
         )}
 

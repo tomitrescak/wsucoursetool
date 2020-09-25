@@ -329,7 +329,7 @@ const BlockDetails: React.FC<{
 
         {/* ACTIVITIES */}
 
-        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
+        <Pane elevation={1} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
           <ActivityEditor
             addActivity={addActivity}
             block={block}
@@ -340,7 +340,7 @@ const BlockDetails: React.FC<{
         </Pane>
 
         {/* PREREQUSTIES */}
-        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
+        <Pane elevation={1} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
           <PrerequisiteEditor
             state={state}
             owner={block}
@@ -356,7 +356,14 @@ const BlockDetails: React.FC<{
           <SfiaOwnerEditor owner={block} readonly={readonly} hasMax={true} />
         </Expander>
 
-        {/* ACS COMPLETION CRITERIA */}
+        {/* ACS Skills */}
+
+        <Pane elevation={1} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
+          <OutcomeEditor state={state} owner={block} acss={acs} readonly={readonly} />
+          {/* <TextEditor owner={block} field="outcome" label="Outcome Description" /> */}
+        </Pane>
+
+        {/* COMPLETION CRITERIA */}
 
         <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
           <Heading
@@ -378,7 +385,7 @@ const BlockDetails: React.FC<{
               }}
             />
             {/* <img src="/images/acs_logo_small.png" alt="ACS Logo" /> */}
-            ACS Skills
+            Completion Criteria
           </Heading>
 
           {expanded && (
@@ -388,13 +395,6 @@ const BlockDetails: React.FC<{
               readonly={readonly}
             />
           )}
-        </Pane>
-
-        {/* OUTCOMES */}
-
-        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
-          <OutcomeEditor state={state} owner={block} acss={acs} readonly={readonly} />
-          {/* <TextEditor owner={block} field="outcome" label="Outcome Description" /> */}
         </Pane>
 
         <Button

@@ -44,7 +44,7 @@ const SfiaSkill = ({ data, skill, unit, index, readonly, hasMax }) => {
             width="100%"
             initialSelectedItem={{ label: '' }}
             items={data.sfia}
-            itemToString={item => (item ? item.name : '')}
+            itemToString={item => (item ? `${item.name} (${item.id})` : '')}
             selectedItem={selected}
             onChange={selected => (skill.id = selected.id)}
           />
@@ -120,17 +120,23 @@ export const SfiaOwnerEditor = observer(
           )}
           {!readonly && <Pane width={30}></Pane>}
         </Pane>
-        {owner.sfiaSkills.map((skill, index) => (
-          <SfiaSkill
-            key={index + '_' + skill.id}
-            data={data}
-            index={index}
-            skill={skill}
-            unit={owner}
-            readonly={readonly}
-            hasMax={hasMax}
-          />
-        ))}
+        {owner.sfiaSkills
+          .sort((a, b) => {
+            const sfiaA = data.sfia.find(s => s.id === a.id);
+            const sfiaB = data.sfia.find(s => s.id === b.id);
+            return sfiaA.name.localeCompare(sfiaB.name);
+          })
+          .map((skill, index) => (
+            <SfiaSkill
+              key={index + '_' + skill.id}
+              data={data}
+              index={index}
+              skill={skill}
+              unit={owner}
+              readonly={readonly}
+              hasMax={hasMax}
+            />
+          ))}
 
         {!readonly && (
           <Pane display="flex" alignItems="center" marginTop={16}>

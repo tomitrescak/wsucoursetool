@@ -90,7 +90,7 @@ export const OutcomeEditor: React.FC<Props> = observer(({ acss, owner, readonly 
           cursor="pointer"
           onClick={() => setExpanded(!expanded)}
         />
-        Outcomes
+        ACS Skills
       </Heading>
 
       {/* <UnorderedList icon="tick" iconColor="success" alignItems="center">
