@@ -52,6 +52,7 @@ import { UnitGraph } from './unit_graph';
 import { BlocksEditor } from 'components/blocks/block_editor';
 import { BlockDependencyGraph } from 'components/blocks/block_graph';
 import { UnitDependency } from 'config/resolvers';
+import { SfiaOwnerEditor } from 'components/sfia/sfia_owner_editor';
 
 const selfColor = 'rgb(251, 230, 162)';
 
@@ -170,120 +171,6 @@ type Props = {
   readonly: boolean;
   state: State;
 };
-
-const SfiaSkill = ({ data, skill, unit, index, readonly }) => {
-  const selected = data.sfia.find(s => s.id === skill.id);
-  const form = React.useMemo(() => buildForm(skill, ['level']), [skill]);
-  return (
-    <Pane display="flex" marginTop={8}>
-      <Pane flex="1" marginRight={8}>
-        {readonly ? (
-          <>
-            <Badge marginRight={8}>Level {skill.level}</Badge>
-            <Text>
-              {selected.name} ({selected.id})
-            </Text>
-          </>
-        ) : (
-          <Combobox
-            id="skill"
-            width="100%"
-            initialSelectedItem={{ label: '' }}
-            items={data.sfia}
-            itemToString={item => (item ? item.name : '')}
-            selectedItem={selected}
-            onChange={selected => (skill.id = selected.id)}
-          />
-        )}
-      </Pane>
-      {!readonly && (
-        <TextInput
-          width={60}
-          placeholder="Level"
-          value={skill.level}
-          type="number"
-          onChange={form.level}
-          marginRight={8}
-        />
-      )}
-      {!readonly && (
-        <IconButton
-          icon="trash"
-          onClick={() => unit.removeSfiaSkill(index)}
-          intent="danger"
-          appearance="primary"
-        />
-      )}
-    </Pane>
-  );
-};
-
-const SfiaEditor = observer(({ unit, readonly }: { unit: UnitModel; readonly: boolean }) => {
-  const { loading, error, data, refetch } = useSfiaQuery();
-  const localState = useLocalStore(() => ({ newSkill: '', newLevel: 0, flagged: false }));
-  if (loading || error) {
-    return <ProgressView loading={loading} error={error} />;
-  }
-
-  return (
-    <>
-      {unit.sfiaSkills.map((skill, index) => (
-        <SfiaSkill
-          key={index + '_' + skill.id}
-          data={data}
-          index={index}
-          skill={skill}
-          unit={unit}
-          readonly={readonly}
-        />
-      ))}
-
-      {!readonly && (
-        <Pane display="flex" alignItems="center" marginTop={16}>
-          <Heading>Add: </Heading>
-          <Pane flex="2" marginRight={8} marginLeft={8}>
-            <Combobox
-              id="skill"
-              placeholder={'SFIA Skill'}
-              width="100%"
-              initialSelectedItem={{ label: '' }}
-              items={data.sfia}
-              itemToString={item => (item ? item.name : '')}
-              onChange={selected =>
-                selected ? (localState.newSkill = selected.id) : (localState.newSkill = '')
-              }
-            />
-          </Pane>
-          <TextInput
-            width={80}
-            placeholder="Level"
-            value={localState.newLevel}
-            type="number"
-            onChange={e => (localState.newLevel = parseInt(e.currentTarget.value))}
-            marginRight={8}
-          />
-          <Checkbox
-            checked={localState.flagged}
-            onChange={e => (localState.flagged = e.currentTarget.checked)}
-            marginRight={8}
-          />
-          <IconButton
-            icon="plus"
-            onClick={() =>
-              unit.addSfiaSkill({
-                id: localState.newSkill,
-                level: localState.newLevel,
-                flagged: localState.flagged
-              })
-            }
-            intent="success"
-            appearance="primary"
-          />
-        </Pane>
-      )}
-    </>
-  );
-});
 
 export const UnitDetailContainer = ({ id, readonly, state }: Props) => {
   const { loading, error, data, refetch } = useUnitQuery({
@@ -760,7 +647,7 @@ const UnitDetails: React.FC<{
               /> */}
 
             <Expander title="SFIA Skills" id="sfiaSkillsUnit">
-              <SfiaEditor unit={unit} readonly={readonly} />
+              <SfiaOwnerEditor owner={unit} readonly={readonly} hasMax={false} />
             </Expander>
 
             {/* COMPLETION CRITERIA */}

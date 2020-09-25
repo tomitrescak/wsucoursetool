@@ -1,4 +1,5 @@
 import { UndoManager } from 'mobx-keystone';
+import { SfiaSkillMappingModel } from './classes';
 
 export type User = {
   id: string;
@@ -31,6 +32,23 @@ export type Major = {
   name: string;
   id: string;
   units: CourseUnit[];
+  completionCriteria: CourseCompletionCriteria;
+};
+
+export type UnitCondition = {
+  id: string;
+  or?: UnitCondition[];
+};
+
+export type TopicCondition = { id: string; credits: number };
+
+export type FrameworkCondition = { id: string; level: number };
+
+export type CourseCompletionCriteria = {
+  units: UnitCondition[];
+  topics: TopicCondition[];
+  sfia: FrameworkCondition[];
+  acs: FrameworkCondition[];
 };
 
 export type Course = {
@@ -38,6 +56,7 @@ export type Course = {
   id: string;
   core: CourseUnit[];
   majors: Major[];
+  completionCriteria: CourseCompletionCriteria;
 };
 
 export type ListOwner<T> = {
@@ -50,7 +69,8 @@ export type ListOwner<T> = {
 export type SfiaSkillMapping = {
   id: string;
   level: number;
-  flagged: boolean;
+  flagged?: boolean;
+  max?: number;
 };
 
 export type Unit = {
@@ -132,6 +152,9 @@ export type Block = {
   flagged: boolean;
   replacedByUnit?: string;
   replacedByBlock?: string;
+  length: number;
+  credit: number;
+  sfiaSkills: SfiaSkillMappingModel[];
 };
 
 export type Specialisation = {

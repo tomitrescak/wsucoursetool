@@ -3,6 +3,15 @@ import { observer, Observer } from 'mobx-react';
 import { Pane, Text, Autocomplete, TagInput, SelectMenu, Button } from 'evergreen-ui';
 import { ProgressView } from './progress_view';
 import { useTopicsQuery } from 'config/graphql';
+import styled from '@emotion/styled';
+
+const BetterPane = styled(Pane)`
+  strong {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
 
 type KeywordEditorProps = {
   owner: {
@@ -16,7 +25,7 @@ type KeywordEditorProps = {
 
 export const KeywordEditor = observer(({ owner, keywords, readonly }: KeywordEditorProps) => {
   return (
-    <Pane flex={1}>
+    <BetterPane flex={1} data-id="BetterPane">
       <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
         Keywords
       </Text>
@@ -56,7 +65,7 @@ export const KeywordEditor = observer(({ owner, keywords, readonly }: KeywordEdi
           );
         }}
       </Autocomplete>
-    </Pane>
+    </BetterPane>
   );
 });
 
@@ -83,7 +92,7 @@ export const TopicEditor = observer(
     const topics = topicOwner.map(id => data.topics.find(t => t.id === id)).map(t => t.name);
 
     return (
-      <Pane flex={1} marginRight={8}>
+      <BetterPane flex={1} marginRight={8}>
         <Text is="label" htmlFor="keywords" fontWeight={500} marginBottom={8} display="block">
           {label}
         </Text>
@@ -154,7 +163,7 @@ export const TopicEditor = observer(
             );
           }}
         </Autocomplete> */}
-      </Pane>
+      </BetterPane>
     );
   }
 );

@@ -16,7 +16,12 @@ import {
   Unit,
   Entity,
   Outcome,
-  SfiaSkillMapping
+  SfiaSkillMapping,
+  UnitCondition,
+  CourseCompletionCriteria,
+  TopicCondition,
+  FrameworkCondition,
+  CourseUnit
 } from './types';
 import { toJS } from 'mobx';
 
@@ -55,37 +60,206 @@ class OutcomeModel extends Model({
   }
 }
 
+@model('Course/UnitConditionModel')
+export class UnitConditionModel extends Model({
+  id: prop<string>({ setterAction: true }),
+  or: prop<UnitConditionModel[]>()
+}) {
+  toJS() {
+    if (this.or.length) {
+      return {
+        id: this.id,
+        or: this.or.map(o => o.toJS())
+      };
+    }
+    return {
+      id: this.id
+    };
+  }
+
+  @modelAction
+  addUnitCondition(condition: UnitCondition) {
+    this.or.push(createUnitConditionModel(condition));
+  }
+
+  @modelAction
+  removeUnitCondition(model: UnitConditionModel) {
+    this.or.splice(this.or.indexOf(model), 1);
+  }
+}
+
+function createUnitConditionModel(condition: UnitCondition) {
+  return new UnitConditionModel({
+    id: condition.id,
+    or: (condition.or || []).map(c => createUnitConditionModel(c))
+  });
+}
+
+@model('Course/UnitConditionModel')
+export class TopicConditionModel extends Model({
+  id: prop<string>({ setterAction: true }),
+  credits: prop<number>({ setterAction: true })
+}) {
+  toJS() {
+    return toJS(this.$);
+  }
+}
+
+@model('Course/FrameworkConditionModel')
+export class FrameworkConditionModel extends Model({
+  id: prop<string>({ setterAction: true }),
+  level: prop<number>({ setterAction: true })
+}) {
+  toJS() {
+    return toJS(this.$);
+  }
+}
+
+@model('Course/CourseCompletionCriteria')
+export class CourseCompletionCriteriaModel extends Model({
+  units: prop<UnitConditionModel[]>(() => []),
+  topics: prop<TopicConditionModel[]>(() => []),
+  sfia: prop<FrameworkConditionModel[]>(() => []),
+  acs: prop<FrameworkConditionModel[]>(() => [])
+}) {
+  @modelAction
+  addUnitCondition(condition: UnitCondition) {
+    this.units.push(createUnitConditionModel(condition));
+  }
+
+  @modelAction
+  removeUnitCondition(model: UnitConditionModel) {
+    this.units.splice(this.units.indexOf(model), 1);
+  }
+
+  @modelAction
+  addTopic(condition: TopicCondition) {
+    this.topics.push(new TopicConditionModel(condition));
+  }
+
+  @modelAction
+  removeTopic(model: TopicConditionModel) {
+    this.topics.splice(this.topics.indexOf(model), 1);
+  }
+
+  @modelAction
+  addSfia(condition: FrameworkCondition) {
+    this.sfia.push(new FrameworkConditionModel(condition));
+  }
+
+  @modelAction
+  removeSfia(model: FrameworkConditionModel) {
+    this.sfia.splice(this.sfia.indexOf(model), 1);
+  }
+
+  @modelAction
+  addAcs(condition: FrameworkCondition) {
+    this.acs.push(new FrameworkConditionModel(condition));
+  }
+
+  @modelAction
+  removeAcs(model: FrameworkConditionModel) {
+    this.acs.splice(this.acs.indexOf(model), 1);
+  }
+
+  toJS() {
+    return {
+      units: this.units.map(u => u.toJS()),
+      topics: this.topics.map(u => u.toJS()),
+      sfia: this.sfia.map(u => u.toJS()),
+      acs: this.acs.map(u => u.toJS())
+    };
+  }
+}
+
+function createCourseCompletionCriteriaModel(criteria: CourseCompletionCriteria) {
+  if (criteria == null) {
+    criteria = {} as any;
+  }
+  return new CourseCompletionCriteriaModel({
+    units: (criteria.units || []).map(u => createUnitConditionModel(u)),
+    topics: (criteria.topics || []).map(u => new TopicConditionModel(u)),
+    sfia: (criteria.sfia || []).map(u => new FrameworkConditionModel(u)),
+    acs: (criteria.acs || []).map(u => new FrameworkConditionModel(u))
+  });
+}
+
 @model('Course/CourseUnit')
-class CourseUnitModel extends Model({
+export class CourseUnitModel extends Model({
   id: prop<string>({ setterAction: true }),
   semester: prop<number>({ setterAction: true })
-}) {}
+}) {
+  toJS() {
+    return toJS(this.$);
+  }
+}
 
 @model('Course/Major')
-class MajorModel extends ExtendedModel(EntityModel, {
-  units: prop<CourseUnitModel[]>({ setterAction: true })
-}) {}
+export class MajorModel extends ExtendedModel(EntityModel, {
+  units: prop<CourseUnitModel[]>({ setterAction: true }),
+  completionCriteria: prop<CourseCompletionCriteriaModel>()
+}) {
+  toJS() {
+    return {
+      ...super.toJS(),
+      units: this.units.map(u => u.toJS()),
+      completionCriteria: this.completionCriteria.toJS()
+    };
+  }
+  @modelAction
+  addUnit(unit: CourseUnit) {
+    this.units.push(new CourseUnitModel(unit));
+  }
+
+  @modelAction
+  removeUnit(unit: CourseUnitModel) {
+    this.units.splice(this.units.indexOf(unit), 1);
+  }
+}
 
 function createMajor(model: Major) {
   return new MajorModel({
     ...model,
-    units: (model.units || []).map(u => new CourseUnitModel(u))
+    units: (model.units || []).map(u => new CourseUnitModel(u)),
+    completionCriteria: createCourseCompletionCriteriaModel(model.completionCriteria)
   });
 }
 
 @model('Course/Course')
-class CourseModel extends ExtendedModel(EntityModel, {
+export class CourseModel extends ExtendedModel(EntityModel, {
   core: prop<CourseUnitModel[]>({ setterAction: true }),
   majors: prop<MajorModel[]>({ setterAction: true }),
-  positions: prop<any>(() => [], { setterAction: true })
+  positions: prop<any>(() => [], { setterAction: true }),
+  completionCriteria: prop<CourseCompletionCriteriaModel>()
 }) {
+  @modelAction
+  addUnit(unit: CourseUnit) {
+    this.core.push(new CourseUnitModel(unit));
+  }
+
+  @modelAction
+  removeUnit(unit: CourseUnitModel) {
+    this.core.splice(this.core.indexOf(unit), 1);
+  }
+
+  @modelAction
+  addMajor(major: Major) {
+    this.majors.push(createMajor(major));
+  }
+
+  @modelAction
+  removeMajor(major: MajorModel) {
+    this.majors.splice(this.majors.indexOf(major), 1);
+  }
+
   toJS() {
     return removeEmpty({
-      // ...super.toJS(),
+      ...super.toJS(),
       // ...toJS(this.$),
-      positions: this.positions.map(p => toJS(p))
-      // core: this.core.map(b => b.toJS()),
-      // majors: this.majors.map(b => b.toJS())
+      core: this.core.map(c => c.toJS()),
+      majors: this.majors.map(m => m.toJS()),
+      positions: this.positions.map(p => toJS(p)),
+      completionCriteria: this.completionCriteria.toJS()
     });
   }
 }
@@ -94,15 +268,17 @@ export function createCourse(model: Course) {
   return new CourseModel({
     ...model,
     core: (model.core || []).map(u => new CourseUnitModel(u)),
-    majors: (model.majors || []).map(u => createMajor(u))
+    majors: (model.majors || []).map(u => createMajor(u)),
+    completionCriteria: createCourseCompletionCriteriaModel(model.completionCriteria)
   });
 }
 
 @model('Course/SfiaMapping')
-class SfiaSkillMappingModel extends Model({
+export class SfiaSkillMappingModel extends Model({
   id: prop<string>({ setterAction: true }),
   level: prop<number>({ setterAction: true }),
-  flagged: prop<boolean>({ setterAction: true })
+  flagged: prop<boolean>({ setterAction: true }),
+  max: prop<number>({ setterAction: true })
 }) {}
 
 @model('Course/Unit')
@@ -311,7 +487,10 @@ export class BlockModel extends ExtendedModel(EntityModel, {
   flagged: prop<boolean>({ setterAction: true }),
   proposed: prop<boolean>({ setterAction: true }),
   replacedByUnit: prop<string>({ setterAction: true }),
-  replacedByBlock: prop<string>({ setterAction: true })
+  replacedByBlock: prop<string>({ setterAction: true }),
+  length: prop<number>({ setterAction: true }),
+  credit: prop<number>({ setterAction: true }),
+  sfiaSkills: prop<SfiaSkillMappingModel[]>(() => [], { setterAction: true })
 }) {
   toJS() {
     return {
@@ -319,7 +498,8 @@ export class BlockModel extends ExtendedModel(EntityModel, {
       outcomes: this.outcomes.map(o => o.toJS()),
       prerequisites: this.prerequisites.map(p => p.toJS()),
       completionCriteria: this.completionCriteria.toJS(),
-      activities: this.activities.map(a => a.toJS())
+      activities: this.activities.map(a => a.toJS()),
+      sfiaSkills: this.sfiaSkills.map(s => toJS(s.$))
     };
   }
   @modelAction
@@ -377,6 +557,16 @@ export class BlockModel extends ExtendedModel(EntityModel, {
   addOutcome(o: Outcome) {
     this.outcomes.push(new OutcomeModel(o));
   }
+
+  @modelAction
+  addSfiaSkill(p: SfiaSkillMapping) {
+    this.sfiaSkills.push(new SfiaSkillMappingModel(p));
+  }
+
+  @modelAction
+  removeSfiaSkill(ix: number) {
+    this.sfiaSkills.splice(ix, 1);
+  }
 }
 
 export function createBlock(block: Block) {
@@ -387,7 +577,8 @@ export function createBlock(block: Block) {
     prerequisites: createPrerequisites(block.prerequisites || []),
     completionCriteria: createCompletionCriteria(block.completionCriteria || {}),
     activities: createActivities(block.activities || []),
-    outcomes: (block.outcomes || []).map(o => new OutcomeModel(o))
+    outcomes: (block.outcomes || []).map(o => new OutcomeModel(o)),
+    sfiaSkills: (block.sfiaSkills || []).map(s => new SfiaSkillMappingModel(s))
   });
 }
 

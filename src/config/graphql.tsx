@@ -132,6 +132,7 @@ export type Query = {
   course: Scalars['JSON'];
   courses: Array<CourseList>;
   courseUnits: Scalars['JSON'];
+  courseReport: Scalars['JSON'];
   jobs: Array<JobList>;
   job: Scalars['JSON'];
   specialisations: Array<SpecialisationList>;
@@ -168,6 +169,11 @@ export type QueryCourseArgs = {
 
 
 export type QueryCourseUnitsArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryCourseReportArgs = {
   id: Scalars['String'];
 };
 
@@ -302,9 +308,16 @@ export type CourseQueryVariables = Exact<{
 
 
 export type CourseQuery = (
-  Pick<Query, 'course' | 'courseUnits' | 'acs'>
+  Pick<Query, 'course' | 'courseUnits' | 'courseReport' | 'acs'>
   & { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic'>>, topics: Array<Pick<TopicList, 'id' | 'name'>> }
 );
+
+export type CourseUnitsQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type CourseUnitsQuery = Pick<Query, 'courseUnits'>;
 
 export type CourseListQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -679,6 +692,7 @@ export const CourseDocument = gql`
     query Course($id: String!) {
   course(id: $id)
   courseUnits(id: $id)
+  courseReport(id: $id)
   units {
     blockCount
     id
@@ -718,6 +732,37 @@ export function useCourseLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookO
 export type CourseQueryHookResult = ReturnType<typeof useCourseQuery>;
 export type CourseLazyQueryHookResult = ReturnType<typeof useCourseLazyQuery>;
 export type CourseQueryResult = ApolloReactCommon.QueryResult<CourseQuery, CourseQueryVariables>;
+export const CourseUnitsDocument = gql`
+    query CourseUnits($id: String!) {
+  courseUnits(id: $id)
+}
+    `;
+
+/**
+ * __useCourseUnitsQuery__
+ *
+ * To run a query within a React component, call `useCourseUnitsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCourseUnitsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCourseUnitsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCourseUnitsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CourseUnitsQuery, CourseUnitsQueryVariables>) {
+        return ApolloReactHooks.useQuery<CourseUnitsQuery, CourseUnitsQueryVariables>(CourseUnitsDocument, baseOptions);
+      }
+export function useCourseUnitsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CourseUnitsQuery, CourseUnitsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CourseUnitsQuery, CourseUnitsQueryVariables>(CourseUnitsDocument, baseOptions);
+        }
+export type CourseUnitsQueryHookResult = ReturnType<typeof useCourseUnitsQuery>;
+export type CourseUnitsLazyQueryHookResult = ReturnType<typeof useCourseUnitsLazyQuery>;
+export type CourseUnitsQueryResult = ApolloReactCommon.QueryResult<CourseUnitsQuery, CourseUnitsQueryVariables>;
 export const CourseListDocument = gql`
     query CourseList {
   units {

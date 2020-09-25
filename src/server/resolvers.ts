@@ -1,9 +1,17 @@
 import fs from 'fs';
 import path from 'path';
-import { CourseConfig, User, Prerequisite, Unit } from 'components/types';
+import {
+  CourseConfig,
+  User,
+  Prerequisite,
+  Unit,
+  CompletionCriteria,
+  CourseCompletionCriteria
+} from 'components/types';
 import { IResolvers, UnitDependency } from 'config/resolvers';
 import { calculateDependencies } from 'config/utils';
 import GraphQLJSON from 'graphql-type-json';
+import { processReport } from './processors';
 
 let g = global as any;
 g.__users = {};
@@ -191,7 +199,13 @@ export const resolvers: IResolvers = {
           id,
           name,
           core: [],
-          majors: []
+          majors: [],
+          completionCriteria: {
+            acs: [],
+            sfia: [],
+            topics: [],
+            units: []
+          }
         });
         return true;
       });
@@ -297,10 +311,12 @@ export const resolvers: IResolvers = {
     },
     sfia() {
       let db = getDb();
-      return db.sfiaSkills.map(s => ({
-        ...s,
-        count: db.units.filter(u => (u.sfiaSkills || []).some(k => k.id === s.id)).length
-      }));
+      return db.sfiaSkills
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(s => ({
+          ...s,
+          count: db.units.filter(u => (u.sfiaSkills || []).some(k => k.id === s.id)).length
+        }));
     },
     sfiaUnits(_, { id }) {
       let db = getDb();
@@ -436,12 +452,33 @@ export const resolvers: IResolvers = {
       let db = getDb();
       return db.courses.find(u => u.id === id);
     },
+
+    courseReport(_, { id }) {
+      let db = getDb();
+      let course = db.courses.find(f => f.id === id);
+      const blocks = db.units.flatMap(u => u.blocks);
+
+      let report = [
+        {
+          id: course.id,
+          name: course.name,
+          issues: processReport(db, course.completionCriteria, blocks)
+        },
+        ...course.majors.map(m => ({
+          id: m.id,
+          name: m.name,
+          issues: processReport(db, m.completionCriteria, blocks)
+        }))
+      ];
+
+      return report;
+    },
     courseUnits(_, { id }) {
       let db = getDb();
       let course = db.courses.find(u => u.id === id);
       let units = course.core.map(c => db.units.find(u => u.id === c.id));
       for (let major of course.majors) {
-        for (let unit of major.units) {
+        for (let unit of major.units || []) {
           if (units.every(u => u.id !== unit.id)) {
             units.push(db.units.find(u => u.id === unit.id));
           }
@@ -518,7 +555,7 @@ export const resolvers: IResolvers = {
         majors: c.majors.map(m => ({
           id: m.id,
           name: m.name,
-          units: m.units.map(u => ({ id: u.id }))
+          units: (m.units || []).map(u => ({ id: u.id }))
         }))
       }));
     }

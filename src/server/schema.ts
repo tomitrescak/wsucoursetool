@@ -124,6 +124,7 @@ export const typeDefs = gql`
     course(id: String!): JSON!
     courses: [CourseList!]!
     courseUnits(id: String!): JSON!
+    courseReport(id: String!): JSON!
 
     jobs: [JobList!]!
     job(id: String!): JSON!

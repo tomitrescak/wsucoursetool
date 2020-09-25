@@ -131,6 +131,7 @@ export type Query = {
   course: Scalars['JSON'];
   courses: Array<CourseList>;
   courseUnits: Scalars['JSON'];
+  courseReport: Scalars['JSON'];
   jobs: Array<JobList>;
   job: Scalars['JSON'];
   specialisations: Array<SpecialisationList>;
@@ -167,6 +168,11 @@ export type QueryCourseArgs = {
 
 
 export type QueryCourseUnitsArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryCourseReportArgs = {
   id: Scalars['String'];
 };
 
@@ -501,6 +507,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   course?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseArgs, 'id'>>;
   courses?: Resolver<Array<ResolversTypes['CourseList']>, ParentType, ContextType>;
   courseUnits?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseUnitsArgs, 'id'>>;
+  courseReport?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseReportArgs, 'id'>>;
   jobs?: Resolver<Array<ResolversTypes['JobList']>, ParentType, ContextType>;
   job?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryJobArgs, 'id'>>;
   specialisations?: Resolver<Array<ResolversTypes['SpecialisationList']>, ParentType, ContextType>;

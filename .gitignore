@@ -34,3 +34,4 @@ backup
 src/data/units/
 src/data/outcomes/
 src/data/db.backup1.json
+src/data/db.backup2.json

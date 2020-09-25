@@ -37,6 +37,7 @@ import { Expander } from 'components/common/expander';
 import { Handler, ActivityEditor } from './activity_editor';
 import { useUnitsQuery, useUnitBaseQuery } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
+import { SfiaOwnerEditor } from 'components/sfia/sfia_owner_editor';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
@@ -192,6 +193,35 @@ const BlockDetails: React.FC<{
             <TopicEditor owner={block} readonly={readonly} />
             {/* KEYWORDS */}
             <KeywordEditor owner={block} keywords={keywords} readonly={readonly} />
+
+            <TextInputField
+              width={60}
+              label="Credits"
+              placeholder="Credit"
+              type="number"
+              step={0.1}
+              value={block.credit}
+              onChange={form.credit}
+              margin={0}
+              marginBottom={8}
+              marginTop={4}
+              marginLeft={8}
+              disabled={readonly}
+            />
+
+            <TextInputField
+              width={50}
+              label="Length"
+              placeholder="Length"
+              type="number"
+              value={block.length}
+              onChange={form.length}
+              margin={0}
+              marginBottom={8}
+              marginTop={4}
+              marginLeft={8}
+              disabled={readonly}
+            />
           </Pane>
 
           <Pane display="flex" marginBottom={8}>
@@ -297,17 +327,6 @@ const BlockDetails: React.FC<{
           </Pane>
         </Expander>
 
-        {/* PREREQUSTIES */}
-        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
-          <PrerequisiteEditor
-            state={state}
-            owner={block}
-            unit={unit}
-            activities={block.activities}
-            readonly={readonly}
-          />
-        </Pane>
-
         {/* ACTIVITIES */}
 
         <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
@@ -320,9 +339,26 @@ const BlockDetails: React.FC<{
           />
         </Pane>
 
-        {/* COMPLETION CRITERIA */}
+        {/* PREREQUSTIES */}
+        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
+          <PrerequisiteEditor
+            state={state}
+            owner={block}
+            unit={unit}
+            activities={block.activities}
+            readonly={readonly}
+          />
+        </Pane>
 
-        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16}>
+        {/* SFIA SKILLS */}
+
+        <Expander title="SFIA Skills" id="sfiaSkillsUnit">
+          <SfiaOwnerEditor owner={block} readonly={readonly} hasMax={true} />
+        </Expander>
+
+        {/* ACS COMPLETION CRITERIA */}
+
+        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
           <Heading
             size={500}
             marginBottom={expanded ? 8 : 0}
@@ -341,7 +377,8 @@ const BlockDetails: React.FC<{
                 localStorage.setItem('blockDetails', exp.toString());
               }}
             />
-            Completion Criteria
+            {/* <img src="/images/acs_logo_small.png" alt="ACS Logo" /> */}
+            ACS Skills
           </Heading>
 
           {expanded && (
@@ -503,6 +540,26 @@ const BlocksEditorView: React.FC<Props> = ({
       // }
 
       // assign new id
+
+      currentBlock.length += nextBlock.length;
+      currentBlock.credit += nextBlock.credit;
+      currentBlock.topics = Array.from(new Set([...currentBlock.topics, ...nextBlock.topics]));
+      currentBlock.keywords = Array.from(
+        new Set([...currentBlock.keywords, ...nextBlock.keywords])
+      );
+
+      // aggregate exisitng
+      for (let sfia of currentBlock.sfiaSkills) {
+        let existing = nextBlock.sfiaSkills.find(s => s.id === sfia.id);
+        if (existing) {
+          sfia.level += existing.level;
+        }
+      }
+
+      // add from other
+      nextBlock.sfiaSkills
+        .filter(s => currentBlock.sfiaSkills.every(c => c.id !== s.id))
+        .forEach(n => currentBlock.sfiaSkills.push(n));
 
       currentBlock.addActivities(activities);
       unit.removeBlock(blockIndex + direction);

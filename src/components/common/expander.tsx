@@ -6,9 +6,10 @@ type Props = {
   id: string;
   children?: React.ReactChild | React.ReactChild[];
   titleControls?: React.ReactChild;
+  image?: string;
 };
 
-export const Expander = ({ title, children, id, titleControls }: Props) => {
+export const Expander = ({ title, children, id, titleControls, image }: Props) => {
   const isServer = typeof localStorage == 'undefined';
 
   const [expanded, setExpanded] = React.useState(isServer || localStorage.getItem(id) === 'true');
@@ -32,6 +33,7 @@ export const Expander = ({ title, children, id, titleControls }: Props) => {
             localStorage.setItem(id, expanded ? 'false' : 'true');
           }}
         />
+        {image && <img src={image} alt={title} />}
         {title}
         {titleControls}
       </Heading>

@@ -3,6 +3,8 @@ query Course($id: String!) {
 
   courseUnits(id: $id)
 
+  courseReport(id: $id)
+
   units {
     blockCount
     id

@@ -17,7 +17,11 @@ import {
   TextInput,
   IconButton,
   toaster,
-  Tab
+  Tab,
+  Combobox,
+  UnorderedList,
+  ListItem,
+  Tooltip
 } from 'evergreen-ui';
 import { Unit, State, Course, CourseUnit, Topic, AcsKnowledge, Major } from '../types';
 import { url, buildForm } from 'lib/helpers';
@@ -34,13 +38,16 @@ import {
   useCreateCourseMutation,
   useCourseQuery,
   useDeleteCourseMutation,
-  useSaveConfigMutation
+  useSaveConfigMutation,
+  useUnitsQuery,
+  UnitList
 } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
-import { createCourse } from 'components/classes';
+import { CourseModel, CourseUnitModel, createCourse, MajorModel } from 'components/classes';
 import { BlockDependencyGraph } from 'components/blocks/block_graph';
 import { AcsUnitGraph } from 'components/acs/acs_graph';
 import { undoMiddleware } from 'mobx-keystone';
+import { CourseCompletionCriteria } from './course_completion_criteria';
 
 const classes = [
   {
@@ -149,7 +156,7 @@ type SimpleEntity = {
 };
 
 type SemesterProps = {
-  units: Unit[];
+  units: UnitList[];
   courseUnits: CourseUnit[];
   course: CourseList;
   topics: SimpleEntity[];
@@ -179,7 +186,6 @@ const UnitsBySemester = observer(
                 <th style={{ textAlign: 'left' }}>
                   <Heading size={400}>Sem.</Heading>
                 </th>
-                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -273,15 +279,6 @@ const UnitsBySemester = observer(
                               <IconButton height={25} icon="link" appearance="minimal" />
                             </a>
                           </Link>
-                        </td>
-                        <td>
-                          <IconButton
-                            height={25}
-                            icon="trash"
-                            intent="danger"
-                            appearance="primary"
-                            onClick={e => course.core.splice(i, 1)}
-                          />
                         </td>
                       </tr>
                     );
@@ -390,6 +387,11 @@ type Props = {
   acs: AcsKnowledge[];
   course: Course;
   majorId: string;
+  report?: Array<{
+    id: string;
+    name: string;
+    issues: Array<{ type: 'error' | 'info' | 'warning'; info: any; text: string }>;
+  }>;
 };
 
 const AcsGraphContainer = observer(({ courseUnits, selectedUnits, acs }: Props) => {
@@ -428,214 +430,294 @@ const TabContent = observer(
   }
 );
 
-const Visualisations = observer(({ acs, course, majorId, courseUnits, selectedUnits }: Props) => {
-  const state = useLocalStore(() => ({
-    tab: 'dep'
-  }));
-
-  function unitClass(unit: Unit) {
-    let cls = [course.core.some(c => c.id === unit.id) ? 'core' : 'elective'];
-    if (unit.proposed) {
-      cls.push('proposed');
-    }
-    if (unit.obsolete || unit.outdated) {
-      cls.push('obsolete');
-    }
-    return cls;
-  }
-
-  function blockClass() {
-    return null;
-  }
-
-  const units = selectedUnits.map(u => {
-    let unit = { ...courseUnits.find(cu => u.id === cu.id) };
-    unit.name += ` [${u.semester}]`;
-    return unit;
-  });
-
+const ReportLine = ({ is }) => {
+  const [expanded, setExpanded] = React.useState(false);
   return (
     <Pane>
-      <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
-        <TabHeader tab="dep" state={state}>
-          Dependencies
-        </TabHeader>
-        <TabHeader tab="acs" state={state}>
-          ACS CBOK
-        </TabHeader>
-      </Tablist>
-      <TabContent tab="acs" state={state}>
-        <AcsGraphContainer
-          acs={acs}
-          courseUnits={courseUnits}
-          selectedUnits={selectedUnits}
-          course={course}
-          majorId={majorId}
-        />
-      </TabContent>
-      <TabContent tab="dep" state={state}>
-        <BlockDependencyGraph
-          key={course.id + '_' + majorId}
-          units={units}
-          owner={course}
-          classes={classes}
-          unitClass={unitClass}
-          blockClass={blockClass}
-        />
-      </TabContent>
+      <Pane cursor="pointer" onClick={() => setExpanded(!expanded)}>
+        {is.text}
+      </Pane>
+      {expanded && (
+        <UnorderedList>
+          {is.info.map(info => (
+            <ListItem key={info.id}>
+              {info.name}
+              <UnorderedList>
+                {info.blocks.map(b => (
+                  <ListItem key={b.id}>{b.name}</ListItem>
+                ))}
+              </UnorderedList>
+            </ListItem>
+          ))}
+        </UnorderedList>
+      )}
     </Pane>
   );
-});
+};
 
-const CourseDetails: React.FC<{ course: CourseList; readonly: boolean; state: State }> = observer(
-  ({ course: courseListItem, readonly, state }) => {
-    const { loading, error, data, refetch } = useCourseQuery({
-      variables: {
-        id: courseListItem.id
-      }
-    });
-
-    const [deleteCourse] = useDeleteCourseMutation({
-      onCompleted() {
-        toaster.notify('Course deleted. Config saved.');
-      },
-      onError(e) {
-        toaster.danger('Error ;(: ' + e.message);
-      }
-    });
-
-    const localState = useLocalStore(() => ({
-      newUnitName: '',
-      newUnitId: '',
-      isShown: false,
-      course: '',
-      selection: [],
-      semesterSelection: []
+const Visualisations = observer(
+  ({ acs, course, majorId, courseUnits, selectedUnits, report }: Props) => {
+    const state = useLocalStore(() => ({
+      tab: 'rep'
     }));
-    const router = useRouter();
 
-    const [save] = useSaveConfigMutation({
-      onCompleted() {
-        toaster.notify('Saved');
-        refetch();
-      },
-      onError(e) {
-        toaster.danger('Error ;(: ' + e.message);
+    function unitClass(unit: Unit) {
+      let cls = [course.core.some(c => c.id === unit.id) ? 'core' : 'elective'];
+      if (unit.proposed) {
+        cls.push('proposed');
       }
-    });
-
-    const course = React.useMemo(() => {
-      if (loading) {
-        return null;
+      if (unit.obsolete || unit.outdated) {
+        cls.push('obsolete');
       }
-      const model = createCourse(data.course);
-      const undoManager = undoMiddleware(model);
-      state.undoManager = undoManager;
-      state.save = () => {
-        const body = model.toJS();
-        save({
-          variables: {
-            body,
-            id: course.id,
-            part: 'course'
-          }
-        });
-      };
-      return model;
-    }, [loading]);
-
-    const form = React.useMemo(() => buildForm(course, ['name', 'id']), [course]);
-    if (loading || error) {
-      return <ProgressView loading={loading} error={error} />;
+      return cls;
     }
 
-    const addForm = buildForm(localState, ['newUnitName', 'newUnitId']);
-    let selectedMajorId: string | undefined;
-    const item = router.query.item as string;
-
-    if (item) {
-      const mainSplit = item.split('--');
-
-      // find block
-      const blockSplit = mainSplit.length > 1 ? mainSplit[1].split('-') : null;
-      selectedMajorId = blockSplit != null ? blockSplit[blockSplit.length - 1] : null;
+    function blockClass() {
+      return null;
     }
 
-    // find all depenedencies
-
-    const major = selectedMajorId
-      ? course.majors.find(f => f.id === selectedMajorId)
-      : { units: [] };
-    const courseUnits: CourseUnit[] = [
-      ...course.core.filter(c => major.units.every(u => u.id !== c.id)),
-      ...major.units
-    ];
-
-    const selectedUnits = courseUnits.filter(u => {
-      if (localState.selection.length || localState.semesterSelection.length) {
-        return (
-          localState.selection.some(s => u.id === s) ||
-          localState.semesterSelection.some(s => u.semester === parseInt(s))
-        );
-      }
-      return true;
-    });
-    const view = readonly ? 'view' : 'editor';
+    const units = selectedUnits
+      .filter(s => courseUnits.some(u => u.id === s.id))
+      .map(u => {
+        let unit = { ...courseUnits.find(cu => u.id === cu.id) };
+        unit.name += ` [${u.semester}]`;
+        return unit;
+      });
 
     return (
-      <>
-        <VerticalPane title="Details">
-          <Pane background="tint2" padding={16} borderRadius={6}>
-            <Pane marginBottom={16} display="flex" alignItems="center">
-              <Heading size={500} marginRight={16}>
-                {course.name}
-              </Heading>
-            </Pane>
+      <Pane>
+        <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
+          <TabHeader tab="rep" state={state}>
+            Course Report
+          </TabHeader>
+          <TabHeader tab="dep" state={state}>
+            Dependencies
+          </TabHeader>
+          <TabHeader tab="acs" state={state}>
+            ACS CBOK
+          </TabHeader>
+        </Tablist>
+        <TabContent tab="rep" state={state}>
+          {report.map((ri, i) => (
+            <Alert
+              key={ri.id}
+              title={ri.name}
+              intent={
+                ri.issues.some(i => i.type === 'error')
+                  ? 'danger'
+                  : ri.issues.some(i => i.type === 'warning')
+                  ? 'warning'
+                  : 'success'
+              }
+              marginBottom={8}
+            >
+              <UnorderedList>
+                {ri.issues.map((is, ix) => (
+                  <ListItem
+                    icon={
+                      is.type === 'error'
+                        ? 'cross'
+                        : is.type === 'warning'
+                        ? 'warning-sign'
+                        : 'tick'
+                    }
+                    iconColor={
+                      is.type === 'error' ? 'danger' : is.type === 'warning' ? 'warning' : 'green'
+                    }
+                  >
+                    <ReportLine is={is} key={ix} />
+                  </ListItem>
+                ))}
+              </UnorderedList>
+            </Alert>
+          ))}
+        </TabContent>
+        <TabContent tab="acs" state={state}>
+          <AcsGraphContainer
+            acs={acs}
+            courseUnits={courseUnits}
+            selectedUnits={selectedUnits}
+            course={course}
+            majorId={majorId}
+          />
+        </TabContent>
+        <TabContent tab="dep" state={state}>
+          <BlockDependencyGraph
+            key={course.id + '_' + majorId}
+            units={units}
+            owner={course}
+            classes={classes}
+            unitClass={unitClass}
+            blockClass={blockClass}
+          />
+        </TabContent>
+      </Pane>
+    );
+  }
+);
 
-            <Pane display="flex" marginBottom={8} alignItems="flex-end">
-              <TextInputField
-                label="Code"
-                value={course.id}
-                id="unitCode"
-                onChange={form.id}
-                disabled={true}
-                margin={0}
-                marginRight={8}
-              />
-              <TextInputField
-                flex="1"
-                label="Name"
-                id="unitName"
-                placeholder="Course Name"
-                value={course.name}
-                margin={0}
-                marginRight={8}
-                onChange={form.name}
-              />
-            </Pane>
+const CourseDetails: React.FC<{
+  course: CourseList;
+  readonly: boolean;
+  state: State;
+  listRefetch: Function;
+}> = observer(({ course: courseListItem, readonly, state, listRefetch }) => {
+  const { loading, error, data, refetch } = useCourseQuery({
+    variables: {
+      id: courseListItem.id
+    }
+  });
 
-            <Pane display="flex" marginBottom={24} alignItems="flex-end">
-              <SelectField
-                value={selectedMajorId}
-                label="Major"
-                margin={0}
-                onChange={e => {
+  const [deleteCourse] = useDeleteCourseMutation({
+    onCompleted() {
+      toaster.notify('Course deleted. Config saved.');
+    },
+    onError(e) {
+      toaster.danger('Error ;(: ' + e.message);
+    }
+  });
+
+  const localState = useLocalStore(() => ({
+    newUnitName: '',
+    newUnitId: '',
+    newMajorName: '',
+    newMajorId: '',
+    isShown: false,
+    course: '',
+    selection: [],
+    semesterSelection: []
+  }));
+  const router = useRouter();
+
+  const [save] = useSaveConfigMutation({
+    onCompleted() {
+      toaster.notify('Saved');
+      refetch();
+    },
+    onError(e) {
+      toaster.danger('Error ;(: ' + e.message);
+    }
+  });
+
+  const course = React.useMemo(() => {
+    if (loading || data == null) {
+      return null;
+    }
+    const model = createCourse(data.course);
+    const undoManager = undoMiddleware(model);
+    state.undoManager = undoManager;
+    state.save = () => {
+      const body = model.toJS();
+      save({
+        variables: {
+          body,
+          id: course.id,
+          part: 'course'
+        }
+      });
+    };
+    return model;
+  }, [loading]);
+
+  const form = React.useMemo(() => buildForm(course, ['name', 'id']), [course]);
+  if (loading || error) {
+    return <ProgressView loading={loading} error={error} />;
+  }
+
+  const addForm = buildForm(localState, ['newMajorName', 'newMajorId']);
+
+  let selectedMajorId: string | undefined = '';
+  const item = router.query.item as string;
+
+  if (item) {
+    const mainSplit = item.split('--');
+
+    // find block
+    const blockSplit = mainSplit.length > 1 ? mainSplit[1].split('-') : null;
+    selectedMajorId = blockSplit != null ? blockSplit[blockSplit.length - 1] : '';
+  }
+
+  // find all depenedencies
+
+  const major = selectedMajorId ? course.majors.find(f => f.id === selectedMajorId) : null;
+  const courseUnits: CourseUnit[] = [
+    ...course.core.filter(c => (major ? major.units.every(u => u.id !== c.id) : true)),
+    ...(major ? major.units : [])
+  ];
+
+  const selectedUnits = courseUnits.filter(u => {
+    if (localState.selection.length || localState.semesterSelection.length) {
+      return (
+        localState.selection.some(s => u.id === s) ||
+        localState.semesterSelection.some(s => u.semester === parseInt(s))
+      );
+    }
+    return true;
+  });
+  const view = readonly ? 'view' : 'editor';
+
+  return (
+    <>
+      <VerticalPane title="Details">
+        <Pane background="tint2" padding={16} borderRadius={6}>
+          <Pane marginBottom={16} display="flex" alignItems="center">
+            <Heading size={500} marginRight={16}>
+              {course.name}
+            </Heading>
+          </Pane>
+
+          <Pane display="flex" marginBottom={8} alignItems="flex-end">
+            <TextInputField
+              label="Code"
+              value={course.id}
+              id="unitCode"
+              onChange={form.id}
+              disabled={true}
+              margin={0}
+              marginRight={8}
+            />
+            <TextInputField
+              flex="1"
+              label="Name"
+              id="unitName"
+              placeholder="Course Name"
+              value={course.name}
+              disabled={readonly}
+              margin={0}
+              marginRight={8}
+              onChange={form.name}
+            />
+          </Pane>
+
+          <Pane display="flex" marginBottom={24} alignItems="flex-end">
+            <SelectField
+              value={selectedMajorId}
+              label="Major"
+              margin={0}
+              onChange={e => {
+                if (e.currentTarget.value) {
                   router.push(
                     '/editor/[category]/[item]',
                     `/editor/courses/${url(course.name)}-${course.id}--${url(
                       course.majors.find(m => m.id === e.currentTarget.value).name
                     )}-${e.currentTarget.value}`
                   );
-                }}
-              >
-                <option value="">Please Select ...</option>
-                {course.majors.map(m => (
-                  <option value={m.id} key={m.id}>
-                    {m.name}
-                  </option>
-                ))}
-              </SelectField>
-              {/* <Dialog
+                } else {
+                  router.push(
+                    '/editor/[category]/[item]',
+                    `/editor/courses/${url(course.name)}-${course.id}`
+                  );
+                }
+              }}
+            >
+              <option value="">Please Select ...</option>
+              {course.majors.map(m => (
+                <option value={m.id} key={m.id}>
+                  {m.name}
+                </option>
+              ))}
+            </SelectField>
+            {/* <Dialog
                 isShown={localState.isShown}
                 title="Add New Major"
                 onCloseComplete={() => (localState.isShown = false)}
@@ -667,65 +749,237 @@ const CourseDetails: React.FC<{ course: CourseList; readonly: boolean; state: St
                 </Pane>
               </Dialog> */}
 
-              {!readonly && (
+            {!readonly && (
+              <>
+                <Dialog
+                  isShown={localState.isShown}
+                  title="Add New Major"
+                  onCloseComplete={() => (localState.isShown = false)}
+                  onConfirm={close => {
+                    course.addMajor({
+                      completionCriteria: {
+                        acs: [],
+                        sfia: [],
+                        units: [],
+                        topics: []
+                      },
+                      id: localState.newMajorId,
+                      name: localState.newMajorName,
+                      units: []
+                    });
+
+                    router.push(
+                      '/editor/[category]/[item]',
+                      `/editor/courses/${url(course.name)}-${course.id}--${url(
+                        localState.newMajorName
+                      )}-${localState.newMajorId}`
+                    );
+
+                    close();
+                  }}
+                  confirmLabel="Add Major"
+                >
+                  <Pane display="flex" alignItems="flex-baseline">
+                    <TextInputField
+                      label="Code"
+                      placeholder="Mahor Id"
+                      onChange={addForm.newMajorId}
+                      marginRight={4}
+                    />
+                    <TextInputField
+                      label="Name"
+                      placeholder="Major Name"
+                      onChange={addForm.newMajorName}
+                      marginRight={4}
+                      flex={1}
+                    />
+                  </Pane>
+                </Dialog>
+
                 <Button
+                  marginLeft={8}
                   appearance="primary"
                   iconBefore="plus"
-                  marginLeft={8}
                   onClick={() => (localState.isShown = true)}
                 >
                   Add Major
                 </Button>
-              )}
-            </Pane>
-            <UnitsBySemester
-              course={course}
-              courseUnits={courseUnits}
-              units={data.courseUnits}
-              topics={data.topics}
-              localState={localState}
-              view={view}
-            />
-            <UnitsByTopic
-              course={course}
-              courseUnits={courseUnits}
-              units={data.courseUnits}
-              topics={data.topics}
-              localState={localState}
-              view={view}
-            />
+              </>
+            )}
           </Pane>
+
+          <Expander title="Course Completion Criteria" id="courseCompletionCriteria">
+            <CourseCompletionCriteria readonly={readonly} criteria={course.completionCriteria} />
+          </Expander>
+
+          {selectedMajorId && major && (
+            <Expander
+              title={`"${major.name}" Major Completion Criteria`}
+              id="courseMajorCompletionCriteria"
+            >
+              <CourseCompletionCriteria readonly={readonly} criteria={major.completionCriteria} />
+            </Expander>
+          )}
+
+          <ClassList owner={course} units={course.core} readonly={readonly} title="Core Units" />
+
+          {selectedMajorId && major && (
+            <ClassList owner={major} units={major.units} readonly={readonly} title="Major Units" />
+          )}
+
+          <UnitsBySemester
+            course={course}
+            courseUnits={courseUnits}
+            units={data.units}
+            topics={data.topics}
+            localState={localState}
+            view={view}
+          />
+          <UnitsByTopic
+            course={course}
+            courseUnits={courseUnits}
+            units={data.units}
+            topics={data.topics}
+            localState={localState}
+            view={view}
+          />
+        </Pane>
+        <Button
+          intent="danger"
+          iconBefore="trash"
+          appearance="primary"
+          marginTop={8}
+          onClick={() => {
+            if (confirm('Are You Sure? This action cannot be undone!')) {
+              deleteCourse({
+                variables: {
+                  id: course.id
+                }
+              }).then(() => {
+                listRefetch();
+                Router.push('/editor/[category]', `/editor/courses`);
+              });
+            }
+          }}
+        >
+          Delete Course
+        </Button>
+
+        {selectedMajorId && (
           <Button
             intent="danger"
             iconBefore="trash"
             appearance="primary"
             marginTop={8}
+            marginLeft={8}
             onClick={() => {
-              if (confirm('Are You Sure? This action cannot be undone!')) {
-                deleteCourse({
-                  variables: {
-                    id: course.id
-                  }
-                }).then(() => {
-                  refetch();
-                  Router.push('/editor/[category]', `/editor/courses`);
-                });
+              if (confirm('Are You Sure?')) {
+                course.removeMajor(major);
               }
+              router.push(
+                '/editor/[category]/[item]',
+                `/editor/courses/${url(course.name)}-${course.id}`
+              );
             }}
           >
-            Delete
+            Delete Major
           </Button>
-        </VerticalPane>
-        <VerticalPane shrink={true}>
-          <Visualisations
-            acs={data.acs}
-            selectedUnits={selectedUnits}
-            courseUnits={data.courseUnits}
-            course={course}
-            majorId={selectedMajorId}
-          />
-        </VerticalPane>
-      </>
+        )}
+      </VerticalPane>
+      <VerticalPane shrink={true}>
+        <Visualisations
+          acs={data.acs}
+          report={data.courseReport}
+          selectedUnits={selectedUnits}
+          courseUnits={data.courseUnits}
+          course={course}
+          majorId={selectedMajorId}
+        />
+      </VerticalPane>
+    </>
+  );
+});
+
+const ClassList = observer(
+  ({
+    owner,
+    units,
+    readonly,
+    title
+  }: {
+    units: CourseUnitModel[];
+    owner: { addUnit(unit: CourseUnit): void; removeUnit(unit: CourseUnitModel): void };
+    readonly: boolean;
+    title: string;
+  }) => {
+    const { loading, error, data, refetch } = useUnitsQuery();
+    const localState = useLocalStore(() => ({
+      id: '',
+      semester: 0
+    }));
+    if (loading || error) {
+      return <ProgressView loading={loading} error={error} />;
+    }
+
+    return (
+      <Expander title={title} id={title}>
+        <Pane paddingTop={8}>
+          {units.map(c => (
+            <Pane key={c.id} display="flex" alignItems="center" marginBottom={4}>
+              {!readonly && (
+                <IconButton
+                  icon="trash"
+                  marginRight={8}
+                  appearance="primary"
+                  intent="danger"
+                  onClick={() => owner.removeUnit(c)}
+                />
+              )}
+              <Text flex={1} is="div">
+                {data.units.find(u => u.id === c.id).name}
+              </Text>
+              <TextInput
+                type="number"
+                width={80}
+                disabled={readonly}
+                placeholder="Semester"
+                value={c.semester}
+                onChange={e => (c.semester = parseInt(e.currentTarget.value))}
+              />
+            </Pane>
+          ))}
+
+          {!readonly && (
+            <Pane marginTop={8} display="flex">
+              <Combobox
+                id="block"
+                width="100%"
+                items={data.units}
+                itemToString={item => (item ? item.name : '')}
+                onChange={selected => (localState.id = selected.id)}
+              />
+              <TextInput
+                type="number"
+                width={80}
+                placeholder="Semester"
+                value={localState.semester}
+                onChange={e => (localState.semester = parseInt(e.currentTarget.value))}
+                marginLeft={8}
+              />
+              <IconButton
+                marginLeft={8}
+                intent="success"
+                icon="plus"
+                onClick={() =>
+                  localState.id &&
+                  owner.addUnit({ id: localState.id, semester: localState.semester })
+                }
+                appearance="primary"
+              />
+            </Pane>
+          )}
+        </Pane>
+      </Expander>
     );
   }
 );
@@ -772,32 +1026,30 @@ const CoursesEditorView: React.FC<{ state: State; readonly: boolean }> = ({ stat
     <>
       <VerticalPane title="Course List">
         <Tablist>
-          {data.courses
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((course, index) => (
-              <Link
-                key={course.id}
-                href={`/${view}/[category]/[item]`}
-                as={`/${view}/courses/${url(course.name)}-${course.id}`}
-              >
-                <a>
-                  <SidebarTab
-                    whiteSpace="nowrap"
-                    key={course.id}
-                    id={course.id}
-                    isSelected={course.id === courseId}
-                    onSelect={() => {}}
-                    aria-controls={`panel-${course.name}`}
-                    minWidth="120px"
-                  >
-                    <Badge size={300} marginRight={8}>
-                      {course.id}
-                    </Badge>
-                    {course.name}
-                  </SidebarTab>
-                </a>
-              </Link>
-            ))}
+          {data.courses.map((course, index) => (
+            <Link
+              key={course.id}
+              href={`/${view}/[category]/[item]`}
+              as={`/${view}/courses/${url(course.name)}-${course.id}`}
+            >
+              <a>
+                <SidebarTab
+                  whiteSpace="nowrap"
+                  key={course.id}
+                  id={course.id}
+                  isSelected={course.id === courseId}
+                  onSelect={() => {}}
+                  aria-controls={`panel-${course.name}`}
+                  minWidth="120px"
+                >
+                  <Badge size={300} marginRight={8}>
+                    {course.id}
+                  </Badge>
+                  {course.name}
+                </SidebarTab>
+              </a>
+            </Link>
+          ))}
 
           {!readonly && (
             <>
@@ -861,7 +1113,13 @@ const CoursesEditorView: React.FC<{ state: State; readonly: boolean }> = ({ stat
         </VerticalPane>
       )}
       {course && (
-        <CourseDetails key={course.id} course={course} readonly={readonly} state={state} />
+        <CourseDetails
+          key={course.id}
+          course={course}
+          readonly={readonly}
+          state={state}
+          listRefetch={refetch}
+        />
       )}
     </>
   );
