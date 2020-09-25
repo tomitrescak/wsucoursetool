@@ -14,7 +14,9 @@ import {
   Combobox,
   TextInput,
   IconButton,
-  Badge
+  Badge,
+  SelectMenu,
+  Label
 } from 'evergreen-ui';
 import { State, AcsKnowledge, Block, Topic, Entity, Prerequisite } from '../types';
 import { buildForm, url } from 'lib/helpers';
@@ -323,6 +325,13 @@ const Constraints = observer(({ dependencies, unit }) => {
   );
 });
 
+const offers = [
+  { label: 'Autumn', value: 'au' },
+  { label: 'Spring', value: 'sp' },
+  { label: 'Summer A', value: 'sua' },
+  { label: 'Summer B', value: 'sub' }
+];
+
 const UnitDetails: React.FC<{
   model: UnitModel;
   readonly: boolean;
@@ -437,6 +446,7 @@ const UnitDetails: React.FC<{
                   disabled={true}
                   margin={0}
                   marginRight={8}
+                  width={60}
                 />
                 <TextInputField
                   flex="1"
@@ -449,6 +459,25 @@ const UnitDetails: React.FC<{
                   marginRight={8}
                   onChange={form.name}
                 />
+                <Pane marginRight={8}>
+                  <Label size={400} margin={0} marginBottom={4} is="div">
+                    Offer
+                  </Label>
+                  <SelectMenu
+                    isMultiSelect={true}
+                    title="Select Semester Offer"
+                    options={offers}
+                    selected={unit.offer}
+                    hasFilter={false}
+                    hasTitle={false}
+                    onSelect={item => unit.addOffer(item.value as string)}
+                    onDeselect={item => unit.removeOffer(item.value as string)}
+                  >
+                    <Button disabled={readonly}>
+                      {unit.offer.map(o => offers.find(l => l.value === o).label).join(', ')}
+                    </Button>
+                  </SelectMenu>
+                </Pane>
                 <TextInputField
                   label={
                     <Link
@@ -521,7 +550,7 @@ const UnitDetails: React.FC<{
                       new Set(
                         unit.blocks
                           .flatMap(b => b.topics)
-                          .map(t => topics.find(tp => tp.id === t).name)
+                          .map(t => topics.find(tp => tp.id === t.id).name)
                       )
                     ).join(', ')}
                   </Text>

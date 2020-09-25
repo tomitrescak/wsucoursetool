@@ -86,7 +86,7 @@ const groupByStrategies: {
     groups(unit, collections) {
       return unit.blocks.reduce((groups, block) => {
         if (block.topics && block.topics.length) {
-          groups.push(...block.topics.map(t => collections.topics.find(p => p.id === t).name));
+          groups.push(...block.topics.map(t => collections.topics.find(p => p.id === t.id).name));
         } else {
           groups.push('Unknown');
         }
@@ -96,7 +96,7 @@ const groupByStrategies: {
     },
     inGroup(block, group, collections) {
       let tp = collections.topics.find(t => t.name === group);
-      return block.topics.some(t => t === tp.id);
+      return block.topics.some(t => t.id === tp.id);
     }
   },
   flag: {
@@ -232,7 +232,7 @@ const Container = () => {
   const topics: Array<Topic & { count: string[] }> = filteredUnits.reduce((prev, unit) => {
     for (let block of unit.blocks) {
       for (let topicId of block.topics || []) {
-        let topic = observableTopics.find(t => t.id === topicId);
+        let topic = observableTopics.find(t => t.id === topicId.id);
         (topic as any).count = [];
         if (prev.indexOf(topic) === -1) {
           prev.push(topic);
@@ -458,7 +458,7 @@ const Container = () => {
                                 .filter(
                                   b =>
                                     b.topics != null &&
-                                    b.topics.some(id => id === t.id) &&
+                                    b.topics.some(bt => bt.id === t.id) &&
                                     (!localState.keywordOnly ||
                                       strategy.inGroup(b, u.key, collections))
                                 )

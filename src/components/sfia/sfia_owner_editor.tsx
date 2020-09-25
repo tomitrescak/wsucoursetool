@@ -23,7 +23,7 @@ import { SfiaSkillMappingModel, SfiaSkillModel, UnitModel } from '../classes';
 import { useSfiaQuery } from 'config/graphql';
 import { SfiaSkillMapping } from 'components/types';
 
-const SfiaSkill = ({ data, skill, unit, index, readonly, hasMax }) => {
+const SfiaSkill = observer(({ data, skill, unit, index, readonly, hasMax }) => {
   const selected = data.sfia.find(s => s.id === skill.id);
   const form = React.useMemo(() => buildForm(skill, ['level', 'max']), [skill]);
   return (
@@ -39,15 +39,16 @@ const SfiaSkill = ({ data, skill, unit, index, readonly, hasMax }) => {
             </Text>
           </>
         ) : (
-          <Combobox
-            id="skill"
-            width="100%"
-            initialSelectedItem={{ label: '' }}
-            items={data.sfia}
-            itemToString={item => (item ? `${item.name} (${item.id})` : '')}
-            selectedItem={selected}
-            onChange={selected => (skill.id = selected.id)}
-          />
+          // <Combobox
+          //   id="skill"
+          //   width="100%"
+          //   initialSelectedItem={{ label: '' }}
+          //   items={data.sfia}
+          //   itemToString={item => (item ? `${item.name} (${item.id})` : '')}
+          //   selectedItem={selected}
+          //   onChange={selected => (skill.id = selected.id)}
+          // />
+          <TextInput width="100%" disabled={true} value={`${selected.name} (${selected.id})`} />
         )}
       </Pane>
       {!readonly && (
@@ -64,6 +65,7 @@ const SfiaSkill = ({ data, skill, unit, index, readonly, hasMax }) => {
         <TextInput
           width={60}
           placeholder="Max"
+          disabled={true}
           value={skill.max}
           type="number"
           onChange={form.max}
@@ -80,7 +82,7 @@ const SfiaSkill = ({ data, skill, unit, index, readonly, hasMax }) => {
       )}
     </Pane>
   );
-};
+});
 
 export const SfiaOwnerEditor = observer(
   ({

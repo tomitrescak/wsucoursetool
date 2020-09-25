@@ -38,6 +38,7 @@ import { Handler, ActivityEditor } from './activity_editor';
 import { useUnitsQuery, useUnitBaseQuery } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 import { SfiaOwnerEditor } from 'components/sfia/sfia_owner_editor';
+import { BlockTopicsEditor } from './block_topics.editor';
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
@@ -90,7 +91,10 @@ const BlockDetails: React.FC<{
       // credits: 0,
       activities: [],
       level: '',
-      flagged: false
+      flagged: false,
+      length: 0,
+      credit: 0,
+      sfiaSkills: []
     };
     if (unit) {
       unit.addBlock(newBlock);
@@ -190,7 +194,7 @@ const BlockDetails: React.FC<{
 
           <Pane display="flex">
             {/* TOPICS */}
-            <TopicEditor owner={block} readonly={readonly} />
+            {/* <TopicEditor owner={block} readonly={readonly} /> */}
             {/* KEYWORDS */}
             <KeywordEditor owner={block} keywords={keywords} readonly={readonly} />
 
@@ -280,6 +284,7 @@ const BlockDetails: React.FC<{
               onChange={e => (block.level = e.currentTarget.value)}
               margin={0}
               marginRight={8}
+              disabled={readonly}
             >
               <option value="">Please Select ...</option>
               <option value="Fundamentals">Fundamentals</option>
@@ -306,24 +311,26 @@ const BlockDetails: React.FC<{
               checked={block.proposed}
               disabled={readonly}
             />
-            <Button
-              onClick={action(() => {
-                for (let ob of unit.blocks) {
-                  if (ob.topics.length === 0) {
-                    block.topics.forEach(t => ob.addTopic(t));
+            {!readonly && (
+              <Button
+                onClick={action(() => {
+                  for (let ob of unit.blocks) {
+                    if (ob.topics.length === 0) {
+                      block.topics.forEach(t => ob.addTopic(t));
+                    }
+                    if (ob.keywords.length === 0) {
+                      block.keywords.forEach(t => ob.addKeyword(t));
+                    }
+                    if (ob.level == null) {
+                      ob.level = block.level;
+                    }
                   }
-                  if (ob.keywords.length === 0) {
-                    block.keywords.forEach(t => ob.addKeyword(t));
-                  }
-                  if (ob.level == null) {
-                    ob.level = block.level;
-                  }
-                }
-              })}
-              marginTop={20}
-            >
-              Copy To Other Blocks
-            </Button>
+                })}
+                marginTop={20}
+              >
+                Copy To Other Blocks
+              </Button>
+            )}
           </Pane>
         </Expander>
 
@@ -338,6 +345,9 @@ const BlockDetails: React.FC<{
             unit={unit}
           />
         </Pane>
+
+        {/* TOPICS */}
+        <BlockTopicsEditor block={block} readonly={readonly} topics={data.topics} />
 
         {/* PREREQUSTIES */}
         <Pane elevation={1} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
@@ -543,7 +553,12 @@ const BlocksEditorView: React.FC<Props> = ({
 
       currentBlock.length += nextBlock.length;
       currentBlock.credit += nextBlock.credit;
-      currentBlock.topics = Array.from(new Set([...currentBlock.topics, ...nextBlock.topics]));
+      currentBlock.topics = [...currentBlock.topics, ...nextBlock.topics].filter(
+        (v, i) => currentBlock.topics.findIndex(t => t.id === v.id) === i
+      );
+      currentBlock.topics.forEach(
+        t => (t.ratio = Math.round((1 / currentBlock.topics.length) * 100) / 100)
+      );
       currentBlock.keywords = Array.from(
         new Set([...currentBlock.keywords, ...nextBlock.keywords])
       );

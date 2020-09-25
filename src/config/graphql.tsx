@@ -284,7 +284,7 @@ export type CoordinatorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CoordinatorsQuery = { coordinators: Array<(
     Pick<Coordinator, 'name'>
-    & { units: Array<Pick<UnitList, 'id' | 'name' | 'level' | 'topics' | 'obsolete' | 'outdated' | 'processed'>> }
+    & { units: Array<Pick<UnitList, 'id' | 'name' | 'level' | 'obsolete' | 'outdated' | 'processed'>> }
   )> };
 
 export type CreateCourseMutationVariables = Exact<{
@@ -309,7 +309,7 @@ export type CourseQueryVariables = Exact<{
 
 export type CourseQuery = (
   Pick<Query, 'course' | 'courseUnits' | 'courseReport' | 'acs'>
-  & { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic'>>, topics: Array<Pick<TopicList, 'id' | 'name'>> }
+  & { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'topics'>>, topics: Array<Pick<TopicList, 'id' | 'name'>> }
 );
 
 export type CourseUnitsQueryVariables = Exact<{
@@ -594,7 +594,6 @@ export const CoordinatorsDocument = gql`
       id
       name
       level
-      topics
       obsolete
       outdated
       processed
@@ -698,6 +697,7 @@ export const CourseDocument = gql`
     id
     name
     dynamic
+    topics
   }
   acs
   topics {

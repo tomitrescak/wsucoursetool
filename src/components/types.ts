@@ -85,7 +85,7 @@ export type Unit = {
   lgId?: string;
 
   blocks: Block[];
-  topics: string[];
+  topics: BlockTopic[];
   keywords: string[];
 
   dynamic: boolean;
@@ -126,6 +126,11 @@ export type Topic = {
   description: string;
 };
 
+export type BlockTopic = {
+  id: string;
+  ratio: number;
+};
+
 export type BlockType = 'knowledge' | 'practical' | 'assignment' | 'exam' | 'wil';
 
 export type Activity = {
@@ -144,7 +149,7 @@ export type Block = {
   outcome: string;
   description: string;
   keywords: string[];
-  topics: string[];
+  topics: BlockTopic[];
   prerequisites: Prerequisite[];
   completionCriteria: CompletionCriteria;
   activities: Activity[];

@@ -22,7 +22,7 @@ import { bloom } from '../acs/bloom';
 import { State, Prerequisite, Unit, AcsKnowledge, Activity, Topic, Block } from '../types';
 import { usePrerequisitesQuery, BlockList, useUnitsQuery, useUnitBaseQuery } from 'config/graphql';
 import { ProgressView } from '../common/progress_view';
-import { PrerequisiteModel } from 'components/classes';
+import { PrerequisiteModel, UnitModel } from 'components/classes';
 
 type PrerequisiteOwner = {
   prerequisites?: ReadonlyArray<Prerequisite>;
@@ -34,7 +34,7 @@ type PrerequisiteOwner = {
 export type Props = {
   state: State;
   owner: PrerequisiteOwner;
-  unit: Unit;
+  unit: UnitModel;
   activities?: Activity[];
   readonly: boolean;
 };

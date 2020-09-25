@@ -297,10 +297,11 @@ const UnitsByTopic = observer(
   ({ units, topics, courseUnits, localState, course }: SemesterProps) => {
     let semesters: { [index: string]: Unit[] } = React.useMemo(() => {
       let unitInfos = units; //.map(u => units.find(un => un.id === u.id));
-
-      let topicSet = Array.from(new Set(unitInfos.flatMap(u => u.topics)))
+      let topicSetInitial = unitInfos.flatMap(u => u.topics);
+      let topicSet = topicSetInitial
+        // .filter((f, i) => topicSetInitial.indexOf(f) === i)
         .map(id => topics.find(t => t.id === id))
-        .sort();
+        .sort((a, b) => a.name.localeCompare(b.name));
       let result = {};
       for (let topic of topicSet) {
         if (topic) {

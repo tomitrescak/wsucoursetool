@@ -13,21 +13,26 @@ export function processReport(
   let report = [];
 
   // check course
-  for (let topic of completionCriteria.topics) {
-    const topicBlocks = blocks.filter(b => (b.topics || []).some(t => t === topic.id));
+  for (let topic of completionCriteria.topics || []) {
+    const topicBlocks = blocks.filter(b => (b.topics || []).some(t => t.id === topic.id));
 
     if (credits[topic.id] == null) {
-      credits[topic.id] = round(topicBlocks.reduce((prev, next) => next.credit + prev, 0));
+      credits[topic.id] = round(
+        topicBlocks.reduce((prev, next) => {
+          let blockTopic = next.topics.find(t => t.id === topic.id);
+          return next.credit * blockTopic.ratio + prev;
+        }, 0)
+      );
     }
     let t = db.topics.find(tp => tp.id === topic.id);
     const units = db.units.filter(u =>
-      u.blocks.some(b => (b.topics || []).some(t => t === topic.id))
+      u.blocks.some(b => (b.topics || []).some(t => t.id === topic.id))
     );
     let info = units.map(u => ({
       id: u.id,
       name: u.name,
       blocks: u.blocks
-        .filter(b => (b.topics || []).some(t => t === topic.id))
+        .filter(b => (b.topics || []).some(t => t.id === topic.id))
         .map(b => ({ id: b.id, name: b.name }))
     }));
 

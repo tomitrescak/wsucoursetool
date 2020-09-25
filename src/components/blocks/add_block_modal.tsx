@@ -38,7 +38,10 @@ export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
             activities: [],
             topics: [],
             level: '',
-            flagged: false
+            flagged: false,
+            length: 0,
+            credit: 0,
+            sfiaSkills: []
           };
           unit.addBlock(newBlock);
 

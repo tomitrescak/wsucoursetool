@@ -13,6 +13,10 @@ import { calculateDependencies } from 'config/utils';
 import GraphQLJSON from 'graphql-type-json';
 import { processReport } from './processors';
 
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+
 let g = global as any;
 g.__users = {};
 
@@ -389,10 +393,10 @@ export const resolvers: IResolvers = {
       return db.topics.map(t => {
         let blocks = [];
         let topicalUnits = db.units.filter(u =>
-          (u.blocks || []).some(b => (b.topics || []).some(bt => bt === t.id))
+          (u.blocks || []).some(b => (b.topics || []).some(bt => bt.id === t.id))
         );
         for (let u of topicalUnits) {
-          let topicalBlocks = u.blocks.filter(b => (b.topics || []).some(bt => bt === t.id));
+          let topicalBlocks = u.blocks.filter(b => (b.topics || []).some(bt => bt.id === t.id));
           for (let b of topicalBlocks) {
             blocks.push({
               blockId: b.id,
@@ -487,7 +491,6 @@ export const resolvers: IResolvers = {
       return units;
     },
     unitDepenendencies(_, { id }) {
-      debugger;
       let db = getDb();
       let unit = db.units.find(u => u.id === id);
 
@@ -537,7 +540,10 @@ export const resolvers: IResolvers = {
           obsolete: u.obsolete,
           proposed: u.proposed,
           hidden: u.hidden,
-          topics: u.topics || []
+          topics: (u.blocks || [])
+            .flatMap(f => f.topics || [])
+            .map(t => t.id)
+            .filter(onlyUnique)
         }))
         .sort((a, b) => a.name.localeCompare(b.name));
     },

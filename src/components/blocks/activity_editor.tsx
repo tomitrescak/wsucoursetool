@@ -179,7 +179,13 @@ export const ActivityDetail: React.FC<{
                 prerequisites: [],
                 topics: [],
                 level: undefined,
-                flagged: false
+                flagged: false,
+                credit: 0,
+                length: 0,
+                sfiaSkills: [],
+                replacedByBlock: null,
+                replacedByUnit: null,
+                unitId: unit.id
               });
               block.spliceActivity(block.activities.indexOf(activity), 1);
             }}

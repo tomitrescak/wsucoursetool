@@ -4,6 +4,10 @@ const parser = require('csv-parse/lib/sync');
 
 const db = JSON.parse(fs.readFileSync('./db.json', { encoding: 'utf-8' }));
 
+function round(v) {
+  return Math.round(v * 100) / 100;
+}
+
 /**************** SFIA SKILLS  *****************/
 
 // async function process() {
@@ -106,28 +110,47 @@ const db = JSON.parse(fs.readFileSync('./db.json', { encoding: 'utf-8' }));
 
 // addJobs();
 
-function handleSkills(skills) {
-  for (let i = (skills || []).length - 1; i >= 0; i--) {
-    let idx = skills.findIndex(skill => skill.id === skills[i].id);
-    if (idx !== i) {
-      console.log('Duplicate');
-      skills.splice(i, 1);
-    } else {
-      console.log('OK');
-    }
-  }
-}
+// function handleSkills(skills) {
+//   for (let i = (skills || []).length - 1; i >= 0; i--) {
+//     let idx = skills.findIndex(skill => skill.id === skills[i].id);
+//     if (idx !== i) {
+//       console.log('Duplicate');
+//       skills.splice(i, 1);
+//     } else {
+//       console.log('OK');
+//     }
+//   }
+// }
 
-function defuck() {
+// function defuck() {
+//   for (let unit of db.units) {
+//     console.log('Unit: ' + unit.name);
+//     handleSkills(unit.sfiaSkills);
+
+//     for (let block of unit.blocks) {
+//       handleSkills(block.sfiaSkills);
+//     }
+//   }
+// }
+// defuck();
+
+function explodeTopics() {
   for (let unit of db.units) {
-    console.log('Unit: ' + unit.name);
-    handleSkills(unit.sfiaSkills);
-
     for (let block of unit.blocks) {
-      handleSkills(block.sfiaSkills);
+      if (block.topics) {
+        block.topics = (block.topics || []).map(t => ({
+          id: t,
+          ratio: round(1 / block.topics.length)
+        }));
+        if (block.topics.length) {
+          block.topics[block.topics.length - 1].ratio +=
+            1 - block.topics.reduce((prev, next) => prev + next.ratio, 0);
+        }
+        console.log(block.topics);
+      }
     }
   }
 }
-defuck();
+explodeTopics();
 
 fs.writeFileSync('./db.json', JSON.stringify(db, null, 2), { encoding: 'utf-8' });

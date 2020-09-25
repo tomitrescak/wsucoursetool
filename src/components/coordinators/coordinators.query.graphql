@@ -5,7 +5,6 @@ query Coordinators {
       id
       name
       level
-      topics
       obsolete
       outdated
       processed

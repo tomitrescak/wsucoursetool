@@ -10,6 +10,7 @@ query Course($id: String!) {
     id
     name
     dynamic
+    topics
   }
 
   acs
