@@ -30,7 +30,8 @@ import {
   RegisteredBlockModel,
   // RegisteredUnitModel,
   ResultModel,
-  createStudent
+  createStudent,
+  JobModel
 } from 'components/classes';
 import {
   useSaveConfigMutation,
@@ -40,7 +41,9 @@ import {
   UnitList,
   RegisteredBlock,
   useUnitsQuery,
-  useUnitBaseQuery
+  useUnitBaseQuery,
+  useJobQuery,
+  useJobsQuery
 } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 
@@ -63,78 +66,6 @@ class StudentListModel extends Model({
     this.students.splice(ix, 1);
   }
 }
-
-type UnitDetailsParams = {
-  units: Array<{ id: string; name: string }>;
-  unit: RegisteredUnit;
-};
-
-const UnitResult = observer(({ units, unit }: UnitDetailsParams) => {
-  return (
-    <Pane display="flex" marginBottom={8}>
-      <TextInputField
-        label="Unit Name"
-        value={units.find(u => u.id === unit.unitId)?.name}
-        id="unitName"
-        disabled={true}
-        width={300}
-        margin={0}
-        marginRight={8}
-      />
-      <TextInputField
-        label="Unit Id"
-        value={unit.unitId}
-        id="unitId"
-        disabled={true}
-        margin={0}
-        marginRight={8}
-      />
-      <Select
-        value={unit.results.grade}
-        onChange={e => (unit.results.grade = e.currentTarget.value)}
-        marginTop={24}
-        marginLeft={8}
-        marginRight={8}
-        flex="0 0 140px"
-        label="Grade"
-      >
-        <option value="">No Grade</option>
-        <option value="f">F - Fail</option>
-        <option value="p">P - Pass</option>
-        <option value="c">C - Credit</option>
-        <option value="d">D - Distinction</option>
-        <option value="hd">HD - High Distinction</option>
-      </Select>
-      <TextInputField
-        label="Result"
-        value={unit.results.result}
-        onChange={e => (unit.results.result = e.currentTarget.value)}
-        id="result"
-        disabled={false}
-        margin={0}
-        marginRight={8}
-      />
-      <Button
-        intent="warning"
-        //iconBefore="trash"
-        appearance="primary"
-        marginTop={24}
-        width={100}
-        onClick={() => {
-          if (confirm('This change will be permanent!')) {
-          }
-        }}
-      >
-        Save Result
-      </Button>
-    </Pane>
-  );
-});
-
-type BlockDetailsParams = {
-  units: Array<{ id: string; name: string }>;
-  block: RegisteredBlock;
-};
 
 type ResultLineParams = {
   index: number;
@@ -203,7 +134,6 @@ const ResultLine = observer(({ index, localState, student, block }: ResultLinePa
                 </Select>
               </Pane>
 
-              {/* Enables date changing */}
               <TextInput
                 type="date"
                 style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
@@ -217,17 +147,6 @@ const ResultLine = observer(({ index, localState, student, block }: ResultLinePa
                 flex={2}
               />
 
-              {/* Disables date changing */}
-              {/* <TextInput
-                style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
-                value={result.date}
-                //width={90}
-                width="100%"
-                margin={0}
-                marginRight={-1}
-                disabled
-                flex={2}
-              /> */}
               <TextInput
                 style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
                 value={result.result}
@@ -355,86 +274,47 @@ const ResultLine = observer(({ index, localState, student, block }: ResultLinePa
   }
 });
 
-const BlockResult = observer(({ units, block }: BlockDetailsParams) => {
-  const { loading, error, data } = useBlockQuery({
+type MatchedJobParams = {
+  index: number;
+  localState: any;
+  student: StudentModel;
+  job: JobModel;
+};
+
+const MatchedJob = observer(({ index, localState, student, job }: MatchedJobParams) => {
+  const { loading, error, data: jobsData } = useJobsQuery();
+  const { loading: jobLoading, data: jobData } = useJobQuery({
     variables: {
-      blockId: block.blockId,
-      unitId: block.unitId
+      id: job.id
     }
   });
 
-  const localState = useLocalStore(() => ({
-    // result: parseInt(''),
-    // grade: '',
-    unitId: '',
-    blockId: '',
-    results: block.results,
-    isShown: false
-  }));
-
-  if (loading || error) {
-    return <ProgressView loading={loading} error={error} />;
+  if (loading || jobLoading || error) {
+    return <ProgressView loading={loading || jobLoading} error={error} />;
   }
-  const unitName = units.find(u => u.id === block.unitId)?.name;
 
-  // return (
-  //   <Pane display="flex" marginBottom={8}>
-  //     <TextInputField
-  //       label="Block Name"
-  //       value={
-  //         data.block ? data.block.name : `Block ${unitName} > ${block.blockId} does not exists`
-  //       }
-  //       id="blockName"
-  //       disabled={true}
-  //       width={300}
-  //       margin={0}
-  //       marginRight={8}
-  //     />
-  //     <TextInputField
-  //       label="Block Id"
-  //       value={block.blockId}
-  //       id="blockId"
-  //       disabled={true}
-  //       margin={0}
-  //       marginRight={8}
-  //     />
-  //     <TextInputField
-  //       label="Unit Id"
-  //       value={block.unitId}
-  //       id="unitId"
-  //       disabled={true}
-  //       margin={0}
-  //       marginRight={8}
-  //     />
-  //     <Select
-  //       value={block.results.grade}
-  //       onChange={e => (block.results.grade = e.currentTarget.value)}
-  //       marginTop={24}
-  //       marginLeft={8}
-  //       marginRight={8}
-  //       flex="0 0 140px"
-  //       label="Grade"
-  //     >
-  //       <option value="">No Grade</option>
-  //       <option value="f">F - Fail</option>
-  //       <option value="p">P - Pass</option>
-  //       <option value="c">C - Credit</option>
-  //       <option value="d">D - Distinction</option>
-  //       <option value="hd">HD - High Distinction</option>
-  //     </Select>
+  const acsSkills: AcsKnowledge[] = jobData.acs
+    .map(m => m.items)
+    .flat()
+    .sort((a, b) => a.name.localeCompare(b.name));
 
-  //     <TextInputField
-  //       label="Result"
-  //       value={block.results.result}
-  //       onChange={e => (block.results.result = e.currentTarget.value)}
-  //       id="result"
-  //       disabled={false}
-  //       margin={0}
-  //       marginRight={8}
-  //     />
-  //     <Pane display="flex" marginBottom={8}></Pane>
-  //   </Pane>
-  // );
+  return (
+    <Pane display="flex" key={index}>
+      <Heading>{job.name}</Heading>
+      <div id="myProgress" style={{ width: '100%', backgroundColor: 'grey' }}>
+        <div id="myBar" style={{ width: '20%', height: '30', backgroundColor: 'green' }}>
+          20%
+        </div>
+      </div>
+
+      {job.skills.map((skill, i) => {
+        //const sfia = sfiaSkills.find(s => s.id === skill.skillId);
+        const acs = acsSkills.find(s => s.id === skill.skillId);
+
+        return <TextField label={acs.name} />;
+      })}
+    </Pane>
+  );
 });
 
 const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: State }> = observer(
@@ -460,6 +340,8 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
         id: localState.unitId
       }
     });
+    const { loading: jobsLoading, data: jobsData } = useJobsQuery({});
+    const { loading: jobLoading, data: jobData } = useJobQuery({});
 
     // data.block ? data.block.name : `Block ${unitName} > ${block.blockId} does not exists
 
@@ -476,12 +358,13 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
       }
     });
 
-    // if (loading || error) {
-    //   return <ProgressView loading={loading} error={error} />;
-    // }
-
-    if (loading || unitLoading || unitsLoading || error) {
-      return <ProgressView loading={loading || unitLoading || unitsLoading} error={error} />;
+    if (loading || unitLoading || unitsLoading || jobsLoading || jobLoading || error) {
+      return (
+        <ProgressView
+          loading={loading || unitLoading || unitsLoading || jobsLoading || jobLoading}
+          error={error}
+        />
+      );
     }
 
     return (
@@ -534,18 +417,6 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
 
         <br></br>
         <Heading marginBottom={16}>Registered Block/Unit Results</Heading>
-
-        {/* {item.registeredUnits &&
-          item.registeredUnits.map((unit, i) => {
-            return unit && <UnitResult key={i} units={data.units} unit={item.registeredUnits[i]} />;
-          })}
-
-        {item.registeredBlocks &&
-          item.registeredBlocks.map((block, i) => {
-            return (
-              block && <BlockResult key={i} units={data.units} block={item.registeredBlocks[i]} />
-            );
-          })} */}
 
         <Pane display="flex">
           <Heading size={400} flex={1}>
@@ -603,6 +474,24 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
             Save
           </Button>
         </Pane>
+
+        <br></br>
+        <Heading marginBottom={16}>Matched Jobs</Heading>
+        <Pane>
+          <TextField label={unitsData.units[0].id} />
+          {/* <TextField label={jobsData.jobData[0]} /> */}
+
+          {jobsData.jobs.map((job, index) => (
+            <MatchedJob
+              job={job}
+              student={student}
+              index={index}
+              localState={localState}
+              key={index}
+            />
+          ))}
+        </Pane>
+
         <Dialog
           isShown={localState.isShownBlock}
           title="Add New Block"

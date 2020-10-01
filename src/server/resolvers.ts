@@ -108,7 +108,7 @@ export const resolvers: IResolvers = {
           if (fs.existsSync('./src/data/students/' + id + '.json')) {
             fs.copyFileSync(
               './src/data/students/' + id + '.json',
-              './src/data/students/' + id + '.json.bak'
+              './src/data/backup/' + id + '.json.bak'
             );
           }
           fs.writeFileSync('./src/data/students/' + id + '.json', JSON.stringify(body, null, 2), {
