@@ -43,7 +43,8 @@ import {
   useUnitsQuery,
   useUnitBaseQuery,
   useJobQuery,
-  useJobsQuery
+  useJobsQuery,
+  useUnitQuery
 } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 
@@ -299,9 +300,21 @@ const MatchedJob = observer(({ index, localState, student, job }: MatchedJobPara
     .flat()
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  for (let i = 0; i < student.registeredBlocks.length; i++) {
-    console.log(i);
+  var studentSkills = [];
+  var singleSkill;
+
+  // creates an empty array of objects containing skillId and skillLevel
+  // for given student
+  for (var i = 0; i < acsSkills.length; i++) {
+    singleSkill = {};
+
+    singleSkill['skillId'] = acsSkills[i].id;
+    singleSkill['skillLevel'] = 0;
+
+    studentSkills.push(singleSkill);
   }
+
+  console.log(studentSkills);
 
   return (
     <Pane display="flex" key={index}>
@@ -312,10 +325,6 @@ const MatchedJob = observer(({ index, localState, student, job }: MatchedJobPara
           20%
         </div>
       </div>
-
-      {student.registeredBlocks.map((block, i) => {
-        unitsData.units.find(u => u.id === block.unitId);
-      })}
 
       {data.job.skills.map((skill, i) => {
         const acs = acsSkills.find(s => s.id === skill.skillId);
