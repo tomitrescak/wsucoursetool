@@ -15,7 +15,7 @@ import {
   TextInput,
   Icon
 } from 'evergreen-ui';
-import { State, Student, Entity, AcsKnowledge, Unit } from '../types';
+import { State, Student, Entity, AcsKnowledge, Unit, Job } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
 import Link from 'next/link';
 
@@ -50,6 +50,7 @@ import { ProgressView } from 'components/common/progress_view';
 import { useStudentListQuery } from 'config/graphql';
 import { BlocksEditor } from 'components/blocks/block_editor';
 import build from 'next/dist/build';
+import { skills } from 'components/outcomes/outcome_editor';
 
 @model('Editor/Students')
 class StudentListModel extends Model({
@@ -275,43 +276,55 @@ const ResultLine = observer(({ index, localState, student, block }: ResultLinePa
 });
 
 type MatchedJobParams = {
+  job: JobModel;
   index: number;
   localState: any;
   student: StudentModel;
-  job: JobModel;
 };
 
 const MatchedJob = observer(({ index, localState, student, job }: MatchedJobParams) => {
-  const { loading, error, data: jobsData } = useJobsQuery();
-  const { loading: jobLoading, data: jobData } = useJobQuery({
+  const { loading: unitsLoading, data: unitsData } = useUnitsQuery();
+  const { loading, error, data } = useJobQuery({
     variables: {
       id: job.id
     }
   });
 
-  if (loading || jobLoading || error) {
-    return <ProgressView loading={loading || jobLoading} error={error} />;
+  if (loading || error) {
+    return <ProgressView loading={loading || unitsLoading} error={error} />;
   }
 
-  const acsSkills: AcsKnowledge[] = jobData.acs
+  const acsSkills: AcsKnowledge[] = data.acs
     .map(m => m.items)
     .flat()
     .sort((a, b) => a.name.localeCompare(b.name));
 
+  for (let i = 0; i < student.registeredBlocks.length; i++) {
+    console.log(i);
+  }
+
   return (
     <Pane display="flex" key={index}>
       <Heading>{job.name}</Heading>
-      <div id="myProgress" style={{ width: '100%', backgroundColor: 'grey' }}>
-        <div id="myBar" style={{ width: '20%', height: '30', backgroundColor: 'green' }}>
+
+      <div id="emptyBar" style={{ width: '100%', backgroundColor: 'grey' }}>
+        <div id="progressBar" style={{ width: '20%', height: '30', backgroundColor: 'green' }}>
           20%
         </div>
       </div>
 
-      {job.skills.map((skill, i) => {
-        //const sfia = sfiaSkills.find(s => s.id === skill.skillId);
-        const acs = acsSkills.find(s => s.id === skill.skillId);
+      {student.registeredBlocks.map((block, i) => {
+        unitsData.units.find(u => u.id === block.unitId);
+      })}
 
-        return <TextField label={acs.name} />;
+      {data.job.skills.map((skill, i) => {
+        const acs = acsSkills.find(s => s.id === skill.skillId);
+        return (
+          <Pane display="flex" key={index}>
+            <TextField label={acs.name} />
+            <TextField label={skill.bloomRating} />
+          </Pane>
+        );
       })}
     </Pane>
   );
@@ -478,17 +491,19 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
         <br></br>
         <Heading marginBottom={16}>Matched Jobs</Heading>
         <Pane>
-          <TextField label={unitsData.units[0].id} />
+          {/* <TextField label={unitsData.units[0].id} /> */}
           {/* <TextField label={jobsData.jobData[0]} /> */}
 
           {jobsData.jobs.map((job, index) => (
-            <MatchedJob
-              job={job}
-              student={student}
-              index={index}
-              localState={localState}
-              key={index}
-            />
+            <Pane>
+              <MatchedJob
+                job={job}
+                student={student}
+                index={index}
+                localState={localState}
+                key={index}
+              />
+            </Pane>
           ))}
         </Pane>
 
