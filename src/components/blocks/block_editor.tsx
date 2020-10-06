@@ -93,7 +93,7 @@ const BlockDetails: React.FC<{
       level: '',
       flagged: false,
       length: 0,
-      credit: 0,
+      credits: 0,
       sfiaSkills: []
     };
     if (unit) {

@@ -158,7 +158,7 @@ export type Block = {
   replacedByUnit?: string;
   replacedByBlock?: string;
   length: number;
-  credit: number;
+  credits: number;
   sfiaSkills: SfiaSkillMappingModel[];
 };
 

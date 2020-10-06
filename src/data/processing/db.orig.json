@@ -1,0 +1,553 @@
+{
+  "courses": [
+    {
+      "name": "BICT",
+      "id": "3639",
+      "core": [
+        "300580",
+        "100483",
+        "300585",
+        "300700",
+        "300565",
+        "300581",
+        "300104",
+        "300582",
+        "300095",
+        "300144",
+        "300583",
+        "300958",
+        "300570",
+        "300578",
+        "300698",
+        "300579"
+      ],
+      "majors": [
+        {
+          "id": "M3116",
+          "name": "Cyber Security",
+          "units": [
+            "300096",
+            "300103",
+            "301124",
+            "300128",
+            "300143",
+            "300698",
+            "300167",
+            "300095",
+            "300130",
+            "300958",
+            "300165",
+            "300166"
+          ]
+        },
+        {
+          "id": "M3068",
+          "name": "Entertaninment Computing",
+          "units": ["300093", "300565", "300104", "300491", "300580", "300578", "300585", "300862"]
+        },
+        {
+          "id": "M3095",
+          "name": "Networking",
+          "units": [
+            "300565",
+            "300095",
+            "300138",
+            "300143",
+            "300575",
+            "300166",
+            "300952",
+            "300569",
+            "301124"
+          ]
+        },
+        {
+          "id": "M3074",
+          "name": "Mobile Computing",
+          "units": ["300104", "300570", "300960", "300143", "300579", "300961", "300976", "300952"]
+        }
+      ]
+    }
+  ],
+  "units": [],
+  "topics": [
+    {
+      "id": "5",
+      "name": "Programming",
+      "description": ""
+    },
+    {
+      "id": "6",
+      "name": "System Analysis and Design",
+      "description": ""
+    },
+    {
+      "id": "7",
+      "name": "Mathematics",
+      "description": ""
+    },
+    {
+      "id": "8",
+      "name": "Network Administration",
+      "description": ""
+    },
+    {
+      "id": "9",
+      "name": "Database Management",
+      "description": ""
+    },
+    {
+      "id": "10",
+      "name": "Business Analysis",
+      "description": ""
+    },
+    {
+      "id": "11",
+      "name": "Computer Servicing",
+      "description": ""
+    },
+    {
+      "id": "12",
+      "name": "Cyber Security",
+      "description": ""
+    },
+    {
+      "id": "13",
+      "name": "Data Analysis",
+      "description": ""
+    },
+    {
+      "id": "14",
+      "name": "Data Science",
+      "description": ""
+    },
+    {
+      "id": "15",
+      "name": "Database Management",
+      "description": ""
+    },
+    {
+      "id": "16",
+      "name": "Database Analysis",
+      "description": ""
+    },
+    {
+      "id": "17",
+      "name": "Hardware Engineering",
+      "description": ""
+    },
+    {
+      "id": "18",
+      "name": "IT Consultancy",
+      "description": ""
+    },
+    {
+      "id": "19",
+      "name": "IT Management",
+      "description": ""
+    },
+    {
+      "id": "20",
+      "name": "Multimedia Development",
+      "description": ""
+    },
+    {
+      "id": "21",
+      "name": "Multimedia Production",
+      "description": ""
+    },
+    {
+      "id": "22",
+      "name": "Network Engineering",
+      "description": ""
+    },
+    {
+      "id": "23",
+      "name": "Software Engineering",
+      "description": ""
+    },
+    {
+      "id": "24",
+      "name": "System Administration",
+      "description": ""
+    },
+    {
+      "id": "25",
+      "name": "Systems Analysis",
+      "description": ""
+    },
+    {
+      "id": "26",
+      "name": "Systems Engineering",
+      "description": ""
+    },
+    {
+      "id": "27",
+      "name": "Communication",
+      "description": ""
+    }
+  ],
+  "blocks": [],
+  "specialisations": [
+    {
+      "id": "5",
+      "name": "Full Stack Developer",
+      "description": "",
+      "prerequisites": []
+    }
+  ],
+  "jobs": [
+    {
+      "id": "5",
+      "name": "Analyst Programmer",
+      "description": "Analyses user needs, produces requirements documentation and system plans, and encodes, tests, debugs, maintains\nand documents programs and applications.\n\n**Description of Employment Duties:**\n\n- researching, consulting, analysing and evaluating system program needs\n- identifying technology limitations and deficiencies in existing systems and associated processes, procedures\nand methods\n- testing, debugging, diagnosing and correcting errors and faults in an applications programming language\nwithin established testing protocols, guidelines and quality standards to ensure programs and applications\nperform to specification\n- writing and maintaining program code to meet system requirements, system designs and technical\nspecifications in accordance with quality accredited standards\n- writing, updating and maintaining technical program, end user documentation and operational procedures\n- providing advice, guidance and expertise in developing proposals and strategies for software design activities\nsuch as financial evaluation and costing for recommending software purchases and upgrades",
+      "skills": [
+        {
+          "bloomRating": 3,
+          "skillId": "c1"
+        },
+        {
+          "bloomRating": 5,
+          "skillId": "b1"
+        },
+        {
+          "bloomRating": 2,
+          "skillId": "a3"
+        },
+        {
+          "bloomRating": 2,
+          "skillId": "a0"
+        },
+        {
+          "bloomRating": 5,
+          "skillId": "c0"
+        },
+        {
+          "bloomRating": 2,
+          "skillId": "d1"
+        },
+        {
+          "bloomRating": 4,
+          "skillId": "b1"
+        },
+        {
+          "bloomRating": 5,
+          "skillId": "d0"
+        },
+        {
+          "bloomRating": 6,
+          "skillId": "d2"
+        },
+        {
+          "bloomRating": 3,
+          "skillId": "a2"
+        },
+        {
+          "bloomRating": 4,
+          "skillId": "a5"
+        }
+      ]
+    }
+  ],
+  "sfiaSkills": [
+    {
+      "id": "0",
+      "name": "Analytics",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "1",
+      "name": "Application Support",
+      "description": "",
+      "acsSkillId": "c0"
+    },
+    {
+      "id": "2",
+      "name": "IT Infrastructure (ITOP)",
+      "description": "",
+      "acsSkillId": "c0"
+    },
+    {
+      "id": "3",
+      "name": "Information Management (IRMG)",
+      "description": "",
+      "acsSkillId": "c1"
+    },
+    {
+      "id": "4",
+      "name": "Data Management (DATM)",
+      "description": "",
+      "acsSkillId": "c1"
+    },
+    {
+      "id": "5",
+      "name": "Network Support (NTAS)",
+      "description": "",
+      "acsSkillId": "c2"
+    },
+    {
+      "id": "6",
+      "name": "User Experience Design (HCEV)",
+      "description": "",
+      "acsSkillId": "d1"
+    },
+    {
+      "id": "7",
+      "name": "Programming/ Software Development (PROG)",
+      "description": "",
+      "acsSkillId": "d0"
+    },
+    {
+      "id": "8",
+      "name": "Systems Software",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "9",
+      "name": "IT Governance",
+      "description": "",
+      "acsSkillId": "e0"
+    },
+    {
+      "id": "10",
+      "name": "Project Management (PRMG)",
+      "description": "",
+      "acsSkillId": "e2"
+    },
+    {
+      "id": "11",
+      "name": "IT Management (ITMG)",
+      "description": "",
+      "acsSkillId": "e2"
+    },
+    {
+      "id": "12",
+      "name": "Information Security (SCTY)",
+      "description": "",
+      "acsSkillId": "e3"
+    },
+    {
+      "id": "13",
+      "name": "Benefits Management",
+      "description": "",
+      "acsSkillId": "e1"
+    },
+    {
+      "id": "14",
+      "name": "Hardware Design",
+      "description": "",
+      "acsSkillId": "c0"
+    },
+    {
+      "id": "15",
+      "name": "Network Design",
+      "description": "",
+      "acsSkillId": "c2"
+    },
+    {
+      "id": "16",
+      "name": "Requirement definition and Management",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "17",
+      "name": "Software Design",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "18",
+      "name": "Solution Architecture",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "19",
+      "name": "Systems Design",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "20",
+      "name": "Solution Architecture",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "21",
+      "name": "Data Modelling and Design",
+      "description": "",
+      "acsSkillId": "c1"
+    },
+    {
+      "id": "22",
+      "name": "Problem Management",
+      "description": "",
+      "acsSkillId": "e1"
+    },
+    {
+      "id": "23",
+      "name": "Systems Integration and Build",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "24",
+      "name": "Testing",
+      "description": "",
+      "acsSkillId": "d0"
+    },
+    {
+      "id": "25",
+      "name": "Business Modelling",
+      "description": "",
+      "acsSkillId": ""
+    },
+    {
+      "id": "26",
+      "name": "Network Support",
+      "description": "",
+      "acsSkillId": "c2"
+    },
+    {
+      "id": "27",
+      "name": "Specialist Advice",
+      "description": "",
+      "acsSkillId": "d1"
+    }
+  ],
+  "acsKnowledge": [
+    {
+      "id": "0",
+      "name": "ICT Professional Knowledge",
+      "description": "",
+      "items": [
+        {
+          "id": "a0",
+          "name": "Ethics",
+          "description": "- Fundamental ethical notions (virtues, duty,\nresponsibility, harm, benefit, rights, respect\nand consequences);\n- Basic ethics theories;\n- Integrity systems (including, the ACS Code\nof Professional Conduct ethics committees\nand whistle blowing);\n- Methods of ethical analysis;\n- Methods of ethical reflection\n- Methods and procedures of ethical repair\nand recovery;\n- ICT specific ethical issues (professional –\ne.g. compromising quality and conflict of\ninterest, and societal – e.g. phishing and\nprivacy)."
+        },
+        {
+          "id": "a1",
+          "name": "Professional Expectations",
+          "description": "Topics covered should include: expertise, certification, competence, autonomy, excellence, reflection, responsibility and accountability"
+        },
+        {
+          "id": "a2",
+          "name": "Teamwork Concepts & Issues",
+          "description": "Topics covered should include: collaboration,\ngroup dynamics, leadership styles, conflict\nresolution, team development and groupware"
+        },
+        {
+          "id": "a3",
+          "name": "Communication",
+          "description": "Topics covered should include: oral and\nwritten presentations, technical report\nwriting, writing user documentation and the\ndevelopment of effective interpersonal skills."
+        },
+        {
+          "id": "a4",
+          "name": "Societal Issues",
+          "description": "Topics covered should include: history of\ncomputing and the ICT discipline, privacy\nand civil liberties, cybercrime, intellectual\nproperty and legal issues."
+        },
+        {
+          "id": "a5",
+          "name": "Understand of ICT Profession",
+          "description": "Professionals should have some knowledge\nof where and when their discipline began\nand how it has evolved, in addition to\nunderstanding of ongoing issues in the\ndiscipline."
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "ICT Problem Solving",
+      "description": "",
+      "items": [
+        {
+          "id": "b0",
+          "name": "Problem Solving Abstraction",
+          "description": "This requires knowledge of how to use\nmodelling methods and processes to\nunderstand problems, handle abstraction and\ndesign solutions.\n\nThe methods and tools that are used for\nhandling abstraction could vary a great deal\nwith the branch of ICT, from circuit diagrams\nto data modelling tools to business process\nmodelling.\n\nIt is important to recognise this area\nbecause it captures some of the creativity\nand innovation that is required of ICT\nprofessionals, and the excitement that is\npresent in their jobs. Recognising this component also assists in identifying what is unique about ICT and what differentiates it\nfrom other disciplines. In no other discipline\nis there such an emphasis on developing\nartefacts (e.g., computer and information\nsystems) which are so abstract and complex\nand where modelling tools and methods are\nessential. The systems that ICT professionals\ndeal with cannot be seen or handled in the\nsame simple and direct manner as products\nof other applied disciplines (e.g., buildings,\nbridges, chairs, drugs). Consequently, highly\ndeveloped problem solving skills and the\nneed for methods to handle abstraction and\nmodelling are absolutely vital."
+        },
+        {
+          "id": "b1",
+          "name": "Problem Solving Design",
+          "description": "This requires knowledge of how to use\nmodelling methods and processes to\nunderstand problems, handle abstraction and\ndesign solutions.\n\nThe methods and tools that are used for\nhandling abstraction could vary a great deal\nwith the branch of ICT, from circuit diagrams\nto data modelling tools to business process\nmodelling.\n\nIt is important to recognise this area\nbecause it captures some of the creativity\nand innovation that is required of ICT\nprofessionals, and the excitement that is\npresent in their jobs. Recognising this component also assists in identifying what is unique about ICT and what differentiates it\nfrom other disciplines. In no other discipline\nis there such an emphasis on developing\nartefacts (e.g., computer and information\nsystems) which are so abstract and complex\nand where modelling tools and methods are\nessential. The systems that ICT professionals\ndeal with cannot be seen or handled in the\nsame simple and direct manner as products\nof other applied disciplines (e.g., buildings,\nbridges, chairs, drugs). Consequently, highly\ndeveloped problem solving skills and the\nneed for methods to handle abstraction and\nmodelling are absolutely vital."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Technology Resources ",
+      "description": "",
+      "items": [
+        {
+          "id": "c0",
+          "name": "Hardware and Software Fundamentals",
+          "description": "An understanding of the basic components of\ncomputer systems is required, including:\n- Computer architecture and organisation - including processors, memory, storage\nsystems and input/output devices;\n- Systems software – Operating systems and\napplication system software."
+        },
+        {
+          "id": "c1",
+          "name": "Data & Information Management",
+          "description": "An understanding is required of how data\nis captured, represented, organised and\nretrieved from files and databases. Topics\ninclude:\n\n- Data modelling and abstraction\n- Database Management Systems (DBMS)\n- Information assurance and security in a\nshared environment\n- Acquisition, custodianship and eventual\ndisposition of information\n- Nature of data, information and knowledge\ntransformation through technologies."
+        },
+        {
+          "id": "c2",
+          "name": "Networking",
+          "description": "This area requires an understanding of\ndata communications and networking\nfundamentals. Topics include:\n\n- Network concepts, protocols and standards\n- Network security\n- Wireless and mobile computing\n- Distributed systems."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Technology Building",
+      "description": "",
+      "items": [
+        {
+          "id": "d0",
+          "name": "Programming",
+          "description": "This involves an understanding of the\nfundamental concepts of a programming\nlanguage. It is expected that the requisite\nknowledge of programming fundamentals\nwould be best developed by engaging\nstudents in software developments tasks\n(programming). However, the range of\nprogramming languages and tools that could\nbe used to develop this knowledge is wide\nand will vary with the expected ICT job role of\nthe graduate."
+        },
+        {
+          "id": "d1",
+          "name": "Human Factors",
+          "description": "This area requires an understanding of the\nimportance of the user in developing ICT\napplications and systems, and involves\ndeveloping a mindset that recognises the\nimportance of users, their work practices and\norganisational contexts."
+        },
+        {
+          "id": "d2",
+          "name": "Systems Development",
+          "description": "An understanding is required of how to\ndevelop or acquire software (information)\nsystems that satisfy the requirements of\nusers and customers. All phases of the\nlifecycle of an information system should\nbe understood including: requirement\nanalysis (systems analysis) and specification,\ndesign, construction, testing, and operation\nand maintenance. There should also be\nknowledge of methodologies and processes\nfor developing systems."
+        },
+        {
+          "id": "d3",
+          "name": "Systems Acquisition",
+          "description": "An understanding is required of how to\ndevelop or acquire software (information)\nsystems that satisfy the requirements of\nusers and customers. All phases of the\nlifecycle of an information system should\nbe understood including: requirement\nanalysis (systems analysis) and specification,\ndesign, construction, testing, and operation\nand maintenance. There should also be\nknowledge of methodologies and processes\nfor developing systems."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "ICT Management",
+      "description": "",
+      "items": [
+        {
+          "id": "e0",
+          "name": "IT Governance & Organisational Issues",
+          "description": "Topics covered should include:\n\n- Fundamental governance principles (e.g.\nstructures to encourage moral behaviour\nwithin organisations and corporations,\nand moral behaviour by organisations and\ncorporations);\n- Organisational context, including business\nprocesses, organisational culture, change\nand risk management."
+        },
+        {
+          "id": "e1",
+          "name": "IT Project Management",
+          "description": "This area involves an understanding\nof the factors required to successfully\nmanage systems development projects.\nTopics include: team management,\nestimation techniques, cost/benefit\nanalysis, risk analysis, risk management,\nproject scheduling, quality assurance,\nsoftware configuration management,\nproject management tools, reporting and\npresentation techniques."
+        },
+        {
+          "id": "e2",
+          "name": "Service Management",
+          "description": "Service management deals with the ongoing\noperation of ICT in an organisational context\nand includes frameworks for structuring\nthe interactions of ICT technical personnel\nwith business customers and users. Many\nframeworks exist to guide ICT service\nmanagement, for example, the Information\nTechnology Infrastructure Library (ITIL)\nand Control Objectives for Information and\nRelated Technology (COBIT)."
+        },
+        {
+          "id": "e3",
+          "name": "Security Management",
+          "description": "Topics covered should include:\n\n- Computer system security: CPU,\nPeripherals, OS. This includes data security.\n- Physical security: The premises occupied\nby the ICT personnel and equipment.\n- Operational security: Environment control,\npower equipment, operation activities.\n- Procedural security: By IT, vendor,\nmanagement personnel, as well as\nordinary users.\n- Communications security:\nCommunications equipment, personnel,\ntransmission paths, and adjacent areas."
+        }
+      ]
+    }
+  ]
+}

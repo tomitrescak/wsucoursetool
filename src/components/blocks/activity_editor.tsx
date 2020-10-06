@@ -180,7 +180,7 @@ export const ActivityDetail: React.FC<{
                 topics: [],
                 level: undefined,
                 flagged: false,
-                credit: 0,
+                credits: 0,
                 length: 0,
                 sfiaSkills: [],
                 replacedByBlock: null,

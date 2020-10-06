@@ -35,3 +35,6 @@ src/data/units/
 src/data/outcomes/
 src/data/db.backup1.json
 src/data/db.backup2.json
+edges.csv
+sorted.csv
+units.csv

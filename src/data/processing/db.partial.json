@@ -1,0 +1,5141 @@
+{
+  "courses": [
+    {
+      "name": "BICT",
+      "id": "3639",
+      "core": [
+        "300580",
+        "100483",
+        "300585",
+        "300700",
+        "300565",
+        "300581",
+        "300104",
+        "300582",
+        "300095",
+        "300144",
+        "300583",
+        "300958",
+        "300570",
+        "300578",
+        "300698",
+        "300579"
+      ],
+      "majors": [
+        {
+          "id": "M3116",
+          "name": "Cyber Security",
+          "units": [
+            "300096",
+            "300103",
+            "301124",
+            "300128",
+            "300143",
+            "300698",
+            "300167",
+            "300095",
+            "300130",
+            "300958",
+            "300165",
+            "300166"
+          ]
+        },
+        {
+          "id": "M3068",
+          "name": "Entertaninment Computing",
+          "units": ["300093", "300565", "300104", "300491", "300580", "300578", "300585", "300862"]
+        },
+        {
+          "id": "M3095",
+          "name": "Networking",
+          "units": [
+            "300565",
+            "300095",
+            "300138",
+            "300143",
+            "300575",
+            "300166",
+            "300952",
+            "300569",
+            "301124"
+          ]
+        },
+        {
+          "id": "M3074",
+          "name": "Mobile Computing",
+          "units": ["300104", "300570", "300960", "300143", "300579", "300961", "300976", "300952"]
+        }
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "300580",
+      "name": "Programming Fundamentals",
+      "delivery": "2",
+      "blocks": ["0", "1", "2", "3", "4", "7", "8", "9", "10", "11"],
+      "keywords": ["Programming"],
+      "topics": ["5"],
+      "completionCriteria": {
+        "minimumValue": 50,
+        "allOf": [],
+        "type": "allOf",
+        "criteria": [
+          {
+            "type": "allOf",
+            "criteria": [
+              {
+                "id": "0"
+              },
+              {
+                "id": "1"
+              },
+              {
+                "id": "2"
+              },
+              {
+                "id": "3"
+              },
+              {
+                "id": "7"
+              },
+              {
+                "id": "8"
+              },
+              {
+                "id": "9"
+              }
+            ],
+            "weight": 20
+          },
+          {
+            "weight": 30,
+            "id": "10"
+          },
+          {
+            "weight": 50,
+            "id": "11"
+          }
+        ]
+      },
+      "outcome": "As a first unit in computer programming, Programming Fundamentals teaches the basics of developing software\nwith an emphasis on procedural programming. You will learn about basic data structures, concept of algorithms,\nfundamental programming constructs, common programming language features and functions, program design and\ngood programming style. A high level programming language is combined with a highly visual framework to teach\nproblem solving using software. \n\nThe art of programming is complex. It requires the exercise of several different skills.\nIt is at the same time analytical and synthetic. It demands both precision and imagination. The written form of a\nprogram must be suitable for consumption by both computers and humans. Program writing is similar in some ways\nto the composition of music commissioned for a specific purpose and just as a sheet of music is effectively a set of\ncommands to a musician, so too a program is a set of instructions to a computer. Programming is a special kind of\nreasoning. To become a programmer requires significant amount of practice in designing and in analysing programs.\nSo although programming goes on in your head and is mostly thinking, learning to program means spending a lot\nof time practicing to gain fluency and experience. When learning your first programming language, it is easy to get\nthe impression that the hardest part of solving a problem on a computer is translating your ideas into the specific\nlanguage that will be fed into the computer. This is definitely not the case. The most diffcult part of solving a\nproblem on a computer is coming up with the method of solution. After you have developed a method of solution,\nit is routine to translate your method into the required language; be it Java or any other programming language.\nWhen solving a problem with a computer, it is therefore helpful to temporarily ignore the language and to concentrate\ninstead on formulating the steps of the solution and write them down in plain English, as if the instructions were\nto be given to a human being. \n\nA set of instructions expressed in this way is frequently referred to as an algorithm.\nReading a book or listening to lectures is not enough to make you a programmer. In order to learn programming you\nmust practice. Reading textbooks should make the ideas plausible to you. That is the first stage of your learning,\nand the one, which requires the least effort. The second stage of understanding is to be able to follow other peoples’\nreasoning. Programming must be creative, but nobody can teach you creativity. You can learn it but only if you\nwork at it consistently. Practice and more practice is what you will need.\n\nOne of the diffculties you may face -\nand overcome - arises from the need for precision and the need for simplicity when writing programs. The need for\nprecision makes some programs large, but even the largest program must be kept simple enough to understand. The\nmost effective way to keep a program simple is to make it out of a small number of pieces, joined together to form\none of the standard programming structures. Understanding a program that is constructed in this way is a matter of\nunderstanding its various components separately and then understanding the way they fit together. No pre-requites\nare required for this unit.\n\nOutcomes:\n\n1. With a chosen programming language in mind , analyse a given problem and from a simple problem\ndescription, identify desired inputs, outputs, and the necessary processing operations to convert input into\noutput\n2. Develop an algorithm that applies structured programming techniques that solve the given problem\n3. Choose suitable data types to store relevant data for the given problem\n4. Design and code programs which use standard programming concepts: variables, sequence, loops, decision\nmaking constructs, mathematical and boolean operators, as well as functions\n5. Apply top-down modular design",
+      "dynamic": false
+    },
+    {
+      "id": "100483",
+      "name": "Principles of Professional Communication",
+      "delivery": "1",
+      "blocks": [
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110"
+      ],
+      "keywords": [],
+      "topics": [],
+      "completionCriteria": {},
+      "outcome": "The unit provides students with an introductory understanding of a range of communication theories and practices\nnecessary for academic work and professional success.\n\nAt the successful completion of this unit, students will be able to:\n\n1. An understanding of the wide range of variables which constitute human communication\n2. Knowledge of the range of factors which affect both oral and written communication within professional contexts\n3. An understanding of argumentation, reasoning and persuasion as factors in written and oral communication\n4. Appreciation of communication across cultures\n5. A range of critical perspectives about issues relating to electronic communication from a written, interpersonal and organisational perspective\n6. Skills to write effectively using a variety of formats especially essays, reports and technical documents\n7. Skills of oral presentations\n8. Research skills including use of library catalogues, databases and the Internet\n9. Communication skills through participation in workshops and the importance of consideration of a variety of\npersonal views, perspectives and styles"
+    },
+    {
+      "id": "300095",
+      "name": "Computer Networks and Internets",
+      "delivery": "1",
+      "completionCriteria": {},
+      "blocks": [],
+      "keywords": [],
+      "topics": ["8"],
+      "assumedKnowledge": "Fundamentals of data communications and computer networking, such as that covered in the prerequisite unit."
+    },
+    {
+      "id": "300585",
+      "name": "Systems Analysis and Design",
+      "delivery": "1",
+      "completionCriteria": {
+        "type": "allOf",
+        "criteria": [
+          {
+            "weight": 30,
+            "id": "practicalAssignments"
+          },
+          {
+            "weight": 20,
+            "id": "92"
+          },
+          {
+            "weight": 50,
+            "id": "91"
+          }
+        ]
+      },
+      "outcome": "This unit introduces the concepts of System Analysis and Design. The study of methodologies and techniques for problem recognition, requirement analysis, process modelling and/or data modelling are essential elements of this unit. The Systems Development Life Cycle model is employed as the prime approach to teach the unit, providing students with the basic skills required for analysis and design of logical solutions to information systems problems. The use of Computer Aided System Engineering tools will be discussed in practical sessions.\n\n1. Recognise the key role of a systems analyst and describe the generic roles and responsibilities of users, developers and managers within the context of business information systems\n2. Recall the fundamental building blocks and architecture of information systems\n3. Describe and apply the various phases of the System Development Life Cycle, including related documentation and appropriate project management approaches\n4. Analyse user and system requirements for the purposes of producing abstract models based on real business problems\n5. Explain the use and application of Computer Aided Software Engineering (CASE) Tools in the creation of systems development artefacts\n6. Explain the issues around information systems governance, consumer and information security and professional ethics in regards to their impact on information systems design and operation",
+      "outcomes": [],
+      "blocks": [
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "92",
+        "91"
+      ],
+      "keywords": ["System Analysis and Design"],
+      "topics": ["6"]
+    },
+    {
+      "id": "900001",
+      "name": "Programming",
+      "topics": [],
+      "keywords": [],
+      "blockTopics": ["5"],
+      "dynamic": true,
+      "delivery": "1",
+      "completionCriteria": {},
+      "outcome": "",
+      "outcomes": [],
+      "blocks": []
+    },
+    {
+      "id": "200025",
+      "name": "Discrete Mathematics",
+      "topics": ["7"],
+      "keywords": ["Mathematics"],
+      "blockTopics": [],
+      "dynamic": false,
+      "delivery": "1",
+      "completionCriteria": {},
+      "outcome": "This unit introduces set theory, symbolic logic, graph theory and some counting problems. It provides a solid\nfoundation for further study in mathematics or computing.\n\n1. Decide the truth of logical statements involving connectives, and simplify logical expressions using the laws\nof logic and truth tables\n2. Give simple proofs by induction and contradiction\n3. Define and recognise primes, factorise small integers, use the Euclidean algorithm, and do calculations with\nmodular arithmetic\n4. Perform simple operations on sets, find Cartesian products of sets, and use Venn diagrams to illustrate\nrelationships between sets\n5. Solve basic problems in counting and probability\n6. Recognize a function, decide whether a given function is one-to-one or onto, and perform elementary\nmanipulations with functions\n7. Describe simple and directed graphs, use concepts such as ”path”, and find minimal spanning trees",
+      "outcomes": [],
+      "blocks": ["12", "13", "14", "15", "16", "19", "17", "18", "20", "21", "22", "23", "24"],
+      "assumedKnowledge": "HSC Mathematics or equivalent"
+    },
+    {
+      "id": "200001",
+      "name": "Fundamentals of Mathematics",
+      "topics": ["7"],
+      "keywords": [],
+      "blockTopics": [],
+      "dynamic": false,
+      "delivery": "1",
+      "completionCriteria": {},
+      "outcome": "",
+      "outcomes": [],
+      "blocks": ["25", "26", "27", "28", "29", "30", "31", "32"]
+    },
+    {
+      "id": "200027",
+      "name": "Linear Algebra",
+      "topics": ["7"],
+      "keywords": [],
+      "blockTopics": [],
+      "dynamic": false,
+      "delivery": "1",
+      "completionCriteria": {
+        "type": "allOf",
+        "criteria": [
+          {
+            "weight": 6,
+            "id": "practicalAssignments"
+          }
+        ]
+      },
+      "outcome": "The objective of this unit is to present the main fundamentals of linear algebra and includes such topics as solving systems of linear equations, matrix algebra, determinants, eigenvalues and eigenvectors, Euclidean vector spaces, general vector spaces, inner product spaces and linear transformations.\n\n1. Implement Gaussian elimination to solve systems of linear equations.\n2. Use and apply vector operations such as the dot product, and concepts such as orthogonality, span, and\nlinear dependence of vectors.\n3. Use matrix operations, including matrix multiplication, matrix inversion and LU factorisation.\n4. Use and apply concepts related to vector spaces, subspaces and the connection between dimension, linear\nindependence, spanning sets, and basis.\n5. Use and apply concepts related to basic linear transformations of the plane, general linear transformations,\nand the basic notion of kernel.\n6. Evaluate determinants using a range of techniques.\n7. Be able to compute the eigenvalues and eigenvectors of a linear transformation.\n8. Use the concept of orthogonality and orthogonal matrices, including orthogonal projections and the\nGram-Schmidt process",
+      "outcomes": [],
+      "blocks": [
+        "33",
+        "34",
+        "35",
+        "36",
+        "39",
+        "37",
+        "38",
+        "40",
+        "41",
+        "42",
+        "47",
+        "43",
+        "44",
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "300565",
+      "name": "Computer Networking",
+      "topics": ["8"],
+      "keywords": ["Networking"],
+      "blockTopics": [],
+      "dynamic": false,
+      "delivery": "1",
+      "completionCriteria": {
+        "type": "allOf",
+        "criteria": [
+          {
+            "weight": 10,
+            "type": "",
+            "criteria": [],
+            "id": "practicalAssignments"
+          },
+          {
+            "weight": 20,
+            "id": "60"
+          },
+          {
+            "weight": 20,
+            "id": "61"
+          },
+          {
+            "weight": 50,
+            "id": "62"
+          }
+        ],
+        "minimumValue": 50,
+        "credit": 10
+      },
+      "outcome": "Computer Networking is an introductory unit in computer systems networking. It covers basic networking technologies, Ethernet fundamentals, ISO OSI model, routing, switching and subnetting, the Internet architecture, networking protocols including TCP/IP, important OSI layer 2 and 3 networking device fundamentals, basic network management and security issues. This unit is also the first of three units, which will prepare students for industry based networking certification (CCNA).\n\n1. Examine the fundamental concepts and protocols for computer networking and internetworking\n2. Investigate and analyse the Internet architecture\n3. Analyse the significance of the OSI and TCP/IP models, protocol stacks and their operation in computer networks\n4. Evaluate modern technologies in computer networking\n5. Investigate the functions of important OSI layer 2 and OSI layer 3 networking devices\n6. Assess the management practices and security requirements of computer networks\n7. Construct, test and troubleshoot a small LAN\n8. Subnet a small business network given design criteria",
+      "outcomes": [],
+      "blocks": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62"
+      ],
+      "assumedKnowledge": "Fundamentals of computer architecture, binary and hexadecimal numbering systems, and\nprogramming principles. Students should also have a working knowledge of the World Wide\nWeb."
+    },
+    {
+      "id": "300104",
+      "name": "Database Design and Development",
+      "topics": [],
+      "keywords": [],
+      "blockTopics": [],
+      "dynamic": false,
+      "delivery": "1",
+      "completionCriteria": {
+        "type": "allOf",
+        "criteria": [
+          {
+            "weight": 15,
+            "id": "76"
+          },
+          {
+            "weight": 15,
+            "id": "77"
+          },
+          {
+            "weight": 20,
+            "id": "practicalAssignments"
+          },
+          {
+            "weight": 50,
+            "id": "78"
+          }
+        ],
+        "minimumValue": 50
+      },
+      "assumedKnowledge": "Basic programming skills, including variable declaration, variable assignment, selection statement and loop structure.",
+      "outcome": "The main purpose of this unit is to provide students with an opportunity to gain a basic knowledge of database design and development including data modeling methods, techniques for database design using a set of business rules that are derived from a case study and finally implementation of the database using a commercial relational database management system. The unit also examines a number of important database concepts such as database administration, concurrency, backup and recovery and security. At the same time student learning and intercommunication skills are enhanced by running tutorial presentations and group  assignments.\n\n1. Describe components of a database system, advantages and disadvantages of a database system, roles\npeoples play and the historical development of a database system in the context of a Relational Database\nManagement System (RDBMS)\n2. Apply basic skills in database modeling, including ER diagrams and normalization in RDBMS\n3. Explain the basic concepts of relational algebra and apply them in queries\n4. Describe the general concepts of transaction management\n5. Identify concepts in database administration\n6. Describe concepts in database security and backup\n7. Define and manipulate data using structured query language (SQL)\n8. Design and develop a database for a business application using a commercial database management system",
+      "outcomes": [],
+      "blocks": [
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78"
+      ]
+    },
+    {
+      "id": "300700",
+      "name": "Statistical Decision Making",
+      "topics": ["7", "13", "14"],
+      "keywords": [],
+      "blockTopics": [],
+      "dynamic": false,
+      "delivery": "1",
+      "completionCriteria": {
+        "type": "allOf",
+        "criteria": [
+          {
+            "weight": 11,
+            "id": "122"
+          },
+          {
+            "weight": 24,
+            "id": "practicalAssignments"
+          },
+          {
+            "weight": 15,
+            "id": "123"
+          },
+          {
+            "weight": 50,
+            "id": "124"
+          }
+        ]
+      },
+      "assumedKnowledge": "",
+      "outcome": "Statistical Decision Making introduces students to various statistical techniques supporting the study of computing and science. Presentation of the content will emphasize the correct principles and procedures for collecting and analysing scientific data, using information and communication technologies. Topics include describing different sets of data, probability distributions, statistical inference, and simple linear regression and correlation.\n\n1. Analyse data using traditional methods or modern resampling methods\n2. Use technology to assist in performing statistical analysis\n3. Recognise the limitations of data collection methods and demonstrate awareness of the influence of these limitations on inference\n4. Choose the correct statistical method for analysis and correctly interpret the results",
+      "outcomes": [],
+      "blocks": [
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123",
+        "124"
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "id": "5",
+      "name": "Programming",
+      "description": ""
+    },
+    {
+      "id": "6",
+      "name": "System Analysis and Design",
+      "description": ""
+    },
+    {
+      "id": "7",
+      "name": "Mathematics",
+      "description": ""
+    },
+    {
+      "id": "8",
+      "name": "Network Administration",
+      "description": ""
+    },
+    {
+      "id": "9",
+      "name": "Database Management",
+      "description": ""
+    },
+    {
+      "id": "10",
+      "name": "Business Analysis",
+      "description": ""
+    },
+    {
+      "id": "11",
+      "name": "Computer Servicing",
+      "description": ""
+    },
+    {
+      "id": "12",
+      "name": "Cyber Security",
+      "description": ""
+    },
+    {
+      "id": "13",
+      "name": "Data Analysis",
+      "description": ""
+    },
+    {
+      "id": "14",
+      "name": "Data Science",
+      "description": ""
+    },
+    {
+      "id": "15",
+      "name": "Database Management",
+      "description": ""
+    },
+    {
+      "id": "16",
+      "name": "Database Analysis",
+      "description": ""
+    },
+    {
+      "id": "17",
+      "name": "Hardware Engineering",
+      "description": ""
+    },
+    {
+      "id": "18",
+      "name": "IT Consultancy",
+      "description": ""
+    },
+    {
+      "id": "19",
+      "name": "IT Management",
+      "description": ""
+    },
+    {
+      "id": "20",
+      "name": "Multimedia Development",
+      "description": ""
+    },
+    {
+      "id": "21",
+      "name": "Multimedia Production",
+      "description": ""
+    },
+    {
+      "id": "22",
+      "name": "Network Engineering",
+      "description": ""
+    },
+    {
+      "id": "23",
+      "name": "Software Engineering",
+      "description": ""
+    },
+    {
+      "id": "24",
+      "name": "System Administration",
+      "description": ""
+    },
+    {
+      "id": "25",
+      "name": "Systems Analysis",
+      "description": ""
+    },
+    {
+      "id": "26",
+      "name": "Systems Engineering",
+      "description": ""
+    },
+    {
+      "id": "27",
+      "name": "Communication",
+      "description": ""
+    }
+  ],
+  "blocks": [
+    {
+      "id": "0",
+      "activities": [
+        {
+          "id": "0",
+          "name": "Introduction to the discipline. Developing your first program.",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "1",
+          "name": "Basic constructs and conditional statements",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "5",
+          "name": "Practical - Basic constructs and conditional statements",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "3",
+          "name": "Portfolio",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "completionCriteria": {},
+      "name": "Introduction to Programming",
+      "keywords": [null],
+      "topics": []
+    },
+    {
+      "id": "1",
+      "prerequisites": [
+        {
+          "id": "0",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "activities": [
+        {
+          "id": "2",
+          "name": "Lecture",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "5",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "4",
+          "name": "Portfolio",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "completionCriteria": {},
+      "name": "Loops and typical programming errors "
+    },
+    {
+      "id": "2",
+      "prerequisites": [
+        {
+          "id": "1",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "activities": [
+        {
+          "id": "5",
+          "name": "Lecture",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "5",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "6",
+          "name": "Portfolio",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "completionCriteria": {},
+      "name": "Good coding style, comments, problem decomposition "
+    },
+    {
+      "id": "3",
+      "prerequisites": [
+        {
+          "id": "2",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "activities": [
+        {
+          "id": "7",
+          "name": "Lecture - Variables and data types",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "5",
+          "name": "Practical - Variables and data types",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "8",
+          "name": "Lecture - Arithmetic operations, expressions",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "12",
+          "name": "Practical - Arithmetic operations, expressions",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "9",
+          "name": "Portfolio",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "completionCriteria": {},
+      "name": "Variables, Expressions and Operations"
+    },
+    {
+      "id": "4",
+      "prerequisites": [
+        {
+          "id": "0",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "1",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "2",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "3",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "activities": [
+        {
+          "id": "10",
+          "name": "Test",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "completionCriteria": {
+        "minimumValue": "50",
+        "credit": 2
+      },
+      "name": "Mid Unit Test"
+    },
+    {
+      "id": "7",
+      "name": "Boolean expressions, nested loops, conditional statements, if-else-if, switch-case",
+      "prerequisites": [
+        {
+          "id": "3",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "9",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "9",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "9",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "8",
+      "name": "Debugging, Random Numbers, Keyboard Input, Methods",
+      "prerequisites": [
+        {
+          "id": "7",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "9",
+          "name": "Lecture - Debugging, Random Numbers, Keyboard Input",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "9",
+          "name": "Practical - Debugging, Random Numbers, Keyboard Input",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "9",
+          "name": "Lecture - Methods",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "12",
+          "name": "Practical - Methods",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "9",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "9",
+      "name": "Objects, Classes and Arrays",
+      "prerequisites": [
+        {
+          "id": "8",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "10",
+          "name": "Lecture - Objects and Classes",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "10",
+          "name": "Practical - Objects and Classes",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "10",
+          "name": "Lecture - Arrays",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "12",
+          "name": "Practical - Arrays",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "10",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "10",
+      "name": "Hardware, Files + Major Assignment",
+      "prerequisites": [
+        {
+          "id": "9",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "11",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "11",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "11",
+          "name": "Major Assignment",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "11",
+      "name": "Exam",
+      "prerequisites": [
+        {
+          "id": "10",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": "8",
+        "id": "12",
+        "minimumValue": 50
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "12",
+          "name": "Exam",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "12",
+      "name": "Introduction, Catalan numbers, sets",
+      "prerequisites": [
+        {
+          "type": "or",
+          "prerequisites": [
+            {
+              "prerequisites": [
+                {
+                  "id": "12",
+                  "type": "block",
+                  "recommended": false
+                }
+              ],
+              "type": "container"
+            },
+            {
+              "prerequisites": [],
+              "type": "container"
+            }
+          ]
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "13",
+          "name": "Lecture - Introduction, Catalan numbers, sets",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "13",
+          "name": "Lecture - More on sets",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "13",
+          "name": "Practical  - More on sets",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "13",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "13",
+      "name": "Functions",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "14",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "14",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "14",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "14",
+      "name": "Counting principles, ordered selections",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "15",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "15",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "15",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "15",
+      "name": "Unordered selections",
+      "prerequisites": [
+        {
+          "id": "14",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "16",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "16",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "16",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "16",
+      "name": "Inclusion-exclusion principle, multinomial coeffcients",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "17",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "17",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "17",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "17",
+      "name": "Boolean expressions, Karnaugh maps",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "18",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "18",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "18",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "18",
+      "name": "Logic",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "19",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "19",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "19",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "19",
+      "name": "Class Test 1 - Numerical Problem Solving",
+      "prerequisites": [
+        {
+          "id": "12",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "13",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "14",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "15",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "16",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": 2
+      },
+      "description": "The class tests encourage and assess learning throughout the semester and provide feedback on the learning progress\nto staff and students.",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "20",
+          "name": "Test",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "20",
+      "name": "Number theory",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "topics": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "21",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "21",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "21",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "name": "Induction, recursion",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "22",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "22",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "22",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "22",
+      "name": "Graph theory",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "23",
+          "name": "Lecture - Graph Theory I.",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "23",
+          "name": "Lecture - Graph Theory II.",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "23",
+      "name": "Class Test 2 - Numerical Problem Solving",
+      "prerequisites": [
+        {
+          "id": "17",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "18",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "20",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "21",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "minimumValue": null,
+        "credit": 2
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "24",
+          "name": "Test",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "24",
+      "name": "Exam",
+      "prerequisites": [
+        {
+          "id": "19",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "23",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": 6
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "25",
+          "name": "Exam",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "25",
+      "name": "Arithmetics",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Fractions\n* Decimals\n* Percentages\n* Powers and Roots\n* Surds\n* Absolute values\n* Scientific notation",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "26",
+      "name": "Algebra",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Factorisation\n* Expansion\n* Simplification\n* Changing the subject of a formula\n* Exponent\n* Logs",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "27",
+      "name": "Series",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Arithmetic Series\n* Geometric Series",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "28",
+      "name": "Probability",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Permutations\n* Combinations\n* Probability\n* Basics concepts of probability\n* Conditional probability\n* Independent events",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "29",
+      "name": "Graphical Skills and Functions",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Definition of a function\n* Functional notation\n* Plotting points\n* Plotting lines\n* Plotting quadratic equations\n* Plotting logarithmic and exponential functions",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "30",
+      "name": "Solving Equations",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Linear equations\n* Simultanoues linear equations\n* Matrices\n* Quadratic functions and equations\n* Exponential and logarithmic equations",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "31",
+      "name": "Differential Calculus",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Limits\n* Shape of a tangent\n* Gradient of a curve\n* Differentiations\n* Rules of differentiation\n* Product and quotient rule\n* Chain rule\n* Stationary points",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "32",
+      "name": "Integral Calculus",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "* Area\n* Integral of a functions\n* Fundamental theorem of calculus\n* Approximate integration",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "33",
+      "name": "Systems of Linear Equations, Gauss-Jordan Elimination",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "47",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "34",
+      "name": "Matrices, Matrix Operations, Inverses of Matrices",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "47",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "47",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "47",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "35",
+      "name": "Elementary Matrices, LU-Factorisation, Determinants of Matrices",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "47",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "47",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "47",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "36",
+      "name": "Eigenvalues and Eigenvectors, Adjoint",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "47",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "47",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "47",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "37",
+      "name": "Vector Spaces, Subspaces",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "79",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "38",
+      "name": "Linear Independence",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "79",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "39",
+      "name": "Test 1",
+      "prerequisites": [
+        {
+          "id": "33",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "34",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "35",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "36",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": 2
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "79",
+          "name": "Test",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "40",
+      "name": "Rank of Matrices, Change of Basis",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "79",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "41",
+      "name": "Inner Product Spaces, Gram-Schmidt",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "79",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "42",
+      "name": "Linear Transformations, Kernel, Range",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "79",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "43",
+      "name": "Transition Matrices, Similarity",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "79",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "44",
+      "name": "Diagonalisation, Symmetric Matrices",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "79",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "79",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "45",
+      "name": "Revision",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "46",
+      "name": "Exam",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "47",
+          "name": "Exam",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "47",
+      "name": "Test 2",
+      "prerequisites": [
+        {
+          "id": "37",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "38",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "40",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "41",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "42",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": 2
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "79",
+          "name": "Test",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "48",
+      "name": "Explore the Network",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "60",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "49",
+      "name": "Configuring a Network Operating System",
+      "prerequisites": [],
+      "completionCriteria": {
+        "id": "60",
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "60",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "60",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "60",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "50",
+      "name": "Network Protocols and Communications",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5,
+        "id": "63"
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "51",
+      "name": "Network Access",
+      "prerequisites": [],
+      "completionCriteria": {
+        "id": "63",
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "52",
+      "name": "Ethernet",
+      "prerequisites": [],
+      "completionCriteria": {
+        "id": "63",
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "53",
+      "name": "Network Layer",
+      "prerequisites": [],
+      "completionCriteria": {
+        "id": "63",
+        "credit": 0.5,
+        "minimumValue": null
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "54",
+      "name": "IP Addressing",
+      "prerequisites": [],
+      "completionCriteria": {
+        "id": "63",
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "55",
+      "name": "Subnetting IP Networks",
+      "prerequisites": [],
+      "completionCriteria": {
+        "id": "63",
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "56",
+      "name": "Transport Layer",
+      "prerequisites": [],
+      "completionCriteria": {
+        "id": "63",
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "57",
+      "name": "Application Layer",
+      "prerequisites": [],
+      "completionCriteria": {
+        "id": "63",
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "58",
+      "name": "Build a Small Network",
+      "prerequisites": [],
+      "completionCriteria": {
+        "id": "63",
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "63",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "59",
+      "name": "Subnetting Revision",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [],
+      "topics": []
+    },
+    {
+      "id": "60",
+      "name": "Computer Networking  > Skill Based Practical Test",
+      "prerequisites": [
+        {
+          "id": "48",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "49",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "50",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "51",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "52",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "53",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "54",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "55",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "56",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "57",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "58",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "59",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "id": "61",
+        "minimumValue": 50,
+        "credit": 5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "61",
+          "name": "Practical Quiz",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "61",
+      "name": "Computer Networking > Online Test ",
+      "prerequisites": [
+        {
+          "id": "60",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "id": "63",
+        "credit": 2
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Test",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "62",
+      "name": "Computer Networking > Exam",
+      "prerequisites": [
+        {
+          "id": "61",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": 5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "63",
+          "name": "Exam",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "63",
+      "name": "Introduction to databases; file systems vs DBMS",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 1 - Microsoft Access",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "64",
+      "name": "Components of DBMS; ANSI/SPARC 3 level architecture, database environment",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 2 - Microsoft Access with more sophisticated queries",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "65",
+      "name": "Overview of (and insights in) database design, intuitive table breaking, SQLite (optional)",
+      "prerequisites": [
+        {
+          "id": "7",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 3 - Design relatively trivial database tables for Access; logon to Microsoft SQL Server; install SQL Server Express (optional)",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "66",
+      "name": "Basics of ER modelling, relational model, sets and Cartesian products",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 4 - Table constructions with GUI as well as with SQL directly",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "67",
+      "name": "Relational model, relational algebra, SQL to create tables and insert records",
+      "prerequisites": [
+        {
+          "id": "3",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 5 - Table construction with foreign keys and data insertion with GUI as well as with SQL directly",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "68",
+      "name": "ER modelling; enhanced ER models; SQL to query (basics on SELECT, IN, LIKE, logical operators)",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 6 - Table data updating and simple queries with GUI as well as with SQL directly",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "69",
+      "name": "Database design methodology; simple table joins in SQL",
+      "prerequisites": [
+        {
+          "id": "1",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 7 - Queries with simple joins and grouping; use aggregate functions",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "70",
+      "name": "Update anomalies; functional dependencies; lossless-join, aggregate functions and multiple table joins in SQL",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 8 - Use SQL for complete database generation of queries; use of Date data type",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "71",
+      "name": "Normalisation process; 1NF to 3NF; create views in SQL",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 9 - Build database tables for a small case study; link Microsoft SQL Server to Microsoft Access",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "72",
+      "name": "Case study: problem to 3NF relations; use of subqueries; Transact SQL (optional)",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 10 - Table normalisation; subqueries; Transact SQL for the advanced students",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "73",
+      "name": "Database security and threats; RAID; data and database administration; constraints, inner/outer joins, and set operations in SQL",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 11 - Block insertion of table data; inner and outer joins with GUI as well as with SQL directly; procedures in T-SQL for the advanced students",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "74",
+      "name": "Transaction support; concurrency anomalies; serialisability; recoverable schedules; concurrency control techniques; locking and timestamping",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Practical 12 - Discuss transactions, schedules, reliability, and record locking; ",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "75",
+      "name": "Unit revision and sample exercises",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "76",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "76",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "76",
+      "name": "Database Design and Development > Case Study",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 2
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Assignment 1 is on the basic database design and queries, and the database modelling of a simple mini-case with ER diagrams. Assignment 1 can be done either individually or in a group of 2 students. Students should seek to form a group of their own as early as possible, and the group size must not exceed 2. Students not able to, or not willing to, form an assignment group will have to complete Assignment 1 on their own.",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "77",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "77",
+      "name": "Database Design and Development > Applied Project",
+      "prerequisites": [],
+      "completionCriteria": {
+        "minimumValue": null,
+        "credit": 2
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "Assignment 2 aims to go though the whole process of database design and development, starting from the conceptual modelling of a fuller mini-case, then its logical database design along with the consideration of relational model and normalization, and finally its physical implementation. It also involves the use of SQL for the actual implementation and queries. Unless approved otherwise, students must continue with the existing student group they formed for Assignment 1.",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "78",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "78",
+      "name": "Exam",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "79",
+          "name": "Exam",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "79",
+      "name": "Introduction to SAD",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "80",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "80",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "80",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "80",
+      "name": "System Development Methods",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "81",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "81",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "81",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "81",
+      "name": "Analysing the Business Case",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "82",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "82",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "82",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "82",
+      "name": "Deciding Development Strategy",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "83",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "83",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "83",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "83",
+      "name": "Identifying System Requirements",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "84",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "84",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "84",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "84",
+      "name": "More Identifying System Requirements",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "85",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "85",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "85",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "85",
+      "name": "Systems Design",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "86",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "86",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "86",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "86",
+      "name": "Designing Interfaces ",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "87",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "87",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "87",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "87",
+      "name": "Data Design",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "88",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "88",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "88",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "88",
+      "name": "Systems Architecture and Implementation",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "89",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "89",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "89",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "89",
+      "name": "Systems Support and Security",
+      "prerequisites": [],
+      "completionCriteria": {
+        "credit": 0.5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "90",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "90",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "90",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "90",
+      "name": "Final Exam discussion and Mock Exam",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "91",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "91",
+      "name": "Systems Analysis and Design > Exam",
+      "prerequisites": [],
+      "completionCriteria": {
+        "minimumValue": 40,
+        "id": "92",
+        "credit": 5
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "92",
+          "name": "Exam",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "92",
+      "name": "Systems Analysis and Design> Quiz",
+      "prerequisites": [
+        {
+          "id": "79",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "80",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "81",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "82",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "83",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "84",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "85",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "86",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "87",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "88",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "89",
+          "type": "block",
+          "recommended": true
+        },
+        {
+          "id": "90",
+          "type": "block",
+          "recommended": true
+        }
+      ],
+      "completionCriteria": {
+        "credit": 2
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "93",
+          "name": "Exam",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "93",
+      "name": "What is communication - meaning or message?",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": "1"
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "94",
+      "name": "Perception - is the truth really ’out there’?",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": "1"
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "95",
+      "name": "Language & communication - I know what you said but not what you mean",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": "1"
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "96",
+      "name": "Non-verbal communication - more than just words",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": "1"
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "97",
+      "name": "Censorship - not just dirty pictures",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": "1"
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "98",
+      "name": "Mediated Communication - the impact of technology on communication",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": "1"
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": "2"
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "99",
+      "name": "Intercultural Communication LAST FACE-TO-FACE LECTURE",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": "1"
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": "2"
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "100",
+      "name": "Writing a business report",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "101",
+      "name": "Issues in professional writing: what is a cliché anyway?",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "102",
+      "name": "Visual communication - a picture paints a thousand words",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "103",
+      "name": "Mediated Communication & Ethics",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "104",
+      "name": "Editing your report",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "111",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "105",
+      "name": "Principles of Professional Communication > Oral Presentation",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "106",
+          "name": "Oral Presentation",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "106",
+      "name": "Principles of Professional Communication > Report",
+      "prerequisites": [],
+      "completionCriteria": {
+        "type": "allOf",
+        "criteria": [
+          {
+            "weight": 5,
+            "id": "107"
+          },
+          {
+            "id": "107",
+            "weight": 10
+          },
+          {
+            "id": "107",
+            "weight": 10
+          },
+          {
+            "weight": 15,
+            "id": "107"
+          }
+        ]
+      },
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "107",
+          "name": "Brief Project Overview",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        },
+        {
+          "id": "107",
+          "name": "Annotated Bibliography of 6 references",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        },
+        {
+          "id": "107",
+          "name": "Draft Report",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        },
+        {
+          "id": "107",
+          "name": "Final Report",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "107",
+      "name": "Principles of Professional Communication > Quiz 1",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "108",
+      "name": "Principles of Professional Communication > Quiz 2",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "109",
+      "name": "Principles of Professional Communication > Quiz 3",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "110",
+      "name": "Principles of Professional Communication > Quiz 4",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "111",
+          "name": "Quiz",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "111",
+      "name": "Collecting Data",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "112",
+      "name": "Describing Data",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "113",
+      "name": "Probability Basics",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "114",
+      "name": "Confidence Intervals",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "115",
+      "name": "Hypothesis Tests",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "116",
+      "name": "Random Variables and Probability Distributions",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "117",
+      "name": "Continuous Probability Distributions",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "118",
+      "name": "Inference for Means and Proportions: Single Sample",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "119",
+      "name": "Inference for Means and Proportions: Two Samples",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "120",
+      "name": "Chi-square Tests for Categorical Variables",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "121",
+      "name": "ANOVA to Compare Means",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Lecture",
+          "description": "",
+          "type": "knowledge",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Practical",
+          "description": "",
+          "type": "practical",
+          "lengthHours": 2
+        },
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "122",
+      "name": "Statistical Decision Making > Test",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Exam",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "123",
+      "name": "Statistical Decision Making > Team Project",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Portfolio",
+          "description": "",
+          "type": "assignment",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    },
+    {
+      "id": "124",
+      "name": "Statistical Decision Making > Exam",
+      "prerequisites": [],
+      "completionCriteria": {},
+      "description": "",
+      "keywords": [],
+      "outcome": "",
+      "outcomes": [],
+      "credits": 0,
+      "activities": [
+        {
+          "id": "125",
+          "name": "Exam",
+          "description": "",
+          "type": "exam",
+          "lengthHours": 2
+        }
+      ],
+      "topics": []
+    }
+  ],
+  "specialisations": [
+    {
+      "id": "5",
+      "name": "Full Stack Developer",
+      "description": "",
+      "prerequisites": []
+    }
+  ],
+  "jobs": [
+    {
+      "id": "5",
+      "name": "Analyst Programmer",
+      "description": "Analyses user needs, produces requirements documentation and system plans, and encodes, tests, debugs, maintains\nand documents programs and applications.\n\n**Description of Employment Duties:**\n\n- researching, consulting, analysing and evaluating system program needs\n- identifying technology limitations and deficiencies in existing systems and associated processes, procedures\nand methods\n- testing, debugging, diagnosing and correcting errors and faults in an applications programming language\nwithin established testing protocols, guidelines and quality standards to ensure programs and applications\nperform to specification\n- writing and maintaining program code to meet system requirements, system designs and technical\nspecifications in accordance with quality accredited standards\n- writing, updating and maintaining technical program, end user documentation and operational procedures\n- providing advice, guidance and expertise in developing proposals and strategies for software design activities\nsuch as financial evaluation and costing for recommending software purchases and upgrades",
+      "skills": [
+        {
+          "bloomRating": 3,
+          "skillId": "c1"
+        },
+        {
+          "bloomRating": 5,
+          "skillId": "b1"
+        },
+        {
+          "bloomRating": 2,
+          "skillId": "a3"
+        },
+        {
+          "bloomRating": 2,
+          "skillId": "a0"
+        },
+        {
+          "bloomRating": 5,
+          "skillId": "c0"
+        },
+        {
+          "bloomRating": 2,
+          "skillId": "d1"
+        },
+        {
+          "bloomRating": 4,
+          "skillId": "b1"
+        },
+        {
+          "bloomRating": 5,
+          "skillId": "d0"
+        },
+        {
+          "bloomRating": 6,
+          "skillId": "d2"
+        },
+        {
+          "bloomRating": 3,
+          "skillId": "a2"
+        },
+        {
+          "bloomRating": 4,
+          "skillId": "a5"
+        }
+      ]
+    }
+  ],
+  "sfiaSkills": [
+    {
+      "id": "0",
+      "name": "Analytics",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "1",
+      "name": "Application Support",
+      "description": "",
+      "acsSkillId": "c0"
+    },
+    {
+      "id": "2",
+      "name": "IT Infrastructure (ITOP)",
+      "description": "",
+      "acsSkillId": "c0"
+    },
+    {
+      "id": "3",
+      "name": "Information Management (IRMG)",
+      "description": "",
+      "acsSkillId": "c1"
+    },
+    {
+      "id": "4",
+      "name": "Data Management (DATM)",
+      "description": "",
+      "acsSkillId": "c1"
+    },
+    {
+      "id": "5",
+      "name": "Network Support (NTAS)",
+      "description": "",
+      "acsSkillId": "c2"
+    },
+    {
+      "id": "6",
+      "name": "User Experience Design (HCEV)",
+      "description": "",
+      "acsSkillId": "d1"
+    },
+    {
+      "id": "7",
+      "name": "Programming/ Software Development (PROG)",
+      "description": "",
+      "acsSkillId": "d0"
+    },
+    {
+      "id": "8",
+      "name": "Systems Software",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "9",
+      "name": "IT Governance",
+      "description": "",
+      "acsSkillId": "e0"
+    },
+    {
+      "id": "10",
+      "name": "Project Management (PRMG)",
+      "description": "",
+      "acsSkillId": "e2"
+    },
+    {
+      "id": "11",
+      "name": "IT Management (ITMG)",
+      "description": "",
+      "acsSkillId": "e2"
+    },
+    {
+      "id": "12",
+      "name": "Information Security (SCTY)",
+      "description": "",
+      "acsSkillId": "e3"
+    },
+    {
+      "id": "13",
+      "name": "Benefits Management",
+      "description": "",
+      "acsSkillId": "e1"
+    },
+    {
+      "id": "14",
+      "name": "Hardware Design",
+      "description": "",
+      "acsSkillId": "c0"
+    },
+    {
+      "id": "15",
+      "name": "Network Design",
+      "description": "",
+      "acsSkillId": "c2"
+    },
+    {
+      "id": "16",
+      "name": "Requirement definition and Management",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "17",
+      "name": "Software Design",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "18",
+      "name": "Solution Architecture",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "19",
+      "name": "Systems Design",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "20",
+      "name": "Solution Architecture",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "21",
+      "name": "Data Modelling and Design",
+      "description": "",
+      "acsSkillId": "c1"
+    },
+    {
+      "id": "22",
+      "name": "Problem Management",
+      "description": "",
+      "acsSkillId": "e1"
+    },
+    {
+      "id": "23",
+      "name": "Systems Integration and Build",
+      "description": "",
+      "acsSkillId": "d2"
+    },
+    {
+      "id": "24",
+      "name": "Testing",
+      "description": "",
+      "acsSkillId": "d0"
+    },
+    {
+      "id": "25",
+      "name": "Business Modelling",
+      "description": "",
+      "acsSkillId": ""
+    },
+    {
+      "id": "26",
+      "name": "Network Support",
+      "description": "",
+      "acsSkillId": "c2"
+    },
+    {
+      "id": "27",
+      "name": "Specialist Advice",
+      "description": "",
+      "acsSkillId": "d1"
+    }
+  ],
+  "acsKnowledge": [
+    {
+      "id": "0",
+      "name": "ICT Professional Knowledge",
+      "description": "",
+      "items": [
+        {
+          "id": "a0",
+          "name": "Ethics",
+          "description": "- Fundamental ethical notions (virtues, duty,\nresponsibility, harm, benefit, rights, respect\nand consequences);\n- Basic ethics theories;\n- Integrity systems (including, the ACS Code\nof Professional Conduct ethics committees\nand whistle blowing);\n- Methods of ethical analysis;\n- Methods of ethical reflection\n- Methods and procedures of ethical repair\nand recovery;\n- ICT specific ethical issues (professional –\ne.g. compromising quality and conflict of\ninterest, and societal – e.g. phishing and\nprivacy)."
+        },
+        {
+          "id": "a1",
+          "name": "Professional Expectations",
+          "description": "Topics covered should include: expertise, certification, competence, autonomy, excellence, reflection, responsibility and accountability"
+        },
+        {
+          "id": "a2",
+          "name": "Teamwork Concepts & Issues",
+          "description": "Topics covered should include: collaboration,\ngroup dynamics, leadership styles, conflict\nresolution, team development and groupware"
+        },
+        {
+          "id": "a3",
+          "name": "Communication",
+          "description": "Topics covered should include: oral and\nwritten presentations, technical report\nwriting, writing user documentation and the\ndevelopment of effective interpersonal skills."
+        },
+        {
+          "id": "a4",
+          "name": "Societal Issues",
+          "description": "Topics covered should include: history of\ncomputing and the ICT discipline, privacy\nand civil liberties, cybercrime, intellectual\nproperty and legal issues."
+        },
+        {
+          "id": "a5",
+          "name": "Understand of ICT Profession",
+          "description": "Professionals should have some knowledge\nof where and when their discipline began\nand how it has evolved, in addition to\nunderstanding of ongoing issues in the\ndiscipline."
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "ICT Problem Solving",
+      "description": "",
+      "items": [
+        {
+          "id": "b0",
+          "name": "Problem Solving Abstraction",
+          "description": "This requires knowledge of how to use\nmodelling methods and processes to\nunderstand problems, handle abstraction and\ndesign solutions.\n\nThe methods and tools that are used for\nhandling abstraction could vary a great deal\nwith the branch of ICT, from circuit diagrams\nto data modelling tools to business process\nmodelling.\n\nIt is important to recognise this area\nbecause it captures some of the creativity\nand innovation that is required of ICT\nprofessionals, and the excitement that is\npresent in their jobs. Recognising this component also assists in identifying what is unique about ICT and what differentiates it\nfrom other disciplines. In no other discipline\nis there such an emphasis on developing\nartefacts (e.g., computer and information\nsystems) which are so abstract and complex\nand where modelling tools and methods are\nessential. The systems that ICT professionals\ndeal with cannot be seen or handled in the\nsame simple and direct manner as products\nof other applied disciplines (e.g., buildings,\nbridges, chairs, drugs). Consequently, highly\ndeveloped problem solving skills and the\nneed for methods to handle abstraction and\nmodelling are absolutely vital."
+        },
+        {
+          "id": "b1",
+          "name": "Problem Solving Design",
+          "description": "This requires knowledge of how to use\nmodelling methods and processes to\nunderstand problems, handle abstraction and\ndesign solutions.\n\nThe methods and tools that are used for\nhandling abstraction could vary a great deal\nwith the branch of ICT, from circuit diagrams\nto data modelling tools to business process\nmodelling.\n\nIt is important to recognise this area\nbecause it captures some of the creativity\nand innovation that is required of ICT\nprofessionals, and the excitement that is\npresent in their jobs. Recognising this component also assists in identifying what is unique about ICT and what differentiates it\nfrom other disciplines. In no other discipline\nis there such an emphasis on developing\nartefacts (e.g., computer and information\nsystems) which are so abstract and complex\nand where modelling tools and methods are\nessential. The systems that ICT professionals\ndeal with cannot be seen or handled in the\nsame simple and direct manner as products\nof other applied disciplines (e.g., buildings,\nbridges, chairs, drugs). Consequently, highly\ndeveloped problem solving skills and the\nneed for methods to handle abstraction and\nmodelling are absolutely vital."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Technology Resources ",
+      "description": "",
+      "items": [
+        {
+          "id": "c0",
+          "name": "Hardware and Software Fundamentals",
+          "description": "An understanding of the basic components of\ncomputer systems is required, including:\n- Computer architecture and organisation - including processors, memory, storage\nsystems and input/output devices;\n- Systems software – Operating systems and\napplication system software."
+        },
+        {
+          "id": "c1",
+          "name": "Data & Information Management",
+          "description": "An understanding is required of how data\nis captured, represented, organised and\nretrieved from files and databases. Topics\ninclude:\n\n- Data modelling and abstraction\n- Database Management Systems (DBMS)\n- Information assurance and security in a\nshared environment\n- Acquisition, custodianship and eventual\ndisposition of information\n- Nature of data, information and knowledge\ntransformation through technologies."
+        },
+        {
+          "id": "c2",
+          "name": "Networking",
+          "description": "This area requires an understanding of\ndata communications and networking\nfundamentals. Topics include:\n\n- Network concepts, protocols and standards\n- Network security\n- Wireless and mobile computing\n- Distributed systems."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Technology Building",
+      "description": "",
+      "items": [
+        {
+          "id": "d0",
+          "name": "Programming",
+          "description": "This involves an understanding of the\nfundamental concepts of a programming\nlanguage. It is expected that the requisite\nknowledge of programming fundamentals\nwould be best developed by engaging\nstudents in software developments tasks\n(programming). However, the range of\nprogramming languages and tools that could\nbe used to develop this knowledge is wide\nand will vary with the expected ICT job role of\nthe graduate."
+        },
+        {
+          "id": "d1",
+          "name": "Human Factors",
+          "description": "This area requires an understanding of the\nimportance of the user in developing ICT\napplications and systems, and involves\ndeveloping a mindset that recognises the\nimportance of users, their work practices and\norganisational contexts."
+        },
+        {
+          "id": "d2",
+          "name": "Systems Development",
+          "description": "An understanding is required of how to\ndevelop or acquire software (information)\nsystems that satisfy the requirements of\nusers and customers. All phases of the\nlifecycle of an information system should\nbe understood including: requirement\nanalysis (systems analysis) and specification,\ndesign, construction, testing, and operation\nand maintenance. There should also be\nknowledge of methodologies and processes\nfor developing systems."
+        },
+        {
+          "id": "d3",
+          "name": "Systems Acquisition",
+          "description": "An understanding is required of how to\ndevelop or acquire software (information)\nsystems that satisfy the requirements of\nusers and customers. All phases of the\nlifecycle of an information system should\nbe understood including: requirement\nanalysis (systems analysis) and specification,\ndesign, construction, testing, and operation\nand maintenance. There should also be\nknowledge of methodologies and processes\nfor developing systems."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "ICT Management",
+      "description": "",
+      "items": [
+        {
+          "id": "e0",
+          "name": "IT Governance & Organisational Issues",
+          "description": "Topics covered should include:\n\n- Fundamental governance principles (e.g.\nstructures to encourage moral behaviour\nwithin organisations and corporations,\nand moral behaviour by organisations and\ncorporations);\n- Organisational context, including business\nprocesses, organisational culture, change\nand risk management."
+        },
+        {
+          "id": "e1",
+          "name": "IT Project Management",
+          "description": "This area involves an understanding\nof the factors required to successfully\nmanage systems development projects.\nTopics include: team management,\nestimation techniques, cost/benefit\nanalysis, risk analysis, risk management,\nproject scheduling, quality assurance,\nsoftware configuration management,\nproject management tools, reporting and\npresentation techniques."
+        },
+        {
+          "id": "e2",
+          "name": "Service Management",
+          "description": "Service management deals with the ongoing\noperation of ICT in an organisational context\nand includes frameworks for structuring\nthe interactions of ICT technical personnel\nwith business customers and users. Many\nframeworks exist to guide ICT service\nmanagement, for example, the Information\nTechnology Infrastructure Library (ITIL)\nand Control Objectives for Information and\nRelated Technology (COBIT)."
+        },
+        {
+          "id": "e3",
+          "name": "Security Management",
+          "description": "Topics covered should include:\n\n- Computer system security: CPU,\nPeripherals, OS. This includes data security.\n- Physical security: The premises occupied\nby the ICT personnel and equipment.\n- Operational security: Environment control,\npower equipment, operation activities.\n- Procedural security: By IT, vendor,\nmanagement personnel, as well as\nordinary users.\n- Communications security:\nCommunications equipment, personnel,\ntransmission paths, and adjacent areas."
+        }
+      ]
+    }
+  ]
+}

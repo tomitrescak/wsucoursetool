@@ -1,0 +1,4384 @@
+Category,Subcategory,Skill,,Level,,,,,,, 
+,,,,1,2,3,4,5,6,7,
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,                              
+,,,,,,,,,6,,"300166*, 300575*, 301124*"
+,,,,,,,,,,7,                              
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,"300578*, 300952*,  300960* "
+,,,,,,,,,6,,"300166*, 300575*, 301124*"
+,,,,,,,,,,7,                              
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,"300147*, 300578*, 300579*, 300580         "
+,,,,,,,,5,,,"300103*, 300958*  "
+,,,,,,,,,6,,"300166*, 300575*, 301124*"
+,,,,,,,,,,7,                              
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,"300166*, 300575*, 301124*"
+,,,,,,,,,,7,                              
+,,INFORMATION SECURITY,SCTY,,,3,,,,,"300580, 300952*   "
+,,,,,,,4,,,,"300147*, 300579*          "
+,,,,,,,,5,,,                              
+,,,,,,,,,6,,"300103*, 300166*, 300575*, 300582*, 300583* , 300143*, 301124*      "
+,,,,,,,,,,7,
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,                              
+,,,,,,,,,6,,"300143*, 300166*, 300575*, 301124*"
+,,,,,,,,,,7,                              
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,"300575*, 300580         "
+,,,,,,,4,,,,                              
+,,,,,,,,5,,,"300093*, 300147*, 300579*, 300700, 300960* "
+,,,,,,,,,6,,"300103*, 300166*, 301124*"
+,,,,,,,,,,7,                              
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,300580
+,,,,,2,,,,,,300147*
+,,,,,,3,,,,,300103*
+,,,,,,,4,,,,                              
+,,,,,,,,5,,,"300579*, 300582*, 300583*       "
+,,,,,,,,,6,,                              
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,"300143*, 300578*           "
+,,,,,,,,,6,,"300166*, 300575*, 301124*"
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,"300128*, 300147*, 300565, 300578*, 300579*, 300580, 300952*   "
+,,,,,,,,5,,,"300095*, 300115*, 300143*, 300404*, 300698*, 300960* , 300103*, 300166*, 300575*, 300582*, 300583*, 301124*"
+,,,,,,,,,6,,
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,"300103*, 300147*, 300575*,  300579*, 300580, 300700     "
+,,,,,,3,,,,,"300093*, 300115*"
+,,,,,,,4,,,,"300128*, 300960*"
+,,,,,,,,5,,,�301124*
+,,,,,,,,,6,,
+,,IT MANAGEMENT,ITMG,,,,,5,,,"300578*, 300579*, 300166*, 300575*, 301124*"
+,,,,,,,,,6,,
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,300575*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,INNOVATION,INOV,,,,,5,,,"300093*, 300115*, 300952*, 300960*, 300902*"
+,,,,,,,,,6,,
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,300103*
+,,,,,,,,,6,,300578*
+,,,,,,,,,,7,
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,"300115*, 300578*"
+,,,,,,,,,6,,"300166*, 301124*"
+,,,,,,,,,,7,
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,300578*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,"300103*, 300115*, 300143*, 300579*, 300698*, 300952*"
+,,,,,,,,5,,,"300093*, 300575*, 300960*, 301124*"
+,,,,,,,,,6,,
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,300575*
+,,,,,,,,5,,,
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,300578*
+,,,,,,,,,6,,
+,,NETWORK PLANNING,NTPL,,,,,5,,,"300095*, 300952*, 300166*, 300575*, 301124*"
+,,,,,,,,,6,,
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,"300128*, 300143*, 300147*, 300575*, 300578*, 300698*, 300103*"
+,,,,,,,,,6,,
+,,DATA MANAGEMENT,DATM,,2,,,,,,"300095*, 300143*, 300580"
+,,,,,,3,,,,,300093*
+,,,,,,,4,,,,"300128*, 300575*, 300960*"
+,,,,,,,,5,,,"300147*, 300166*, 300579*, 300698*, 301124*, 300103*, 300104"
+,,,,,,,,,6,,
+,,METHODS AND TOOLS,METL,,,,4,,,,"300095*, 301174* ,300404*, 300799*, 300952*"
+,,,,,,,,5,,,"300093*, 300128*, 300143*, 300578*, 300579*, 300698*, 300960*, 300103*, 300104, 300147*, 300166*, 300575*, 301124*"
+,,,,,,,,,6,,
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,
+,,,,,,,,,,7,
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,"300578*, 300579*"
+,,,,,,,,5,,,�300583*
+,,,,,,,,,6,,
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,300579*
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,300580
+,,,,,,,4,,,,"300147* ,300578*, 300579*"
+,,,,,,,,5,,,300103*
+,,,,,,,,,6,,
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,
+,,,,,,3,,,,,300578*300580
+,,,,,,,4,,,,"300103*, 300147*, 300698*"
+,,,,,,,,5,,,300579*
+,,,,,,,,,6,,
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,
+,,,,,,,,5,,,
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,"300578*, 300583*"
+,,,,,,,,,6,,
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,300578*
+,,,,,,,,,6,,
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,
+,,,,,,,,,6,,
+,,BUSINESS MODELLING,BSMO,,2,,,,,,300579*
+,,,,,,3,,,,,"300578*, 300580"
+,,,,,,,4,,,,"300103*, 300147*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,,
+,,,,,,,,,,,
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,"300578*, 300579*"
+,,,,,,,,,6,,300583*
+,,,,,,,,,,7,
+,,DATA ANALYSIS,DTAN,,2,,,,,,300579*
+,,,,,,3,,,,,"300147*, 301174*, 300580"
+,,,,,,,4,,,,"300103*, 300700"
+,,,,,,,,5,,,
+,,SYSTEMS DESIGN,DESN,,2,,,,,,
+,,,,,,3,,,,,300404*
+,,,,,,,4,,,,"300147*, 301174*, 300575*, 300580, 300698*"
+,,,,,,,,5,,,"300103*, 300579*, 300799*, 300166*, 300582*, 300583*"
+,,,,,,,,,6,,
+,,NETWORK DESIGN,NTDS,,,,,5,,,"300095*, 300579*, 300952*, 300166*, 300575*, 301124*"
+,,,,,,,,,6,,
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,"300103*, 300115*"
+,,,,,,,,5,,,"300579*, 300104, 300582*, 300583*"
+,,,,,,,,,6,,
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,"300095*, 300104, 300565, 300575*"
+,,,,,,3,,,,,"300130*, 300165*, 300167*, 300700"
+,,,,,,,4,,,,"300093*, 300096*, 300103*, 300147*, 301174*, 300404*, 300580, 300960*"
+,,,,,,,,5,,,"300115*, 300579*, 300582*, 300583*, 300698*, 301124*"
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,300579*
+,,,,,,,4,,,,"300093*, 300103*, 300147*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,300575*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,"300103*, 300147*"
+,,,,,2,,,,,,300580
+,,,,,,3,,,,,300579*
+,,,,,,,4,,,,
+,,,,,,,,5,,,"300582*, 300583*"
+,,,,,,,,,6,,
+,,TESTING,TEST,1,,,,,,,300565
+,,,,,2,,,,,,"300095*, 300104, 300147*, 300580"
+,,,,,,3,,,,,"301174*, 300404*, 300575*"
+,,,,,,,4,,,,"300093*, 300103*, 300115*, 300579*, 300960*"
+,,,,,,,,5,,,"300582*, 300583*, 300698*"
+,,,,,,,,,6,,
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,"300147*, 300579*, 300582*, 300583*"
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,300580
+,,,,,,3,,,,,300103*
+,,,,,,,4,,,,300579*
+,,,,,,,,5,,,"300147*, 300582*, 300583*"
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,"300103*, 300580"
+,,,,,,3,,,,,
+,,,,,,,4,,,,300579*
+,,,,,,,,5,,,
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,"300147*, 300580, 300799*"
+,,,,,,3,,,,,"300103*, 300165*, 300575*, 300579*"
+,,,,,,,4,,,,300115*
+,,,,,,,,5,,,"300166*, 300582*, 300583*, 300698*, 300103*"
+,,,,,,,,,6,,
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,"300575*, 300579*"
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,HARDWARE DESIGN,HWDE,,,,4,,,,300096*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,"300147*, 300565"
+,,,,,2,,,,,,300579*
+,,,,,,3,,,,,"300093*, 300095*, 300165*"
+,,,,,,,4,,,,300960*
+,,,,,,,,5,,,"300575*, 301124*"
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,300575*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,
+,,,,,,3,,,,,300165*
+,,,,,,,4,,,,
+,,,,,,,,5,,,300575*
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,
+,,,,,,3,,,,,300165*
+,,,,,,,4,,,,
+,,,,,,,,5,,,�301124*
+,,,,,,,,,6,,
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,300575*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,
+,,,,,,3,,,,,300575*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,"300147*, 300165*, 301174*, 300575*, 300580"
+,,,,,,,4,,,,"300096*, 300103*, 300115*, 300404*, 300960*"
+,,,,,,,,5,,,301124*
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,"300103*, 300147*"
+,,,,,2,,,,,,"300580, 300960*"
+,,,,,,3,,,,,300575*
+,,,,,,,4,,,,
+,,,,,,,,5,,,"300143*, 300166*, 301124*"
+,,,,,,,,,6,,
+,,PENETRATION TESTING,PENT,,,,4,,,,
+,,,,,,,,5,,,�301124*
+,,,,,,,,,6,,
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,300952*
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,"300147*, 300579*"
+,,,,,,3,,,,,"300103*, 300165*, 300580"
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,
+,,,,,2,,,,,,300147*
+,,,,,,3,,,,,300103*300580
+,,,,,,,4,,,,"300103*, 300147*, 300166*, 300575*, 300579*, 300698*"
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,300579*
+,,,,,,3,,,,,
+,,,,,,,4,,,,300115*
+,,,,,,,,5,,,"300582*, 300583*"
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,NETWORK SUPPORT,NTAS,,2,,,,,,"300565, 300579*"
+,,,,,,3,,,,,"300095*, 300952*"
+,,,,,,,4,,,,
+,,,,,,,,5,,,"300147*, 300166*, 300575*, 301124*"
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,"300103*, 300580"
+,,,,,,,4,,,,300579*
+,,,,,,,,5,,,300166*
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,"300103*, 300147*, 300579*"
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,"300165*, 300575*"
+,,,,,,,4,,,,
+,,,,,,,,5,,,300166*
+,,,,,,,,,6,,
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,"301174*, 300404*"
+,,,,,,,4,,,,300799*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,
+,,,,,,,,5,,,"300093*, 300128*, 300960*"
+,,,,,,,,,6,,
+,,LEARNING DELIVERY,ETDL,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,
+,,,,,,,,,6,,
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,300578*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,RESOURCING,RESC,,,,4,,,,300579*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,"300093*, 300578*, 300579*, 300960*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,300579*
+,,,,,,,,5,,,
+,,,,,,,,,6,,�300103*
+,,,,,,,,,,7,
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,300579*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,QUALITY STANDARDS,QUST,,2,,,,,,300579*
+,,,,,,3,,,,,"300093*, 300960*"
+,,,,,,,4,,,,
+,,,,,,,,5,,,300103*
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,300579*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,
+,,,,,,,,,6,,
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,
+,,,,,,,,5,,,301124*
+,,,,,,,,,6,,
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,300960*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,CONTRACT MANAGEMENT,ITCM,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,STAKEHOLDER RELATIONSHIP MANAGEMENT,RLMT,,,,4,,,,300578*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,CLIENT SERVICES MANAGEMENT,CSMG,,3,,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,SALES AND MARKETING,DIGITAL MARKETING,MKTG,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SELLING,SALE,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SALES SUPPORT,SSUP,1,,,,,,,
+,,,,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,PRODUCT MANAGEMENT,PROD,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,     
+,,,,,,,,,6,,301124*     
+,,,,,,,,,,7,     
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,300960*     
+,,,,,,,,,6,,301124*     
+,,,,,,,,,,7,     
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,     
+,,,,,,,,5,,,300103* 300958*    
+,,,,,,,,,6,,301124*     
+,,,,,,,,,,7,     
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,301124*     
+,,,,,,,,,,7,     
+,,INFORMATION SECURITY,SCTY,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,300103* 300583*  301124*     
+,,,,,,,,,,7,  
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,     
+,,,,,,,,,6,,301124*     
+,,,,,,,,,,7,     
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300093* 300960*    
+,,,,,,,,,6,,300103* 301124*    
+,,,,,,,,,,7,     
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,300103*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300583*     
+,,,,,,,,,6,,     
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,     
+,,,,,,,,,6,,301124*     
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,     
+,,,,,,,,5,,,300115* 300698* 300960*   300103* 300583* 301124*   
+,,,,,,,,,6,,
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,300103*     
+,,,,,,3,,,,,300093* 300115*    
+,,,,,,,4,,,,300960*     
+,,,,,,,,5,,,301124*     
+,,,,,,,,,6,,
+,,IT MANAGEMENT,ITMG,,,,,5,,,     
+,,,,,,,,,6,,301124*     
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INNOVATION,INOV,,,,,5,,,300093* 300115* 300960*   
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,300103*     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,300115* 301124*       
+,,,,,,,,,6,,  
+,,,,,,,,,,7,     
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,300103* 300115* 300698*   
+,,,,,,,,5,,,300093* 300960* 301124*     
+,,,,,,,,,6,,   
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK PLANNING,NTPL,,,,,5,,,    301124*    
+,,,,,,,,,6,,  
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,300698*  300103*    
+,,,,,,,,,6,,    
+,,DATA MANAGEMENT,DATM,,2,,,,,,     
+,,,,,,3,,,,,300093*     
+,,,,,,,4,,,,300960*     
+,,,,,,,,5,,,300698* 301124*  300103*       
+,,,,,,,,,6,,
+,,METHODS AND TOOLS,METL,,,,4,,,,301174* 300799*    
+,,,,,,,,5,,,300093* 300698* 300960*   300103* 301124*    
+,,,,,,,,,6,,
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,     
+,,,,,,,,5,,,300583*
+,,,,,,,,,6,,    
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300103*     
+,,,,,,,,,6,,     
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300103* 300698*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,, 300583*      
+,,,,,,,,,6,,   
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS MODELLING,BSMO,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300103*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,     
+,,,,,,,,,6,,300583*     
+,,,,,,,,,,7,     
+,,DATA ANALYSIS,DTAN,,2,,,,,,     
+,,,,,,3,,,,,301174*     
+,,,,,,,4,,,,300103*     
+,,,,,,,,5,,,     
+,,SYSTEMS DESIGN,DESN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,301174* 300698*    
+,,,,,,,,5,,,300103* 300799*  300583*       
+,,,,,,,,,6,,
+,,NETWORK DESIGN,NTDS,,,,,5,,,     
+,,,,,,,,,6,,301124*     
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300103* 300115*    
+,,,,,,,,5,,,300583*
+,,,,,,,,,6,,    
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,     
+,,,,,,3,,,,,300130* 300165* 300167*   
+,,,,,,,4,,,,300093* 300103* 301174* 300960*  
+,,,,,,,,5,,,300115* 300583* 300698* 301124*  
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,     
+,,,,,,,4,,,,300093* 300103*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,300103*     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300583*     
+,,,,,,,,,6,,     
+,,TESTING,TEST,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,301174*     
+,,,,,,,4,,,,300093* 300103* 300115* 300960*  
+,,,,,,,,5,,,300583* 300698*    
+,,,,,,,,,6,,     
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300583*     
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,     
+,,,,,,3,,,,,300103*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300583*     
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,300103*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,300799*     
+,,,,,,3,,,,,300103* 300165*    
+,,,,,,,4,,,,300115*     
+,,,,,,,,5,,,300583* 300698*   300103*  
+,,,,,,,,,6,,    
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,HARDWARE DESIGN,HWDE,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,300093* 300165*    
+,,,,,,,4,,,,300960*     
+,,,,,,,,5,,,301124*     
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,     
+,,,,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,     
+,,,,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301124*  
+,,,,,,,,,6,,   
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,300165* 301174*    
+,,,,,,,4,,,,300103* 300115* 300960*   
+,,,,,,,,5,,,301124*     
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,300103*     
+,,,,,2,,,,,,300960*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301124*     
+,,,,,,,,,6,,
+,,PENETRATION TESTING,PENT,,,,4,,,,     
+,,,,,,,,5,,,301124*     
+,,,,,,,,,6,,
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,     
+,,,,,,3,,,,,300103* 300165*    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,300103*     
+,,,,,,,4,,,,300103* 300698*    
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300115*     
+,,,,,,,,5,,,300583*     
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK SUPPORT,NTAS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301124*     
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,300103*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,300103*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,301174*     
+,,,,,,,4,,,,300799*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,     
+,,,,,,,,5,,,300093* 300960*    
+,,,,,,,,,6,,     
+,,LEARNING DELIVERY,ETDL,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,     
+,,,,,,,,,6,,     
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RESOURCING,RESC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,300093* 300960*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,     
+,,,,,,,,5,,,  300103*        
+,,,,,,,,,6,,     
+,,,,,,,,,,7,
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,QUALITY STANDARDS,QUST,,2,,,,,,     
+,,,,,,3,,,,,300093* 300960*    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300103*     
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,     
+,,,,,,,,5,,,301124*     
+,,,,,,,,,6,,     
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300960*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONTRACT MANAGEMENT,ITCM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,STAKEHOLDER RELATIONSHIP MANAGEMENT,RLMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,CLIENT SERVICES MANAGEMENT,CSMG,,3,,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SALES AND MARKETING,DIGITAL MARKETING,MKTG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SELLING,SALE,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SALES SUPPORT,SSUP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PRODUCT MANAGEMENT,PROD,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,    
+,,,,,,,,,6,,300166* 300575* 301124*  
+,,,,,,,,,,7,    
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,300952*    
+,,,,,,,,,6,,300166* 300575* 301124*  
+,,,,,,,,,,7,    
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,    
+,,,,,,,,5,,,300958*    
+,,,,,,,,,6,,300166* 300575* 301124*  
+,,,,,,,,,,7,    
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,300166* 300575* 301124*  
+,,,,,,,,,,7,    
+,,INFORMATION SECURITY,SCTY,,,3,,,,,300952*    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,300166* 300575* 300143* 301124*   
+,,,,,,,,,,7,
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,    
+,,,,,,,,,6,,300143* 300166* 300575* 301124* 
+,,,,,,,,,,7,    
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,300575*    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,300166* 301124*   
+,,,,,,,,,,7,    
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,    
+,,,,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,300143* 300166* 300575* 301124*  
+,,,,,,,,,6,,
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,300128* 300565 300952*  
+,,,,,,,,5,,,300095* 300115* 300143* 300698* 300166* 300575* 301124*  
+,,,,,,,,,6,,
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,300575*    
+,,,,,,3,,,,,300115*    
+,,,,,,,4,,,,300128*    
+,,,,,,,,5,,,301124*
+,,,,,,,,,6,,
+,,IT MANAGEMENT,ITMG,,,,,5,,,300166* 300575* 301124*  
+,,,,,,,,,6,,
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,300575*    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,INNOVATION,INOV,,,,,5,,,300115* 300952*   
+,,,,,,,,,6,,    
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,    
+,,,,,,,,,6,,    
+,,,,,,,,,,7,    
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,300115*    
+,,,,,,,,,6,,300166* 301124*   
+,,,,,,,,,,7,    
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,,,,,,,,,7,    
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,300115* 300143* 300698* 300952* 
+,,,,,,,,5,,,300575* 301124*    
+,,,,,,,,,6,,
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,300575*    
+,,,,,,,,5,,,    
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,    
+,,,,,,,,,6,,    
+,,NETWORK PLANNING,NTPL,,,,,5,,,300095* 300952* 300166* 300575* 301124*  
+,,,,,,,,,6,,
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,300128* 300143* 300575* 300698* 
+,,,,,,,,,6,,    
+,,DATA MANAGEMENT,DATM,,2,,,,,,300095* 300143*   
+,,,,,,3,,,,,    
+,,,,,,,4,,,,300128* 300575*   
+,,,,,,,,5,,,300166* 300698* 301124*  
+,,,,,,,,,6,,    
+,,METHODS AND TOOLS,METL,,,,4,,,,300095* 300952*   
+,,,,,,,,5,,,300128* 300143* 300698*  300166* 300575* 301124*  
+,,,,,,,,,6,,
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,    
+,,,,,,,,,6,,    
+,,,,,,,,,,7,    
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,    
+,,,,,,,,,,7,    
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,300698*    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,    
+,,,,,,,,5,,,    
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,    
+,,,,,,,,,6,,    
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,    
+,,,,,,,,,6,,    
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,    
+,,,,,,,,,6,,    
+,,BUSINESS MODELLING,BSMO,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,    
+,,,,,,,,,6,,    
+,,,,,,,,,,7,    
+,,DATA ANALYSIS,DTAN,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,SYSTEMS DESIGN,DESN,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,300575* 300698*   
+,,,,,,,,5,,,    
+,,,,,,,,,6,,300166*    
+,,NETWORK DESIGN,NTDS,,,,,5,,,300095* 300952* 300166* 300575* 301124*  
+,,,,,,,,,6,,
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,300115*    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,300095* 300565 300575*  
+,,,,,,3,,,,,300165*    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,300115* 300698* 301124*  
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,300575*    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,    
+,,,,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,TESTING,TEST,1,,,,,,,300565
+,,,,,2,,,,,,300095*    
+,,,,,,3,,,,,300575*    
+,,,,,,,4,,,,300115*    
+,,,,,,,,5,,,300698*    
+,,,,,,,,,6,,    
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,    
+,,,,,,3,,,,,300165* 300575*   
+,,,,,,,4,,,,300115*    
+,,,,,,,,5,,,300166* 300698*   
+,,,,,,,,,6,,    
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,300575*    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,HARDWARE DESIGN,HWDE,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,300565
+,,,,,2,,,,,,    
+,,,,,,3,,,,,300095* 300165*   
+,,,,,,,4,,,,    
+,,,,,,,,5,,,300575* 301124*   
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,300575*    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,    
+,,,,,,3,,,,,300165*    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,300575*    
+,,,,,,,,,6,,    
+,,,,,,,,,,7,    
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,    
+,,,,,,3,,,,,300165*    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,301124*
+,,,,,,,,,6,,
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,300575*    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,    
+,,,,,,3,,,,,300575*    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,300165* 300575*   
+,,,,,,,4,,,,300115*    
+,,,,,,,,5,,,301124*    
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,    
+,,,,,2,,,,,,    
+,,,,,,3,,,,,300575*    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,300143* 300166* 301124*  
+,,,,,,,,,6,, 
+,,PENETRATION TESTING,PENT,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,301124*    
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,300952*    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,    
+,,,,,,3,,,,,300165*    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,    
+,,,,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,300166* 300575* 300698*  
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,300115*    
+,,,,,,,,5,,,    
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,NETWORK SUPPORT,NTAS,,2,,,,,,300565
+,,,,,,3,,,,,300095* 300952*   
+,,,,,,,4,,,,    
+,,,,,,,,5,,,300166* 300575* 301124*  
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,300166*    
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,300165* 300575*   
+,,,,,,,4,,,,    
+,,,,,,,,5,,,300166*    
+,,,,,,,,,6,,    
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,,,,,,,,,7,    
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,    
+,,,,,,,,5,,,300128*    
+,,,,,,,,,6,,    
+,,LEARNING DELIVERY,ETDL,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,    
+,,,,,,,,,6,,    
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,RESOURCING,RESC,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,,,,,,,,,7,    
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,QUALITY STANDARDS,QUST,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,    
+,,,,,,,,,6,,    
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,    
+,,,,,,,,5,,,301124*    
+,,,,,,,,,6,,    
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,CONTRACT MANAGEMENT,ITCM,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,STAKEHOLDER RELATIONSHIP MANAGEMENT,RLMT,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,,,,,,,,,7,    
+,,CLIENT SERVICES MANAGEMENT,CSMG,,3,,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,SALES AND MARKETING,DIGITAL MARKETING,MKTG,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,SELLING,SALE,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,SALES SUPPORT,SSUP,1,,,,,,,    
+,,,,,2,,,,,,    
+,,,,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+,,PRODUCT MANAGEMENT,PROD,,,3,,,,,    
+,,,,,,,4,,,,    
+,,,,,,,,5,,,    
+,,,,,,,,,6,,    
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,301124*       
+,,,,,,,,,6,,   
+,,,,,,,,,,7,     
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,301124*  
+,,,,,,,,,6,,
+,,,,,,,,,,7,     
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,     
+,,,,,,,,5,,,300958*  301124*     
+,,,,,,,,,6,,   
+,,,,,,,,,,7,     
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,301124*     
+,,,,,,,,,,7,     
+,,INFORMATION SECURITY,SCTY,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,   300143* 301124*      
+,,,,,,,,,6,,     
+,,,,,,,,,,7,
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,  300143* 301124*    
+,,,,,,,,,6,,   
+,,,,,,,,,,7,     
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,301124*     
+,,,,,,,,,,7,     
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,300143*     
+,,,,,,,,,6,,301124*     
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,300128*     
+,,,,,,,,5,,,300095* 300143* 300404* 300698*  301124*   
+,,,,,,,,,6,,  
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300128*     
+,,,,,,,,5,,,301124*  
+,,,,,,,,,6,,   
+,,IT MANAGEMENT,ITMG,,,,,5,,,301124*  
+,,,,,,,,,6,,
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INNOVATION,INOV,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,301124*       
+,,,,,,,,,6,,
+,,,,,,,,,,7,     
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,300143* 300698*    
+,,,,,,,,5,,,301124*  
+,,,,,,,,,6,,    
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK PLANNING,NTPL,,,,,5,,,300095*  301124*     
+,,,,,,,,,6,,3
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,300128* 300143* 300698*   
+,,,,,,,,,6,,     
+,,DATA MANAGEMENT,DATM,,2,,,,,,300095* 300143*    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300128*     
+,,,,,,,,5,,,301124* 300698*    
+,,,,,,,,,6,,     
+,,METHODS AND TOOLS,METL,,,,4,,,,300095* 300404* 300799*   
+,,,,,,,,5,,,300128* 300143* 300698*  301124*  
+,,,,,,,,,6,,
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300698*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS MODELLING,BSMO,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,DATA ANALYSIS,DTAN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SYSTEMS DESIGN,DESN,,2,,,,,,     
+,,,,,,3,,,,,300404*     
+,,,,,,,4,,,,300698*     
+,,,,,,,,5,,,300799*     
+,,,,,,,,,6,,     
+,,NETWORK DESIGN,NTDS,,,,,5,,,300095*  301124*     
+,,,,,,,,,6,,
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,300095*     
+,,,,,,3,,,,,300130* 300165* 300167*   
+,,,,,,,4,,,,300096* 300404*    
+,,,,,,,,5,,,301124* 300698*    
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,TESTING,TEST,1,,,,,,,     
+,,,,,2,,,,,,300095*     
+,,,,,,3,,,,,300404*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300698*     
+,,,,,,,,,6,,     
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,300799*     
+,,,,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300698*     
+,,,,,,,,,6,,     
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,HARDWARE DESIGN,HWDE,,,,4,,,,300096*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,300095* 300165*    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301124*     
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,     
+,,,,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,     
+,,,,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301124*       
+,,,,,,,,,6,,     
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,300165*     
+,,,,,,,4,,,,300096* 300404*    
+,,,,,,,,5,,,301124*     
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300143* 301124*      
+,,,,,,,,,6,,
+,,PENETRATION TESTING,PENT,,,,4,,,,     
+,,,,,,,,5,,,301124*  
+,,,,,,,,,6,,
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,     
+,,,,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300698*     
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK SUPPORT,NTAS,,2,,,,,,     
+,,,,,,3,,,,,300095*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301124*     
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,300404*     
+,,,,,,,4,,,,300799*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,     
+,,,,,,,,5,,,300128*     
+,,,,,,,,,6,,     
+,,LEARNING DELIVERY,ETDL,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,     
+,,,,,,,,,6,,     
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RESOURCING,RESC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,QUALITY STANDARDS,QUST,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,     
+,,,,,,,,5,,,301124*     
+,,,,,,,,,6,,     
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONTRACT MANAGEMENT,ITCM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,STAKEHOLDER RELATIONSHIP MANAGEMENT,RLMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,CLIENT SERVICES MANAGEMENT,CSMG,,3,,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SALES AND MARKETING,DIGITAL MARKETING,MKTG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SELLING,SALE,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SALES SUPPORT,SSUP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PRODUCT MANAGEMENT,PROD,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,"300144*, 300585"
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,"300144* ,300570, 300578*"
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,"300570, 300578*, 300579*, 300580"
+,,,,,,,,5,,,"300144*, 300958*"
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,"300144*, 300585"
+,,,,,,,,,,7,
+,,INFORMATION SECURITY,SCTY,,,3,,,,,"300580, 300585"
+,,,,,,,4,,,,300579*
+,,,,,,,,5,,,
+,,,,,,,,,6,,"300582*, 300583*"
+,,,,,,,,,,7,
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,300580
+,,,,,,,4,,,,300570
+,,,,,,,,5,,,"300144*, 300579*, 300700"
+,,,,,,,,,6,,300585
+,,,,,,,,,,7,
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,"300144*, 300580"
+,,,,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,300570
+,,,,,,,,5,,,"300579*, 300582*, 300583*"
+,,,,,,,,,6,,
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,"300144*, 300578*"
+,,,,,,,,,6,,
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,"300144*, 300565, 300578*, 300579*, 300580"
+,,,,,,,,5,,,"300095*, 300698*, 300582*, 300583*"
+,,,,,,,,,6,,
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,"300579*, 300580, 300700"
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,
+,,IT MANAGEMENT,ITMG,,,,,5,,,"300144*, 300578*, 300579*"
+,,,,,,,,,6,,
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,300144*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,INNOVATION,INOV,,,,,5,,,
+,,,,,,,,,6,,"300570, 300902*"
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,
+,,,,,,,,,6,,"300144*, 300578*"
+,,,,,,,,,,7,
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,"300144*, 300578*"
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,"300144*, 300578*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,"300144*, 300579*, 300585, 300698*"
+,,,,,,,,5,,,�300570
+,,,,,,,,,6,,
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,
+,,,,,,,,5,,,
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,300578*
+,,,,,,,,,6,,
+,,NETWORK PLANNING,NTPL,,,,,5,,,300095*
+,,,,,,,,,6,,
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,"300144*, 300578*, 300698*"
+,,,,,,,,,6,,
+,,DATA MANAGEMENT,DATM,,2,,,,,,"300095*, 300570, 300580"
+,,,,,,3,,,,,300585
+,,,,,,,4,,,,
+,,,,,,,,5,,,"300579*, 300698*, 300104"
+,,,,,,,,,6,,
+,,METHODS AND TOOLS,METL,,,,4,,,,"300095*, 300585"
+,,,,,,,,5,,,"300144*, 300570, 300578*, 300579*, 300698*, 300104"
+,,,,,,,,,6,,
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,300144*
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,
+,,,,,,,,,,7,
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,"300578*, 300579*"
+,,,,,,,,5,,,"�300144*, 300583*"
+,,,,,,,,,6,,
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,300579*
+,,,,,,3,,,,,
+,,,,,,,4,,,,300144*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,300580
+,,,,,,,4,,,,"300144*, 300578*, 300579*, 300585"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,
+,,,,,,3,,,,,"300578*, 300580"
+,,,,,,,4,,,,"300585, 300698*"
+,,,,,,,,5,,,"300144*, 300579*"
+,,,,,,,,,6,,
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,300144*
+,,,,,,,,5,,,
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,"300578*, 300144*, 300583*"
+,,,,,,,,,6,,
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,300578*
+,,,,,,,,,6,,
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,
+,,,,,,,,,6,,
+,,BUSINESS MODELLING,BSMO,,2,,,,,,300579*
+,,,,,,3,,,,,"300578*, 300580"
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,300144*
+,,,,,,,,,6,,
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,"300144*, 300570, 300578*, 300579*, 300585"
+,,,,,,,,,6,,300583*
+,,,,,,,,,,7,
+,,DATA ANALYSIS,DTAN,,2,,,,,,"300570, 300579*, 300581*"
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,"300144*, 300700"
+,,,,,,,,5,,,
+,,SYSTEMS DESIGN,DESN,,2,,,,,,300585
+,,,,,,3,,,,,300144*
+,,,,,,,4,,,,"300580, 300698*"
+,,,,,,,,5,,,"300570, 300579*, 300582*, 300583*"
+,,,,,,,,,6,,
+,,NETWORK DESIGN,NTDS,,,,,5,,,"300095*, 300579*"
+,,,,,,,,,6,,
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,"300579*, 300104, 300582*, 300583*"
+,,,,,,,,,6,,
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,"300095*, 300104, 300144*, 300565"
+,,,,,,3,,,,,"300581*, 300700"
+,,,,,,,4,,,,300580
+,,,,,,,,5,,,"300579*, 300582*, 300583*, 300698*"
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,300579*
+,,,,,,,4,,,,300570
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,
+,,,,,2,,,,,,"300144*, 300580"
+,,,,,,3,,,,,"300570, 300579*"
+,,,,,,,4,,,,
+,,,,,,,,5,,,"300582*, 300583*"
+,,,,,,,,,6,,
+,,TESTING,TEST,1,,,,,,,"300565, 300585"
+,,,,,2,,,,,,"300095*, 300104, 300580, 300581*"
+,,,,,,3,,,,,
+,,,,,,,4,,,,"300144*, 300579*"
+,,,,,,,,5,,,"300582*, 300583*, 300698*, 300570"
+,,,,,,,,,6,,
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,300144*
+,,,,,,,4,,,,
+,,,,,,,,5,,,"300570, 300579*, 300582*, 300583*"
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,300580
+,,,,,,3,,,,,"300144*, 300585"
+,,,,,,,4,,,,300579*
+,,,,,,,,5,,,"300570, 300582*, 300583*"
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,300580
+,,,,,,3,,,,,"300144*, 300585"
+,,,,,,,4,,,,300579*
+,,,,,,,,5,,,300570
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,"300144*, 300580, 300585"
+,,,,,,3,,,,,300579*
+,,,,,,,4,,,,
+,,,,,,,,5,,,"300582*, 300583*, 300698*"
+,,,,,,,,,6,,
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,300579*300585
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,HARDWARE DESIGN,HWDE,,,,4,,,,300570
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,"300565, 300585"
+,,,,,2,,,,,,300579*
+,,,,,,3,,,,,300095*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,"300570, 300580"
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,
+,,,,,2,,,,,,300580
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,PENETRATION TESTING,PENT,,,,4,,,,300570
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,300579*
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,
+,,,,,2,,,,,,
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,"300579*, 300698*"
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,"300579*, 300585"
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,"300582*, 300583*"
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,NETWORK SUPPORT,NTAS,,2,,,,,,"300565, 300579*"
+,,,,,,3,,,,,300095*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,300580
+,,,,,,,4,,,,300579*
+,,,,,,,,5,,,
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,300579*
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,LEARNING DELIVERY,ETDL,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,�300570
+,,,,,,,,,6,,
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,"300144*, 300578*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,RESOURCING,RESC,,,,4,,,,"300144*, 300579*, 300585"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,"300144*, 300578*, 300579*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,"300144*, 300579*"
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,"300144*, 300579*, 300585"
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,QUALITY STANDARDS,QUST,,2,,,,,,300579*
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,300579*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,
+,,,,,,,,,6,,
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,CONTRACT MANAGEMENT,ITCM,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,STAKEHOLDER RELATIONSHIP MANAGEMENT,RLMT,,,,4,,,,"300144*, 300578*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,CLIENT SERVICES MANAGEMENT,CSMG,,3,,,,,,300144*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,SALES AND MARKETING,DIGITAL MARKETING,MKTG,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SELLING,SALE,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SALES SUPPORT,SSUP,1,,,,,,,
+,,,,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,PRODUCT MANAGEMENT,PROD,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,           
+,,,,,,,,,6,,           
+,,,,,,,,,,7,           
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,           
+,,,,,,,,,6,,           
+,,,,,,,,,,7,           
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,           
+,,,,,,,,5,,,           
+,,,,,,,,,6,,           
+,,,,,,,,,,7,           
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,           
+,,,,,,,,,,7,           
+,,INFORMATION SECURITY,SCTY,,,3,,,,,           
+,,,,,,,4,,,,           
+,,,,,,,,5,,,           
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,200023 300672 300673   
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,     
+,,,,,,,,,6,,     
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,300672 300673    
+,,,,,,3,,,,,200023 200030    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,IT MANAGEMENT,ITMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INNOVATION,INOV,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK PLANNING,NTPL,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DATA MANAGEMENT,DATM,,2,,,,,,200030 300672    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,METHODS AND TOOLS,METL,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,300673
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,300673
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS MODELLING,BSMO,,2,,,,,,300673
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,200030
+,,,,,,,,,6,,     
+,,,,,,,,,,7,   
+,,DATA ANALYSIS,DTAN,,2,,,,,,200023 300672 300673   
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SYSTEMS DESIGN,DESN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK DESIGN,NTDS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,TESTING,TEST,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,200023
+,,,,,,,,,6,,  
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,HARDWARE DESIGN,HWDE,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PENETRATION TESTING,PENT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,200023
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK SUPPORT,NTAS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,200023
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,300673
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DELIVERY,ETDL,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,     
+,,,,,,,,,6,,     
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RESOURCING,RESC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,QUALITY STANDARDS,QUST,,2,,,,,,300673
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONTRACT MANAGEMENT,ITCM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,STAKEHOLDER RELATIONSHIP MANAGEMENT,RLMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,CLIENT SERVICES MANAGEMENT,CSMG,,3,,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SALES AND MARKETING,DIGITAL MARKETING,MKTG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SELLING,SALE,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SALES SUPPORT,SSUP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PRODUCT MANAGEMENT,PROD,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,300585 300862*    
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,300578* 300862*    
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,300578* 300580    
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,300585 300862*    
+,,,,,,,,,,7,     
+,,INFORMATION SECURITY,SCTY,,,3,,,,,300580 300585    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,300491 300580    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300093*     
+,,,,,,,,,6,,300585 300862*    
+,,,,,,,,,,7,     
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,300580
+,,,,,2,,,,,,300491
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,300578* 300862*    
+,,,,,,,,,6,,     
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,300565 300578* 300580   
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,300580
+,,,,,,3,,,,,300093* 300491    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,IT MANAGEMENT,ITMG,,,,,5,,,300578* 300862*    
+,,,,,,,,,6,,     
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INNOVATION,INOV,,,,,5,,,300093* 300862*    
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,300862*     
+,,,,,,,,,6,,300578*     
+,,,,,,,,,,7,     
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,300578* 300862*    
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,300578*     
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,300585
+,,,,,,,,5,,,300093* 300862*    
+,,,,,,,,,6,,     
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,300578*     
+,,,,,,,,,6,,     
+,,NETWORK PLANNING,NTPL,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,300578* 300862*    
+,,,,,,,,,6,,     
+,,DATA MANAGEMENT,DATM,,2,,,,,,300491 300580    
+,,,,,,3,,,,,300093* 300585    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     300104     
+,,,,,,,,,6,,
+,,METHODS AND TOOLS,METL,,,,4,,,,300585
+,,,,,,,,5,,,300093* 300578*    300104 300862*   
+,,,,,,,,,6,,
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,300578* 300862*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300862*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,300580
+,,,,,,,4,,,,300578* 300585    
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,300491
+,,,,,,3,,,,,300578* 300580    
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,300862*     
+,,,,,,,,5,,,     
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,300578*     300862*   
+,,,,,,,,,6,,  
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,300578*     
+,,,,,,,,,6,,300862*     
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS MODELLING,BSMO,,2,,,,,,300491
+,,,,,,3,,,,,300578* 300580    
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,300862*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,300578* 300585    
+,,,,,,,,,6,,300862*     
+,,,,,,,,,,7,     
+,,DATA ANALYSIS,DTAN,,2,,,,,,300491
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,SYSTEMS DESIGN,DESN,,2,,,,,,300491 300585    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300580
+,,,,,,,,5,,,300862*
+,,,,,,,,,6,,    
+,,NETWORK DESIGN,NTDS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,300104
+,,,,,,,,,6,,
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,300104 300565    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300093* 300580    
+,,,,,,,,5,,,300862*     
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,     
+,,,,,,,4,,,,300093*     
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,     
+,,,,,2,,,,,,300491 300580    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,
+,,TESTING,TEST,1,,,,,,,300565 300585    
+,,,,,2,,,,,,300104 300580    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300093* 300862*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,300491
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,300491 300580    
+,,,,,,3,,,,,300585
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,300491 300580    
+,,,,,,3,,,,,300585
+,,,,,,,4,,,,300862*     
+,,,,,,,,5,,,     
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,300580 300585    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,300585
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,HARDWARE DESIGN,HWDE,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,300565 300585    
+,,,,,2,,,,,,     
+,,,,,,3,,,,,300093*     
+,,,,,,,4,,,,300862*     
+,,,,,,,,5,,,     
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,     
+,,,,,2,,,,,,300580
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PENETRATION TESTING,PENT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,300491
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,300862*     
+,,,,,,,,5,,,     
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,300862*     
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,300585
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,,,,,,,,6,,     
+,,NETWORK SUPPORT,NTAS,,2,,,,,,300565
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,300491 300580    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,     
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300862*     
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,     
+,,,,,,,,5,,,300093*     
+,,,,,,,,,6,,     
+,,LEARNING DELIVERY,ETDL,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,     
+,,,,,,,,,6,,     
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,300578*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RESOURCING,RESC,,,,4,,,,300585
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,300093* 300578*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,300585
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,QUALITY STANDARDS,QUST,,2,,,,,,     
+,,,,,,3,,,,,300093*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONTRACT MANAGEMENT,ITCM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,STAKEHOLDER RELATIONSHIP MANAGEMENT,RLMT,,,,4,,,,300578*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,CLIENT SERVICES MANAGEMENT,CSMG,,3,,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SALES AND MARKETING,DIGITAL MARKETING,MKTG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SELLING,SALE,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SALES SUPPORT,SSUP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PRODUCT MANAGEMENT,PROD,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,300138
+,,,,,,,,,6,,300166* 300575*    
+,,,,,,,,,,7,     
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,300952*     
+,,,,,,,,,6,,300138 300166* 300575*   
+,,,,,,,,,,7,     
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,     
+,,,,,,,,5,,,300138
+,,,,,,,,,6,,300166* 300575*    
+,,,,,,,,,,7,     
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,300138 300166* 300575*   
+,,,,,,,,,,7,     
+,,INFORMATION SECURITY,SCTY,,,3,,,,,300952*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,300138 300166* 300575*  300143*      
+,,,,,,,,,,7,
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,300138
+,,,,,,,,,6,,300143* 300166* 300575*   
+,,,,,,,,,,7,     
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,300138 300575*    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,300166*     
+,,,,,,,,,,7,     
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,     
+,,,,,2,,,,,,300138
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,300138 300143*    300166* 300575*    
+,,,,,,,,,6,,
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,300565 300952*    
+,,,,,,,,5,,,300095* 300143*    300166* 300575*    
+,,,,,,,,,6,,
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,300575*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,IT MANAGEMENT,ITMG,,,,,5,,,300138     300166* 300575*   
+,,,,,,,,,6,,
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,300575*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INNOVATION,INOV,,,,,5,,,300952*     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,300138
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,300138
+,,,,,,,,,6,,300166*     
+,,,,,,,,,,7,     
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,     
+,,,,,,,,5,,,300138
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,300143* 300952* 300957*   
+,,,,,,,,5,,,300575*     
+,,,,,,,,,6,,     
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,300138 300575*    
+,,,,,,,,5,,,     
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK PLANNING,NTPL,,,,,5,,,300095* 300138 300952*   300166* 300575*  
+,,,,,,,,,6,,  
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,300138 300143* 300575*   
+,,,,,,,,,6,,     
+,,DATA MANAGEMENT,DATM,,2,,,,,,300095* 300138 300143*   
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300575*     
+,,,,,,,,5,,,300166*     
+,,,,,,,,,6,,     
+,,METHODS AND TOOLS,METL,,,,4,,,,300095* 300952* 300957*   
+,,,,,,,,5,,,300138 300143*    300166* 300575*    
+,,,,,,,,,6,,
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,300138
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,300138
+,,,,,,,,,,7,     
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,     
+,,,,,,,,5,,,300138
+,,,,,,,,,6,,     
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,300138
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,300138
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,300138
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS MODELLING,BSMO,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,300138
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,DATA ANALYSIS,DTAN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SYSTEMS DESIGN,DESN,,2,,,,,,     
+,,,,,,3,,,,,300138
+,,,,,,,4,,,,300575* 300957*    
+,,,,,,,,5,,,300166*     
+,,,,,,,,,6,,
+,,NETWORK DESIGN,NTDS,,,,,5,,,300095* 300138 300952*   300166* 300575*  
+,,,,,,,,,6,,  
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,300095* 300138 300565 300575*  
+,,,,,,3,,,,,300957*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,300575*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,300138
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,TESTING,TEST,1,,,,,,,300565
+,,,,,2,,,,,,300095*     
+,,,,,,3,,,,,300575*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,300138
+,,,,,,3,,,,,300575* 300957*    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300166*     
+,,,,,,,,,6,,     
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,300575*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,HARDWARE DESIGN,HWDE,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,300565
+,,,,,2,,,,,,     
+,,,,,,3,,,,,300095*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300575*     
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,300138 300575*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300575*     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,300138
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,300575*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,     
+,,,,,,3,,,,,300575*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,300575*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,     
+,,,,,2,,,,,,300138
+,,,,,,3,,,,,300575*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300143* 300166*         
+,,,,,,,,,6,,
+,,PENETRATION TESTING,PENT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,300952*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,     
+,,,,,2,,,,,,300138
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300166* 300575*    
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,300138
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK SUPPORT,NTAS,,2,,,,,,300138 300565    
+,,,,,,3,,,,,300095* 300952*    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300166* 300575*    
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,300138
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300166*     
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,300138
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,300575*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300166*     
+,,,,,,,,,6,,     
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,300570 300952* 300960*   300961*   
+,,,,,,,,,6,,  
+,,,,,,,,,,7,     
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,300570 300579*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION SECURITY,SCTY,,,3,,,,,300579* 300952* 300976*   
+,,,,,,,4,,,,300579*     
+,,,,,,,,5,,,300143*     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,
+,,INFORMATION ASSURANCE,INAS,,,,,5,,, 300143*     
+,,,,,,,,,6,,    
+,,,,,,,,,,7,     
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,300579*     
+,,,,,,,4,,,,300570 300579*    
+,,,,,,,,5,,,300579* 300960*    
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,300579*     
+,,,,,2,,,,,,300579*     
+,,,,,,3,,,,,300579*     
+,,,,,,,4,,,,300570 300579*    
+,,,,,,,,5,,,300579*     
+,,,,,,,,,6,,     
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,300143* 300961*    
+,,,,,,,,,6,,     
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,300579* 300952*    
+,,,,,,,,5,,,300143* 300960*    
+,,,,,,,,,6,,     
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,300579*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300960* 300961*    
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,     
+,,IT MANAGEMENT,ITMG,,,,,5,,,300579*     
+,,,,,,,,,6,,     
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INNOVATION,INOV,,,,,5,,,300952* 300960*  300570    
+,,,,,,,,,6,,   
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,  300961*        
+,,,,,,,,,6,,
+,,,,,,,,,,7,     
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,300143* 300579* 300952* 300976*  
+,,,,,,,,5,,, 300570 300960*    
+,,,,,,,,,6,,    
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK PLANNING,NTPL,,,,,5,,,300952*     
+,,,,,,,,,6,,     
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,300143* 300976*    
+,,,,,,,,,6,,     
+,,DATA MANAGEMENT,DATM,,2,,,,,,300143* 300570 300579*   
+,,,,,,3,,,,,300579*     
+,,,,,,,4,,,,300579* 300960* 300976*   
+,,,,,,,,5,,,300579* 300104      
+,,,,,,,,,6,,   
+,,METHODS AND TOOLS,METL,,,,4,,,,300579* 300952* 300976*   
+,,,,,,,,5,,,300143* 300570 300579* 300960*  300104 
+,,,,,,,,,6,,     
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,300579*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,300579*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,300579*     
+,,,,,,,4,,,,300579*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,300579*     
+,,,,,,3,,,,,300579*     
+,,,,,,,4,,,,300579* 300976*    
+,,,,,,,,5,,,300579*     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,300961*     
+,,,,,,,,,6,,     
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS MODELLING,BSMO,,2,,,,,,300579*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300961*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,300570 300579*    
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,DATA ANALYSIS,DTAN,,2,,,,,,300570 300579*    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SYSTEMS DESIGN,DESN,,2,,,,,,300579*     
+,,,,,,3,,,,,300579* 300976*    
+,,,,,,,4,,,,300579*     
+,,,,,,,,5,,,300570 300579*    
+,,,,,,,,,6,,     
+,,NETWORK DESIGN,NTDS,,,,,5,,,300579* 300952*    
+,,,,,,,,,6,,     
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,300579*     
+,,,,,,3,,,,,300579*     
+,,,,,,,4,,,,300579*     
+,,,,,,,,5,,,300579* 300104       
+,,,,,,,,,6,,  
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,300104 300579*    
+,,,,,,3,,,,,300579* 300976*    
+,,,,,,,4,,,,300579* 300960*    
+,,,,,,,,5,,,300579*     
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,300579*     
+,,,,,,,4,,,,300570
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,300579*     
+,,,,,2,,,,,,300579*     
+,,,,,,3,,,,,300570 300579* 300976*   
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,TESTING,TEST,1,,,,,,,300579*     
+,,,,,2,,,,,,300104 300579*    
+,,,,,,3,,,,,300579*     
+,,,,,,,4,,,,300579* 300960*    
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,300579* 300976*    
+,,,,,,,4,,,,300579*     
+,,,,,,,,5,,,300570 300579*    
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,300579*     
+,,,,,,3,,,,,300579* 300976*    
+,,,,,,,4,,,,300579*     
+,,,,,,,,5,,,300570
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,300579*     
+,,,,,,3,,,,,300579* 300976*    
+,,,,,,,4,,,,300579*     
+,,,,,,,,5,,,300570
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,300579*     
+,,,,,,3,,,,,300579* 300976*    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,300579*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,HARDWARE DESIGN,HWDE,,,,4,,,,300570
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,300579*     
+,,,,,2,,,,,,300579*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300960*     
+,,,,,,,,5,,,     
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,     
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,     
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,300570
+,,,,,,,4,,,,300960*     
+,,,,,,,,5,,,     
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,     
+,,,,,2,,,,,,300960*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300143*     
+,,,,,,,,,6,,     
+,,PENETRATION TESTING,PENT,,,,4,,,,300570
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,300952*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,300579*     
+,,,,,,3,,,,,300976*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,300579*     
+,,,,,2,,,,,,300579*     
+,,,,,,3,,,,,300579* 300976*    
+,,,,,,,4,,,,300579*     
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,300579*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK SUPPORT,NTAS,,2,,,,,,300579*     
+,,,,,,3,,,,,300952*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,300579*     
+,,,,,,,4,,,,300579*     
+,,,,,,,,5,,,     
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,300579*     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,     
+,,,,,,,,5,,,300960*     
+,,,,,,,,,6,,     
+,,LEARNING DELIVERY,ETDL,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,300570
+,,,,,,,,,6,,  
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RESOURCING,RESC,,,,4,,,,300579*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,300579* 300960*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,300579*     
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,300579*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,QUALITY STANDARDS,QUST,,2,,,,,,300579*     
+,,,,,,3,,,,,300960*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,300579*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300960*     
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,300585
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,300570
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,300570 300955* 300956*   
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,300585
+,,,,,,,,,,7,     
+,,INFORMATION SECURITY,SCTY,,,3,,,,,300566 300585    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,300566
+,,,,,,,4,,,,300570
+,,,,,,,,5,,,300585
+,,,,,,,,,6,,    
+,,,,,,,,,,7,     
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,300566
+,,,,,2,,,,,,300566
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300570
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,     
+,,,,,,,,,6,,     
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,300566
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,     
+,,IT MANAGEMENT,ITMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INNOVATION,INOV,,,,,5,,,300570
+,,,,,,,,,6,,  
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,300585
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK PLANNING,NTPL,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DATA MANAGEMENT,DATM,,2,,,,,,300566 300570    
+,,,,,,3,,,,,300585 300955* 300956*   
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300104
+,,,,,,,,,6,,
+,,METHODS AND TOOLS,METL,,,,4,,,,300585
+,,,,,,,,5,,,300570   300104   
+,,,,,,,,,6,,    
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,300566
+,,,,,,3,,,,,300566
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,     
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,300566
+,,,,,,3,,,,,300566
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS MODELLING,BSMO,,2,,,,,,300566 300956*    
+,,,,,,3,,,,,300566
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,300570 300585    
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,DATA ANALYSIS,DTAN,,2,,,,,,300570 300955*    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SYSTEMS DESIGN,DESN,,2,,,,,,300585 300956*    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,     
+,,NETWORK DESIGN,NTDS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,300104
+,,,,,,,,,6,,  
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,300104
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,     
+,,,,,,,4,,,,300570
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,300570
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,TESTING,TEST,1,,,,,,,300585
+,,,,,2,,,,,,300104
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,   
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300570
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,300566
+,,,,,,3,,,,,300585
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300570
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,300566
+,,,,,,3,,,,,300585
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300570
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,300585
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,300585
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,HARDWARE DESIGN,HWDE,,,,4,,,,300570
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,300566 300585    
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,     
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,     
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,300570
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PENETRATION TESTING,PENT,,,,4,,,,300570
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,300585
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK SUPPORT,NTAS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DELIVERY,ETDL,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,300570
+,,,,,,,,,6,,
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RESOURCING,RESC,,,,4,,,,300585
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,     
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,300585
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,QUALITY STANDARDS,QUST,,2,,,,,,300566
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONTRACT MANAGEMENT,ITCM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,STAKEHOLDER RELATIONSHIP MANAGEMENT,RLMT,,,,4,,,,300566
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,301124*       
+,,,,,,,,,6,,   
+,,,,,,,,,,7,     
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,301124*  
+,,,,,,,,,6,,
+,,,,,,,,,,7,     
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,     
+,,,,,,,,5,,,300958*  301124*     
+,,,,,,,,,6,,   
+,,,,,,,,,,7,     
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,301124*     
+,,,,,,,,,,7,     
+,,INFORMATION SECURITY,SCTY,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,   300143* 301124*      
+,,,,,,,,,6,,     
+,,,,,,,,,,7,
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,  300143* 301124*    
+,,,,,,,,,6,,   
+,,,,,,,,,,7,     
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,301124*     
+,,,,,,,,,,7,     
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,300143*     
+,,,,,,,,,6,,301124*     
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,300128*     
+,,,,,,,,5,,,300095* 300143* 300404* 300698*  301124*   
+,,,,,,,,,6,,  
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300128*     
+,,,,,,,,5,,,301124*  
+,,,,,,,,,6,,   
+,,IT MANAGEMENT,ITMG,,,,,5,,,301124*  
+,,,,,,,,,6,,
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INNOVATION,INOV,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,301124*       
+,,,,,,,,,6,,
+,,,,,,,,,,7,     
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,300143* 300698*    
+,,,,,,,,5,,,301124*  
+,,,,,,,,,6,,    
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK PLANNING,NTPL,,,,,5,,,300095*  301124*     
+,,,,,,,,,6,,3
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,300128* 300143* 300698*   
+,,,,,,,,,6,,     
+,,DATA MANAGEMENT,DATM,,2,,,,,,300095* 300143*    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300128*     
+,,,,,,,,5,,,301124* 300698*    
+,,,,,,,,,6,,     
+,,METHODS AND TOOLS,METL,,,,4,,,,300095* 300404* 300799*   
+,,,,,,,,5,,,300128* 300143* 300698*  301124*  
+,,,,,,,,,6,,
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300698*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS MODELLING,BSMO,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,DATA ANALYSIS,DTAN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SYSTEMS DESIGN,DESN,,2,,,,,,     
+,,,,,,3,,,,,300404*     
+,,,,,,,4,,,,300698*     
+,,,,,,,,5,,,300799*     
+,,,,,,,,,6,,     
+,,NETWORK DESIGN,NTDS,,,,,5,,,300095*  301124*     
+,,,,,,,,,6,,
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,300095*     
+,,,,,,3,,,,,300130* 300165* 300167*   
+,,,,,,,4,,,,300096* 300404*    
+,,,,,,,,5,,,301124* 300698*    
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,TESTING,TEST,1,,,,,,,     
+,,,,,2,,,,,,300095*     
+,,,,,,3,,,,,300404*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300698*     
+,,,,,,,,,6,,     
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,300799*     
+,,,,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300698*     
+,,,,,,,,,6,,     
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,HARDWARE DESIGN,HWDE,,,,4,,,,300096*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,300095* 300165*    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301124*     
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,     
+,,,,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,     
+,,,,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301124*       
+,,,,,,,,,6,,     
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,300165*     
+,,,,,,,4,,,,300096* 300404*    
+,,,,,,,,5,,,301124*     
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300143* 301124*      
+,,,,,,,,,6,,
+,,PENETRATION TESTING,PENT,,,,4,,,,     
+,,,,,,,,5,,,301124*  
+,,,,,,,,,6,,
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,     
+,,,,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300698*     
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK SUPPORT,NTAS,,2,,,,,,     
+,,,,,,3,,,,,300095*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301124*     
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,300165*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,300404*     
+,,,,,,,4,,,,300799*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,     
+,,,,,,,,5,,,300128*     
+,,,,,,,,,6,,     
+,,LEARNING DELIVERY,ETDL,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,     
+,,,,,,,,,6,,     
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RESOURCING,RESC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,QUALITY STANDARDS,QUST,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,     
+,,,,,,,,5,,,301124*     
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,"300572*, 300584*, 300585"
+,,,,,,,,,6,,300569
+,,,,,,,,,,7,
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,"300570, 300572*, 300578*, 300960*"
+,,,,,,,,,6,,300961*
+,,,,,,,,,,7,
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,"300570, 300578*, 300579*, 300580"
+,,,,,,,,5,,,300569
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,"300584*, 300585"
+,,,,,,,,,,7,
+,,INFORMATION SECURITY,SCTY,,,3,,,,,"300580, 300585"
+,,,,,,,4,,,,300579*
+,,,,,,,,5,,,300569
+,,,,,,,,,6,,300582*
+,,,,,,,,,,7,
+,,INFORMATION ASSURANCE,INAS,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,"200032, 300572*, 300573, 300580"
+,,,,,,,4,,,,300570
+,,,,,,,,5,,,"300569, 300579*, 300960*"
+,,,,,,,,,6,,300585
+,,,,,,,,,,7,
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,"300573, 300580"
+,,,,,2,,,,,,
+,,,,,,3,,,,,300572*
+,,,,,,,4,,,,300570
+,,,,,,,,5,,,"300579*, 300582*, 300584*"
+,,,,,,,,,6,,
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,"300578*, 300961*"
+,,,,,,,,,6,,
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,"300565, 300578*, 300579*, 300580"
+,,,,,,,,5,,,"300960*, 300582*"
+,,,,,,,,,6,,
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,"300573, 300579*, 300580"
+,,,,,,3,,,,,300572*
+,,,,,,,4,,,,"300584*, 300960*, 300961*"
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,
+,,IT MANAGEMENT,ITMG,,,,,5,,,"300578*, 300579*"
+,,,,,,,,,6,,
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,INNOVATION,INOV,,,,,5,,,"300584*, 300960*, 300570, 300902*"
+,,,,,,,,,6,,
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,300572*
+,,,,,,,,,6,,"300578*, 300584*, 300961*"
+,,,,,,,,,,7,
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,"300578*, 300584*"
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,"300572*, 300578*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,"300579*, 300585"
+,,,,,,,,5,,,"300584*, 300570, 300960*"
+,,,,,,,,,6,,
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,
+,,,,,,,,5,,,
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,300578*
+,,,,,,,,,6,,
+,,NETWORK PLANNING,NTPL,,,,,5,,,
+,,,,,,,,,6,,
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,300578*
+,,,,,,,,,6,,
+,,DATA MANAGEMENT,DATM,,2,,,,,,"300570, 300580"
+,,,,,,3,,,,,300585
+,,,,,,,4,,,,"300569, 300960*"
+,,,,,,,,5,,,"300579*, 300104"
+,,,,,,,,,6,,
+,,METHODS AND TOOLS,METL,,,,4,,,,300585
+,,,,,,,,5,,,"300570, 300578*, 300579*, 300960*, 300104"
+,,,,,,,,,6,,
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,300572*
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,
+,,,,,,,,,,7,
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,"300572*, 300578*, 300579*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,300579*
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,"300573, 300580"
+,,,,,,,4,,,,"300578*, 300579*, 300584*, 300585"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,
+,,,,,,3,,,,,"300572*, 300578*, 300580"
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,300579*
+,,,,,,,,,6,,
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,
+,,,,,,,,5,,,
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,,"300572*, 300578*"
+,,,,,,,,,6,,
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,"300578*, 300584*, 300961*, 300584*"
+,,,,,,,,,6,,
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,300584*
+,,,,,,,,,6,,
+,,BUSINESS MODELLING,BSMO,,2,,,,,,300579*
+,,,,,,3,,,,,"300572*, 300578*, 300580"
+,,,,,,,4,,,,"300585, 300961*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,"300570, 300578*, 300579*, 300585"
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,DATA ANALYSIS,DTAN,,2,,,,,,"200032, 300570, 300579*"
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,SYSTEMS DESIGN,DESN,,2,,,,,,300585
+,,,,,,3,,,,,
+,,,,,,,4,,,,300580
+,,,,,,,,5,,,"300570, 300579*, 300582*"
+,,,,,,,,,6,,
+,,NETWORK DESIGN,NTDS,,,,,5,,,300579*
+,,,,,,,,,6,,
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,300585
+,,,,,,,,5,,,"300579*, 300104, 300582*"
+,,,,,,,,,6,,
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,"300104, 300565"
+,,,,,,3,,,,,
+,,,,,,,4,,,,"300580, 300960*"
+,,,,,,,,5,,,"300579*, 300582*"
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,300579*
+,,,,,,,4,,,,300570
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,
+,,,,,2,,,,,,300580
+,,,,,,3,,,,,"300570, 300579*"
+,,,,,,,4,,,,
+,,,,,,,,5,,,300582*
+,,,,,,,,,6,,
+,,TESTING,TEST,1,,,,,,,"300565, 300585"
+,,,,,2,,,,,,"300104, 300580"
+,,,,,,3,,,,,
+,,,,,,,4,,,,"300579*, 300960*"
+,,,,,,,,5,,,"300582*, 300570"
+,,,,,,,,,6,,
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,
+,,,,,,,4,,,,300584*
+,,,,,,,,5,,,"300570, 300579*, 300582*"
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,300580
+,,,,,,3,,,,,300585
+,,,,,,,4,,,,300579*
+,,,,,,,,5,,,"300570, 300582*"
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,"300573, 300580"
+,,,,,,3,,,,,"300584*, 300585"
+,,,,,,,4,,,,300579*
+,,,,,,,,5,,,300570
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,"300580, 300585"
+,,,,,,3,,,,,300579*
+,,,,,,,4,,,,
+,,,,,,,,5,,,300582*
+,,,,,,,,,6,,
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,"300579*, 300585"
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,HARDWARE DESIGN,HWDE,,,,4,,,,300570
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,"300565, 300585"
+,,,,,2,,,,,,300579*
+,,,,,,3,,,,,
+,,,,,,,4,,,,300960*
+,,,,,,,,5,,,
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,
+,,,,,,,,5,,,300570
+,,,,,,,,,6,,
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,300572*
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,300584*
+,,,,,,,,,6,,
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,"300570, 300580"
+,,,,,,,4,,,,300960*
+,,,,,,,,5,,,
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,
+,,,,,2,,,,,,"300580, 300960*"
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,PENETRATION TESTING,PENT,,,,4,,,,300570
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,300579*
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,
+,,,,,2,,,,,,
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,300579*
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,"300579*, 300585"
+,,,,,,3,,,,,300569
+,,,,,,,4,,,,
+,,,,,,,,5,,,300582*
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,NETWORK SUPPORT,NTAS,,2,,,,,,"300565, 300569, 300579*"
+,,,,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,300580
+,,,,,,,4,,,,"300569, 300579*"
+,,,,,,,,5,,,
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,300579*
+,,,,,,3,,,,,"300569, 300580"
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,
+,,,,,,,,5,,,300960*
+,,,,,,,,,6,,
+,,LEARNING DELIVERY,ETDL,,,3,,,,,
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,�300570
+,,,,,,,,,6,,
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,300578*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,RESOURCING,RESC,,,,4,,,,"300579*, 300585"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,"300578*, 300579*, 300960*"
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,300579*
+,,,,,,,,5,,,"300570, 300572*"
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,"300579*, 300585"
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,QUALITY STANDARDS,QUST,,2,,,,,,300579*
+,,,,,,3,,,,,300960*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,300579*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,
+,,,,,,,,,6,,
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,
+,,,,,,3,,,,,
+,,,,,,,4,,,,300960*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,CONTRACT MANAGEMENT,ITCM,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,STAKEHOLDER RELATIONSHIP MANAGEMENT,RLMT,,,,4,,,,300578*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,,,,,,,,,7,
+,,CLIENT SERVICES MANAGEMENT,CSMG,,3,,,,,,300572*
+,,,,,,,4,,,,300584*
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,SALES AND MARKETING,DIGITAL MARKETING,MKTG,,,3,,,,,300572*
+,,,,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SELLING,SALE,,,,4,,,,
+,,,,,,,,5,,,
+,,,,,,,,,6,,
+,,SALES SUPPORT,SSUP,1,,,,,,,300572*
+STRATEGY AND ARCHITECTURE,INFORMATION STRATEGY,IT GOVERNANCE,GOVN,,,,,5,,,300584*     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,IT STRATEGY AND PLANNING,ITSP,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION MANAGEMENT,IRMG,,,,4,,,,300580
+,,,,,,,,5,,,300958*   301109*   
+,,,,,,,,,6,,    
+,,,,,,,,,,7,     
+,,INFORMATION SYSTEMS CO-ORDINATION,ISCO,,,,,,6,,300584* 301109*    
+,,,,,,,,,,7,     
+,,INFORMATION SECURITY,SCTY,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,INFORMATION ASSURANCE,INAS,,,,,5,,, 301109*      
+,,,,,,,,,6,,   
+,,,,,,,,,,7,     
+,,INFORMATION ANALYSIS,INAN,,,3,,,,,200032 300573 300580 301033*  
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,, 301109*      
+,,,,,,,,,,7,   
+,,INFORMATION CONTENT PUBLISHING,ICPM,1,,,,,,,300573 300580    
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300584* 301109*    
+,,,,,,,,,6,,     
+,ADVICE AND GUIDANCE,CONSULTANCY,CNSL,,,,,5,,,301109*     
+,,,,,,,,,6,,     
+,,TECHNICAL SPECIALISM,TECH,,,,4,,,,300580
+,,,,,,,,5,,,301109*     
+,,,,,,,,,6,,     
+,BUSINESS STRATEGY AND PLANNING,RESEARCH,RSCH,,2,,,,,,300573 300580    
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300584* 301109*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,IT MANAGEMENT,ITMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,FINANCIAL MANAGEMENT,FMIT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INNOVATION,INOV,,,,,5,,,300584* 301109*    
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS IMPROVEMENT,BPRE,,,,,5,,,  300584*       
+,,,,,,,,,6,,
+,,,,,,,,,,7,     
+,,ENTERPRISE AND BUSINESS ARCHITECTURE DEVELOPMENT,STPL,,,,,5,,,300584*     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,BUSINESS RISK MANAGEMENT,BURM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,SUSTAINABILITY STRATEGY,SUST,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,TECHNICAL STRATEGY AND PLANNING,EMERGING TECHNOLOGY MONITORING,EMRG,,,,4,,,,301033*     
+,,,,,,,,5,,,300584* 301109*    
+,,,,,,,,,6,,     
+,,CONTINUITY MANAGEMENT,COPL,,,,4,,,,     
+,,,,,,,,5,,,     
+,,SUSTAINABILITY MANAGEMENT FOR IT,SUMI,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK PLANNING,NTPL,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SOLUTION ARCHITECTURE,ARCH,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DATA MANAGEMENT,DATM,,2,,,,,,300580 301033*    
+,,,,,,3,,,,,301109*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,METHODS AND TOOLS,METL,,,,4,,,,301033*     
+,,,,,,,,5,,, 301109*      
+,,,,,,,,,6,,   
+CHANGE AND TRANSFORMATION,BUSINESS CHANGE IMPLEMENTATION,PORTFOLIO MANAGEMENT,POMG,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROGRAMME MANAGEMENT,PGMG,,,,,,6,,     
+,,,,,,,,,,7,     
+,,PROJECT MANAGEMENT,PRMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,"PORTFOLIO, PROGRAMME AND PROJECT SUPPORT",PROF,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,BUSINESS CHANGE MANAGEMENT,BUSINESS ANALYSIS,BUAN,,,3,,,,,300573 300580 301033*   
+,,,,,,,4,,,,300584* 301109*    
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,REQUIREMENTS DEFINITION AND MANAGEMENT,REQM,,2,,,,,,     
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,BUSINESS PROCESS TESTING,BPTS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CHANGE IMPLEMENTATION PLANNING AND MANAGEMENT,CIPM,,,,,5,,, 300584*      
+,,,,,,,,,6,,   
+,,ORGANISATION DESIGN AND IMPLEMENTATION,ORDI,,,,,5,,,300584*     
+,,,,,,,,,6,,     
+,,BENEFITS MANAGEMENT,BENM,,,,,5,,,300584*     
+,,,,,,,,,6,,     
+,,BUSINESS MODELLING,BSMO,,2,,,,,,301033*     
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ASSESSMENT,SUAS,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+ DEVELOPMENT AND IMPLEMENTATION,SYSTEMS DEVELOPMENT,SYSTEMS DEVELOPMENT MANAGEMENT,DLMG,,,,,5,,,301110*         
+,,,,,,,,,6,,     
+,,,,,,,,,,7,
+,,DATA ANALYSIS,DTAN,,2,,,,,,200032
+,,,,,,3,,,,,300580 301033*    
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301109*     
+,,SYSTEMS DESIGN,DESN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,300580
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK DESIGN,NTDS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DATABASE/REPOSITORY DESIGN,DBDS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301110*   
+,,,,,,,,,6,,  
+,,PROGRAMMING/SOFTWARE DEVELOPMENT,PROG,,2,,,,,,     
+,,,,,,3,,,,,301109*     
+,,,,,,,4,,,,300580
+,,,,,,,,5,,,     
+,,ANIMATION DEVELOPMENT,ADEV,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ENGINEERING,SFEN,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SUSTAINABILITY ENGINEERING,SUEN,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,INFORMATION CONTENT AUTHORING,INCA,1,,,,,,,     
+,,,,,2,,,,,,300580
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,TESTING,TEST,1,,,,,,,     
+,,,,,2,,,,,,300580
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,USER EXPERIENCE,USER EXPERIENCE ANALYSIS,UNAN,,,3,,,,,301109*     
+,,,,,,,4,,,,300584*     
+,,,,,,,,5,,,     
+,,USER EXPERIENCE DESIGN,HCEV,,2,,,,,,300580
+,,,,,,3,,,,,301109*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,USER EXPERIENCE EVALUATION,USEV,,2,,,,,,300573 300580    
+,,,,,,3,,,,,300584*     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,INSTALLATION AND INTEGRATION,SYSTEMS INTEGRATION,SINT,,2,,,,,,300580
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PORTING/SOFTWARE INTEGRATION,PORT,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,HARDWARE DESIGN,HWDE,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SYSTEMS INSTALLATION/DECOMMISSIONING,HSIN,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+DELIVERY AND OPERATION,SERVICE DESIGN,AVAILABILITY MANAGEMENT,AVMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SERVICE LEVEL MANAGEMENT,SLMO,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,SERVICE TRANSITION,SERVICE ACCEPTANCE,SEAC,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONFIGURATION MANAGEMENT,CFMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,ASSET MANAGEMENT,ASMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CHANGE MANAGEMENT,CHMG,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,300584*     
+,,,,,,,,,6,,     
+,,RELEASE AND DEPLOYMENT,RELM,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,SERVICE OPERATION,SYSTEM SOFTWARE,SYSP,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CAPACITY MANAGEMENT,CPMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SECURITY ADMINISTRATION,SCAD,1,,,,,,,     
+,,,,,2,,,,,,300580
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,PENETRATION TESTING,PENT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RADIO FREQUENCY ENGINEERING,RFEN,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,APPLICATIONS SUPPORT,ASUP,,2,,,,,,     
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,IT INFRASTRUCTURE,ITOP,1,,,,,,,     
+,,,,,2,,,,,,     
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,DATABASE ADMINISTRATION,DBAD,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,STORAGE MANAGEMENT,STMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,NETWORK SUPPORT,NTAS,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,PROBLEM MANAGEMENT,PBMG,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,INCIDENT MANAGEMENT,USUP,,2,,,,,,     
+,,,,,,3,,,,,300580
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,FACILITIES MANAGEMENT,DCMA,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+SKILLS AND QUALITY,SKILLS MANAGEMENT,LEARNING AND DEVELOPMENT MANAGEMENT,ETMG,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,301109*     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,LEARNING ASSESSMENT AND EVALUATION,LEDA,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DESIGN AND DEVELOPMENT,TMCR,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,LEARNING DELIVERY,ETDL,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,TEACHING AND SUBJECT FORMATION,TEAC,,,,,5,,,     
+,,,,,,,,,6,,     
+,PEOPLE MANAGEMENT,PERFORMANCE MANAGEMENT,PEMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,RESOURCING,RESC,,,,4,,,,     
+,,,,,,,,5,,,301109*     
+,,,,,,,,,6,,     
+,,PROFESSIONAL DEVELOPMENT,PDSV,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,QUALITY AND CONFORMANCE,QUALITY MANAGEMENT,QUMG,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,QUALITY ASSURANCE,QUAS,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,QUALITY STANDARDS,QUST,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,CONFORMANCE REVIEW,CORE,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,SAFETY ASSESSMENT,SFAS,,,,,5,,,     
+,,,,,,,,,6,,     
+,,DIGITAL FORENSICS,DGFS,,,,4,,,,301109*     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+RELATIONSHIPS AND ENGAGEMENT,STAKEHOLDER MANAGEMENT,SOURCING,SORC,,2,,,,,,     
+,,,,,,3,,,,,     
+,,,,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,CONTRACT MANAGEMENT,ITCM,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,STAKEHOLDER RELATIONSHIP MANAGEMENT,RLMT,,,,4,,,,     
+,,,,,,,,5,,,     
+,,,,,,,,,6,,     
+,,,,,,,,,,7,     
+,,CLIENT SERVICES MANAGEMENT,CSMG,,3,,,,,,     
+,,,,,,,4,,,,300584*     

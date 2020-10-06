@@ -20,7 +20,7 @@ export function processReport(
       credits[topic.id] = round(
         topicBlocks.reduce((prev, next) => {
           let blockTopic = next.topics.find(t => t.id === topic.id);
-          return next.credit * blockTopic.ratio + prev;
+          return next.credits * blockTopic.ratio + prev;
         }, 0)
       );
     }
