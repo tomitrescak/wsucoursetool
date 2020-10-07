@@ -106,6 +106,7 @@ export type Unit = {
 
   prerequisites?: Prerequisite[];
   sfiaSkills: SfiaSkillMapping[];
+  offer: Array<'au' | 'sp' | 'sua' | 'sub'>;
 };
 
 export type CompletionCriteriaType = '' | 'simple' | 'allOf' | 'someOf';
