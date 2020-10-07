@@ -96,6 +96,7 @@ export type Query = {
   unit: Scalars['JSON'];
   unitBase?: Maybe<Scalars['JSON']>;
   units: Array<UnitList>;
+  unitsWithDetails?: Maybe<Scalars['JSON']>;
   course: Scalars['JSON'];
   courses: Array<CourseList>;
   courseUnits: Scalars['JSON'];
@@ -120,6 +121,11 @@ export type QueryUnitArgs = {
 
 export type QueryUnitBaseArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryUnitsWithDetailsArgs = {
+  ids: Array<Scalars['String']>;
 };
 
 
@@ -392,6 +398,13 @@ export type UnitsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UnitsQuery = { units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'id' | 'name'>> };
+
+export type UnitsWithDetailsQueryVariables = Exact<{
+  ids: Array<Scalars['String']>;
+}>;
+
+
+export type UnitsWithDetailsQuery = Pick<Query, 'unitsWithDetails'>;
 
 export const ResultFragmentDoc = gql`
     fragment Result on Result {
@@ -1254,3 +1267,34 @@ export function useUnitsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOp
 export type UnitsQueryHookResult = ReturnType<typeof useUnitsQuery>;
 export type UnitsLazyQueryHookResult = ReturnType<typeof useUnitsLazyQuery>;
 export type UnitsQueryResult = ApolloReactCommon.QueryResult<UnitsQuery, UnitsQueryVariables>;
+export const UnitsWithDetailsDocument = gql`
+    query UnitsWithDetails($ids: [String!]!) {
+  unitsWithDetails(ids: $ids)
+}
+    `;
+
+/**
+ * __useUnitsWithDetailsQuery__
+ *
+ * To run a query within a React component, call `useUnitsWithDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUnitsWithDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUnitsWithDetailsQuery({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useUnitsWithDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<UnitsWithDetailsQuery, UnitsWithDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<UnitsWithDetailsQuery, UnitsWithDetailsQueryVariables>(UnitsWithDetailsDocument, baseOptions);
+      }
+export function useUnitsWithDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<UnitsWithDetailsQuery, UnitsWithDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<UnitsWithDetailsQuery, UnitsWithDetailsQueryVariables>(UnitsWithDetailsDocument, baseOptions);
+        }
+export type UnitsWithDetailsQueryHookResult = ReturnType<typeof useUnitsWithDetailsQuery>;
+export type UnitsWithDetailsLazyQueryHookResult = ReturnType<typeof useUnitsWithDetailsLazyQuery>;
+export type UnitsWithDetailsQueryResult = ApolloReactCommon.QueryResult<UnitsWithDetailsQuery, UnitsWithDetailsQueryVariables>;

@@ -137938,6 +137938,66 @@
           "bloomRating": 3
         }
       ]
+    },
+    {
+      "id": "7",
+      "name": "Server Engineer",
+      "skills": [
+        {
+          "skillId": "e1",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "d0",
+          "bloomRating": 3
+        },
+        {
+          "skillId": "c2",
+          "bloomRating": 6
+        },
+        {
+          "skillId": "a3",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "c1",
+          "bloomRating": 4
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Junior Programmer",
+      "skills": [
+        {
+          "skillId": "a3",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "d0",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "a1",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "a3",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "b0",
+          "bloomRating": 3
+        },
+        {
+          "skillId": "e1",
+          "bloomRating": 1
+        },
+        {
+          "skillId": "c0",
+          "bloomRating": 3
+        }
+      ]
     }
   ],
   "sfiaSkills": [

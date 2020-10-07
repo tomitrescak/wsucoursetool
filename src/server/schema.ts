@@ -86,6 +86,7 @@ export const typeDefs = gql`
     unit(id: String!): JSON!
     unitBase(id: String!): JSON
     units: [UnitList!]!
+    unitsWithDetails(ids: [String!]!): JSON
 
     course(id: String!): JSON!
     courses: [CourseList!]!

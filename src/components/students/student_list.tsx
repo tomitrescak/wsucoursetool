@@ -44,7 +44,8 @@ import {
   useUnitBaseQuery,
   useJobQuery,
   useJobsQuery,
-  useUnitQuery
+  useUnitQuery,
+  useUnitsWithDetailsQuery
 } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 
@@ -52,6 +53,7 @@ import { useStudentListQuery } from 'config/graphql';
 import { BlocksEditor } from 'components/blocks/block_editor';
 import build from 'next/dist/build';
 import { skills } from 'components/outcomes/outcome_editor';
+import { UnitDetailContainer } from 'components/units/unit_details';
 
 @model('Editor/Students')
 class StudentListModel extends Model({
@@ -283,60 +285,130 @@ type MatchedJobParams = {
   student: StudentModel;
 };
 
-const MatchedJob = observer(({ index, localState, student, job }: MatchedJobParams) => {
-  const { loading: unitsLoading, data: unitsData } = useUnitsQuery();
+function uniqueValues(array: string[]) {
+  return Array.from(new Set(array));
+}
+
+const MatchedJob = observer(({ index, student, job, localState }: MatchedJobParams) => {
   const { loading, error, data } = useJobQuery({
     variables: {
       id: job.id
     }
   });
 
-  if (loading || error) {
-    return <ProgressView loading={loading || unitsLoading} error={error} />;
+  const ids = uniqueValues(student.registeredBlocks.map(b => b.unitId));
+
+  const { loading: unitsLoading, error: unitsError, data: unitsData } = useUnitsWithDetailsQuery({
+    variables: {
+      ids
+    }
+  });
+
+  if (loading || error || unitsLoading || unitsError) {
+    return <ProgressView loading={loading || unitsLoading} error={error || unitsError} />;
   }
 
-  const acsSkills: AcsKnowledge[] = data.acs
-    .map(m => m.items)
-    .flat()
-    .sort((a, b) => a.name.localeCompare(b.name));
+  // student.registeredBlocks.map((block, i) => {
+  //   console.log(block.unitId);
+  // });
+  // console.log(unitData.unit.unit);
+  // console.log(unitData.unit.unit.outcomes);
+  // console.log(unitData.unit.unit.outcomes.find(s => s.acsSkillId === 'b0').bloomRating);
 
-  var studentSkills = [];
-  var singleSkill;
+  var allStudentSkills = [];
+  var studentSkill;
+  var allJobSkills = [];
+  //var jobSkill;
 
-  // creates an empty array of objects containing skillId and skillLevel
-  // for given student
-  for (var i = 0; i < acsSkills.length; i++) {
-    singleSkill = {};
+  //creates array of objects skillId and skillLevel for each job skill
+  // and initialises the studentSkills bloomRatings to 0
+  data.job.skills.map((skill, i) => {
+    // jobSkill = {};
+    // jobSkill['skillId'] = skill.skillId;
+    // jobSkill['skillLevel'] = skill.bloomRating;
+    allJobSkills.push(skill.bloomRating);
 
-    singleSkill['skillId'] = acsSkills[i].id;
-    singleSkill['skillLevel'] = 0;
+    studentSkill = {};
+    studentSkill['skillId'] = skill.skillId;
+    studentSkill['skillLevel'] = 0;
+    allStudentSkills.push(studentSkill);
+  });
+  console.log(allJobSkills);
+  console.log(allStudentSkills);
 
-    studentSkills.push(singleSkill);
+  // === This needs to be placed in a loop of student.registeredBlocks ===
+  for (var block of student.registeredBlocks) {
+    const unit: Unit = unitsData.unitsWithDetails.find(u => u.id == block.unitId);
+    console.log(unit);
+    for (var i = 0; i < allStudentSkills.length; i++) {
+      // gets skills from unit based on required skills of job
+      // and compares their bloomRatings
+      var unitOutcomes = unit.outcomes.find(s => s.acsSkillId === allStudentSkills[i].skillId);
+      if (unitOutcomes && unitOutcomes.bloomRating > allStudentSkills[i].skillLevel) {
+        allStudentSkills[i].skillLevel = unitOutcomes.bloomRating;
+      }
+    }
   }
 
-  console.log(studentSkills);
+  // calc individual skills
 
-  return (
-    <Pane display="flex" key={index}>
-      <Heading>{job.name}</Heading>
+  // calculate percentage
+  var studentTotal = 0;
+  var singleSkillPercentage;
+  for (var i = 0; i < allStudentSkills.length; i++) {
+    if (allStudentSkills[i].skillLevel >= allJobSkills[i]) {
+      studentTotal++;
+    }
+  }
+  var percentage = Math.round((studentTotal / allJobSkills.length) * 100) + '%';
 
-      <div id="emptyBar" style={{ width: '100%', backgroundColor: 'grey' }}>
-        <div id="progressBar" style={{ width: '20%', height: '30', backgroundColor: 'green' }}>
-          20%
-        </div>
-      </div>
-
-      {data.job.skills.map((skill, i) => {
-        const acs = acsSkills.find(s => s.id === skill.skillId);
-        return (
-          <Pane display="flex" key={index}>
-            <TextField label={acs.name} />
-            <TextField label={skill.bloomRating} />
-          </Pane>
-        );
-      })}
-    </Pane>
-  );
+  if (!localState.showMoreJobs && index < 3) {
+    return (
+      <Pane display="flex" key={index} marginBottom={8}>
+        <Pane flex={0.3}>
+          <Heading>{job.name}</Heading>
+        </Pane>
+        <Pane flex={1}>
+          <div id="emptyBar" style={{ width: '50%', backgroundColor: 'grey' }}>
+            <div
+              id="progressBar"
+              style={{
+                width: percentage,
+                height: '30',
+                backgroundColor: 'green',
+                color: 'white'
+              }}
+            >
+              {percentage}
+            </div>
+          </div>
+        </Pane>
+      </Pane>
+    );
+  } else if (localState.showMoreJobs) {
+    return (
+      <Pane display="flex" key={index} marginBottom={8}>
+        <Pane flex={0.3}>
+          <Heading>{job.name}</Heading>
+        </Pane>
+        <Pane flex={1}>
+          <div id="emptyBar" style={{ width: '50%', backgroundColor: 'grey' }}>
+            <div
+              id="progressBar"
+              style={{
+                width: percentage,
+                height: '30',
+                backgroundColor: 'green',
+                color: 'white'
+              }}
+            >
+              {percentage}
+            </div>
+          </div>
+        </Pane>
+      </Pane>
+    );
+  }
 });
 
 const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: State }> = observer(
@@ -351,7 +423,8 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
       result: '',
       date: '',
       grade: '',
-      editLineIndex: -1
+      editLineIndex: -1,
+      showMoreJobs: false
     }));
 
     const blockForm = buildForm(localState, ['unitId', 'blockId', 'result', 'date', 'grade']);
@@ -421,7 +494,7 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
             marginBottom={8}
           />
 
-          <TextEditor owner={student} field="details" label="Details (TEMP)" />
+          <TextEditor owner={student} field="details" label="Details" />
           <Button
             intent="danger"
             iconBefore="trash"
@@ -499,12 +572,18 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
 
         <br></br>
         <Heading marginBottom={16}>Matched Jobs</Heading>
-        <Pane>
-          {/* <TextField label={unitsData.units[0].id} /> */}
-          {/* <TextField label={jobsData.jobData[0]} /> */}
+        <Pane display="flex">
+          <Heading size={400} flex={0.3}>
+            Job Name
+          </Heading>
+          <Heading size={400} flex={1}>
+            Matched Percentage
+          </Heading>
+        </Pane>
 
-          {jobsData.jobs.map((job, index) => (
-            <Pane>
+        {jobsData.jobs.map((job, index) => (
+          <Pane display="flex" alignItems="center" marginTop={16}>
+            <Pane flex={1}>
               <MatchedJob
                 job={job}
                 student={student}
@@ -513,7 +592,29 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
                 key={index}
               />
             </Pane>
-          ))}
+          </Pane>
+        ))}
+        <Pane display="flex" alignItems="center" marginTop={16}>
+          <Button
+            appearance="primary"
+            margin={0}
+            width={100}
+            onClick={() => {
+              localState.showMoreJobs = true;
+            }}
+          >
+            Show More
+          </Button>
+          <Button
+            appearance="primary"
+            marginLeft={8}
+            width={100}
+            onClick={() => {
+              localState.showMoreJobs = false;
+            }}
+          >
+            Show Less
+          </Button>
         </Pane>
 
         <Dialog

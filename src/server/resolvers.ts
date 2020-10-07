@@ -215,6 +215,10 @@ export const resolvers: IResolvers = {
     }
   },
   Query: {
+    unitsWithDetails(_, { ids }) {
+      let db = getDb();
+      return db.units.filter(u => ids.indexOf(u.id) >= 0);
+    },
     students() {
       const files = fs.readdirSync(path.resolve('./src/data/students'));
       const students = files.map(fileName =>

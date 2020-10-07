@@ -95,6 +95,7 @@ export type Query = {
   unit: Scalars['JSON'];
   unitBase?: Maybe<Scalars['JSON']>;
   units: Array<UnitList>;
+  unitsWithDetails?: Maybe<Scalars['JSON']>;
   course: Scalars['JSON'];
   courses: Array<CourseList>;
   courseUnits: Scalars['JSON'];
@@ -119,6 +120,11 @@ export type QueryUnitArgs = {
 
 export type QueryUnitBaseArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryUnitsWithDetailsArgs = {
+  ids: Array<Scalars['String']>;
 };
 
 
@@ -418,6 +424,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   unit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryUnitArgs, 'id'>>;
   unitBase?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryUnitBaseArgs, 'id'>>;
   units?: Resolver<Array<ResolversTypes['UnitList']>, ParentType, ContextType>;
+  unitsWithDetails?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryUnitsWithDetailsArgs, 'ids'>>;
   course?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseArgs, 'id'>>;
   courses?: Resolver<Array<ResolversTypes['CourseList']>, ParentType, ContextType>;
   courseUnits?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseUnitsArgs, 'id'>>;
