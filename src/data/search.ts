@@ -1,3 +1,4 @@
+import { Database, sqlite3 } from 'sqlite3';
 import {
   CourseConfig,
   Course,
@@ -14,11 +15,174 @@ const fs = require('fs');
 const path = require('path');
 const parser = require('csv-parse/lib/sync');
 const toposort = require('toposort');
+const sqlite3 = require('sqlite3').verbose();
 
 const db: CourseConfig = JSON.parse(fs.readFileSync('./src/data/db.json', { encoding: 'utf-8' }));
 
 // fill the core
 // use 180 credits
+
+class AppDAO {
+  db: Database;
+
+  constructor(dbFilePath: string) {
+    this.db = new sqlite3.Database(dbFilePath, err => {
+      if (err) {
+        console.log('Could not connect to database', err);
+      } else {
+        console.log('Connected to database');
+      }
+    });
+  }
+
+  run(sql, params = []): any {
+    return new Promise((resolve, reject) => {
+      this.db.run(sql, params, function (err) {
+        if (err) {
+          console.log('Error running sql ' + sql);
+          console.log(err);
+          reject(err);
+        } else {
+          resolve({ id: this.lastID });
+        }
+      });
+    });
+  }
+
+  get(sql, params = []) {
+    return new Promise((resolve, reject) => {
+      this.db.get(sql, params, (err, result) => {
+        if (err) {
+          console.log('Error running sql: ' + sql);
+          console.log(err);
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
+
+  all(sql, params = []): any {
+    return new Promise((resolve, reject) => {
+      this.db.all(sql, params, (err, rows) => {
+        if (err) {
+          console.log('Error running sql: ' + sql);
+          console.log(err);
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  }
+
+  // async createConfiguration() {
+  //   return (await this.run('INSERT INTO configuration (credits) VALUES (?)', [0])).id;
+  // }
+
+  createItem(nodeId, semester: number, configurationId: number) {
+    return this.run('INSERT INTO item (nodeId, semester, parentId, root) VALUES (?, ?, ?, 1) ', [
+      nodeId,
+      semester,
+      configurationId
+    ]);
+  }
+
+  // removeConfiguration(id) {
+  //   return this.run(`DELETE FROM configuration WHERE id = ?`, [id]);
+  // }
+
+  async itemCount(): Promise<number> {
+    return (await this.get(`SELECT COUNT(*) FROM item WHERE root = 1`))['COUNT(*)'];
+  }
+
+  // async configurationCount(): Promise<number> {
+  //   return (await this.get(`SELECT COUNT(*) FROM configuration`))['COUNT(*)'];
+  // }
+
+  async getItem(id: number): Promise<Item> {
+    return this.get(`SELECT * FROM item WHERE id = ?`, [id]) as any;
+  }
+
+  async getItems(offset: number, limit: number) {
+    return this.all(`SELECT * FROM item WHERE root = 1 LIMIT ? OFFSET ?`, [limit, offset]);
+  }
+
+  async getAllItems(offset?: number, limit?: number) {
+    return this.all(`SELECT * FROM item`);
+  }
+
+  async toggleRoot(id: number) {
+    return this.all(`UPDATE item SET root = 0 WHERE id = ?`, [id]);
+  }
+}
+
+const dao = new AppDAO(':memory:'); //'/mnt/c/users/tomi/downloads/main.db');
+
+async function connect() {
+  // let sql = `
+  //   CREATE TABLE IF NOT EXISTS configuration (
+  //     id INTEGER PRIMARY KEY AUTOINCREMENT,
+  //     credits INTEGER DEFAULT 0)`;
+  // await dao.run(sql);
+
+  let sql = `
+      CREATE TABLE IF NOT EXISTS item (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nodeId INTEGER,
+        semester INTEGER,
+        parentId INTEGER,
+        root INTEGER 
+        )`;
+  // CONSTRAINT item_fk_configurationId FOREIGN KEY (configurationId)
+  // REFERENCES configuration(id) ON DELETE CASCADE)
+  await dao.run(sql);
+
+  sql = `DELETE FROM item`;
+  await dao.run(sql);
+  // sql = `DELETE FROM configuration`;
+  // await dao.run(sql);
+  sql = `DELETE FROM sqlite_sequence`;
+  await dao.run(sql);
+
+  // await dao.run('INSERT INTO configuration (credits) VALUES (?)', [10]);
+}
+
+type Any = any;
+
+interface Indexable<T> {
+  [index: string]: T;
+}
+
+interface Group<T> {
+  key: string;
+  values: T[];
+}
+
+function groupBy<T>(xs: T[], key: string): Indexable<T[]> {
+  return xs.reduce(function (previous: Any, current: Indexable<Any>) {
+    // Indexable<Array<Indexable<T>>>
+    (previous[current[key]] = previous[current[key]] || []).push(current);
+    return previous;
+  }, {});
+}
+
+function groupByArray<T>(xs: T[], key: string | Function): Array<Group<T>> {
+  return xs.reduce(function (previous: Any, current: Indexable<Any>) {
+    let v = key instanceof Function ? key(current) : current[key];
+    let el = previous.find((r: Any) => r && r.key === v);
+    if (el) {
+      el.values.push(current);
+    } else {
+      previous.push({
+        key: v,
+        values: [current]
+      });
+    }
+    return previous;
+  }, []);
+}
 
 function clone<T>(item: T): T {
   return JSON.parse(JSON.stringify(item));
@@ -132,21 +296,30 @@ const unitNodes: SearchNode[] = db.units
       }
       return prev;
     }, [] as SfiaSkillMapping[])
-  }));
+  }))
+  .filter(u => u.topics.length > 0);
+
+const unitNodesByUnitId: { [index: string]: SearchNode } = unitNodes.reduce((prev, next) => {
+  prev[next.unit.id] = next;
+  return prev;
+}, {});
+const unitNodesById: { [index: string]: SearchNode } = unitNodes.reduce((prev, next) => {
+  prev[next.id] = next;
+  return prev;
+}, {});
+
 const unitEdges: SearchEdge[] = [];
 
-const blockNodes: SearchNode[] = db.units
-  .filter(u => u.level < 7)
-  .flatMap(u =>
-    u.blocks.map(b => ({
-      id: searchBlockId++,
-      block: b,
-      unit: u,
-      dependsOn: [],
-      topics: b.topics,
-      sfiaSkills: b.sfiaSkills
-    }))
-  );
+const blockNodes: SearchNode[] = unitNodes.flatMap(u =>
+  u.unit.blocks.map(b => ({
+    id: searchBlockId++,
+    block: b,
+    unit: u.unit,
+    dependsOn: [],
+    topics: b.topics,
+    sfiaSkills: b.sfiaSkills
+  }))
+);
 const blockEdges: SearchEdge[] = [];
 
 function addPrerequisite(pre: Prerequisite, dependantNode: SearchNode) {
@@ -270,7 +443,7 @@ type SearchNode = {
 
 // sorted.reverse();
 fs.writeFileSync(
-  'block-edges.csv',
+  './data/block-edges.csv',
   `"From Unit", "From Block", "To Unit", "To Block"` +
     blockEdges
       .map(
@@ -290,7 +463,7 @@ fs.writeFileSync(
 );
 
 fs.writeFileSync(
-  'unit-edges.csv',
+  './data/unit-edges.csv',
   `"From Unit", "From Block", "To Unit", "To Block"` +
     unitEdges.map(s => '"' + s[0].unit.name + '","' + s[1].unit.name + '"').join('\n'),
   { encoding: 'utf-8' }
@@ -304,9 +477,9 @@ let sortedUnits: SearchNode[] = toposort.array(unitNodes, unitEdges);
 sortedUnits = sortedUnits.filter(n => n.include || n.topics?.length || n.sfiaSkills?.length);
 
 fs.writeFileSync(
-  'sorted-units.csv',
+  './data/sorted-units.csv',
   sortedUnits
-    .map(s => `"${s.unit.name}", "${(s.unit.name || '').replace(/\n/g, ' ').trim()}"`)
+    .map(s => `"${s.unit.name}", "${(s.unit.id || '').replace(/\n/g, ' ').trim()}"`)
     .join('\n'),
   {
     encoding: 'utf-8'
@@ -314,7 +487,7 @@ fs.writeFileSync(
 );
 
 fs.writeFileSync(
-  'sorted-blocks.csv',
+  './data/sorted-blocks.csv',
   sortedBlocks
     .map(s => `"${s.unit.name}", "${(s.block.name || '').replace(/\n/g, ' ').trim()}"`)
     .join('\n'),
@@ -324,7 +497,7 @@ fs.writeFileSync(
 );
 
 fs.writeFileSync(
-  'units.csv',
+  './data/units.csv',
   sortedBlocks
     .map(s => s.unit.name)
     .filter((a, i) => sortedBlocks.findIndex(s => s.unit.name === a) === i)
@@ -341,33 +514,56 @@ function deDup(arr: any[]) {
 // this structure uses back references to know how the shape of the node changes
 // we always know that in one stepwe only add a unit or a block into the semester
 // thus, we can alsways reconstruct the current semester going backwards and adding the nodes as specified
-type ExploreNode = [ExploreNode, number, ...number[]];
+type ExploreNode = Array<Array<SearchNode>>; // [ExploreNode, number, ...number[]];
 
-function createOption(node: ExploreNode) {
-  let result: Array<Array<SearchNode>> = [[], [], [], [], [], []];
-  let parent = node;
+async function createOption(
+  item: Item,
+  items: Item[]
+): Promise<{ id: number; semesters: Array<Array<SearchNode>> }> {
+  let semesters: Array<Array<SearchNode>> = [[], [], [], [], [], []];
+  let parent = item;
   do {
-    for (let i = 2; i < parent.length; i++) {
-      result[parent[1]].unshift(unitNodes.find(f => f.id === parent[i]));
+    semesters[parent.semester].unshift(unitNodesById[parent.nodeId]);
+    if (parent.parentId != null) {
+      let p = items.find(i => i.id === parent.parentId);
+      if (p == null) {
+        parent = await dao.getItem(parent.parentId);
+      } else {
+        parent = p;
+      }
+    } else {
+      parent = null;
     }
-    parent = parent[0];
   } while (parent != null);
-  return result;
+
+  return {
+    id: item.id,
+    semesters
+  };
 }
+
+type Item = {
+  id: number;
+  nodeId: number;
+  semester: number;
+  parentId: number;
+  root: number;
+};
 
 // expands options in the option array
 // each semester has following properties:
 //  = can study max 40 credits
-function exploreUnits(
+async function exploreUnits(
   potentialNodes: SearchNode[],
-  options: ExploreNode[],
+  // options: ExploreNode[],
   unitId: string,
   optional = false
-): [ExploreNode[], SearchNode[]] {
+): Promise<SearchNode[]> {
   let unitNode = potentialNodes.find(n => n.unit.id === unitId);
+  let allItems = await dao.getAllItems();
 
   if (unitNode == null) {
-    return [options, potentialNodes];
+    return potentialNodes;
   }
 
   // check how many credits we contrinute
@@ -376,81 +572,103 @@ function exploreUnits(
   // filter which nodes we will process further removing the current node
   potentialNodes = potentialNodes.filter(n => n.unit.id !== unitId);
 
-  let result: ExploreNode[] = [];
+  // let result: ExploreNode[] = [];
+  let itemCount = await dao.itemCount();
 
   // init options if there are none
-  if (options.length === 0) {
+  if (itemCount === 0) {
     for (let i = 0; i < 6; i++) {
       if (
         (i % 2 == 0 && unitNode.unit.offer.indexOf('au') >= 0) ||
         (i % 2 == 1 && unitNode.unit.offer.indexOf('sp') >= 0)
       ) {
-        result.push([null, i, unitNode.id]);
+        await dao.createItem(unitNode.id, i, null);
+        // result.push([null, i, unitNode.id]);
       }
     }
   } else {
-    // now explore each semester and try to push it
-    for (let j = 0; j < options.length; j++) {
-      let option = createOption(options[j]);
-      let positioned = false;
+    const loops = Math.ceil(itemCount / 100000);
 
-      // we will expand each viable position
-      // or we will remove if no viable position could have been found
+    // we will proceed with all semesters
+    for (let i = 0; i < loops; i++) {
+      const items: Item[] = await dao.getItems(0, 1000);
+      let options: Array<{ id: number; semesters: Array<Array<SearchNode>> }> = [];
+      for (let item of items) {
+        options.push(await createOption(item, allItems));
+      }
 
-      for (let i = 0; i < 6; i++) {
-        if (
-          (i % 2 == 0 && unitNode.unit.offer.indexOf('au') === -1) ||
-          (i % 2 == 1 && unitNode.unit.offer.indexOf('sp') === -1)
-        ) {
-          // result.push(options[j]);
-          continue;
-        }
+      // let configurationGroups = groupByArray(items, 'configurationId');
 
-        let semester = option[i];
-        let credits = semester.reduce((prev, next) => next.unit.credits + prev, 0);
-        let checkCredits = credits + currentCredits <= 40;
+      // let options: Array<{ id: number; semesters: Array<Array<SearchNode>> }> = [];
+      // for (let group of configurationGroups) {
+      //   let option = { id: group.key, semesters: [[], [], [], [], [], []] };
+      //   for (let value of group.values) {
+      //     option.semesters[value.semester].push(unitNodesById[value.nodeId]);
+      //   }
+      //   options.push(option);
+      // }
 
-        // check if the blocks that we are trying to add have any dependency in the same or higher semester
-        let checkDependencies = option.every(
-          (semesterBlocks, k) =>
-            k < i /* It is either in the lower semester */ ||
-            semesterBlocks.every(
-              l => unitNode.dependsOn.indexOf(l) === -1
-            ) /* Or it does not exist in the higher semester */
-        );
+      // now explore each semester and try to push it
+      for (let j = 0; j < options.length; j++) {
+        let option = options[j];
+        let positioned = false;
 
-        if (checkCredits && checkDependencies) {
-          const newResult = [options[j], i, unitNode.id] as ExploreNode;
+        // we will expand each viable position
+        // or we will remove if no viable position could have been found
 
-          const build = createOption(newResult);
-          if (build.every(b => b.every(c => c.unit.id !== '100483'))) {
-            throw new Error('Disappeared!!');
+        for (let i = 0; i < 6; i++) {
+          if (
+            (i % 2 == 0 && unitNode.unit.offer.indexOf('au') === -1) ||
+            (i % 2 == 1 && unitNode.unit.offer.indexOf('sp') === -1)
+          ) {
+            // result.push(options[j]);
+            continue;
           }
 
-          result.push(newResult);
-          positioned = true;
+          let semester = option.semesters[i];
+          let credits = semester.reduce((prev, next) => next.unit.credits + prev, 0);
+          let checkCredits = credits + currentCredits <= 40;
+
+          // check if the blocks that we are trying to add have any dependency in the same or higher semester
+          let checkDependencies = option.semesters.every(
+            (semesterBlocks, k) =>
+              k < i /* It is either in the lower semester */ ||
+              semesterBlocks.every(
+                l => unitNode.dependsOn.indexOf(l) === -1
+              ) /* Or it does not exist in the higher semester */
+          );
+
+          if (checkCredits && checkDependencies) {
+            await dao.createItem(unitNode.id, i, option.id);
+            positioned = true;
+          }
         }
+
+        if (!optional) {
+          await dao.toggleRoot(option.id);
+        }
+
+        // if we have to position the node we will remove this configuration
+        // if (!positioned && !optional) {
+        //   await dao.removeConfiguration(option.id);
+        // }
+
+        // we may request to remove invalid configurations
+        // if (!positioned) {
+        //   option.invalid = true;
+
+        //   // options.splice(j, 1);
+        //   // console.log(
+        //   //   'Removed invalid configuration: [[' +
+        //   //     option.map(o => `${deDup(o.map(p => p.unit.id)).join(', ')}`).join('], [') +
+        //   //     ']]'
+        //   // );
+        // }
       }
-
-      if (!positioned && optional) {
-        result.push(options[j]);
-      }
-
-      // we may request to remove invalid configurations
-      // if (!positioned) {
-      //   option.invalid = true;
-
-      //   // options.splice(j, 1);
-      //   // console.log(
-      //   //   'Removed invalid configuration: [[' +
-      //   //     option.map(o => `${deDup(o.map(p => p.unit.id)).join(', ')}`).join('], [') +
-      //   //     ']]'
-      //   // );
-      // }
     }
   }
 
-  return [result, potentialNodes];
+  return potentialNodes;
 }
 
 // function exploreOptions(
@@ -537,7 +755,7 @@ function exploreUnits(
 //   return [potentialNodes, result];
 // }
 
-function search({
+async function search({
   includeBlocks = [],
   includeUnits = [],
   excludeUnits = [],
@@ -554,6 +772,8 @@ function search({
   majors: string[];
   jobs: string[];
 }) {
+  await connect();
+
   let course = db.courses.find(c => c.id === courseId);
 
   // add core units to mandatory include
@@ -590,13 +810,13 @@ function search({
 
   // let study = [[], [], [], [], [], []]; // 6 semesters
 
-  let options = [];
   for (let unit of includeUnits) {
     console.log('Adding unit: ' + unit);
-    const result = exploreUnits(potentialUnits, options, unit);
-    potentialUnits = result[1];
-    options = result[0];
-    console.log('options: ' + options.length);
+    potentialUnits = await exploreUnits(potentialUnits, unit);
+
+    const optionCount = await dao.itemCount();
+
+    console.log('options: ' + optionCount);
 
     // for (let rawOption of options) {
     //   const option = createOption(rawOption);
@@ -609,31 +829,29 @@ function search({
   }
 
   // now browse all existing units in the potentialNodes queue
-  while (potentialUnits.length > 0) {
-    console.log('Potential Nodes: ' + potentialUnits.length);
-    let node = potentialUnits[0];
-    console.log('Unit: ' + node.unit.name);
+  // while (potentialUnits.length > 0) {
+  //   console.log('Potential Nodes: ' + potentialUnits.length);
+  //   let node = potentialUnits[0];
+  //   console.log('Unit: ' + node.unit.name);
 
-    // check if the unit contributes to the
-    let unit = node.unit;
-    if (
-      completionCriteria.topics.every(
-        t => unit.topics == null || node.topics.every(tp => t.id !== tp.id)
-      )
-    ) {
-      potentialUnits.shift();
-      console.log('Skipped for no related topics: ' + unit.name);
-      continue;
-    }
+  //   // check if the unit contributes to the
+  //   // let unit = node.unit;
+  //   // if (
+  //   //   completionCriteria.topics.every(
+  //   //     t => unit.topics == null || node.topics.every(tp => t.id !== tp.id)
+  //   //   )
+  //   // ) {
+  //   //   potentialUnits.shift();
+  //   //   console.log('Skipped for no related topics: ' + unit.name);
+  //   //   continue;
+  //   // }
 
-    let result = exploreUnits(potentialUnits, options, node.unit.id, true);
-    potentialUnits = result[1];
-    options = result[0];
-    console.log('options: ' + options.length);
-  }
+  //   potentialUnits = exploreUnits(potentialUnits, options, node.unit.id, true);
+  //   console.log('options: ' + options.length);
+  // }
 
-  console.log('+++++++++++++++++++++++++++++++++++');
-  console.log(options.length);
+  // console.log('+++++++++++++++++++++++++++++++++++');
+  // console.log(options.length);
 
   console.log('+++++++++++++++++++++++++++++++++++');
   console.log('CHECKING OPTIONS');
@@ -649,31 +867,31 @@ function search({
   //     .join(', ')
   // );
 
-  for (let rawOption of options) {
-    const option = createOption(rawOption);
-    const profile = buildProfile(option, completionCriteria);
+  // for (let rawOption of options) {
+  //   const option = createOption(rawOption);
+  //   const profile = buildProfile(option, completionCriteria);
 
-    // const units = option.flatMap(o => o.map(p => p.unit.id)).sort();
+  //   // const units = option.flatMap(o => o.map(p => p.unit.id)).sort();
 
-    let lines = Object.keys(profile).map(key => profile[key]);
-    let completion = lines.reduce((prev, next) => (next.completion || 0) + prev, 0) / lines.length;
+  //   let lines = Object.keys(profile).map(key => profile[key]);
+  //   let completion = lines.reduce((prev, next) => (next.completion || 0) + prev, 0) / lines.length;
 
-    if (lines.every(l => (l.completion || 0) >= 100)) {
-      viableOptions.push(option);
-    }
+  //   if (lines.every(l => (l.completion || 0) >= 100)) {
+  //     viableOptions.push(option);
+  //   }
 
-    if (completion > max) {
-      max = completion;
-      console.log('Completion: ' + max);
-      // console.log(units.join(', '););
+  //   if (completion > max) {
+  //     max = completion;
+  //     console.log('Completion: ' + max);
+  //     // console.log(units.join(', '););
 
-      for (let i = 0; i < 6; i++) {
-        console.log(`Semester ${i + 1}: ` + option[i].map(p => p.unit.name).join(', '));
-      }
+  //     for (let i = 0; i < 6; i++) {
+  //       console.log(`Semester ${i + 1}: ` + option[i].map(p => p.unit.name).join(', '));
+  //     }
 
-      console.log(profile);
-    }
-  }
+  //     console.log(profile);
+  //   }
+  // }
 }
 
 search({
