@@ -118,7 +118,7 @@ class AppDAO {
   }
 }
 
-const dao = new AppDAO(':memory:'); //'/mnt/c/users/tomi/downloads/main.db');
+const dao = new AppDAO('/mnt/c/users/tomi/downloads/main.db');
 
 async function connect() {
   // let sql = `
