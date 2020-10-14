@@ -31,6 +31,7 @@
     "mobx-react": "^6.2.2",
     "next": "^9.4.3",
     "react": "^16.13.1",
+    "react-circular-progressbar": "^2.0.3",
     "react-dom": "^16.13.1",
     "react-vis": "^1.11.7"
   },

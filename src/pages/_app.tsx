@@ -4,6 +4,7 @@ import React from 'react';
 
 import 'react-vis/dist/style.css';
 import './global.css';
+import 'react-circular-progressbar/dist/styles.css';
 
 function Layout(props) {
   return (

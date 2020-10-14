@@ -50,10 +50,7 @@ import {
 import { ProgressView } from 'components/common/progress_view';
 
 import { useStudentListQuery } from 'config/graphql';
-import { BlocksEditor } from 'components/blocks/block_editor';
-import build from 'next/dist/build';
-import { skills } from 'components/outcomes/outcome_editor';
-import { UnitDetailContainer } from 'components/units/unit_details';
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 @model('Editor/Students')
 class StudentListModel extends Model({
@@ -252,27 +249,29 @@ const ResultLine = observer(({ index, localState, student, block }: ResultLinePa
           ))}
         </Pane>
 
-        <IconButton
-          intent="none"
-          icon="edit"
-          marginLeft={8}
-          onClick={() => (localState.editLineIndex = index)}
-        />
-        <Button
-          intent="danger"
-          iconBefore="trash"
-          appearance="primary"
-          marginLeft={8}
-          //width={}
-          onClick={() => {
-            if (confirm('Changes cannot be reverted. Are you sure?')) {
-              student.removeBlock(index);
-              toaster.notify('Unit Removed.');
-            }
-          }}
-        >
-          Remove Block
-        </Button>
+        <Pane flex="0 0 175px" display="flex">
+          <IconButton
+            intent="none"
+            icon="edit"
+            marginLeft={8}
+            onClick={() => (localState.editLineIndex = index)}
+          />
+          <Button
+            intent="danger"
+            iconBefore="trash"
+            appearance="primary"
+            marginLeft={8}
+            //width={}
+            onClick={() => {
+              if (confirm('Changes cannot be reverted. Are you sure?')) {
+                student.removeBlock(index);
+                toaster.notify('Unit Removed.');
+              }
+            }}
+          >
+            Remove Block
+          </Button>
+        </Pane>
       </Pane>
     );
   }
@@ -307,13 +306,6 @@ const MatchedJob = observer(({ index, student, job, localState }: MatchedJobPara
   if (loading || error || unitsLoading || unitsError) {
     return <ProgressView loading={loading || unitsLoading} error={error || unitsError} />;
   }
-
-  // student.registeredBlocks.map((block, i) => {
-  //   console.log(block.unitId);
-  // });
-  // console.log(unitData.unit.unit);
-  // console.log(unitData.unit.unit.outcomes);
-  // console.log(unitData.unit.unit.outcomes.find(s => s.acsSkillId === 'b0').bloomRating);
 
   var allStudentSkills = [];
   var studentSkill;
@@ -350,36 +342,32 @@ const MatchedJob = observer(({ index, student, job, localState }: MatchedJobPara
     }
   }
 
-  // calc individual skills
-
   // calculate percentage
   var studentTotal = 0;
-  var singleSkillPercentage;
+  var skillsPercentage = [];
   for (var i = 0; i < allStudentSkills.length; i++) {
-    if (allStudentSkills[i].skillLevel >= allJobSkills[i]) {
-      studentTotal++;
+    if (allStudentSkills[i].skillLevel < allJobSkills[i]) {
+      skillsPercentage.push(allStudentSkills[i].skillLevel / allJobSkills[i]);
+    } else {
+      skillsPercentage.push(1);
     }
+  }
+
+  for (var i = 0; i < skillsPercentage.length; i++) {
+    studentTotal += skillsPercentage[i];
   }
   var percentage = Math.round((studentTotal / allJobSkills.length) * 100) + '%';
 
   if (!localState.showMoreJobs && index < 3) {
     return (
       <Pane display="flex" key={index} marginBottom={8}>
-        <Pane flex={0.3}>
-          <Heading>{job.name}</Heading>
+        <Pane flex={0.5}>
+          <Heading size={400}>{job.name}</Heading>
         </Pane>
         <Pane flex={1}>
-          <div id="emptyBar" style={{ width: '50%', backgroundColor: 'grey' }}>
-            <div
-              id="progressBar"
-              style={{
-                width: percentage,
-                height: '30',
-                backgroundColor: 'green',
-                color: 'white'
-              }}
-            >
-              {percentage}
+          <div>
+            <div style={{ width: '15%' }}>
+              <CircularProgressbar value={parseInt(percentage)} text={`${percentage}`} />
             </div>
           </div>
         </Pane>
@@ -388,21 +376,13 @@ const MatchedJob = observer(({ index, student, job, localState }: MatchedJobPara
   } else if (localState.showMoreJobs) {
     return (
       <Pane display="flex" key={index} marginBottom={8}>
-        <Pane flex={0.3}>
-          <Heading>{job.name}</Heading>
+        <Pane flex={0.5}>
+          <Heading size={400}>{job.name}</Heading>
         </Pane>
         <Pane flex={1}>
-          <div id="emptyBar" style={{ width: '50%', backgroundColor: 'grey' }}>
-            <div
-              id="progressBar"
-              style={{
-                width: percentage,
-                height: '30',
-                backgroundColor: 'green',
-                color: 'white'
-              }}
-            >
-              {percentage}
+          <div>
+            <div style={{ width: '15%' }}>
+              <CircularProgressbar value={parseInt(percentage)} text={`${percentage}`} />
             </div>
           </div>
         </Pane>
@@ -464,7 +444,7 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
 
     return (
       <div style={{ flex: 1 }}>
-        <Pane background="tint3" borderRadius={6} marginLeft={24}>
+        <Pane background="tint3" borderRadius={6}>
           <Heading size={500} marginBottom={16}>
             {student.firstName + ' ' + student.lastName}
           </Heading>
@@ -510,17 +490,18 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
           </Button>
         </Pane>
 
-        <br></br>
-        <Heading marginBottom={16}>Registered Block/Unit Results</Heading>
+        <Heading size={500} marginTop={48} marginBottom={16}>
+          Registered Block/Unit Results
+        </Heading>
 
         <Pane display="flex">
           <Heading size={400} flex={1}>
             Unit Name
           </Heading>
-          <Heading size={400} flex={1}>
+          <Heading size={400} flex={1} marginLeft={8}>
             Block Name
           </Heading>
-          <Heading size={400} flex={1}>
+          <Heading size={400} flex={1} marginLeft={8} marginRight={175}>
             Results
           </Heading>
         </Pane>
@@ -535,7 +516,7 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
           />
         ))}
 
-        <Pane display="flex" alignItems="center" marginTop={16}>
+        <Pane display="flex" alignItems="center" marginTop={8}>
           <Button
             iconBefore="plus"
             appearance="primary"
@@ -570,10 +551,11 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
           </Button>
         </Pane>
 
-        <br></br>
-        <Heading marginBottom={16}>Matched Jobs</Heading>
+        <Heading size={500} marginTop={48} marginBottom={16}>
+          Matched Jobs
+        </Heading>
         <Pane display="flex">
-          <Heading size={400} flex={0.3}>
+          <Heading size={400} flex={0.5}>
             Job Name
           </Heading>
           <Heading size={400} flex={1}>
@@ -598,22 +580,11 @@ const Details: React.FC<{ item: StudentModel; owner: StudentListModel; state: St
           <Button
             appearance="primary"
             margin={0}
-            width={100}
             onClick={() => {
-              localState.showMoreJobs = true;
+              localState.showMoreJobs = !localState.showMoreJobs;
             }}
           >
-            Show More
-          </Button>
-          <Button
-            appearance="primary"
-            marginLeft={8}
-            width={100}
-            onClick={() => {
-              localState.showMoreJobs = false;
-            }}
-          >
-            Show Less
+            {localState.showMoreJobs ? 'Show Less' : 'Show More'}
           </Button>
         </Pane>
 

@@ -137962,6 +137962,10 @@
         {
           "skillId": "c1",
           "bloomRating": 4
+        },
+        {
+          "skillId": "d2",
+          "bloomRating": 2
         }
       ]
     },
