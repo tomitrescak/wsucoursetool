@@ -14,6 +14,32 @@ export type Scalars = {
 };
 
 
+export type BlockTopic = {
+  id: Scalars['String'];
+  ratio: Scalars['Float'];
+};
+
+export type BlockSkill = {
+  id: Scalars['String'];
+  level: Scalars['Float'];
+};
+
+export type Outcome = {
+  acsSkillId?: Maybe<Scalars['String']>;
+  bloomRating?: Maybe<Scalars['Int']>;
+};
+
+export type Block = {
+  blockId: Scalars['Int'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  prerequisites?: Maybe<Array<Prerequisite>>;
+  credits: Scalars['Float'];
+  topics?: Maybe<Array<BlockTopic>>;
+  sfiaSkills?: Maybe<Array<BlockSkill>>;
+  outcomes?: Maybe<Array<Outcome>>;
+};
+
 export type UnitList = {
   id: Scalars['String'];
   name: Scalars['String'];
@@ -26,6 +52,11 @@ export type UnitList = {
   hidden?: Maybe<Scalars['Boolean']>;
   topics?: Maybe<Array<Scalars['String']>>;
   level?: Maybe<Scalars['Int']>;
+  offer?: Maybe<Array<Scalars['String']>>;
+  credits?: Maybe<Scalars['Float']>;
+  prerequisites?: Maybe<Array<Prerequisite>>;
+  blocks?: Maybe<Array<Block>>;
+  outcomes?: Maybe<Array<Outcome>>;
 };
 
 export type Entity = {
@@ -77,7 +108,6 @@ export type Identifiable = {
 export type MajorList = {
   id: Scalars['String'];
   name: Scalars['String'];
-  units: Array<Identifiable>;
 };
 
 export type CourseList = {
@@ -158,6 +188,11 @@ export type QueryUnitBaseArgs = {
 };
 
 
+export type QueryUnitsArgs = {
+  maxLevel?: Maybe<Scalars['Int']>;
+};
+
+
 export type QueryUnitDepenendenciesArgs = {
   id: Scalars['String'];
 };
@@ -193,7 +228,7 @@ export type QuerySfiaUnitsArgs = {
 };
 
 export type Mutation = {
-  createUnit: UnitList;
+  createUnit: Scalars['JSON'];
   deleteUnit?: Maybe<Scalars['Boolean']>;
   createJob?: Maybe<Scalars['Boolean']>;
   deleteJob?: Maybe<Scalars['Boolean']>;
@@ -267,10 +302,7 @@ export type DbQuery = (
   Pick<Query, 'db'>
   & { courses: Array<(
     Pick<CourseList, 'id' | 'name'>
-    & { core: Array<Pick<Identifiable, 'id'>>, majors: Array<(
-      Pick<MajorList, 'id' | 'name'>
-      & { units: Array<Pick<Identifiable, 'id'>> }
-    )> }
+    & { core: Array<Pick<Identifiable, 'id'>>, majors: Array<Pick<MajorList, 'id' | 'name'>> }
   )>, topics: Array<Pick<TopicList, 'id' | 'name'>> }
 );
 
@@ -302,14 +334,22 @@ export type DeleteCourseMutationVariables = Exact<{
 
 export type DeleteCourseMutation = Pick<Mutation, 'deleteCourse'>;
 
+export type PrerequisiteFragment = Pick<Prerequisite, 'id' | 'type' | 'unitId' | 'recommended' | 'prerequisites'>;
+
 export type CourseQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
 export type CourseQuery = (
-  Pick<Query, 'course' | 'courseUnits' | 'courseReport' | 'acs'>
-  & { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'topics'>>, topics: Array<Pick<TopicList, 'id' | 'name'>> }
+  Pick<Query, 'course' | 'courseReport' | 'acs'>
+  & { units: Array<(
+    Pick<UnitList, 'blockCount' | 'id' | 'name' | 'offer' | 'level' | 'credits' | 'dynamic' | 'topics'>
+    & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, outcomes?: Maybe<Array<Pick<Outcome, 'acsSkillId' | 'bloomRating'>>>, blocks?: Maybe<Array<(
+      Pick<Block, 'blockId' | 'id' | 'name' | 'credits'>
+      & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, topics?: Maybe<Array<Pick<BlockTopic, 'id' | 'ratio'>>>, sfiaSkills?: Maybe<Array<Pick<BlockSkill, 'id' | 'level'>>> }
+    )>> }
+  )>, topics: Array<Pick<TopicList, 'id' | 'name'>> }
 );
 
 export type CourseUnitsQueryVariables = Exact<{
@@ -324,10 +364,7 @@ export type CourseListQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CourseListQuery = { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'level' | 'obsolete' | 'outdated' | 'processed' | 'proposed' | 'hidden' | 'topics'>>, topics: Array<Pick<TopicList, 'id' | 'name'>>, courses: Array<(
     Pick<CourseList, 'id' | 'name'>
-    & { core: Array<Pick<Identifiable, 'id'>>, majors: Array<(
-      Pick<MajorList, 'id' | 'name'>
-      & { units: Array<Pick<Identifiable, 'id'>> }
-    )> }
+    & { core: Array<Pick<Identifiable, 'id'>>, majors: Array<Pick<MajorList, 'id' | 'name'>> }
   )> };
 
 export type CreateJobMutationVariables = Exact<{
@@ -432,7 +469,7 @@ export type CreateUnitMutationVariables = Exact<{
 }>;
 
 
-export type CreateUnitMutation = { createUnit: Pick<UnitList, 'id' | 'name' | 'dynamic' | 'blockCount'> };
+export type CreateUnitMutation = Pick<Mutation, 'createUnit'>;
 
 export type UnitBaseQueryVariables = Exact<{
   id: Scalars['String'];
@@ -473,7 +510,15 @@ export type UnitsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type UnitsQuery = { topics: Array<Pick<TopicList, 'id' | 'name'>>, units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'topics' | 'id' | 'name' | 'level' | 'outdated' | 'obsolete' | 'processed' | 'proposed'>> };
 
-
+export const PrerequisiteFragmentDoc = gql`
+    fragment Prerequisite on Prerequisite {
+  id
+  type
+  unitId
+  recommended
+  prerequisites
+}
+    `;
 export const AcsDocument = gql`
     query Acs {
   acs
@@ -514,9 +559,6 @@ export const DbDocument = gql`
     majors {
       id
       name
-      units {
-        id
-      }
     }
     name
   }
@@ -690,14 +732,40 @@ export type DeleteCourseMutationOptions = ApolloReactCommon.BaseMutationOptions<
 export const CourseDocument = gql`
     query Course($id: String!) {
   course(id: $id)
-  courseUnits(id: $id)
   courseReport(id: $id)
-  units {
+  units(maxLevel: 7) {
     blockCount
     id
     name
+    offer
+    level
+    credits
     dynamic
     topics
+    prerequisites {
+      ...Prerequisite
+    }
+    outcomes {
+      acsSkillId
+      bloomRating
+    }
+    blocks {
+      blockId
+      id
+      name
+      prerequisites {
+        ...Prerequisite
+      }
+      credits
+      topics {
+        id
+        ratio
+      }
+      sfiaSkills {
+        id
+        level
+      }
+    }
   }
   acs
   topics {
@@ -705,7 +773,7 @@ export const CourseDocument = gql`
     name
   }
 }
-    `;
+    ${PrerequisiteFragmentDoc}`;
 
 /**
  * __useCourseQuery__
@@ -791,9 +859,6 @@ export const CourseListDocument = gql`
     majors {
       id
       name
-      units {
-        id
-      }
     }
   }
 }
@@ -1293,12 +1358,7 @@ export type TopicsLazyQueryHookResult = ReturnType<typeof useTopicsLazyQuery>;
 export type TopicsQueryResult = ApolloReactCommon.QueryResult<TopicsQuery, TopicsQueryVariables>;
 export const CreateUnitDocument = gql`
     mutation CreateUnit($id: String!, $name: String!) {
-  createUnit(id: $id, name: $name) {
-    id
-    name
-    dynamic
-    blockCount
-  }
+  createUnit(id: $id, name: $name)
 }
     `;
 export type CreateUnitMutationFn = ApolloReactCommon.MutationFunction<CreateUnitMutation, CreateUnitMutationVariables>;

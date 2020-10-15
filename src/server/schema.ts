@@ -3,6 +3,32 @@ import { gql } from 'apollo-server-micro';
 export const typeDefs = gql`
   scalar JSON
 
+  type BlockTopic {
+    id: String!
+    ratio: Float!
+  }
+
+  type BlockSkill {
+    id: String!
+    level: Float!
+  }
+
+  type Outcome {
+    acsSkillId: String
+    bloomRating: Int
+  }
+
+  type Block {
+    blockId: Int!
+    id: String!
+    name: String!
+    prerequisites: [Prerequisite!]
+    credits: Float!
+    topics: [BlockTopic!]
+    sfiaSkills: [BlockSkill!]
+    outcomes: [Outcome!]
+  }
+
   type UnitList {
     id: String!
     name: String!
@@ -15,6 +41,11 @@ export const typeDefs = gql`
     hidden: Boolean
     topics: [String!]
     level: Int
+    offer: [String!]
+    credits: Float
+    prerequisites: [Prerequisite!]
+    blocks: [Block!]
+    outcomes: [Outcome!]
   }
 
   type Entity {
@@ -66,7 +97,7 @@ export const typeDefs = gql`
   type MajorList {
     id: String!
     name: String!
-    units: [Identifiable!]!
+    # units: [Identifiable!]!
   }
 
   type CourseList {
@@ -116,7 +147,7 @@ export const typeDefs = gql`
 
     unit(id: String!): JSON!
     unitBase(id: String!): JSON
-    units: [UnitList!]!
+    units(maxLevel: Int): [UnitList!]!
     unitDepenendencies(id: String!): [UnitDependency!]!
 
     coordinators: [Coordinator!]!
@@ -143,7 +174,7 @@ export const typeDefs = gql`
     db: JSON!
   }
   type Mutation {
-    createUnit(id: String!, name: String): UnitList!
+    createUnit(id: String!, name: String): JSON!
     deleteUnit(id: String!): Boolean
 
     createJob(id: String!, name: String): Boolean

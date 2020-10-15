@@ -8,7 +8,7 @@ import fcose from 'cytoscape-fcose';
 // import contextMenus from 'cytoscape-context-menus';
 
 import { State, Block, Unit } from '../types';
-import { UnitDependency, BlockDependency, Prerequisite } from 'config/graphql';
+import { UnitDependency, BlockDependency, Prerequisite, UnitList } from 'config/graphql';
 import { Button, Checkbox, Pane, Select, IconButton } from 'evergreen-ui';
 import { toJS } from 'mobx';
 import { saveAs } from 'file-saver';
@@ -32,6 +32,7 @@ cytoscape.use(fcose);
 type Props = {
   owner: any;
   units: UnitDependency[];
+  otherUnits: UnitList[];
   allBlocks?: boolean;
   byLevel?: boolean;
   classes: Array<{ selector: string; style: any }>;
@@ -97,6 +98,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({
   owner,
   units,
   height,
+  otherUnits,
   allBlocks,
   byLevel,
   classes,
@@ -121,13 +123,19 @@ export const BlockDependencyGraph: React.FC<Props> = ({
 
   const elements: any = [];
   function checkAddUnit(unitId: string) {
-    const id = 'n_' + unitId;
-    if (elements.some(e => e.data.id === 'n_' + unitId)) {
+    const id = 'u_' + unitId;
+    if (elements.some(e => e.data.id === 'u_' + unitId)) {
       return;
     }
 
+    let other = otherUnits.find(u => u.id === unitId);
+
     if (owner) {
       var position = toJS(owner.positions.find(n => n.id === id));
+    }
+
+    if (other != null) {
+      addUnitPrerequisites(other.prerequisites, other);
     }
 
     elements.push({
@@ -135,9 +143,9 @@ export const BlockDependencyGraph: React.FC<Props> = ({
       // classes: 'level' + unit.level,
       data: {
         id,
-        backgroundColor: 'red', // nodeColor(block),
+        backgroundColor: other ? '#cdcdcd' : 'red', // nodeColor(block),
         color: 'black', // textColor(block),
-        label: unitId
+        label: other ? `${other.name} (${other.id})` : unitId
       }
     });
   }
@@ -198,7 +206,13 @@ export const BlockDependencyGraph: React.FC<Props> = ({
       return;
     }
 
-    const unit = units.find(u => u.id === unitId);
+    let unit = units.find(u => u.id === unitId);
+    if (unit == null) {
+      unit = otherUnits.find(u => u.id === unitId);
+    }
+
+    // checkAddUnit(unitId);
+
     if (unit == null) {
       elements.push({
         position,
@@ -213,6 +227,11 @@ export const BlockDependencyGraph: React.FC<Props> = ({
       });
       return;
     }
+
+    if (unit != null) {
+      addUnitPrerequisites(unit.prerequisites, unit);
+    }
+
     const block: Block = unit.blocks.find(b => b.id === blockId);
     if (owner) {
       var position = toJS(owner.positions.find(n => n.id === id));
@@ -274,6 +293,8 @@ export const BlockDependencyGraph: React.FC<Props> = ({
         }
       } else if (pre.type === 'unit') {
         const id = 'u_' + pre.id;
+        checkAddUnit(pre.id);
+
         if (elements.some(e => e.data.id === id)) {
           elements.push({
             classes: pre.recommended === true ? 'recommended' : 'required',

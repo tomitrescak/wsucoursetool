@@ -168,6 +168,7 @@ export const ActivityDetail: React.FC<{
             onClick={() => {
               const clone = activity.toJS();
               unit.addBlock({
+                blockId: Date.now(),
                 id: findMaxId(unit.blocks),
                 name: activity.name,
                 outcome: '',

@@ -196,9 +196,8 @@ const Container = () => {
     .filter(f => {
       let isOk = true;
       if (selectedCourse) {
-        isOk =
-          selectedCourse.core.findIndex(c => c.id === f.id) >= 0 ||
-          (selectedMajor && selectedMajor.units.findIndex(u => u.id === f.id) >= 0);
+        isOk = selectedCourse.core.findIndex(c => c.id === f.id) >= 0;
+        // || (selectedMajor && selectedMajor.units.findIndex(u => u.id === f.id) >= 0);
       }
       if (localState.filterName) {
         isOk =

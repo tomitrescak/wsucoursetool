@@ -31,7 +31,7 @@ export type CourseUnit = {
 export type Major = {
   name: string;
   id: string;
-  units: CourseUnit[];
+  // units: CourseUnit[];
   completionCriteria: CourseCompletionCriteria;
 };
 
@@ -49,6 +49,7 @@ export type CourseCompletionCriteria = {
   topics: TopicCondition[];
   sfia: FrameworkCondition[];
   acs: FrameworkCondition[];
+  totalCredits: number;
 };
 
 export type Course = {
@@ -104,7 +105,7 @@ export type Unit = {
   level?: number;
   approachToLearning?: string;
 
-  prerequisites?: Prerequisite[];
+  prerequisites: Prerequisite[];
   sfiaSkills: SfiaSkillMapping[];
   offer: Array<'au' | 'sp' | 'sua' | 'sub'>;
 };
@@ -143,6 +144,7 @@ export type Activity = {
 };
 
 export type Block = {
+  blockId: number;
   id: string;
   unitId?: string;
   name: string;

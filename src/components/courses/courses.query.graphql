@@ -27,9 +27,6 @@ query CourseList {
     majors {
       id
       name
-      units {
-        id
-      }
     }
   }
 }

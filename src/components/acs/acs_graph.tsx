@@ -11,9 +11,10 @@ import {
 import { skills } from 'components/outcomes/outcome_editor';
 import { Unit, AcsKnowledge } from 'components/types';
 import { Pane, Heading, TextInputField } from 'evergreen-ui';
+import { UnitList } from 'config/graphql';
 
 type AcsUnitGraphProps = {
-  units: Unit[];
+  units: UnitList[];
   acs: AcsKnowledge[];
   readonly?: boolean;
 };

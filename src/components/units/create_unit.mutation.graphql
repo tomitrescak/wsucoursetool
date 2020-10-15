@@ -1,8 +1,3 @@
 mutation CreateUnit($id: String!, $name: String!) {
-  createUnit(id: $id, name: $name) {
-    id
-    name
-    dynamic
-    blockCount
-  }
+  createUnit(id: $id, name: $name)
 }

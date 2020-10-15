@@ -13,6 +13,32 @@ export type Scalars = {
 };
 
 
+export type BlockTopic = {
+  id: Scalars['String'];
+  ratio: Scalars['Float'];
+};
+
+export type BlockSkill = {
+  id: Scalars['String'];
+  level: Scalars['Float'];
+};
+
+export type Outcome = {
+  acsSkillId?: Maybe<Scalars['String']>;
+  bloomRating?: Maybe<Scalars['Int']>;
+};
+
+export type Block = {
+  blockId: Scalars['Int'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  prerequisites?: Maybe<Array<Prerequisite>>;
+  credits: Scalars['Float'];
+  topics?: Maybe<Array<BlockTopic>>;
+  sfiaSkills?: Maybe<Array<BlockSkill>>;
+  outcomes?: Maybe<Array<Outcome>>;
+};
+
 export type UnitList = {
   id: Scalars['String'];
   name: Scalars['String'];
@@ -25,6 +51,11 @@ export type UnitList = {
   hidden?: Maybe<Scalars['Boolean']>;
   topics?: Maybe<Array<Scalars['String']>>;
   level?: Maybe<Scalars['Int']>;
+  offer?: Maybe<Array<Scalars['String']>>;
+  credits?: Maybe<Scalars['Float']>;
+  prerequisites?: Maybe<Array<Prerequisite>>;
+  blocks?: Maybe<Array<Block>>;
+  outcomes?: Maybe<Array<Outcome>>;
 };
 
 export type Entity = {
@@ -76,7 +107,6 @@ export type Identifiable = {
 export type MajorList = {
   id: Scalars['String'];
   name: Scalars['String'];
-  units: Array<Identifiable>;
 };
 
 export type CourseList = {
@@ -157,6 +187,11 @@ export type QueryUnitBaseArgs = {
 };
 
 
+export type QueryUnitsArgs = {
+  maxLevel?: Maybe<Scalars['Int']>;
+};
+
+
 export type QueryUnitDepenendenciesArgs = {
   id: Scalars['String'];
 };
@@ -192,7 +227,7 @@ export type QuerySfiaUnitsArgs = {
 };
 
 export type Mutation = {
-  createUnit: UnitList;
+  createUnit: Scalars['JSON'];
   deleteUnit?: Maybe<Scalars['Boolean']>;
   createJob?: Maybe<Scalars['Boolean']>;
   deleteJob?: Maybe<Scalars['Boolean']>;
@@ -320,9 +355,14 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   JSON: ResolverTypeWrapper<Scalars['JSON']>;
-  UnitList: ResolverTypeWrapper<UnitList>;
+  BlockTopic: ResolverTypeWrapper<BlockTopic>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
+  BlockSkill: ResolverTypeWrapper<BlockSkill>;
+  Outcome: ResolverTypeWrapper<Outcome>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Block: ResolverTypeWrapper<Block>;
+  UnitList: ResolverTypeWrapper<UnitList>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Entity: ResolverTypeWrapper<Entity>;
   SpecialisationList: ResolverTypeWrapper<SpecialisationList>;
@@ -346,9 +386,14 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   JSON: Scalars['JSON'];
-  UnitList: UnitList;
+  BlockTopic: BlockTopic;
   String: Scalars['String'];
+  Float: Scalars['Float'];
+  BlockSkill: BlockSkill;
+  Outcome: Outcome;
   Int: Scalars['Int'];
+  Block: Block;
+  UnitList: UnitList;
   Boolean: Scalars['Boolean'];
   Entity: Entity;
   SpecialisationList: SpecialisationList;
@@ -373,6 +418,36 @@ export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
   name: 'JSON';
 }
 
+export type BlockTopicResolvers<ContextType = any, ParentType extends ResolversParentTypes['BlockTopic'] = ResolversParentTypes['BlockTopic']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ratio?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type BlockSkillResolvers<ContextType = any, ParentType extends ResolversParentTypes['BlockSkill'] = ResolversParentTypes['BlockSkill']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  level?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type OutcomeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Outcome'] = ResolversParentTypes['Outcome']> = {
+  acsSkillId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  bloomRating?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type BlockResolvers<ContextType = any, ParentType extends ResolversParentTypes['Block'] = ResolversParentTypes['Block']> = {
+  blockId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  prerequisites?: Resolver<Maybe<Array<ResolversTypes['Prerequisite']>>, ParentType, ContextType>;
+  credits?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  topics?: Resolver<Maybe<Array<ResolversTypes['BlockTopic']>>, ParentType, ContextType>;
+  sfiaSkills?: Resolver<Maybe<Array<ResolversTypes['BlockSkill']>>, ParentType, ContextType>;
+  outcomes?: Resolver<Maybe<Array<ResolversTypes['Outcome']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type UnitListResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnitList'] = ResolversParentTypes['UnitList']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -385,6 +460,11 @@ export type UnitListResolvers<ContextType = any, ParentType extends ResolversPar
   hidden?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   topics?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  offer?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  credits?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  prerequisites?: Resolver<Maybe<Array<ResolversTypes['Prerequisite']>>, ParentType, ContextType>;
+  blocks?: Resolver<Maybe<Array<ResolversTypes['Block']>>, ParentType, ContextType>;
+  outcomes?: Resolver<Maybe<Array<ResolversTypes['Outcome']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -445,7 +525,6 @@ export type IdentifiableResolvers<ContextType = any, ParentType extends Resolver
 export type MajorListResolvers<ContextType = any, ParentType extends ResolversParentTypes['MajorList'] = ResolversParentTypes['MajorList']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  units?: Resolver<Array<ResolversTypes['Identifiable']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -501,7 +580,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   legacyUnits?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   unit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryUnitArgs, 'id'>>;
   unitBase?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType, RequireFields<QueryUnitBaseArgs, 'id'>>;
-  units?: Resolver<Array<ResolversTypes['UnitList']>, ParentType, ContextType>;
+  units?: Resolver<Array<ResolversTypes['UnitList']>, ParentType, ContextType, RequireFields<QueryUnitsArgs, never>>;
   unitDepenendencies?: Resolver<Array<ResolversTypes['UnitDependency']>, ParentType, ContextType, RequireFields<QueryUnitDepenendenciesArgs, 'id'>>;
   coordinators?: Resolver<Array<ResolversTypes['Coordinator']>, ParentType, ContextType>;
   course?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<QueryCourseArgs, 'id'>>;
@@ -523,7 +602,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createUnit?: Resolver<ResolversTypes['UnitList'], ParentType, ContextType, RequireFields<MutationCreateUnitArgs, 'id'>>;
+  createUnit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<MutationCreateUnitArgs, 'id'>>;
   deleteUnit?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteUnitArgs, 'id'>>;
   createJob?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationCreateJobArgs, 'id'>>;
   deleteJob?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteJobArgs, 'id'>>;
@@ -536,6 +615,10 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type Resolvers<ContextType = any> = {
   JSON?: GraphQLScalarType;
+  BlockTopic?: BlockTopicResolvers<ContextType>;
+  BlockSkill?: BlockSkillResolvers<ContextType>;
+  Outcome?: OutcomeResolvers<ContextType>;
+  Block?: BlockResolvers<ContextType>;
   UnitList?: UnitListResolvers<ContextType>;
   Entity?: EntityResolvers<ContextType>;
   SpecialisationList?: SpecialisationListResolvers<ContextType>;

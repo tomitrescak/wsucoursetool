@@ -21,7 +21,8 @@ import {
   Combobox,
   UnorderedList,
   ListItem,
-  Tooltip
+  Tooltip,
+  SelectMenu
 } from 'evergreen-ui';
 import { Unit, State, Course, CourseUnit, Topic, AcsKnowledge, Major } from '../types';
 import { url, buildForm } from 'lib/helpers';
@@ -48,6 +49,8 @@ import { BlockDependencyGraph } from 'components/blocks/block_graph';
 import { AcsUnitGraph } from 'components/acs/acs_graph';
 import { undoMiddleware } from 'mobx-keystone';
 import { CourseCompletionCriteria } from './course_completion_criteria';
+import { CourseOverview } from './course_overview';
+import { CourseReport } from './course_report';
 
 const classes = [
   {
@@ -222,6 +225,10 @@ const UnitsBySemester = observer(
                     let unit = units.find(u => u.id === c.id);
                     let cunit = courseUnits.find(u => u.id === c.id);
 
+                    if (unit == null) {
+                      return <div key={c.id}>Missing: {c.id}</div>;
+                    }
+
                     // console.log(c.id);
                     // console.log(cunit.semester);
 
@@ -383,11 +390,11 @@ const UnitsByTopic = observer(
 );
 
 type Props = {
-  courseUnits: Unit[];
+  courseUnits: UnitList[];
   selectedUnits: CourseUnit[];
   acs: AcsKnowledge[];
   course: Course;
-  majorId: string;
+  majorIds: string[];
   report?: Array<{
     id: string;
     name: string;
@@ -396,7 +403,7 @@ type Props = {
 };
 
 const AcsGraphContainer = observer(({ courseUnits, selectedUnits, acs }: Props) => {
-  const units: Unit[] = selectedUnits.map(cu => courseUnits.find(u => u.id === cu.id));
+  const units: UnitList[] = selectedUnits.map(cu => courseUnits.find(u => u.id === cu.id));
   return <AcsUnitGraph acs={acs} units={units} />;
 });
 
@@ -431,35 +438,10 @@ const TabContent = observer(
   }
 );
 
-const ReportLine = ({ is }) => {
-  const [expanded, setExpanded] = React.useState(false);
-  return (
-    <Pane>
-      <Pane cursor="pointer" onClick={() => setExpanded(!expanded)}>
-        {is.text}
-      </Pane>
-      {expanded && (
-        <UnorderedList>
-          {is.info.map(info => (
-            <ListItem key={info.id}>
-              {info.name}
-              <UnorderedList>
-                {info.blocks.map(b => (
-                  <ListItem key={b.id}>{b.name}</ListItem>
-                ))}
-              </UnorderedList>
-            </ListItem>
-          ))}
-        </UnorderedList>
-      )}
-    </Pane>
-  );
-};
-
-const Visualisations = observer(
-  ({ acs, course, majorId, courseUnits, selectedUnits, report }: Props) => {
+const CourseTabs = observer(
+  ({ acs, course, majorIds, courseUnits, selectedUnits, report }: Props) => {
     const state = useLocalStore(() => ({
-      tab: 'rep'
+      tab: 'over'
     }));
 
     function unitClass(unit: Unit) {
@@ -491,6 +473,9 @@ const Visualisations = observer(
           <TabHeader tab="rep" state={state}>
             Course Report
           </TabHeader>
+          <TabHeader tab="over" state={state}>
+            Course Overview
+          </TabHeader>
           <TabHeader tab="dep" state={state}>
             Dependencies
           </TabHeader>
@@ -499,39 +484,10 @@ const Visualisations = observer(
           </TabHeader>
         </Tablist>
         <TabContent tab="rep" state={state}>
-          {report.map((ri, i) => (
-            <Alert
-              key={ri.id}
-              title={ri.name}
-              intent={
-                ri.issues.some(i => i.type === 'error')
-                  ? 'danger'
-                  : ri.issues.some(i => i.type === 'warning')
-                  ? 'warning'
-                  : 'success'
-              }
-              marginBottom={8}
-            >
-              <UnorderedList>
-                {ri.issues.map((is, ix) => (
-                  <ListItem
-                    icon={
-                      is.type === 'error'
-                        ? 'cross'
-                        : is.type === 'warning'
-                        ? 'warning-sign'
-                        : 'tick'
-                    }
-                    iconColor={
-                      is.type === 'error' ? 'danger' : is.type === 'warning' ? 'warning' : 'green'
-                    }
-                  >
-                    <ReportLine is={is} key={ix} />
-                  </ListItem>
-                ))}
-              </UnorderedList>
-            </Alert>
-          ))}
+          <CourseReport />
+        </TabContent>
+        <TabContent tab="over" state={state}>
+          <CourseOverview report={report} />
         </TabContent>
         <TabContent tab="acs" state={state}>
           <AcsGraphContainer
@@ -539,13 +495,14 @@ const Visualisations = observer(
             courseUnits={courseUnits}
             selectedUnits={selectedUnits}
             course={course}
-            majorId={majorId}
+            majorIds={majorIds}
           />
         </TabContent>
         <TabContent tab="dep" state={state}>
           <BlockDependencyGraph
-            key={course.id + '_' + majorId}
+            key={course.id + '_' + majorIds.join('.')}
             units={units}
+            otherUnits={courseUnits}
             owner={course}
             classes={classes}
             unitClass={unitClass}
@@ -627,24 +584,34 @@ const CourseDetails: React.FC<{
 
   const addForm = buildForm(localState, ['newMajorName', 'newMajorId']);
 
-  let selectedMajorId: string | undefined = '';
+  let selectedMajorIds: string[] | undefined = [];
   const item = router.query.item as string;
 
   if (item) {
     const mainSplit = item.split('--');
 
     // find block
-    const blockSplit = mainSplit.length > 1 ? mainSplit[1].split('-') : null;
-    selectedMajorId = blockSplit != null ? blockSplit[blockSplit.length - 1] : '';
+    for (let i = 1; i < mainSplit.length; i++) {
+      const blockSplit = mainSplit[i].split('-');
+      const id = blockSplit[blockSplit.length - 1];
+      if (id) {
+        selectedMajorIds.push(id);
+      }
+    }
   }
 
   // find all depenedencies
 
-  const major = selectedMajorId ? course.majors.find(f => f.id === selectedMajorId) : null;
-  const courseUnits: CourseUnit[] = [
-    ...course.core.filter(c => (major ? major.units.every(u => u.id !== c.id) : true)),
-    ...(major ? major.units : [])
-  ];
+  const majors = selectedMajorIds.map(id => course.majors.find(f => f.id === id));
+  const courseUnits: CourseUnit[] = [...course.core];
+
+  // for (let major of majors) {
+  //   for (let unit of major.units) {
+  //     if (courseUnits.every(u => u.id !== unit.id)) {
+  //       courseUnits.push(unit);
+  //     }
+  //   }
+  // }
 
   const selectedUnits = courseUnits.filter(u => {
     if (localState.selection.length || localState.semesterSelection.length) {
@@ -656,6 +623,15 @@ const CourseDetails: React.FC<{
     return true;
   });
   const view = readonly ? 'view' : 'editor';
+
+  function changeRoute() {
+    router.push(
+      `/${view}/[category]/[item]`,
+      `/${view}/courses/${url(course.name)}-${course.id}--${selectedMajorIds
+        .map(id => `${url(course.majors.find(m => m.id === id).name)}-${id}`)
+        .join('--')}`
+    );
+  }
 
   return (
     <>
@@ -691,18 +667,19 @@ const CourseDetails: React.FC<{
           </Pane>
 
           <Pane display="flex" marginBottom={24} alignItems="flex-end">
-            <SelectField
-              value={selectedMajorId}
-              label="Major"
-              margin={0}
-              onChange={e => {
-                if (e.currentTarget.value) {
-                  router.push(
-                    '/editor/[category]/[item]',
-                    `/editor/courses/${url(course.name)}-${course.id}--${url(
-                      course.majors.find(m => m.id === e.currentTarget.value).name
-                    )}-${e.currentTarget.value}`
-                  );
+            <SelectMenu
+              isMultiSelect
+              title="Select multiple majors"
+              options={course.majors.map(m => ({ label: m.name, value: m.id }))}
+              selected={selectedMajorIds}
+              onSelect={item => {
+                selectedMajorIds.push(item.value as string);
+                changeRoute();
+              }}
+              onDeselect={item => {
+                selectedMajorIds = selectedMajorIds.filter(i => i !== (item.value as string));
+                if (selectedMajorIds.length) {
+                  changeRoute();
                 } else {
                   router.push(
                     '/editor/[category]/[item]',
@@ -711,13 +688,13 @@ const CourseDetails: React.FC<{
                 }
               }}
             >
-              <option value="">Please Select ...</option>
-              {course.majors.map(m => (
-                <option value={m.id} key={m.id}>
-                  {m.name}
-                </option>
-              ))}
-            </SelectField>
+              <Button>
+                {selectedMajorIds.length
+                  ? selectedMajorIds.map(id => course.majors.find(m => m.id === id).name).join(', ')
+                  : 'Select multiple...'}
+              </Button>
+            </SelectMenu>
+
             {/* <Dialog
                 isShown={localState.isShown}
                 title="Add New Major"
@@ -762,11 +739,12 @@ const CourseDetails: React.FC<{
                         acs: [],
                         sfia: [],
                         units: [],
-                        topics: []
+                        topics: [],
+                        totalCredits: 0
                       },
                       id: localState.newMajorId,
-                      name: localState.newMajorName,
-                      units: []
+                      name: localState.newMajorName
+                      // units: []
                     });
 
                     router.push(
@@ -813,20 +791,46 @@ const CourseDetails: React.FC<{
             <CourseCompletionCriteria readonly={readonly} criteria={course.completionCriteria} />
           </Expander>
 
-          {selectedMajorId && major && (
-            <Expander
-              title={`"${major.name}" Major Completion Criteria`}
-              id="courseMajorCompletionCriteria"
-            >
-              <CourseCompletionCriteria readonly={readonly} criteria={major.completionCriteria} />
-            </Expander>
-          )}
+          {selectedMajorIds.map(selectedMajorId => {
+            const major = course.majors.find(m => m.id === selectedMajorId);
+            return (
+              <Expander
+                key={selectedMajorId}
+                title={`"${major.name}" Major`}
+                id={'courseMajorCompletionCriteria' + major.name}
+              >
+                <CourseCompletionCriteria readonly={readonly} criteria={major.completionCriteria} />
+
+                {/* <ClassList
+                  owner={major}
+                  units={major.units}
+                  readonly={readonly}
+                  title="Major Units"
+                /> */}
+
+                <Button
+                  intent="danger"
+                  iconBefore="trash"
+                  appearance="primary"
+                  marginTop={8}
+                  marginLeft={8}
+                  onClick={() => {
+                    if (confirm('Are You Sure?')) {
+                      course.removeMajor(major);
+                    }
+                    router.push(
+                      '/editor/[category]/[item]',
+                      `/editor/courses/${url(course.name)}-${course.id}`
+                    );
+                  }}
+                >
+                  Delete Major
+                </Button>
+              </Expander>
+            );
+          })}
 
           <ClassList owner={course} units={course.core} readonly={readonly} title="Core Units" />
-
-          {selectedMajorId && major && (
-            <ClassList owner={major} units={major.units} readonly={readonly} title="Major Units" />
-          )}
 
           <UnitsBySemester
             course={course}
@@ -865,36 +869,15 @@ const CourseDetails: React.FC<{
         >
           Delete Course
         </Button>
-
-        {selectedMajorId && (
-          <Button
-            intent="danger"
-            iconBefore="trash"
-            appearance="primary"
-            marginTop={8}
-            marginLeft={8}
-            onClick={() => {
-              if (confirm('Are You Sure?')) {
-                course.removeMajor(major);
-              }
-              router.push(
-                '/editor/[category]/[item]',
-                `/editor/courses/${url(course.name)}-${course.id}`
-              );
-            }}
-          >
-            Delete Major
-          </Button>
-        )}
       </VerticalPane>
       <VerticalPane shrink={true}>
-        <Visualisations
+        <CourseTabs
           acs={data.acs}
           report={data.courseReport}
           selectedUnits={selectedUnits}
-          courseUnits={data.courseUnits}
+          courseUnits={data.units}
           course={course}
-          majorId={selectedMajorId}
+          majorIds={selectedMajorIds}
         />
       </VerticalPane>
     </>

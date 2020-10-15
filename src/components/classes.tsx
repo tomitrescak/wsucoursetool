@@ -48,7 +48,11 @@ export class EntityModel extends Model({
   description: prop<string>({ setterAction: true })
 }) {
   toJS() {
-    return toJS(this.$);
+    return {
+      id: this.id,
+      name: this.name,
+      description: this.description
+    };
   }
 }
 
@@ -122,7 +126,8 @@ export class CourseCompletionCriteriaModel extends Model({
   units: prop<UnitConditionModel[]>(() => []),
   topics: prop<TopicConditionModel[]>(() => []),
   sfia: prop<FrameworkConditionModel[]>(() => []),
-  acs: prop<FrameworkConditionModel[]>(() => [])
+  acs: prop<FrameworkConditionModel[]>(() => []),
+  totalCredits: prop()
 }) {
   @modelAction
   addUnitCondition(condition: UnitCondition) {
@@ -198,31 +203,31 @@ export class CourseUnitModel extends Model({
 
 @model('Course/Major')
 export class MajorModel extends ExtendedModel(EntityModel, {
-  units: prop<CourseUnitModel[]>({ setterAction: true }),
+  // units: prop<CourseUnitModel[]>({ setterAction: true }),
   completionCriteria: prop<CourseCompletionCriteriaModel>()
 }) {
   toJS() {
     return {
       ...super.toJS(),
-      units: this.units.map(u => u.toJS()),
+      // units: this.units.map(u => u.toJS()),
       completionCriteria: this.completionCriteria.toJS()
     };
   }
-  @modelAction
-  addUnit(unit: CourseUnit) {
-    this.units.push(new CourseUnitModel(unit));
-  }
+  // @modelAction
+  // addUnit(unit: CourseUnit) {
+  //   this.units.push(new CourseUnitModel(unit));
+  // }
 
-  @modelAction
-  removeUnit(unit: CourseUnitModel) {
-    this.units.splice(this.units.indexOf(unit), 1);
-  }
+  // @modelAction
+  // removeUnit(unit: CourseUnitModel) {
+  //   this.units.splice(this.units.indexOf(unit), 1);
+  // }
 }
 
 function createMajor(model: Major) {
   return new MajorModel({
     ...model,
-    units: (model.units || []).map(u => new CourseUnitModel(u)),
+    // units: (model.units || []).map(u => new CourseUnitModel(u)),
     completionCriteria: createCourseCompletionCriteriaModel(model.completionCriteria)
   });
 }
@@ -497,6 +502,7 @@ function createActivities(activities?: ReadonlyArray<Activity>) {
 
 @model('Course/Block')
 export class BlockModel extends ExtendedModel(EntityModel, {
+  blockId: prop(),
   outcomes: prop<OutcomeModel[]>({ setterAction: true }),
   outcome: prop<string>({ setterAction: true }),
   keywords: prop<string[]>({ setterAction: true }),
@@ -511,7 +517,7 @@ export class BlockModel extends ExtendedModel(EntityModel, {
   replacedByUnit: prop<string>({ setterAction: true }),
   replacedByBlock: prop<string>({ setterAction: true }),
   length: prop<number>({ setterAction: true }),
-  credit: prop<number>({ setterAction: true }),
+  credits: prop<number>({ setterAction: true }),
   sfiaSkills: prop<SfiaSkillMappingModel[]>(() => [], { setterAction: true })
 }) {
   toJS() {

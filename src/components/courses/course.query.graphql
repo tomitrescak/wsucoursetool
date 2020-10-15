@@ -1,16 +1,48 @@
+fragment Prerequisite on Prerequisite {
+  id
+  type
+  unitId
+  recommended
+  prerequisites
+}
 query Course($id: String!) {
   course(id: $id)
 
-  courseUnits(id: $id)
-
   courseReport(id: $id)
 
-  units {
+  units(maxLevel: 7) {
     blockCount
     id
     name
+    offer
+    level
+    credits
     dynamic
     topics
+    prerequisites {
+      ...Prerequisite
+    }
+    outcomes {
+      acsSkillId
+      bloomRating
+    }
+    blocks {
+      blockId
+      id
+      name
+      prerequisites {
+        ...Prerequisite
+      }
+      credits
+      topics {
+        id
+        ratio
+      }
+      sfiaSkills {
+        id
+        level
+      }
+    }
   }
 
   acs

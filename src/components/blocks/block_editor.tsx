@@ -54,7 +54,10 @@ const BlockDetails: React.FC<{
   acs: AcsKnowledge[];
   readonly: boolean;
 }> = observer(({ block, state, unit, keywords, acs, readonly }) => {
-  const form = React.useMemo(() => buildForm(block, ['name', 'description', 'outcome']), [block]);
+  const form = React.useMemo(
+    () => buildForm(block, ['name', 'description', 'outcome', 'credits']),
+    [block]
+  );
   const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'activity' }), []);
 
   const [expanded, setExpanded] = React.useState(localStorage.getItem('blockDetails') === 'true');
@@ -74,6 +77,7 @@ const BlockDetails: React.FC<{
   function addBlock(name = '<New Block>') {
     const newBlock: Block = {
       id: findMaxId(unit.blocks),
+      blockId: Date.now(),
       name,
       prerequisites: [
         {
@@ -204,8 +208,8 @@ const BlockDetails: React.FC<{
               placeholder="Credit"
               type="number"
               step={0.1}
-              value={block.credit}
-              onChange={form.credit}
+              value={block.credits}
+              onChange={form.credits}
               margin={0}
               marginBottom={8}
               marginTop={4}
@@ -552,7 +556,7 @@ const BlocksEditorView: React.FC<Props> = ({
       // assign new id
 
       currentBlock.length += nextBlock.length;
-      currentBlock.credit += nextBlock.credit;
+      currentBlock.credits += nextBlock.credits;
       currentBlock.topics = [...currentBlock.topics, ...nextBlock.topics].filter(
         (v, i) => currentBlock.topics.findIndex(t => t.id === v.id) === i
       );

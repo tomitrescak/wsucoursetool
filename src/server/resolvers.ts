@@ -20,6 +20,8 @@ function onlyUnique(value, index, self) {
 let g = global as any;
 g.__users = {};
 
+let id = 0;
+
 function getDb(): CourseConfig {
   if (g.__db == null) {
     // g.__db = JSON.parse(
@@ -28,7 +30,22 @@ function getDb(): CourseConfig {
     //   })
     // );
     g.__db = require('../data/db.json');
-    console.log(Object.keys(g.__db));
+    g.__db.units.forEach(u =>
+      u.blocks.forEach(b => {
+        b.blockId = id++;
+        if (b.credits == null) {
+          b.credits = 0;
+        }
+        if (b.prerequisites == null) {
+          b.prerequisites = [];
+        }
+        if (b.name == null) {
+          b.name = 'Empty';
+        }
+      })
+    );
+
+    // console.log(Object.keys(g.__db));
   }
   return g.__db;
 }
@@ -208,7 +225,8 @@ export const resolvers: IResolvers = {
             acs: [],
             sfia: [],
             topics: [],
-            units: []
+            units: [],
+            totalCredits: 0
           }
         });
         return true;
@@ -264,13 +282,14 @@ export const resolvers: IResolvers = {
     },
     createUnit(_, { id, name }) {
       return withDb(db => {
-        db.units.push({
+        const unit: Unit = {
           id,
           name,
           topics: [],
           sfiaSkills: [],
           keywords: [],
           coordinator: '',
+          prerequisites: [],
           // blockTopics: [],
           dynamic: false,
           outdated: false,
@@ -281,18 +300,12 @@ export const resolvers: IResolvers = {
           assumedKnowledge: '',
           outcome: '',
           outcomes: [],
-          blocks: []
-        });
-
-        return {
-          id,
-          name,
-          dynamic: false,
-          outdated: false,
-          obsolete: false,
-          topics: [],
-          blockCount: 0
+          blocks: [],
+          offer: []
         };
+        db.units.push(unit);
+
+        return unit;
       });
     },
     deleteUnit(_, { id }) {
@@ -481,13 +494,13 @@ export const resolvers: IResolvers = {
       let db = getDb();
       let course = db.courses.find(u => u.id === id);
       let units = course.core.map(c => db.units.find(u => u.id === c.id));
-      for (let major of course.majors) {
-        for (let unit of major.units || []) {
-          if (units.every(u => u.id !== unit.id)) {
-            units.push(db.units.find(u => u.id === unit.id));
-          }
-        }
-      }
+      // for (let major of course.majors) {
+      //   for (let unit of major.units || []) {
+      //     if (units.every(u => u.id !== unit.id)) {
+      //       units.push(db.units.find(u => u.id === unit.id));
+      //     }
+      //   }
+      // }
       return units;
     },
     unitDepenendencies(_, { id }) {
@@ -526,20 +539,16 @@ export const resolvers: IResolvers = {
 
       return neededUnits;
     },
-    units() {
+    units(_, { maxLevel }) {
       let db = getDb();
       return db.units
+        .filter(u => (maxLevel != null ? u.level < maxLevel : true))
         .map(u => ({
-          id: u.id,
-          name: u.name,
+          ...u,
+          offer: u.offer || [],
+          prerequisites: u.prerequisites || [],
           dynamic: !!u.dynamic,
           blockCount: (u.blocks || []).length,
-          level: u.level,
-          outdated: u.outdated,
-          processed: u.processed,
-          obsolete: u.obsolete,
-          proposed: u.proposed,
-          hidden: u.hidden,
           topics: (u.blocks || [])
             .flatMap(f => f.topics || [])
             .map(t => t.id)
@@ -560,8 +569,8 @@ export const resolvers: IResolvers = {
         core: c.core.map(o => ({ id: o.id, name: '' })),
         majors: c.majors.map(m => ({
           id: m.id,
-          name: m.name,
-          units: (m.units || []).map(u => ({ id: u.id }))
+          name: m.name
+          // units: (m.units || []).map(u => ({ id: u.id }))
         }))
       }));
     }

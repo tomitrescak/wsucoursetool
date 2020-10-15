@@ -24,6 +24,11 @@ export default function createApolloClient(initialState: any, ctx: any) {
       // }
       // fetch,
     }),
-    cache: new InMemoryCache().restore(initialState)
+    cache: new InMemoryCache({
+      typePolicies: {
+        Block: { keyFields: ['blockId'] },
+        Prerequisite: { keyFields: false }
+      }
+    }).restore(initialState)
   });
 }

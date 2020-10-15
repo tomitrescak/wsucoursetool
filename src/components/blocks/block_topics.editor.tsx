@@ -23,7 +23,7 @@ const TopicLine = ({ topics, topic, readonly, block, index }: LineProps) => {
         {readonly ? (
           <>
             <Badge marginRight={8}>Ratio {topic.ratio}</Badge>
-            <Badge marginRight={8}>{topic.ratio * block.credit}¢</Badge>
+            <Badge marginRight={8}>{topic.ratio * block.credits}¢</Badge>
             <Text>{selected.name}</Text>
           </>
         ) : (
@@ -55,7 +55,7 @@ const TopicLine = ({ topics, topic, readonly, block, index }: LineProps) => {
         <TextInput
           width={60}
           disabled={true}
-          value={topic.ratio * block.credit + '¢'}
+          value={topic.ratio * block.credits + '¢'}
           marginRight={8}
         />
       )}

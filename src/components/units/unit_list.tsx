@@ -197,9 +197,8 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
       return false;
     }
     if (selectedCourse) {
-      isOk =
-        selectedCourse.core.findIndex(c => c.id === f.id) >= 0 ||
-        (selectedMajor && selectedMajor.units.findIndex(u => u.id === f.id) >= 0);
+      isOk = selectedCourse.core.findIndex(c => c.id === f.id) >= 0;
+      // || (selectedMajor && selectedMajor.units.findIndex(u => u.id === f.id) >= 0);
     }
     if (localState.filterName) {
       isOk =

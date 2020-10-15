@@ -259,6 +259,7 @@ const BlockGraphContainer = observer(({ unit, height }: { unit: UnitModel; heigh
       <BlockDependencyGraph
         key={localState.level}
         units={filteredUnits}
+        otherUnits={[]}
         owner={unit}
         classes={nodeClasses}
         unitClass={unitClass as any}
