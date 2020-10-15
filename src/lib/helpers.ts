@@ -1,3 +1,5 @@
+import { CourseCompletionCriteria, UnitCondition } from 'components/types';
+
 export function url(str: string = '') {
   let result = str.replace(/:/g, '');
   result = result.replace(/ - /g, '-');
@@ -45,4 +47,18 @@ export function buildForm<T>(obj: T, keys: Array<keyof T>): Mapped<T> {
 
 export function viewType() {
   return window.location.href.indexOf('/view/') > 0 ? 'view' : 'editor';
+}
+
+function processUnitCondition(u: UnitCondition) {
+  if (u.id) {
+    return u;
+  } else if (u.or) {
+    return u.or.flatMap(c => processUnitCondition(c));
+  }
+}
+
+export function extractCriteriaUnits(criteria: CourseCompletionCriteria): UnitCondition[] {
+  return criteria.units.flatMap(u => {
+    return processUnitCondition(u);
+  });
 }

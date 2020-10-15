@@ -21,10 +21,12 @@ query CourseList {
   courses {
     id
     name
-    core {
-      id
-    }
+    completionCriteria
+    # core {
+    #   id
+    # }
     majors {
+      completionCriteria
       id
       name
     }

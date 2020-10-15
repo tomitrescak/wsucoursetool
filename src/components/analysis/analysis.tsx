@@ -14,7 +14,7 @@ import {
   Checkbox,
   Badge
 } from 'evergreen-ui';
-import { buildForm } from 'lib/helpers';
+import { buildForm, extractCriteriaUnits } from 'lib/helpers';
 import { Unit, Topic, Block } from 'components/types';
 import styled from '@emotion/styled';
 import { observable } from 'mobx';
@@ -189,6 +189,8 @@ const Container = () => {
       : null;
 
   let db: Unit[] = data.db;
+  let courseUnits = extractCriteriaUnits(selectedCourse.completionCriteria);
+  let majorUnits = selectedMajor ? extractCriteriaUnits(selectedMajor.completionCriteria) : null;
 
   const filteredUnits = db
     .slice()
@@ -196,8 +198,9 @@ const Container = () => {
     .filter(f => {
       let isOk = true;
       if (selectedCourse) {
-        isOk = selectedCourse.core.findIndex(c => c.id === f.id) >= 0;
-        // || (selectedMajor && selectedMajor.units.findIndex(u => u.id === f.id) >= 0);
+        isOk =
+          courseUnits.findIndex(c => c.id === f.id) >= 0 ||
+          (majorUnits && majorUnits.findIndex(u => u.id === f.id) >= 0);
       }
       if (localState.filterName) {
         isOk =

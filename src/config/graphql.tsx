@@ -108,13 +108,14 @@ export type Identifiable = {
 export type MajorList = {
   id: Scalars['String'];
   name: Scalars['String'];
+  completionCriteria: Scalars['JSON'];
 };
 
 export type CourseList = {
   id: Scalars['String'];
   name: Scalars['String'];
+  completionCriteria: Scalars['JSON'];
   majors: Array<MajorList>;
-  core: Array<Identifiable>;
 };
 
 export type Coordinator = {
@@ -301,8 +302,8 @@ export type DbQueryVariables = Exact<{ [key: string]: never; }>;
 export type DbQuery = (
   Pick<Query, 'db'>
   & { courses: Array<(
-    Pick<CourseList, 'id' | 'name'>
-    & { core: Array<Pick<Identifiable, 'id'>>, majors: Array<Pick<MajorList, 'id' | 'name'>> }
+    Pick<CourseList, 'id' | 'name' | 'completionCriteria'>
+    & { majors: Array<Pick<MajorList, 'id' | 'name' | 'completionCriteria'>> }
   )>, topics: Array<Pick<TopicList, 'id' | 'name'>> }
 );
 
@@ -363,8 +364,8 @@ export type CourseListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CourseListQuery = { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'level' | 'obsolete' | 'outdated' | 'processed' | 'proposed' | 'hidden' | 'topics'>>, topics: Array<Pick<TopicList, 'id' | 'name'>>, courses: Array<(
-    Pick<CourseList, 'id' | 'name'>
-    & { core: Array<Pick<Identifiable, 'id'>>, majors: Array<Pick<MajorList, 'id' | 'name'>> }
+    Pick<CourseList, 'id' | 'name' | 'completionCriteria'>
+    & { majors: Array<Pick<MajorList, 'completionCriteria' | 'id' | 'name'>> }
   )> };
 
 export type CreateJobMutationVariables = Exact<{
@@ -552,13 +553,13 @@ export type AcsQueryResult = ApolloReactCommon.QueryResult<AcsQuery, AcsQueryVar
 export const DbDocument = gql`
     query db {
   courses {
-    core {
-      id
-    }
     id
+    name
+    completionCriteria
     majors {
       id
       name
+      completionCriteria
     }
     name
   }
@@ -853,10 +854,9 @@ export const CourseListDocument = gql`
   courses {
     id
     name
-    core {
-      id
-    }
+    completionCriteria
     majors {
+      completionCriteria
       id
       name
     }

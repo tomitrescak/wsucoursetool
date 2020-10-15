@@ -3,7 +3,7 @@ import { Expander } from 'components/common/expander';
 import { ProgressView } from 'components/common/progress_view';
 import { UnitCondition } from 'components/types';
 import { UnitList, useUnitsQuery } from 'config/graphql';
-import { Button, Combobox, Heading, IconButton, Pane, Text } from 'evergreen-ui';
+import { Badge, Button, Combobox, Heading, IconButton, Pane, Text, TextInput } from 'evergreen-ui';
 import { observer, useLocalStore } from 'mobx-react';
 import React from 'react';
 
@@ -19,7 +19,7 @@ type UnitOwner = {
 const UnitListEditor = observer(
   ({ units, unit, owner }: { units: UnitList[]; unit: UnitConditionModel; owner: UnitOwner }) => {
     const selectedItem = unit?.id ? units.find(u => u.id === unit.id) : null;
-    const localState = useLocalStore(() => ({ unitId: '' }));
+    const localState = useLocalStore(() => ({ unitId: '', semester: 0 }));
     return (
       <Pane display="flex" alignItems="center">
         <Combobox
@@ -27,14 +27,27 @@ const UnitListEditor = observer(
           width="100%"
           selectedItem={selectedItem}
           items={units}
-          itemToString={item => (item ? item.name : '')}
+          itemToString={item => (item ? `${item.name} (${item.id})` : '')}
           onChange={selected => (localState.unitId = selected.id)}
+        />
+        <TextInput
+          placeholder="semester"
+          type="number"
+          width="50px"
+          marginLeft={8}
+          onChange={e => (localState.semester = e.currentTarget.value)}
+          value={localState.semester}
         />
         <IconButton
           marginLeft={8}
+          width={30}
+          flex="0 0 30px"
           intent="success"
           icon="plus"
-          onClick={() => localState.unitId && owner.addUnitCondition({ id: localState.unitId })}
+          onClick={() =>
+            localState.unitId &&
+            owner.addUnitCondition({ id: localState.unitId, semester: localState.semester })
+          }
           appearance="primary"
         />
         <Button
@@ -42,7 +55,11 @@ const UnitListEditor = observer(
           iconBefore="plus"
           onClick={() =>
             localState.unitId &&
-            owner.addUnitCondition({ id: null, or: [{ id: localState.unitId }] })
+            owner.addUnitCondition({
+              id: null,
+              semester: undefined,
+              or: [{ id: localState.unitId, semester: localState.semester }]
+            })
           }
           appearance="primary"
         >
@@ -77,7 +94,9 @@ const UnitItemEditor = observer(
           intent="danger"
           onClick={() => owner.removeUnitCondition(unit)}
         />
-        <Text>{units.find(u => u.id === unit.id).name}</Text>
+        <Text>
+          <Badge>{unit.semester}</Badge> {units.find(u => u.id === unit.id).name}
+        </Text>
       </Pane>
     );
   }

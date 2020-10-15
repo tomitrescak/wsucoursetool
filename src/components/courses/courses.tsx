@@ -10,7 +10,6 @@ import {
   Heading,
   Dialog,
   Button,
-  SelectField,
   Text,
   Badge,
   Checkbox,
@@ -19,13 +18,17 @@ import {
   toaster,
   Tab,
   Combobox,
-  UnorderedList,
-  ListItem,
-  Tooltip,
   SelectMenu
 } from 'evergreen-ui';
-import { Unit, State, Course, CourseUnit, Topic, AcsKnowledge, Major } from '../types';
-import { url, buildForm } from 'lib/helpers';
+import {
+  Unit,
+  State,
+  Course,
+  AcsKnowledge,
+  CourseCompletionCriteria,
+  UnitCondition
+} from '../types';
+import { url, buildForm, extractCriteriaUnits } from 'lib/helpers';
 import Link from 'next/link';
 
 import Router, { useRouter } from 'next/router';
@@ -48,9 +51,9 @@ import { CourseModel, CourseUnitModel, createCourse, MajorModel } from 'componen
 import { BlockDependencyGraph } from 'components/blocks/block_graph';
 import { AcsUnitGraph } from 'components/acs/acs_graph';
 import { undoMiddleware } from 'mobx-keystone';
-import { CourseCompletionCriteria } from './course_completion_criteria';
 import { CourseOverview } from './course_overview';
 import { CourseReport } from './course_report';
+import { CourseCompletionCriteriaRoot } from './course_completion_criteria';
 
 const classes = [
   {
@@ -160,8 +163,8 @@ type SimpleEntity = {
 
 type SemesterProps = {
   units: UnitList[];
-  courseUnits: CourseUnit[];
   course: CourseList;
+  courseUnits: UnitCondition[];
   topics: SimpleEntity[];
   localState: {
     semesterSelection: string[];
@@ -171,7 +174,7 @@ type SemesterProps = {
 };
 
 const UnitsBySemester = observer(
-  ({ courseUnits, units, localState, course, view }: SemesterProps) => {
+  ({ units, courseUnits, localState, course, view }: SemesterProps) => {
     let semesters = groupBy(courseUnits, 'semester');
 
     return (
@@ -300,98 +303,97 @@ const UnitsBySemester = observer(
   }
 );
 
-const UnitsByTopic = observer(
-  ({ units, topics, courseUnits, localState, course }: SemesterProps) => {
-    let semesters: { [index: string]: Unit[] } = React.useMemo(() => {
-      let unitInfos = units; //.map(u => units.find(un => un.id === u.id));
-      let topicSetInitial = unitInfos.flatMap(u => u.topics);
-      let topicSet = topicSetInitial
-        // .filter((f, i) => topicSetInitial.indexOf(f) === i)
-        .map(id => topics.find(t => t.id === id))
-        .sort((a, b) => a.name.localeCompare(b.name));
-      let result = {};
-      for (let topic of topicSet) {
-        if (topic) {
-          result[topic.name] = unitInfos.filter(u => (u.topics || []).some(t => t === topic.id));
-        }
+const UnitsByTopic = observer(({ units, topics, localState }: SemesterProps) => {
+  let semesters: { [index: string]: Unit[] } = React.useMemo(() => {
+    let unitInfos = units; //.map(u => units.find(un => un.id === u.id));
+    let topicSetInitial = unitInfos.flatMap(u => u.topics);
+    let topicSet = topicSetInitial
+      // .filter((f, i) => topicSetInitial.indexOf(f) === i)
+      .map(id => topics.find(t => t.id === id))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    let result = {};
+    for (let topic of topicSet) {
+      if (topic) {
+        result[topic.name] = unitInfos.filter(u => (u.topics || []).some(t => t === topic.id));
       }
-      return result;
-    }, [units]);
+    }
+    return result;
+  }, [units]);
 
-    return (
-      <Expander title="Units by Topic" id="topicUnits">
-        <Pane display="flex">
-          <table>
-            <thead>
-              <tr>
-                <th style={{ textAlign: 'left' }}>
-                  <Heading size={400}>Code</Heading>
-                </th>
-                <th style={{ textAlign: 'left' }}>
-                  <Heading size={400}>Name</Heading>
-                </th>
-              </tr>
-            </thead>
-            {Object.keys(semesters).map(sem => (
-              <React.Fragment key={sem}>
-                <thead>
-                  <tr>
-                    <th
-                      style={{ textAlign: 'left', paddingTop: '8px', paddingBottom: '4px' }}
-                      colSpan={3}
-                    >
-                      <Heading size={400}>{sem}</Heading>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {semesters[sem].map((c, i) => {
-                    // console.log(c.id);
-                    // console.log(cunit.semester);
+  return (
+    <Expander title="Units by Topic" id="topicUnits">
+      <Pane display="flex">
+        <table>
+          <thead>
+            <tr>
+              <th style={{ textAlign: 'left' }}>
+                <Heading size={400}>Code</Heading>
+              </th>
+              <th style={{ textAlign: 'left' }}>
+                <Heading size={400}>Name</Heading>
+              </th>
+            </tr>
+          </thead>
+          {Object.keys(semesters).map(sem => (
+            <React.Fragment key={sem}>
+              <thead>
+                <tr>
+                  <th
+                    style={{ textAlign: 'left', paddingTop: '8px', paddingBottom: '4px' }}
+                    colSpan={3}
+                  >
+                    <Heading size={400}>{sem}</Heading>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {semesters[sem].map((c, i) => {
+                  // console.log(c.id);
+                  // console.log(cunit.semester);
 
-                    // console.log(
-                    //   localState.semesterSelection.some(s => parseInt(s) === cunit.semester) ||
-                    //     localState.selection.indexOf(unit.id) >= 0
-                    // );
+                  // console.log(
+                  //   localState.semesterSelection.some(s => parseInt(s) === cunit.semester) ||
+                  //     localState.selection.indexOf(unit.id) >= 0
+                  // );
 
-                    return (
-                      <tr key={c.id}>
-                        <td>
-                          <Checkbox
-                            margin={0}
-                            label={c.id}
-                            checked={localState.selection.indexOf(c.id) >= 0}
-                            onChange={e =>
-                              e.currentTarget.checked
-                                ? localState.selection.push(c.id)
-                                : localState.selection.splice(localState.selection.indexOf(c.id), 1)
-                            }
-                          />
-                        </td>
-                        <Text
-                          is="td"
-                          cursor="pointer"
-                          onClick={() => (localState.selection = [c.id])}
-                          size={300}
-                        >
-                          {c.name}
-                        </Text>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </React.Fragment>
-            ))}
-          </table>
-        </Pane>
-      </Expander>
-    );
-  }
-);
+                  return (
+                    <tr key={c.id}>
+                      <td>
+                        <Checkbox
+                          margin={0}
+                          label={c.id}
+                          checked={localState.selection.indexOf(c.id) >= 0}
+                          onChange={e =>
+                            e.currentTarget.checked
+                              ? localState.selection.push(c.id)
+                              : localState.selection.splice(localState.selection.indexOf(c.id), 1)
+                          }
+                        />
+                      </td>
+                      <Text
+                        is="td"
+                        cursor="pointer"
+                        onClick={() => (localState.selection = [c.id])}
+                        size={300}
+                      >
+                        {c.name}
+                      </Text>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </React.Fragment>
+          ))}
+        </table>
+      </Pane>
+    </Expander>
+  );
+});
 
 type Props = {
-  courseUnits: UnitList[];
-  selectedUnits: CourseUnit[];
+  allUnits: UnitList[];
+  courseUnits: UnitCondition[];
+  selectedUnits: UnitCondition[];
   acs: AcsKnowledge[];
   course: Course;
   majorIds: string[];
@@ -402,8 +404,8 @@ type Props = {
   }>;
 };
 
-const AcsGraphContainer = observer(({ courseUnits, selectedUnits, acs }: Props) => {
-  const units: UnitList[] = selectedUnits.map(cu => courseUnits.find(u => u.id === cu.id));
+const AcsGraphContainer = observer(({ allUnits, selectedUnits, acs }: Props) => {
+  const units: UnitList[] = selectedUnits.map(cu => allUnits.find(u => u.id === cu.id));
   return <AcsUnitGraph acs={acs} units={units} />;
 });
 
@@ -439,13 +441,13 @@ const TabContent = observer(
 );
 
 const CourseTabs = observer(
-  ({ acs, course, majorIds, courseUnits, selectedUnits, report }: Props) => {
+  ({ acs, course, majorIds, allUnits, courseUnits, selectedUnits, report }: Props) => {
     const state = useLocalStore(() => ({
       tab: 'over'
     }));
 
     function unitClass(unit: Unit) {
-      let cls = [course.core.some(c => c.id === unit.id) ? 'core' : 'elective'];
+      let cls = [courseUnits.some(c => c.id === unit.id) ? 'core' : 'elective'];
       if (unit.proposed) {
         cls.push('proposed');
       }
@@ -462,7 +464,7 @@ const CourseTabs = observer(
     const units = selectedUnits
       .filter(s => courseUnits.some(u => u.id === s.id))
       .map(u => {
-        let unit = { ...courseUnits.find(cu => u.id === cu.id) };
+        let unit = { ...allUnits.find(cu => u.id === cu.id) };
         unit.name += ` [${u.semester}]`;
         return unit;
       });
@@ -493,6 +495,7 @@ const CourseTabs = observer(
           <AcsGraphContainer
             acs={acs}
             courseUnits={courseUnits}
+            allUnits={units}
             selectedUnits={selectedUnits}
             course={course}
             majorIds={majorIds}
@@ -502,7 +505,7 @@ const CourseTabs = observer(
           <BlockDependencyGraph
             key={course.id + '_' + majorIds.join('.')}
             units={units}
-            otherUnits={courseUnits}
+            otherUnits={allUnits}
             owner={course}
             classes={classes}
             unitClass={unitClass}
@@ -602,8 +605,8 @@ const CourseDetails: React.FC<{
 
   // find all depenedencies
 
-  const majors = selectedMajorIds.map(id => course.majors.find(f => f.id === id));
-  const courseUnits: CourseUnit[] = [...course.core];
+  // const majors = selectedMajorIds.map(id => course.majors.find(f => f.id === id));
+  // const courseUnits: CourseUnit[] = [...course.core];
 
   // for (let major of majors) {
   //   for (let unit of major.units) {
@@ -613,6 +616,7 @@ const CourseDetails: React.FC<{
   //   }
   // }
 
+  const courseUnits = extractCriteriaUnits(course.completionCriteria);
   const selectedUnits = courseUnits.filter(u => {
     if (localState.selection.length || localState.semesterSelection.length) {
       return (
@@ -788,7 +792,10 @@ const CourseDetails: React.FC<{
           </Pane>
 
           <Expander title="Course Completion Criteria" id="courseCompletionCriteria">
-            <CourseCompletionCriteria readonly={readonly} criteria={course.completionCriteria} />
+            <CourseCompletionCriteriaRoot
+              readonly={readonly}
+              criteria={course.completionCriteria}
+            />
           </Expander>
 
           {selectedMajorIds.map(selectedMajorId => {
@@ -799,7 +806,10 @@ const CourseDetails: React.FC<{
                 title={`"${major.name}" Major`}
                 id={'courseMajorCompletionCriteria' + major.name}
               >
-                <CourseCompletionCriteria readonly={readonly} criteria={major.completionCriteria} />
+                <CourseCompletionCriteriaRoot
+                  readonly={readonly}
+                  criteria={major.completionCriteria}
+                />
 
                 {/* <ClassList
                   owner={major}
@@ -830,7 +840,7 @@ const CourseDetails: React.FC<{
             );
           })}
 
-          <ClassList owner={course} units={course.core} readonly={readonly} title="Core Units" />
+          {/* <ClassList owner={course} units={course.core} readonly={readonly} title="Core Units" /> */}
 
           <UnitsBySemester
             course={course}
@@ -875,7 +885,8 @@ const CourseDetails: React.FC<{
           acs={data.acs}
           report={data.courseReport}
           selectedUnits={selectedUnits}
-          courseUnits={data.units}
+          allUnits={data.units}
+          courseUnits={courseUnits}
           course={course}
           majorIds={selectedMajorIds}
         />
@@ -884,89 +895,89 @@ const CourseDetails: React.FC<{
   );
 });
 
-const ClassList = observer(
-  ({
-    owner,
-    units,
-    readonly,
-    title
-  }: {
-    units: CourseUnitModel[];
-    owner: { addUnit(unit: CourseUnit): void; removeUnit(unit: CourseUnitModel): void };
-    readonly: boolean;
-    title: string;
-  }) => {
-    const { loading, error, data, refetch } = useUnitsQuery();
-    const localState = useLocalStore(() => ({
-      id: '',
-      semester: 0
-    }));
-    if (loading || error) {
-      return <ProgressView loading={loading} error={error} />;
-    }
+// const ClassList = observer(
+//   ({
+//     owner,
+//     units,
+//     readonly,
+//     title
+//   }: {
+//     units: CourseUnitModel[];
+//     owner: { addUnit(unit: CourseUnit): void; removeUnit(unit: CourseUnitModel): void };
+//     readonly: boolean;
+//     title: string;
+//   }) => {
+//     const { loading, error, data, refetch } = useUnitsQuery();
+//     const localState = useLocalStore(() => ({
+//       id: '',
+//       semester: 0
+//     }));
+//     if (loading || error) {
+//       return <ProgressView loading={loading} error={error} />;
+//     }
 
-    return (
-      <Expander title={title} id={title}>
-        <Pane paddingTop={8}>
-          {units.map(c => (
-            <Pane key={c.id} display="flex" alignItems="center" marginBottom={4}>
-              {!readonly && (
-                <IconButton
-                  icon="trash"
-                  marginRight={8}
-                  appearance="primary"
-                  intent="danger"
-                  onClick={() => owner.removeUnit(c)}
-                />
-              )}
-              <Text flex={1} is="div">
-                {data.units.find(u => u.id === c.id).name}
-              </Text>
-              <TextInput
-                type="number"
-                width={80}
-                disabled={readonly}
-                placeholder="Semester"
-                value={c.semester}
-                onChange={e => (c.semester = parseInt(e.currentTarget.value))}
-              />
-            </Pane>
-          ))}
+//     return (
+//       <Expander title={title} id={title}>
+//         <Pane paddingTop={8}>
+//           {units.map(c => (
+//             <Pane key={c.id} display="flex" alignItems="center" marginBottom={4}>
+//               {!readonly && (
+//                 <IconButton
+//                   icon="trash"
+//                   marginRight={8}
+//                   appearance="primary"
+//                   intent="danger"
+//                   onClick={() => owner.removeUnit(c)}
+//                 />
+//               )}
+//               <Text flex={1} is="div">
+//                 {data.units.find(u => u.id === c.id).name}
+//               </Text>
+//               <TextInput
+//                 type="number"
+//                 width={80}
+//                 disabled={readonly}
+//                 placeholder="Semester"
+//                 value={c.semester}
+//                 onChange={e => (c.semester = parseInt(e.currentTarget.value))}
+//               />
+//             </Pane>
+//           ))}
 
-          {!readonly && (
-            <Pane marginTop={8} display="flex">
-              <Combobox
-                id="block"
-                width="100%"
-                items={data.units}
-                itemToString={item => (item ? item.name : '')}
-                onChange={selected => (localState.id = selected.id)}
-              />
-              <TextInput
-                type="number"
-                width={80}
-                placeholder="Semester"
-                value={localState.semester}
-                onChange={e => (localState.semester = parseInt(e.currentTarget.value))}
-                marginLeft={8}
-              />
-              <IconButton
-                marginLeft={8}
-                intent="success"
-                icon="plus"
-                onClick={() =>
-                  localState.id &&
-                  owner.addUnit({ id: localState.id, semester: localState.semester })
-                }
-                appearance="primary"
-              />
-            </Pane>
-          )}
-        </Pane>
-      </Expander>
-    );
-  }
-);
+//           {!readonly && (
+//             <Pane marginTop={8} display="flex">
+//               <Combobox
+//                 id="block"
+//                 width="100%"
+//                 items={data.units}
+//                 itemToString={item => (item ? item.name : '')}
+//                 onChange={selected => (localState.id = selected.id)}
+//               />
+//               <TextInput
+//                 type="number"
+//                 width={80}
+//                 placeholder="Semester"
+//                 value={localState.semester}
+//                 onChange={e => (localState.semester = parseInt(e.currentTarget.value))}
+//                 marginLeft={8}
+//               />
+//               <IconButton
+//                 marginLeft={8}
+//                 intent="success"
+//                 icon="plus"
+//                 onClick={() =>
+//                   localState.id &&
+//                   owner.addUnit({ id: localState.id, semester: localState.semester })
+//                 }
+//                 appearance="primary"
+//               />
+//             </Pane>
+//           )}
+//         </Pane>
+//       </Expander>
+//     );
+//   }
+// );
 
 const CoursesEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state, readonly }) => {
   const view = readonly ? 'view' : 'editor';

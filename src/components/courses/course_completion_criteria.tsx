@@ -45,7 +45,7 @@ type Props = {
   readonly: boolean;
 };
 
-export const CourseCompletionCriteria = ({ criteria, readonly }: Props) => {
+export const CourseCompletionCriteriaRoot = ({ criteria, readonly }: Props) => {
   if (readonly) {
     return <CourseCompletionCriteriaView criteria={criteria} />;
   }

@@ -97,14 +97,16 @@ export const typeDefs = gql`
   type MajorList {
     id: String!
     name: String!
+    completionCriteria: JSON!
     # units: [Identifiable!]!
   }
 
   type CourseList {
     id: String!
     name: String!
+    completionCriteria: JSON!
     majors: [MajorList!]!
-    core: [Identifiable!]!
+    # core: [Identifiable!]!
   }
 
   type Coordinator {

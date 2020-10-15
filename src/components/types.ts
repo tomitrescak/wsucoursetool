@@ -23,11 +23,6 @@ export type Outcome = {
   bloomRating: number;
 };
 
-export type CourseUnit = {
-  id: string;
-  semester: number;
-};
-
 export type Major = {
   name: string;
   id: string;
@@ -37,6 +32,7 @@ export type Major = {
 
 export type UnitCondition = {
   id: string;
+  semester: number;
   or?: UnitCondition[];
 };
 
@@ -55,7 +51,6 @@ export type CourseCompletionCriteria = {
 export type Course = {
   name: string;
   id: string;
-  core: CourseUnit[];
   majors: Major[];
   completionCriteria: CourseCompletionCriteria;
 };

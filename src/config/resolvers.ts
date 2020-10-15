@@ -107,13 +107,14 @@ export type Identifiable = {
 export type MajorList = {
   id: Scalars['String'];
   name: Scalars['String'];
+  completionCriteria: Scalars['JSON'];
 };
 
 export type CourseList = {
   id: Scalars['String'];
   name: Scalars['String'];
+  completionCriteria: Scalars['JSON'];
   majors: Array<MajorList>;
-  core: Array<Identifiable>;
 };
 
 export type Coordinator = {
@@ -525,14 +526,15 @@ export type IdentifiableResolvers<ContextType = any, ParentType extends Resolver
 export type MajorListResolvers<ContextType = any, ParentType extends ResolversParentTypes['MajorList'] = ResolversParentTypes['MajorList']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  completionCriteria?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type CourseListResolvers<ContextType = any, ParentType extends ResolversParentTypes['CourseList'] = ResolversParentTypes['CourseList']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  completionCriteria?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   majors?: Resolver<Array<ResolversTypes['MajorList']>, ParentType, ContextType>;
-  core?: Resolver<Array<ResolversTypes['Identifiable']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 

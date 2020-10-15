@@ -219,7 +219,7 @@ export const resolvers: IResolvers = {
         db.courses.push({
           id,
           name,
-          core: [],
+          // core: [],
           majors: [],
           completionCriteria: {
             acs: [],
@@ -490,19 +490,19 @@ export const resolvers: IResolvers = {
 
       return report;
     },
-    courseUnits(_, { id }) {
-      let db = getDb();
-      let course = db.courses.find(u => u.id === id);
-      let units = course.core.map(c => db.units.find(u => u.id === c.id));
-      // for (let major of course.majors) {
-      //   for (let unit of major.units || []) {
-      //     if (units.every(u => u.id !== unit.id)) {
-      //       units.push(db.units.find(u => u.id === unit.id));
-      //     }
-      //   }
-      // }
-      return units;
-    },
+    // courseUnits(_, { id }) {
+    //   let db = getDb();
+    //   let course = db.courses.find(u => u.id === id);
+    //   let units = course.core.map(c => db.units.find(u => u.id === c.id));
+    //   // for (let major of course.majors) {
+    //   //   for (let unit of major.units || []) {
+    //   //     if (units.every(u => u.id !== unit.id)) {
+    //   //       units.push(db.units.find(u => u.id === unit.id));
+    //   //     }
+    //   //   }
+    //   // }
+    //   return units;
+    // },
     unitDepenendencies(_, { id }) {
       let db = getDb();
       let unit = db.units.find(u => u.id === id);
@@ -566,10 +566,12 @@ export const resolvers: IResolvers = {
       return db.courses.map(c => ({
         id: c.id,
         name: c.name,
-        core: c.core.map(o => ({ id: o.id, name: '' })),
+        completionCriteria: c.completionCriteria,
+        // core: c.core.map(o => ({ id: o.id, name: '' })),
         majors: c.majors.map(m => ({
           id: m.id,
-          name: m.name
+          name: m.name,
+          completionCriteria: m.completionCriteria
           // units: (m.units || []).map(u => ({ id: u.id }))
         }))
       }));

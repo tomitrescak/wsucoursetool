@@ -21,8 +21,6 @@ import {
   CourseCompletionCriteria,
   TopicCondition,
   FrameworkCondition,
-  CourseUnit,
-  Topic,
   BlockTopic
 } from './types';
 import { toJS } from 'mobx';
@@ -69,6 +67,7 @@ class OutcomeModel extends Model({
 @model('Course/UnitConditionModel')
 export class UnitConditionModel extends Model({
   id: prop<string>({ setterAction: true }),
+  semester: prop<number>({ setterAction: true }),
   or: prop<UnitConditionModel[]>()
 }) {
   toJS() {
@@ -97,6 +96,7 @@ export class UnitConditionModel extends Model({
 function createUnitConditionModel(condition: UnitCondition) {
   return new UnitConditionModel({
     id: condition.id,
+    semester: condition.semester,
     or: (condition.or || []).map(c => createUnitConditionModel(c))
   });
 }
@@ -234,20 +234,20 @@ function createMajor(model: Major) {
 
 @model('Course/Course')
 export class CourseModel extends ExtendedModel(EntityModel, {
-  core: prop<CourseUnitModel[]>({ setterAction: true }),
+  // core: prop<CourseUnitModel[]>({ setterAction: true }),
   majors: prop<MajorModel[]>({ setterAction: true }),
   positions: prop<any>(() => [], { setterAction: true }),
   completionCriteria: prop<CourseCompletionCriteriaModel>()
 }) {
-  @modelAction
-  addUnit(unit: CourseUnit) {
-    this.core.push(new CourseUnitModel(unit));
-  }
+  // @modelAction
+  // addUnit(unit: CourseUnit) {
+  //   this.core.push(new CourseUnitModel(unit));
+  // }
 
-  @modelAction
-  removeUnit(unit: CourseUnitModel) {
-    this.core.splice(this.core.indexOf(unit), 1);
-  }
+  // @modelAction
+  // removeUnit(unit: CourseUnitModel) {
+  //   this.core.splice(this.core.indexOf(unit), 1);
+  // }
 
   @modelAction
   addMajor(major: Major) {
@@ -263,7 +263,7 @@ export class CourseModel extends ExtendedModel(EntityModel, {
     return removeEmpty({
       ...super.toJS(),
       // ...toJS(this.$),
-      core: this.core.map(c => c.toJS()),
+      // core: this.core.map(c => c.toJS()),
       majors: this.majors.map(m => m.toJS()),
       positions: this.positions.map(p => toJS(p)),
       completionCriteria: this.completionCriteria.toJS()
@@ -274,7 +274,7 @@ export class CourseModel extends ExtendedModel(EntityModel, {
 export function createCourse(model: Course) {
   return new CourseModel({
     ...model,
-    core: (model.core || []).map(u => new CourseUnitModel(u)),
+    // core: (model.core || []).map(u => new CourseUnitModel(u)),
     majors: (model.majors || []).map(u => createMajor(u)),
     completionCriteria: createCourseCompletionCriteriaModel(model.completionCriteria)
   });

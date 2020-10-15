@@ -1,12 +1,15 @@
 query db {
   courses {
-    core {
-      id
-    }
+    # core {
+    #   id
+    # }
     id
+    name
+    completionCriteria
     majors {
       id
       name
+      completionCriteria
       # units {
       #   id
       # }

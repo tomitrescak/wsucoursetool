@@ -18,7 +18,7 @@ import {
   Checkbox
 } from 'evergreen-ui';
 import { Unit, State } from '../types';
-import { url, buildForm } from 'lib/helpers';
+import { url, buildForm, extractCriteriaUnits } from 'lib/helpers';
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
@@ -191,13 +191,14 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
     ? selectedCourse.majors.find(m => m.id === localState.major)
     : null;
 
+  const courseUnits = extractCriteriaUnits(selectedCourse.completionCriteria);
   const filteredUnits = data.units.slice().filter(f => {
     let isOk = true;
     if (localState.showHidden == false && f.hidden) {
       return false;
     }
     if (selectedCourse) {
-      isOk = selectedCourse.core.findIndex(c => c.id === f.id) >= 0;
+      isOk = courseUnits.findIndex(c => c.id === f.id) >= 0;
       // || (selectedMajor && selectedMajor.units.findIndex(u => u.id === f.id) >= 0);
     }
     if (localState.filterName) {
