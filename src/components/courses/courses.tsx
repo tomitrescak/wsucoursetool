@@ -28,7 +28,7 @@ import {
   CourseCompletionCriteria,
   UnitCondition
 } from '../types';
-import { url, buildForm, extractCriteriaUnits } from 'lib/helpers';
+import { url, buildForm, extractCriteriaUnits, groupBy } from 'lib/helpers';
 import Link from 'next/link';
 
 import Router, { useRouter } from 'next/router';
@@ -102,31 +102,6 @@ const classes = [
     }
   }
 ];
-
-/*!
- * Group items from an array together by some criteria or value.
- * (c) 2019 Tom Bremmer (https://tbremer.com/) and Chris Ferdinandi (https://gomakethings.com), MIT License,
- * @param  {Array}           arr      The array to group items from
- * @param  {String|Function} criteria The criteria to group by
- * @return {Object}                   The grouped object
- */
-const groupBy = function (arr, criteria) {
-  return arr.reduce(function (obj, item) {
-    // Check if the criteria is a function to run on the item or a property of it
-    var key = typeof criteria === 'function' ? criteria(item) : item[criteria];
-
-    // If the key doesn't exist yet, create it
-    if (!obj.hasOwnProperty(key)) {
-      obj[key] = [];
-    }
-
-    // Push the value to the object
-    obj[key].push(item);
-
-    // Return the object to the next item in the loop
-    return obj;
-  }, {});
-};
 
 function urlParse(text: string) {
   var reg = /\d\d\d\d\d\d/g;
@@ -395,7 +370,8 @@ type Props = {
   courseUnits: UnitCondition[];
   selectedUnits: UnitCondition[];
   acs: AcsKnowledge[];
-  course: Course;
+  course: CourseModel;
+  topics: SimpleEntity[];
   majorIds: string[];
   report?: Array<{
     id: string;
@@ -441,7 +417,7 @@ const TabContent = observer(
 );
 
 const CourseTabs = observer(
-  ({ acs, course, majorIds, allUnits, courseUnits, selectedUnits, report }: Props) => {
+  ({ acs, course, majorIds, allUnits, courseUnits, selectedUnits, report, topics }: Props) => {
     const state = useLocalStore(() => ({
       tab: 'over'
     }));
@@ -486,7 +462,12 @@ const CourseTabs = observer(
           </TabHeader>
         </Tablist>
         <TabContent tab="rep" state={state}>
-          <CourseReport />
+          <CourseReport
+            units={allUnits}
+            course={course.toJS()}
+            majors={majorIds.map(id => course.majors.find(m => m.id === id).toJS())}
+            topics={topics}
+          />
         </TabContent>
         <TabContent tab="over" state={state}>
           <CourseOverview report={report} />
@@ -499,6 +480,7 @@ const CourseTabs = observer(
             selectedUnits={selectedUnits}
             course={course}
             majorIds={majorIds}
+            topics={[]}
           />
         </TabContent>
         <TabContent tab="dep" state={state}>
@@ -886,6 +868,7 @@ const CourseDetails: React.FC<{
           report={data.courseReport}
           selectedUnits={selectedUnits}
           allUnits={data.units}
+          topics={data.topics}
           courseUnits={courseUnits}
           course={course}
           majorIds={selectedMajorIds}

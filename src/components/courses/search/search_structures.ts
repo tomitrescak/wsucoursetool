@@ -1,12 +1,9 @@
-import { PartialUnit, SearchNode, TopicSummary } from './search_helpers';
-import { Prerequisite, SfiaSkillMapping } from 'components/types';
+import { SearchNode, TopicSummary } from './search_helpers';
+import { SfiaSkillMapping } from 'components/types';
+import { UnitList, Prerequisite } from 'config/graphql';
 
 function addPrerequisite(
-  pre: {
-    type: string;
-    id: string;
-    unitId: string;
-  },
+  pre: Prerequisite,
   dependantNode: SearchNode,
   unitNodes: SearchNode[],
   blockNodes: SearchNode[]
@@ -66,7 +63,7 @@ function addPrerequisite(
   }
 }
 
-export function createSearchNodes(db: { units: PartialUnit[] }) {
+export function createSearchNodes(db: { units: UnitList[] }) {
   let searchBlockId = 0;
   const unitNodes: SearchNode[] = db.units
     .filter(u => u.level < 7)
@@ -74,6 +71,10 @@ export function createSearchNodes(db: { units: PartialUnit[] }) {
       id: searchBlockId++,
       unit: {
         ...u,
+        offer: u.offer || [],
+        level: u.level || 0,
+        blocks: u.blocks || [],
+        prerequisites: u.prerequisites || [],
         credits: u.blocks.reduce((prev, next) => next.credits + prev, 0)
       },
       dependsOn: [],

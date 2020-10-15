@@ -18,7 +18,7 @@ export const typeDefs = gql`
     bloomRating: Int
   }
 
-  type Block {
+  type UnitBlock {
     blockId: Int!
     id: String!
     name: String!
@@ -44,7 +44,7 @@ export const typeDefs = gql`
     offer: [String!]
     credits: Float
     prerequisites: [Prerequisite!]
-    blocks: [Block!]
+    blocks: [UnitBlock!]
     outcomes: [Outcome!]
   }
 

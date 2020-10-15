@@ -2,39 +2,14 @@
 // use 180 credits
 
 import { CourseCompletionCriteria, SfiaSkillMapping, Topic } from 'components/types';
+import { Entity, UnitBlock, UnitList } from 'config/graphql';
 
 export type TopicSummary = { id: string; credits: number };
 
-export type PartialPrerequisite = {
-  type: string;
-  id: string;
-  unitId: string;
-  recommended: boolean;
-};
-
-export type PartialBlock = {
-  id: string;
-  name: string;
-  prerequisites: PartialPrerequisite[];
-  credits: number;
-  topics: Array<{ id: string; ratio: number }>;
-  sfiaSkills: Array<{ id: string; level: number }>;
-};
-
-export type PartialUnit = {
-  id: string;
-  name: string;
-  offer: string[];
-  level: number;
-  credits: number;
-  prerequisites: PartialPrerequisite[];
-  blocks: PartialBlock[];
-};
-
 export type SearchNode = {
   id: number;
-  block?: PartialBlock;
-  unit: PartialUnit;
+  block?: UnitBlock;
+  unit: UnitList;
   // include?: boolean;
   blocks?: SearchNode[];
   dependsOn: SearchNode[];
@@ -169,7 +144,7 @@ export function logName(current: QNode) {
 export function buildProfile(
   study: Array<Array<SearchNode>>,
   completionCriteria: CourseCompletionCriteria,
-  topics: Topic[]
+  topics: Entity[]
 ): TopicProfile[] {
   let allTopics = {};
   // accumulate credits

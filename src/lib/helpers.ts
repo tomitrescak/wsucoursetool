@@ -62,3 +62,48 @@ export function extractCriteriaUnits(criteria: CourseCompletionCriteria): UnitCo
     return processUnitCondition(u);
   });
 }
+
+/*!
+ * Group items from an array together by some criteria or value.
+ * (c) 2019 Tom Bremmer (https://tbremer.com/) and Chris Ferdinandi (https://gomakethings.com), MIT License,
+ * @param  {Array}           arr      The array to group items from
+ * @param  {String|Function} criteria The criteria to group by
+ * @return {Object}                   The grouped object
+ */
+export const groupBy = function (arr, criteria) {
+  return arr.reduce(function (obj, item) {
+    // Check if the criteria is a function to run on the item or a property of it
+    var key = typeof criteria === 'function' ? criteria(item) : item[criteria];
+
+    // If the key doesn't exist yet, create it
+    if (!obj.hasOwnProperty(key)) {
+      obj[key] = [];
+    }
+
+    // Push the value to the object
+    obj[key].push(item);
+
+    // Return the object to the next item in the loop
+    return obj;
+  }, {});
+};
+
+export function groupByArray<T>(
+  xs: T[],
+  key: string | ((t: T) => boolean)
+): Array<{ key: string; values: T[] }> {
+  return xs.reduce(function (previous, current) {
+    let v = key instanceof Function ? key(current) : current[key];
+    let el = previous.find(r => r && r.key === v);
+    if (el) {
+      el.values.push(current);
+    } else {
+      previous.push({
+        key: v,
+        values: [current]
+      });
+    }
+    return previous;
+  }, []);
+}
+export default groupByArray;

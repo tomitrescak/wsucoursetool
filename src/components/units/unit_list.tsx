@@ -191,7 +191,7 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
     ? selectedCourse.majors.find(m => m.id === localState.major)
     : null;
 
-  const courseUnits = extractCriteriaUnits(selectedCourse.completionCriteria);
+  const courseUnits = selectedCourse ? extractCriteriaUnits(selectedCourse.completionCriteria) : [];
   const filteredUnits = data.units.slice().filter(f => {
     let isOk = true;
     if (localState.showHidden == false && f.hidden) {

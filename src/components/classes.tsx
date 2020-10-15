@@ -74,11 +74,13 @@ export class UnitConditionModel extends Model({
     if (this.or.length) {
       return {
         id: this.id,
+        semester: this.semester,
         or: this.or.map(o => o.toJS())
       };
     }
     return {
-      id: this.id
+      id: this.id,
+      semester: this.semester
     };
   }
 
@@ -174,7 +176,8 @@ export class CourseCompletionCriteriaModel extends Model({
       units: this.units.map(u => u.toJS()),
       topics: this.topics.map(u => u.toJS()),
       sfia: this.sfia.map(u => u.toJS()),
-      acs: this.acs.map(u => u.toJS())
+      acs: this.acs.map(u => u.toJS()),
+      totalCredits: this.totalCredits
     };
   }
 }

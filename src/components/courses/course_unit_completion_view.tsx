@@ -3,7 +3,9 @@ import { ProgressView } from 'components/common/progress_view';
 import { UnitCondition } from 'components/types';
 import { UnitList, useUnitsQuery } from 'config/graphql';
 import { Button, Combobox, Heading, IconButton, Pane, Text } from 'evergreen-ui';
+import groupByArray, { groupBy } from 'lib/helpers';
 import { observer, useLocalStore } from 'mobx-react';
+import Head from 'next/head';
 import React from 'react';
 
 type CriteriaProps = {
@@ -29,9 +31,12 @@ const UnitItemView = observer(
         </Pane>
       );
     }
+    const u = units.find(u => u.id === unit.id);
     return (
       <Pane display="flex" marginBottom={4} alignItems="center">
-        <Text>{units.find(u => u.id === unit.id).name}</Text>
+        <Text>
+          {u.name} ({u.id})
+        </Text>
       </Pane>
     );
   }
@@ -42,14 +47,20 @@ export const CourseCompletionUnitView = observer(({ criteria }: CriteriaProps) =
   if (loading) {
     return <ProgressView loading={loading} error={error} />;
   }
+  debugger;
   return (
     <Pane marginBottom={8}>
-      <Heading size={400} marginBottom={8}>
-        Units
-      </Heading>
+      <Heading size={500}>Units</Heading>
 
-      {criteria.units.map((u, i) => (
-        <UnitItemView units={data.units} unit={u} owner={criteria} key={u.id + i} />
+      {groupByArray(criteria.units, 'semester').map(group => (
+        <React.Fragment key={group.key}>
+          <Heading size={400} marginTop={8}>
+            Semester {group.key}
+          </Heading>
+          {group.values.map((u, i) => (
+            <UnitItemView units={data.units} unit={u} owner={criteria} key={u.id + i} />
+          ))}
+        </React.Fragment>
       ))}
     </Pane>
   );

@@ -29,7 +29,7 @@ export type Outcome = {
   bloomRating?: Maybe<Scalars['Int']>;
 };
 
-export type Block = {
+export type UnitBlock = {
   blockId: Scalars['Int'];
   id: Scalars['String'];
   name: Scalars['String'];
@@ -55,7 +55,7 @@ export type UnitList = {
   offer?: Maybe<Array<Scalars['String']>>;
   credits?: Maybe<Scalars['Float']>;
   prerequisites?: Maybe<Array<Prerequisite>>;
-  blocks?: Maybe<Array<Block>>;
+  blocks?: Maybe<Array<UnitBlock>>;
   outcomes?: Maybe<Array<Outcome>>;
 };
 
@@ -347,7 +347,7 @@ export type CourseQuery = (
   & { units: Array<(
     Pick<UnitList, 'blockCount' | 'id' | 'name' | 'offer' | 'level' | 'credits' | 'dynamic' | 'topics'>
     & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, outcomes?: Maybe<Array<Pick<Outcome, 'acsSkillId' | 'bloomRating'>>>, blocks?: Maybe<Array<(
-      Pick<Block, 'blockId' | 'id' | 'name' | 'credits'>
+      Pick<UnitBlock, 'blockId' | 'id' | 'name' | 'credits'>
       & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, topics?: Maybe<Array<Pick<BlockTopic, 'id' | 'ratio'>>>, sfiaSkills?: Maybe<Array<Pick<BlockSkill, 'id' | 'level'>>> }
     )>> }
   )>, topics: Array<Pick<TopicList, 'id' | 'name'>> }

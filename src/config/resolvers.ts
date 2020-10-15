@@ -28,7 +28,7 @@ export type Outcome = {
   bloomRating?: Maybe<Scalars['Int']>;
 };
 
-export type Block = {
+export type UnitBlock = {
   blockId: Scalars['Int'];
   id: Scalars['String'];
   name: Scalars['String'];
@@ -54,7 +54,7 @@ export type UnitList = {
   offer?: Maybe<Array<Scalars['String']>>;
   credits?: Maybe<Scalars['Float']>;
   prerequisites?: Maybe<Array<Prerequisite>>;
-  blocks?: Maybe<Array<Block>>;
+  blocks?: Maybe<Array<UnitBlock>>;
   outcomes?: Maybe<Array<Outcome>>;
 };
 
@@ -362,7 +362,7 @@ export type ResolversTypes = {
   BlockSkill: ResolverTypeWrapper<BlockSkill>;
   Outcome: ResolverTypeWrapper<Outcome>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  Block: ResolverTypeWrapper<Block>;
+  UnitBlock: ResolverTypeWrapper<UnitBlock>;
   UnitList: ResolverTypeWrapper<UnitList>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Entity: ResolverTypeWrapper<Entity>;
@@ -393,7 +393,7 @@ export type ResolversParentTypes = {
   BlockSkill: BlockSkill;
   Outcome: Outcome;
   Int: Scalars['Int'];
-  Block: Block;
+  UnitBlock: UnitBlock;
   UnitList: UnitList;
   Boolean: Scalars['Boolean'];
   Entity: Entity;
@@ -437,7 +437,7 @@ export type OutcomeResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type BlockResolvers<ContextType = any, ParentType extends ResolversParentTypes['Block'] = ResolversParentTypes['Block']> = {
+export type UnitBlockResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnitBlock'] = ResolversParentTypes['UnitBlock']> = {
   blockId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -464,7 +464,7 @@ export type UnitListResolvers<ContextType = any, ParentType extends ResolversPar
   offer?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   credits?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   prerequisites?: Resolver<Maybe<Array<ResolversTypes['Prerequisite']>>, ParentType, ContextType>;
-  blocks?: Resolver<Maybe<Array<ResolversTypes['Block']>>, ParentType, ContextType>;
+  blocks?: Resolver<Maybe<Array<ResolversTypes['UnitBlock']>>, ParentType, ContextType>;
   outcomes?: Resolver<Maybe<Array<ResolversTypes['Outcome']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -620,7 +620,7 @@ export type Resolvers<ContextType = any> = {
   BlockTopic?: BlockTopicResolvers<ContextType>;
   BlockSkill?: BlockSkillResolvers<ContextType>;
   Outcome?: OutcomeResolvers<ContextType>;
-  Block?: BlockResolvers<ContextType>;
+  UnitBlock?: UnitBlockResolvers<ContextType>;
   UnitList?: UnitListResolvers<ContextType>;
   Entity?: EntityResolvers<ContextType>;
   SpecialisationList?: SpecialisationListResolvers<ContextType>;

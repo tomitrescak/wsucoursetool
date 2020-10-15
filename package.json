@@ -16,6 +16,7 @@
     "@emotion/styled": "^10.0.27",
     "@types/react-vis": "^1.11.1",
     "@types/sqlite3": "^3.1.6",
+    "@zeit/next-workers": "^1.0.0",
     "apollo-server-micro": "^2.14.0",
     "csv-parse": "^4.12.0",
     "cytoscape": "^3.15.1",
@@ -43,7 +44,8 @@
     "react-vis": "^1.11.7",
     "sqlite3": "^5.0.0",
     "toposort": "^2.0.2",
-    "ts-node": "^9.0.0"
+    "ts-node": "^9.0.0",
+    "worker-loader": "^3.0.4"
   },
   "devDependencies": {
     "@apollo/react-common": "^3.1.4",
