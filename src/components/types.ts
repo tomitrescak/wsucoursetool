@@ -184,6 +184,6 @@ export type Student = {
   id: string;
   firstName: string;
   lastName: string;
-  // details: string;
+  details: string;
   registeredBlocks: RegisteredBlock[];
 };

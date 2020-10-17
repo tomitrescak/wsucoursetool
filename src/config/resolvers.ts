@@ -88,6 +88,7 @@ export type Student = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   registeredBlocks: Array<Maybe<RegisteredBlock>>;
+  details: Scalars['String'];
 };
 
 export type Query = {
@@ -416,6 +417,7 @@ export type StudentResolvers<ContextType = any, ParentType extends ResolversPare
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   registeredBlocks?: Resolver<Array<Maybe<ResolversTypes['RegisteredBlock']>>, ParentType, ContextType>;
+  details?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 

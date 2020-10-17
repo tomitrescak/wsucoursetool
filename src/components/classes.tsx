@@ -52,7 +52,7 @@ export class StudentModel extends Model({
   id: prop<string>({ setterAction: true }),
   firstName: prop<string>({ setterAction: true }),
   lastName: prop<string>({ setterAction: true }),
-  // details: prop<string>({ setterAction: true }),
+  details: prop<string>({ setterAction: true }),
   registeredBlocks: prop<RegisteredBlockModel[]>({ setterAction: true })
 }) {
   @modelAction

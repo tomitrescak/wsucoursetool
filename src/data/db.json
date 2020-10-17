@@ -137927,17 +137927,42 @@
     },
     {
       "id": "6",
-      "name": "Web System Dev",
+      "name": "Web System Developer",
       "skills": [
-        {
-          "skillId": "a3",
-          "bloomRating": 1
-        },
         {
           "skillId": "c0",
           "bloomRating": 3
+        },
+        {
+          "skillId": "a5",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "c1",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "d1",
+          "bloomRating": 3
+        },
+        {
+          "skillId": "e1",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "a1",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "d0",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "a3",
+          "bloomRating": 6
         }
-      ]
+      ],
+      "description": "Responsible for front-end and back-end code, design and the layout of a website according to the given specifications,\n\n**Description of Employment Duties:**\n- writing efficient and optimised code\n- communicates well with other team members to produce a website aligned with the provided specifications\n- maintaining software documentation for future development\n- implementing contingency plans in the event the website goes down"
     },
     {
       "id": "7",
@@ -137966,8 +137991,25 @@
         {
           "skillId": "d2",
           "bloomRating": 2
+        },
+        {
+          "skillId": "c0",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "a1",
+          "bloomRating": 6
+        },
+        {
+          "skillId": "e3",
+          "bloomRating": 6
+        },
+        {
+          "skillId": "e2",
+          "bloomRating": 5
         }
-      ]
+      ],
+      "description": "Configuring and managing servers of different operating systems (e.g. Windows, Linux, macOS). Installation, fixing issues and upgrading will also be required.\n\n**Description of Employment Duties:**\n- evaluate web applications by studying systems flow, data usage and data requirements\n- plans server solutions by developing flowcharts and diagrams; defining system specifications, including functionality, connectivity and security\n- validates server solutions by developing and conducting test scripts\n- improves server solutions by conducting systems analyses; identifying problems and evaluating potential alternative solutions\n- protects client operations by keeping information confidential\n- accomplishes information services and organization mission by completing related results as needed"
     },
     {
       "id": "8",
@@ -138000,8 +138042,103 @@
         {
           "skillId": "c0",
           "bloomRating": 3
+        },
+        {
+          "skillId": "a5",
+          "bloomRating": 3
         }
-      ]
+      ],
+      "description": "Assist in developing and maintaining functions of software coding and design. Primary focus will be to learn the codebase, gather user data and respond to requests from senior developers.\n\n**Description of Employment Duties:**\n- assisting senior developers with design and coding\n- attend and contribute to company development meetings\n- writing and maintaining code\n- working on minor bug fixes\n- monitoring technical performance of internal systems\n- conducting development tests"
+    },
+    {
+      "id": "9",
+      "name": "IT Consultant",
+      "skills": [
+        {
+          "skillId": "a3",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "a0",
+          "bloomRating": 3
+        },
+        {
+          "skillId": "e1",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "b1",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "a1",
+          "bloomRating": 6
+        },
+        {
+          "skillId": "d0",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "a2",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "a5",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "e3",
+          "bloomRating": 3
+        }
+      ],
+      "description": "Responsible for implementing technological solutions to solve business problems, creating schedules for analysis, implementation and testing of technology.\n\n**Description of Employment Duties:**\n- analyse a company's IT system and infrastructure\n- diagnose IT system problems, inefficiencies and weaknesses\n- planning a timeline for completion of projects\n- implementing technological solutions to meet business needs\n- collaborating with the technical team to ensure familiarity with the technology\n- training staff to use the new IT system\n- monitoring the success of the IT solution"
+    },
+    {
+      "id": "10",
+      "name": "Solutions Architect",
+      "skills": [
+        {
+          "skillId": "a3",
+          "bloomRating": 6
+        },
+        {
+          "skillId": "c1",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "a0",
+          "bloomRating": 3
+        },
+        {
+          "skillId": "e1",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "c2",
+          "bloomRating": 2
+        },
+        {
+          "skillId": "b0",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "b1",
+          "bloomRating": 4
+        },
+        {
+          "skillId": "d0",
+          "bloomRating": 6
+        },
+        {
+          "skillId": "d2",
+          "bloomRating": 5
+        },
+        {
+          "skillId": "a5",
+          "bloomRating": 2
+        }
+      ],
+      "description": "Responsible for building complex enterprise ecosystems and solving high-level strategic issues.\n\n**Description of Employment Duties:**\n- finding the best technological solution among all possibilities to solve the existing business problems\n- describing the structure, characteristics, behaviour and other aspects of software to project stakeholders\n- defining features, phases and solution requirements\n- providing specifications according to which the solution is defined, managed and delivered"
     }
   ],
   "sfiaSkills": [

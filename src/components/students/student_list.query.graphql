@@ -16,6 +16,7 @@ query StudentList {
         ...Result
       }
     }
+    details
   }
 
   units {
