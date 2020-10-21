@@ -27,7 +27,9 @@ export default function createApolloClient(initialState: any, ctx: any) {
     cache: new InMemoryCache({
       typePolicies: {
         Block: { keyFields: ['blockId'] },
-        Prerequisite: { keyFields: false }
+        Prerequisite: { keyFields: false },
+        BlockTopic: { keyFields: false },
+        UnitBlock: { keyFields: false }
       }
     }).restore(initialState)
   });

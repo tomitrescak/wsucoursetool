@@ -20,7 +20,7 @@ function isUnitInParent(parent: GParent, unitId: string) {
 export class Generator {
   private sets: QNode[][];
 
-  constructor(private nodes: GeneratorNode[], private min: number, private maxCombinations = 10) {}
+  constructor(private nodes: GeneratorNode[], private min: number, private maxCombinations = 20) {}
 
   generate() {
     this.sets = [];

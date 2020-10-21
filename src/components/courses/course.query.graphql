@@ -27,7 +27,6 @@ query Course($id: String!) {
       bloomRating
     }
     blocks {
-      blockId
       id
       name
       prerequisites {

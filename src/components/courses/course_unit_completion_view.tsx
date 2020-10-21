@@ -47,7 +47,6 @@ export const CourseCompletionUnitView = observer(({ criteria }: CriteriaProps) =
   if (loading) {
     return <ProgressView loading={loading} error={error} />;
   }
-  debugger;
   return (
     <Pane marginBottom={8}>
       <Heading size={500}>Units</Heading>

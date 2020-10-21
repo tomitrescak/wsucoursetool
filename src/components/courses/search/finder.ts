@@ -157,11 +157,22 @@ function checkPlacement(qnode: QNode, node: SearchNode, study: Study, semester: 
     return false;
   }
 
+  if (study[semester].some(s => s.id === node.id)) {
+    qLog('Already in!');
+    return true;
+  }
+
   // tell that we have checked this semester
   qnode.semesters.push(semester);
 
+  // temporarily push for calculation
+  study[semester].push(node);
+
   // we consider only unique credits (if we have a unit and a block in the study we do not want to calculate the credit twice)
-  let checkCredits = calculateCredits(study[semester]) + node.credits <= 40;
+  let checkCredits = calculateCredits(study[semester]) <= 40;
+
+  // remove it
+  study[semester].pop();
 
   // check if the blocks that we are trying to add have any dependency in the same or higher semester
   let checkDependencies = study.every(
@@ -299,15 +310,15 @@ function tryDifferentOne(
     doing = altDoing;
   }
 
-  qLog('BEFORE DOING');
-  for (let node of doing) {
-    qLog(logSimpleName(node) + ` [${node.semesters.join(', ')}]`);
-  }
+  // qLog('BEFORE DOING');
+  // for (let node of doing) {
+  //   qLog(logSimpleName(node) + ` [${node.semesters.join(', ')}]`);
+  // }
 
-  qLog('\nBEFORE DONE');
-  for (let node of done) {
-    qLog(logSimpleName(node) + ` [${node.semesters.join(', ')}]`);
-  }
+  // qLog('\nBEFORE DONE');
+  // for (let node of done) {
+  //   qLog(logSimpleName(node) + ` [${node.semesters.join(', ')}]`);
+  // }
 
   if (done.length === 0) {
     return false;
@@ -342,19 +353,21 @@ function tryDifferentOne(
   } while (done.length > 0 && canUse == false);
 
   if (!canUse) {
-    throw new Error('Ran out of options');
+    console.log('Ran out of options');
+    return false;
   }
 
-  qLog('AFTER DOING');
-  for (let node of doing) {
-    qLog(logSimpleName(node) + ` [${node.semesters.join(', ')}]`);
-  }
+  // qLog('AFTER DOING');
+  // for (let node of doing) {
+  //   qLog(logSimpleName(node) + ` [${node.semesters.join(', ')}]`);
+  // }
 
-  qLog('\nAFTER DONE');
-  for (let node of done) {
-    qLog(logSimpleName(node) + ` [${node.semesters.join(', ')}]`);
-  }
+  // qLog('\nAFTER DONE');
+  // for (let node of done) {
+  //   qLog(logSimpleName(node) + ` [${node.semesters.join(', ')}]`);
+  // }
   qLog('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+  return true;
 }
 
 let success = 0;
@@ -465,11 +478,17 @@ export class Finder {
   optionalBlocks: QNode[] = [];
   requiredBlocks: QNode[] = [];
   study: Study;
+  // dependencies: SearchNode[];
   courseCompletionCriteria: CourseCompletionCriteria;
 
   constructor(private topics: Entity[], private units: UnitList[]) {}
 
   step() {
+    if (this.requiredDoing.length === 0 && this.optionalDoing.length === 0) {
+      qLog('Finished!');
+      return;
+    }
+
     let isRequired = this.requiredDoing.length > 0;
     let current = isRequired ? this.requiredDoing.pop() : this.optionalDoing.pop();
 
@@ -486,6 +505,14 @@ export class Finder {
     if (!positioned && isRequired) {
       // we try in a different semester
       positioned = tryDifferentOne(this.topics, this.study, this.requiredDone, this.requiredDoing);
+
+      if (!positioned) {
+        // we could not position the node
+        this.study = null;
+        this.requiredDoing = [];
+        qLog('Finished with no result');
+        return;
+      }
     }
 
     // if we could not find the position of the
@@ -515,9 +542,12 @@ export class Finder {
   }
 
   fullSearch() {
+    this.study = [[], [], [], [], [], []];
+
     while (this.requiredDoing.length > 0 || this.optionalDoing.length > 0) {
       this.step();
     }
+    return this.study;
   }
 
   evaluate(profile: TopicProfile[], study: Study) {
@@ -525,10 +555,12 @@ export class Finder {
     //   this.courseCompletionCriteria.topics.some(t => t.id === p.topicId)
     // );
 
-    const available = study.reduce(
-      (prev, next) => prev + (40 - next.reduce((sprev, snext) => sprev + snext.credits, 0)),
-      0
-    );
+    const available =
+      240 -
+      study.reduce((prev, next) => {
+        const temp = next.reduce((sprev, snext) => sprev + snext.credits, 0);
+        return prev + temp;
+      }, 0);
     const completed = profile.reduce((prev, next) => prev + next.credits, 0);
     const missing = this.courseCompletionCriteria.totalCredits - completed;
     const completion =
@@ -539,7 +571,7 @@ export class Finder {
     return { available, completed, missing, completion };
   }
 
-  combinationReport() {
+  combinationReport(maxCombinations) {
     let combinationReport: Array<{
       id: string;
       combinations: QNode[][];
@@ -557,9 +589,11 @@ export class Finder {
       [],
       []
     ];
-    let profile = buildProfile(study, this.courseCompletionCriteria, this.topics).filter(t =>
-      this.courseCompletionCriteria.topics.some(p => p.id === t.topicId)
-    );
+    let profile = buildProfile(study, this.courseCompletionCriteria, this.topics)
+      //   .filter(
+      //   p => p.topicId === '23'
+      // );
+      .filter(t => this.courseCompletionCriteria.topics.some(p => p.id === t.topicId));
 
     for (let p of profile) {
       const unused = this.optionalDoing
@@ -581,7 +615,7 @@ export class Finder {
       // console.log("=======================================");
 
       if (criteria.credits - p.credits > 0) {
-        const generator = new Generator(gNodes, criteria.credits - p.credits, 10);
+        const generator = new Generator(gNodes, criteria.credits - p.credits, maxCombinations);
         combinations = generator.generate();
 
         combinationReport.push({
@@ -628,6 +662,7 @@ export class Finder {
   }) {
     let courseUnits = extractCriteriaUnits(course.completionCriteria);
     let { blockNodes, unitNodes } = createSearchNodes({ units: this.units });
+
     // add core units to mandatory include
     for (let unit of courseUnits) {
       if (includeUnits.indexOf(unit.id) === -1) {

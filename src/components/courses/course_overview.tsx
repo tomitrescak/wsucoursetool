@@ -43,6 +43,7 @@ export const CourseOverview = ({ report }) => {
       <UnorderedList>
         {ri.issues.map((is, ix) => (
           <ListItem
+            key={ix}
             icon={is.type === 'error' ? 'cross' : is.type === 'warning' ? 'warning-sign' : 'tick'}
             iconColor={is.type === 'error' ? 'danger' : is.type === 'warning' ? 'warning' : 'green'}
           >

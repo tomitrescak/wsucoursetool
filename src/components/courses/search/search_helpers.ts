@@ -25,6 +25,7 @@ export type QNode = {
   addedDependencies: QNode[];
   dependencies: QNode[];
   isRequired: boolean;
+  level: number;
 };
 
 // export const db: {

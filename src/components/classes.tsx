@@ -525,7 +525,9 @@ export class BlockModel extends ExtendedModel(EntityModel, {
 }) {
   toJS() {
     return {
+      ...toJS(this.$),
       ...super.toJS(),
+      credits: parseFloat(this.credits as any),
       outcomes: this.outcomes.map(o => o.toJS()),
       prerequisites: this.prerequisites.map(p => p.toJS()),
       completionCriteria: this.completionCriteria.toJS(),

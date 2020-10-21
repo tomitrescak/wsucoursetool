@@ -347,7 +347,7 @@ export type CourseQuery = (
   & { units: Array<(
     Pick<UnitList, 'blockCount' | 'id' | 'name' | 'offer' | 'level' | 'credits' | 'dynamic' | 'topics'>
     & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, outcomes?: Maybe<Array<Pick<Outcome, 'acsSkillId' | 'bloomRating'>>>, blocks?: Maybe<Array<(
-      Pick<UnitBlock, 'blockId' | 'id' | 'name' | 'credits'>
+      Pick<UnitBlock, 'id' | 'name' | 'credits'>
       & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, topics?: Maybe<Array<Pick<BlockTopic, 'id' | 'ratio'>>>, sfiaSkills?: Maybe<Array<Pick<BlockSkill, 'id' | 'level'>>> }
     )>> }
   )>, topics: Array<Pick<TopicList, 'id' | 'name'>> }
@@ -456,7 +456,7 @@ export type TopicsDetailsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type TopicsDetailsQuery = { topicsDetails: Array<(
     Pick<TopicDetails, 'id' | 'name' | 'description'>
-    & { blocks: Array<Pick<TopicBlock, 'blockId' | 'blockName' | 'unitId' | 'unitName'>> }
+    & { blocks: Array<Pick<TopicBlock, 'blockName' | 'unitId' | 'unitName'>> }
   )> };
 
 export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -751,7 +751,6 @@ export const CourseDocument = gql`
       bloomRating
     }
     blocks {
-      blockId
       id
       name
       prerequisites {
@@ -1287,7 +1286,6 @@ export const TopicsDetailsDocument = gql`
     query TopicsDetails {
   topicsDetails {
     blocks {
-      blockId
       blockName
       unitId
       unitName
