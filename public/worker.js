@@ -1,11 +1,22 @@
 class Validator {
-  maxViableCombinations = 5;
+  maxViableCombinations = 101;
   result = null;
   combinations;
   requiredCredits;
 
+  springCredits;
+  autumnCredits;
+
   constructor(requiredUnits) {
     this.requiredCredits = requiredUnits.reduce((prev, next) => next.node.credits + prev, 0);
+    this.springCredits = this.getCreditCount(requiredUnits, 'au');
+    this.autumnCredits = this.getCreditCount(requiredUnits, 'sp');
+  }
+
+  getCreditCount(nodes, period) {
+    return nodes
+      .filter(d => d.node.unit.offer.indexOf(period) === -1)
+      .reduce((prev, next) => next.node.credits + prev, 0);
   }
 
   validate(combinations) {
@@ -62,7 +73,14 @@ class Validator {
 
     // the only validation criteria is that we are under 240 credits in total
     let totalCredits = nodes.reduce((prev, next) => prev + next.node.credits, 0);
-    if (totalCredits + this.requiredCredits <= 240.1) {
+    let autumnCredits = this.getCreditCount(nodes, 'sp');
+    let springCredits = this.getCreditCount(nodes, 'au');
+
+    if (
+      totalCredits + this.requiredCredits <= 240.1 &&
+      this.autumnCredits + autumnCredits < 120.1 &&
+      this.springCredits + springCredits < 120.1
+    ) {
       this.result.push(nodes);
     }
   }
