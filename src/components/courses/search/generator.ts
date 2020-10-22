@@ -1,6 +1,6 @@
-import { QNode } from './search_helpers';
+import { SearchNode } from './search_helpers';
 
-export type GeneratorNode = { qNode: QNode; topicCredits: number };
+export type GeneratorNode = { node: SearchNode; topicCredits: number };
 
 type GParent = {
   parent: GParent;
@@ -11,14 +11,14 @@ function isUnitInParent(parent: GParent, unitId: string) {
   if (parent == null) {
     return false;
   }
-  if (parent.generatorNode.qNode.node.unit.id === unitId) {
+  if (parent.generatorNode.node.unit.id === unitId) {
     return true;
   }
   return isUnitInParent(parent.parent, unitId);
 }
 
 export class Generator {
-  private sets: QNode[][];
+  private sets: SearchNode[][];
 
   constructor(private nodes: GeneratorNode[], private min: number, private maxCombinations = 20) {}
 
@@ -49,10 +49,10 @@ export class Generator {
 
     // resolve the combination and add all nodes
     if (currentCredits >= this.min) {
-      let result: QNode[] = [];
+      let result: SearchNode[] = [];
       let p = currentNode;
       while (p != null && p.generatorNode != null) {
-        result.push(p.generatorNode.qNode);
+        result.push(p.generatorNode.node);
         p = p.parent;
       }
       this.sets.push(result);
@@ -71,8 +71,8 @@ export class Generator {
 
       // skip the block node if we have unit node in the current history
       if (
-        parentNode.generatorNode.qNode.node.block &&
-        isUnitInParent(currentNode, parentNode.generatorNode.qNode.node.unit.id)
+        parentNode.generatorNode.node.block &&
+        isUnitInParent(currentNode, parentNode.generatorNode.node.unit.id)
       ) {
         continue;
       }
@@ -82,16 +82,16 @@ export class Generator {
   }
 }
 
-type VParent = { parent: VParent; nodes: QNode[] };
-type TopicCombination = { id: string; combinations: QNode[][] };
+type VParent = { parent: VParent; nodes: SearchNode[] };
+type TopicCombination = { id: string; combinations: SearchNode[][] };
 export class Validator {
   private maxViableCombinations = 5;
-  private result: QNode[][];
+  private result: SearchNode[][];
   private combinations: TopicCombination[];
   private requiredCredits: number;
 
-  constructor(requiredUnits: QNode[]) {
-    this.requiredCredits = requiredUnits.reduce((prev, next) => next.node.credits + prev, 0);
+  constructor(requiredUnits: SearchNode[]) {
+    this.requiredCredits = requiredUnits.reduce((prev, next) => next.credits + prev, 0);
   }
 
   validate(combinations: TopicCombination[]) {
@@ -102,26 +102,23 @@ export class Validator {
   }
 
   private validateSolution(parent: VParent) {
-    let nodes: QNode[] = [];
+    let nodes: SearchNode[] = [];
 
     // reconstruct the study
     while (parent != null) {
       for (let node of parent.nodes) {
         // if we have a  unit node, remove all block nodes and keep only a unit node
-        if (node.node.block == null && nodes.find(n => n.node.unit.id === node.node.unit.id)) {
-          nodes = nodes.filter(n => n.node.unit.id !== node.node.unit.id);
+        if (node.block == null && nodes.find(n => n.unit.id === node.unit.id)) {
+          nodes = nodes.filter(n => n.unit.id !== node.unit.id);
         }
 
         // if we have a block node and we have a unit node already there we do not add it
-        if (
-          node.node.block != null &&
-          nodes.find(n => n.node.unit.id === node.node.unit.id && n.node.block == null)
-        ) {
+        if (node.block != null && nodes.find(n => n.unit.id === node.unit.id && n.block == null)) {
           continue;
         }
 
         // add the node
-        if (nodes.every(n => n.node != node.node)) {
+        if (nodes.every(n => n != node)) {
           nodes.push(node);
         }
 
@@ -129,14 +126,13 @@ export class Validator {
         //  1. are not from required set
         //  2. [if it is unit or block] do not exist already in the node list
         //  3. [if it is block] do not exist in
-        for (let dependency of node.dependencies) {
+        for (let dependency of node.dependsOn) {
           if (
             !dependency.isRequired &&
             nodes.every(
               n =>
-                n.node != dependency.node &&
-                (n.node.unit !== dependency.node.unit ||
-                  (n.node.block != null && n.node.block !== dependency.node.block))
+                n != dependency &&
+                (n.unit !== dependency.unit || (n.block != null && n.block !== dependency.block))
             )
           ) {
             nodes.push(dependency);
@@ -147,7 +143,7 @@ export class Validator {
     }
 
     // the only validation criteria is that we are under 240 credits in total
-    let totalCredits = nodes.reduce((prev, next) => prev + next.node.credits, 0);
+    let totalCredits = nodes.reduce((prev, next) => prev + next.credits, 0);
     if (totalCredits + this.requiredCredits <= 240.1) {
       this.result.push(nodes);
     }

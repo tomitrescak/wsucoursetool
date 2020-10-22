@@ -16,14 +16,11 @@ import {
 import groupByArray, { groupBy } from 'lib/helpers';
 import { observer, useLocalStore } from 'mobx-react';
 import React from 'react';
-import { Debugger } from './search/debugger';
+// import { Debugger } from './search/debugger';
 import { calculateCredits, Finder } from './search/finder';
 import {
   buildProfile,
-  logName,
   logSearchNode,
-  logSimpleName,
-  QNode,
   round,
   SearchNode,
   TopicProfile
@@ -42,7 +39,7 @@ const maxCombinations = 20;
 
 type Combination = {
   id: string;
-  combinations: QNode[][];
+  combinations: SearchNode[][];
   missing: number;
 };
 
@@ -50,7 +47,7 @@ type TopicReportProps = {
   profile: TopicProfile[];
   finder: Finder;
   combinationReport: Combination[];
-  required: QNode[];
+  required: SearchNode[];
 };
 
 const TopicReport = ({ profile, finder, combinationReport, required }: TopicReportProps) => (
@@ -61,18 +58,18 @@ const TopicReport = ({ profile, finder, combinationReport, required }: TopicRepo
       const unused = finder.requiredDoing
         .concat(
           finder.optionalDoing
-            .filter(f => f.node.topics.some(t => t.id === p.topicId))
+            .filter(f => f.topics.some(t => t.id === p.topicId))
             .sort((a, b) =>
-              a.node.topics.find(t => t.id === p.topicId).credits <
-              b.node.topics.find(t => t.id === p.topicId).credits
+              a.topics.find(t => t.id === p.topicId).credits <
+              b.topics.find(t => t.id === p.topicId).credits
                 ? 1
                 : -1
             )
         )
-        .filter(f => f.node.topics.some(t => t.id === p.topicId));
+        .filter(f => f.topics.some(t => t.id === p.topicId));
 
       const total = unused
-        .flatMap(u => u.node.topics)
+        .flatMap(u => u.topics)
         .filter(t => t.id === p.topicId)
         .reduce((prev, next) => prev + next.credits, 0);
 
@@ -116,7 +113,7 @@ const TopicReport = ({ profile, finder, combinationReport, required }: TopicRepo
                     }}
                     title={combinationReport
                       .find(t => t.id === p.topicId)
-                      .combinations.map(c => c.map(p => logSearchNode(p.node)).join(', '))
+                      .combinations.map(c => c.map(p => logSearchNode(p)).join(', '))
                       .join('\n')}
                   >
                     <span>
@@ -162,8 +159,8 @@ const TopicReport = ({ profile, finder, combinationReport, required }: TopicRepo
           ))}
 
           {unused.map(n => (
-            <Text is="div" key={n.node.id} title={logSimpleName(n)}>
-              {required.some(r => r.node === n.node) ? (
+            <Text is="div" key={n.id} title={logSearchNode(n)}>
+              {required.some(r => r === n) ? (
                 <Icon icon="crown" color="green" />
               ) : (
                 <Icon icon="dot" color="default" />
@@ -174,9 +171,9 @@ const TopicReport = ({ profile, finder, combinationReport, required }: TopicRepo
                   width: 40
                 }}
               >
-                {round(n.node.topics.find(t => t.id === p.topicId).credits)}c
+                {round(n.topics.find(t => t.id === p.topicId).credits)}c
               </span>{' '}
-              {logSearchNode(n.node)}{' '}
+              {logSearchNode(n)}{' '}
             </Text>
           ))}
         </Alert>
@@ -186,8 +183,8 @@ const TopicReport = ({ profile, finder, combinationReport, required }: TopicRepo
 );
 
 type CombinationProps = {
-  combinations: QNode[][];
-  required: QNode[];
+  combinations: SearchNode[][];
+  required: SearchNode[];
   finder: Finder;
 };
 
@@ -288,14 +285,14 @@ type CombinationProps = {
 //   // debugger;
 // }
 
-function inResult(result: Array<QNode[]>, node: QNode) {
+function inResult(result: Array<SearchNode[]>, node: SearchNode) {
   for (let i = 0; i < result.length; i++) {
     // if (node === result[i]) {
     //   return [i];
     // }
     // if (Array.isArray(result[i])) {
-    for (let j = 0; j < (result[i] as QNode[]).length; j++) {
-      if (node.node.id === result[i][j].node.id) {
+    for (let j = 0; j < (result[i] as SearchNode[]).length; j++) {
+      if (node.id === result[i][j].id) {
         return [i, j];
       }
     }
@@ -306,12 +303,12 @@ function inResult(result: Array<QNode[]>, node: QNode) {
 
 type TopoConfig = {
   explored: Set<number>;
-  result: QNode[];
-  nodes: QNode[];
+  result: SearchNode[];
+  nodes: SearchNode[];
 };
 
-function addDependency(node: QNode, dependency: QNode, config: TopoConfig) {
-  if (!config.explored.has(dependency.node.id)) {
+function addDependency(node: SearchNode, dependency: SearchNode, config: TopoConfig) {
+  if (!config.explored.has(dependency.id)) {
     // we still have not explored this node
     expandDependencies(dependency, config, 1);
   }
@@ -340,21 +337,19 @@ function addDependency(node: QNode, dependency: QNode, config: TopoConfig) {
 
 const emptyArray = [];
 
-function expandDependencies(node: QNode, config: TopoConfig, index = 0) {
-  config.explored.add(node.node.id);
+function expandDependencies(node: SearchNode, config: TopoConfig, index = 0) {
+  config.explored.add(node.id);
 
   // add unit dependencies
-  for (let dependency of node.dependencies) {
+  for (let dependency of node.dependsOn) {
     // find if this depdency does not exists in
     addDependency(node, dependency, config);
   }
 
   // add unit block dependencies
-  for (let block of node.node.blocks || emptyArray) {
+  for (let block of node.blocks || emptyArray) {
     for (let bd of block.dependsOn.filter(b => b.unit.id !== block.unit.id)) {
-      let blockUnitDependency = config.nodes.find(
-        n => n.node.unit.id === bd.unit.id && n.node.block == null
-      );
+      let blockUnitDependency = config.nodes.find(n => n.unit.id === bd.unit.id && n.block == null);
       addDependency(node, blockUnitDependency, config);
     }
   }
@@ -377,12 +372,12 @@ function expandDependencies(node: QNode, config: TopoConfig, index = 0) {
   // }
 }
 
-function topologicalSort(nodes: QNode[]) {
+function topologicalSort(nodes: SearchNode[]) {
   let config: TopoConfig = { result: [], explored: new Set(), nodes };
 
   // we will continue until we use all the nodes
   for (let node of nodes) {
-    if (!config.explored.has(node.node.id)) {
+    if (!config.explored.has(node.id)) {
       node.level = 0;
       expandDependencies(node, config);
     }
@@ -392,18 +387,18 @@ function topologicalSort(nodes: QNode[]) {
 }
 
 function checkFeasibilityLevel(
-  nodes: Array<{ key: number; value: QNode[] }>,
+  nodes: Array<{ key: number; value: SearchNode[] }>,
   autumnCredits: number,
   springCredits: number,
-  explored: Set<QNode>,
+  explored: Set<SearchNode>,
   level: number,
   maxLevel: number
 ) {
   // we have six semesters so we explore all semesters going from current level till depenedency level
 }
 
-function checkFeasibility(nodes: Array<{ key: number; values: QNode[] }>) {
-  const explored = new Set<QNode>();
+function checkFeasibility(nodes: Array<{ key: number; values: SearchNode[] }>) {
+  const explored = new Set<SearchNode>();
 
   // for (let group of nodes) {
   //   for (let node of group.values) {
@@ -522,7 +517,7 @@ const CombinationExplorer = observer(({ combinations, required, finder }: Combin
           disabled={state.item == combinations.length - 1}
         />
 
-        <Dialog
+        {/* <Dialog
           isShown={state.debuggerShowing}
           onCloseComplete={() => (state.debuggerShowing = false)}
           preventBodyScrolling
@@ -531,25 +526,25 @@ const CombinationExplorer = observer(({ combinations, required, finder }: Combin
           hasFooter={false}
         >
           <Debugger finder={finder} />
-        </Dialog>
+        </Dialog> */}
 
         {/* <Button marginLeft={8} iconBefore="wrench" onClick={() => (state.debuggerShowing = true)}>
           Show Debugger
         </Button> */}
       </Pane>
       <Text is="div" marginTop={8}>
-        Total Credits: {combination.reduce((prev, next) => next.node.credits + prev, 0)}¢ / Autumn{' '}
+        Total Credits: {combination.reduce((prev, next) => next.credits + prev, 0)}¢ / Autumn{' '}
         {combination
-          .filter(d => d.node.unit.offer.indexOf('sp') === -1)
-          .reduce((prev, next) => next.node.credits + prev, 0)}
+          .filter(d => d.unit.offer.indexOf('sp') === -1)
+          .reduce((prev, next) => next.credits + prev, 0)}
         ¢ / Spring{' '}
         {combination
-          .filter(d => d.node.unit.offer.indexOf('au') === -1)
-          .reduce((prev, next) => next.node.credits + prev, 0)}
+          .filter(d => d.unit.offer.indexOf('au') === -1)
+          .reduce((prev, next) => next.credits + prev, 0)}
         ¢ / Rest{' '}
         {combination
-          .filter(d => d.node.unit.offer.indexOf('au') >= 0 && d.node.unit.offer.indexOf('sp') >= 0)
-          .reduce((prev, next) => next.node.credits + prev, 0)}
+          .filter(d => d.unit.offer.indexOf('au') >= 0 && d.unit.offer.indexOf('sp') >= 0)
+          .reduce((prev, next) => next.credits + prev, 0)}
         ¢
       </Text>
 
@@ -559,7 +554,7 @@ const CombinationExplorer = observer(({ combinations, required, finder }: Combin
             <Heading>Item {item.key}</Heading>
             <ul>
               {item.values.map((m, i) => (
-                <li key={i}>{logName(m)}</li>
+                <li key={i}>{logSearchNode(m)}</li>
               ))}
             </ul>
           </div>
@@ -599,7 +594,7 @@ const CombinationExplorer = observer(({ combinations, required, finder }: Combin
 });
 
 export const CourseReport = ({ units, course, majors, topics }: Props) => {
-  const [viableCombinations, setViableCombinations] = React.useState(null);
+  const [viableCombinations, setViableCombinations] = React.useState<SearchNode[][]>(null);
 
   const finder = React.useMemo(() => {
     const finder = new Finder(topics, units);
@@ -641,9 +636,7 @@ export const CourseReport = ({ units, course, majors, topics }: Props) => {
   }, [finder]);
 
   if (viableCombinations) {
-    viableCombinations.sort((a, b) =>
-      calculateCredits(a.map(c => c.node)) < calculateCredits(b.map(c => c.node)) ? -1 : 1
-    );
+    viableCombinations.sort((a, b) => (calculateCredits(a) < calculateCredits(b) ? -1 : 1));
   }
 
   return (

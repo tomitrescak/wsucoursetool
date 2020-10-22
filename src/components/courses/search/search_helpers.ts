@@ -17,15 +17,8 @@ export type SearchNode = {
   sfiaSkills: SfiaSkillMapping[];
   semester: number;
   credits: number;
-};
-
-export type QNode = {
-  node: SearchNode;
-  semesters: number[];
-  addedDependencies: QNode[];
-  dependencies: QNode[];
-  isRequired: boolean;
-  level: number;
+  isRequired?: boolean;
+  level?: number;
 };
 
 // export const db: {
@@ -103,10 +96,6 @@ export function logSearchNode(node: SearchNode, id = false) {
   );
 }
 
-export function logSimpleName(current: QNode, id = false, offer = true) {
-  return logSearchNode(current.node, id) + (offer ? ` [${current.semesters.join(', ')}]` : '');
-}
-
 function logDependencies(node: SearchNode, level = 2) {
   if (node.dependsOn.length === 0) {
     return '';
@@ -129,16 +118,6 @@ export function inlineLogDependencies(node: SearchNode) {
   return node.dependsOn
     .map(n => logSearchNode(n) + (n.dependsOn.length ? ', ' + logDependencies(n) : ''))
     .join(', ');
-}
-
-export function logName(current: QNode) {
-  return (
-    current.node.unit.name +
-    (current.node.block ? ' > ' + current.node.block.name : '') +
-    ` [${current.node.unit.offer.join(', ')}]\n  (${current.node.dependsOn.length} dependenc${
-      current.node.dependsOn.length === 1 ? 'y' : 'ies'
-    })\n${logDependencies(current.node)}`
-  );
 }
 
 /** Checks for completion criteria given a study profile */
@@ -197,62 +176,4 @@ export function buildProfile(
     ...allTopics[key],
     topicId: key
   }));
-}
-
-function findQNodeAndAddDependencies(searchNode: SearchNode, qnodes: QNode[]) {
-  let qNode = qnodes.find(n => n.node === searchNode);
-  if (qNode == null) {
-    throw new Error('Not good!');
-  }
-  fillQNodeDependencies(qNode, qnodes);
-  return qNode;
-}
-
-function fillQNodeDependencies(ownerNode: QNode, qnodes: QNode[]) {
-  // we do not do the same node twice
-  if (ownerNode.dependencies.length) {
-    // console.log("We have already done this!");
-    return;
-  }
-
-  // take all node dependencies apart from your own dependencies
-  for (let node of ownerNode.node.dependsOn.filter(d => d.unit.id !== ownerNode.node.unit.id)) {
-    let dependOnNode = qnodes.find(n => n.node === node);
-    if (dependOnNode == null) {
-      throw new Error('Not good!');
-    }
-    if (ownerNode.dependencies.indexOf(dependOnNode) === -1) {
-      ownerNode.dependencies.push(dependOnNode);
-    }
-    findQNodeAndAddDependencies(node, qnodes);
-  }
-
-  // if node is unit node, add also all its block dependencies to its own dependencies (courtesy)
-  if (ownerNode.node.blocks && ownerNode.node.blocks.length) {
-    for (let block of ownerNode.node.blocks) {
-      // first add dependencies to the block
-      let blockNode = findQNodeAndAddDependencies(block, qnodes);
-      // then copy block dependencies to units depeendencies
-      for (let dep of blockNode.dependencies) {
-        if (ownerNode.dependencies.indexOf(dep) === -1) {
-          ownerNode.dependencies.push(dep);
-        }
-      }
-    }
-  }
-
-  // sort dependencies
-  ownerNode.dependencies.sort((a, b) =>
-    a.node.block != null && b.node.block == null
-      ? 1
-      : a.node.block == null && b.node.block != null
-      ? -1
-      : 0
-  );
-}
-
-export function fillMissingDependencies(owners: QNode[]) {
-  for (let ownerNode of owners) {
-    fillQNodeDependencies(ownerNode, owners);
-  }
 }

@@ -8,15 +8,15 @@ class Validator {
   autumnCredits;
 
   constructor(requiredUnits) {
-    this.requiredCredits = requiredUnits.reduce((prev, next) => next.node.credits + prev, 0);
+    this.requiredCredits = requiredUnits.reduce((prev, next) => next.credits + prev, 0);
     this.springCredits = this.getCreditCount(requiredUnits, 'au');
     this.autumnCredits = this.getCreditCount(requiredUnits, 'sp');
   }
 
   getCreditCount(nodes, period) {
     return nodes
-      .filter(d => d.node.unit.offer.indexOf(period) === -1)
-      .reduce((prev, next) => next.node.credits + prev, 0);
+      .filter(d => d.unit.offer.indexOf(period) === -1)
+      .reduce((prev, next) => next.credits + prev, 0);
   }
 
   validate(combinations) {
@@ -33,20 +33,20 @@ class Validator {
     while (parent != null) {
       for (let node of parent.nodes) {
         // if we have a  unit node, remove all block nodes and keep only a unit node
-        if (node.node.block == null && nodes.find(n => n.node.unit.id === node.node.unit.id)) {
-          nodes = nodes.filter(n => n.node.unit.id !== node.node.unit.id);
+        if (node.block == null && nodes.find(n => n.unit.id === node.unit.id)) {
+          nodes = nodes.filter(n => n.unit.id !== node.unit.id);
         }
 
         // if we have a block node and we have a unit node already there we do not add it
         if (
-          node.node.block != null &&
-          nodes.find(n => n.node.unit.id === node.node.unit.id && n.node.block == null)
+          node.block != null &&
+          nodes.find(n => n.unit.id === node.unit.id && n.block == null)
         ) {
           continue;
         }
 
         // add the node
-        if (nodes.every(n => n.node != node.node)) {
+        if (nodes.every(n => n != node)) {
           nodes.push(node);
         }
 
@@ -54,14 +54,14 @@ class Validator {
         //  1. are not from required set
         //  2. [if it is unit or block] do not exist already in the node list
         //  3. [if it is block] do not exist in
-        for (let dependency of node.dependencies) {
+        for (let dependency of node.dependsOn) {
           if (
             !dependency.isRequired &&
             nodes.every(
               n =>
-                n.node != dependency.node &&
-                (n.node.unit !== dependency.node.unit ||
-                  (n.node.block != null && n.node.block !== dependency.node.block))
+                n != dependency &&
+                (n.unit !== dependency.unit ||
+                  (n.block != null && n.block !== dependency.block))
             )
           ) {
             nodes.push(dependency);
@@ -72,7 +72,7 @@ class Validator {
     }
 
     // the only validation criteria is that we are under 240 credits in total
-    let totalCredits = nodes.reduce((prev, next) => prev + next.node.credits, 0);
+    let totalCredits = nodes.reduce((prev, next) => prev + next.credits, 0);
     let autumnCredits = this.getCreditCount(nodes, 'sp');
     let springCredits = this.getCreditCount(nodes, 'au');
 

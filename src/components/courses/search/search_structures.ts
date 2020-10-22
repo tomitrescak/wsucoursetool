@@ -27,6 +27,15 @@ function addPrerequisite(
         );
         dependantBlockNode.dependsOn.push(dependOnUnitNode);
       }
+    } else {
+      // if block depends on another unit, make also unit depend on this unit
+      let dependantUnitNode = unitNodes.find(n => n.unit.id === dependantNode.unit.id);
+      if (
+        dependantUnitNode.id !== dependOnUnitNode.id &&
+        dependantUnitNode.dependsOn.every(n => n !== dependOnUnitNode)
+      ) {
+        dependantUnitNode.dependsOn.push(dependOnUnitNode);
+      }
     }
 
     // in either case we add the dependancy on the unit
@@ -55,6 +64,16 @@ function addPrerequisite(
           n => n.unit.id === dependantNode.unit.id && n.block.id === dependantBlock.id
         );
         dependantBlockNode.dependsOn.push(dependOnBlockNode);
+      }
+    } else {
+      // if block depends on another block, make also unit depend on the unit of this block
+      let dependantUnitNode = unitNodes.find(n => n.unit.id === dependantNode.unit.id);
+      let dependOnUnitNode = unitNodes.find(n => n.unit.id === pre.unitId);
+      if (
+        dependantUnitNode.id !== dependOnUnitNode.id &&
+        dependantUnitNode.dependsOn.every(n => n !== dependOnUnitNode)
+      ) {
+        dependantUnitNode.dependsOn.push(dependOnUnitNode);
       }
     }
 
