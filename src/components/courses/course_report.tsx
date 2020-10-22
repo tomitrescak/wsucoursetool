@@ -20,7 +20,7 @@ import React from 'react';
 import { Debugger } from './search/debugger';
 import { Explorer, ExplorerNode, Study } from './search/explorer';
 // import { Debugger } from './search/debugger';
-import { calculateCredits, Finder } from './search/finder';
+import { calculateCredits, CombinationReport, Finder } from './search/finder';
 import {
   buildProfile,
   logSearchNode,
@@ -28,6 +28,9 @@ import {
   SearchNode,
   TopicProfile
 } from './search/search_helpers';
+
+import ValidationWorker from './search/validation.worker';
+import StudyWorker from './search/study.worker';
 
 // import ValidationWorker from './search/validation.worker';
 
@@ -292,10 +295,7 @@ const CombinationExplorer = observer(({ combinations, required }: CombinationPro
   const [study, setStudy] = React.useState(null);
   const state = useLocalStore(() => ({
     item: 0,
-    debuggerShowing: false,
-    // study: null as Study,
-    calculating: true,
-    message: null
+    debuggerShowing: false
   }));
 
   const { combination, explorer } = React.useMemo(() => {
@@ -303,62 +303,6 @@ const CombinationExplorer = observer(({ combinations, required }: CombinationPro
 
     return { combination, explorer: new Explorer(combination) };
   }, [state.item]);
-
-  // finder.requiredDoing.forEach(r => {
-  //   r.semesters = [];
-  //   r.dependencies.forEach(d => (d.semesters = []));
-  // });
-
-  // finder.requiredDoing = combination;
-  // finder.requiredDone = [];
-  // finder.optionalDoing = [];
-  // finder.optionalDone = [];
-  // finder.study = [[], [], [], [], [], []];
-
-  // React.useEffect(() => {
-  //   state.calculating = true;
-  //   state.message = '';
-
-  //   setTimeout(
-  //     action(() => {
-  //       let study = explorer.fullSearch();
-  //       state.calculating = false;
-  //       setStudy(study);
-  //       if (!study) {
-  //         state.message = 'Could not find placement!';
-  //       }
-  //     }),
-  //     10
-  //   );
-  // }, [state.item]);
-
-  // const result = finder.fullSearch();
-
-  // let assigned = combination.filter(c => c.node.semester > 0);
-  // let pending = combination.filter(c => !c.node.semester);
-
-  // const sorted = finder.dependencies.filter(d => combination.some(c => c.node.id === d?.id));
-  // console.log(sorted.map(d => (d ? logSearchNode(d) : 'Empty')).join('\n'));
-  // const noDeps = combination.filter(c => sorted.every(s => s.id !== c.node.id));
-
-  // console.log('== NO DEPS');
-  // console.log(noDeps.map(d => logSearchNode(d.node)).join('\n'));
-
-  // const withDeps = combination
-  //   .filter(c => sorted.some(s => s.id === c.node.id))
-  //   .sort((a, b) => {
-  //     console.log(
-  //       `${sorted.findIndex(d => a.node.id === d.id)} < ${sorted.findIndex(
-  //         d => d.id === b.node.id
-  //       )}`
-  //     );
-  //     return sorted.findIndex(d => a.node.id === d.id) < sorted.findIndex(d => d.id === b.node.id)
-  //       ? -1
-  //       : 1;
-  //   });
-
-  // console.log('== YES DEPS');
-  // console.log(withDeps.map(d => logSearchNode(d.node)).join('\n'));
 
   return (
     <Pane flex={1} elevation={2} marginRight={16} background="tint1" padding={8}>
@@ -384,6 +328,7 @@ const CombinationExplorer = observer(({ combinations, required }: CombinationPro
             (state.item = parseInt(e.currentTarget.value) - 1)
           }
         />
+        <Text marginRight={8}>/ {combinations.length}</Text>
         <IconButton
           icon="chevron-right"
           onClick={() => state.item++}
@@ -427,28 +372,6 @@ const CombinationExplorer = observer(({ combinations, required }: CombinationPro
         ¢
       </Text>
 
-      {state.calculating && (
-        <Pane marginTop={8} display="flex" alignItems="center">
-          <Spinner size={20} marginRight={8} /> <Text>Calculating Semester Placement ...</Text>{' '}
-        </Pane>
-      )}
-
-      {state.message && <Alert title={state.message} />}
-
-      {study && (
-        <Pane marginBottom={24}>
-          {study.map((s, i) => (
-            <Pane key={i}>
-              <Heading>Semester {i + 1}</Heading>
-              {s.map((c, i) => (
-                <Text is="li" key={i}>
-                  {logSearchNode(c.node)}
-                </Text>
-              ))}
-            </Pane>
-          ))}
-        </Pane>
-      )}
       <div>
         {explorer.nodes.map((item, ix) => (
           <div key={ix}>
@@ -466,7 +389,8 @@ const CombinationExplorer = observer(({ combinations, required }: CombinationPro
 });
 
 type StudyProps = {
-  studies: Study[];
+  required: SearchNode[];
+  combinationReport: CombinationReport[];
 };
 
 const StudyView = ({ study }) => {
@@ -510,59 +434,103 @@ const StudyView = ({ study }) => {
   );
 };
 
-const StudyExplorer = observer(({ studies }: StudyProps) => {
+const Pager = ({ required, combinationReport, state, viableCombinations }) => {
+  const [viableCombinationsCount, setViableCombinationsCount] = React.useState(0);
+  const [running, setRunning] = React.useState(true);
+
+  React.useEffect(() => {
+    viableCombinations.current = [];
+    state.item = -1;
+    const worker = new StudyWorker();
+    worker.postMessage({
+      requiredUnits: required,
+      combinations: combinationReport
+    });
+    worker.onmessage = function (e) {
+      if (e.data.status === 'Result') {
+        viableCombinations.current.push(e.data.study);
+        setViableCombinationsCount(viableCombinations.current.length);
+
+        if (state.item === -1) {
+          state.item = 0;
+        }
+      }
+      if (e.data.status === 'Finished') {
+        setRunning(false);
+      }
+    };
+    return () => worker.terminate();
+  }, [combinationReport]);
+
+  return (
+    <Pane background="tint2" display="flex" alignItems="center" justifyContent="center">
+      <IconButton
+        disabled={state.item == 0}
+        icon="double-chevron-left"
+        onClick={() => (state.item = 0)}
+      />
+      <IconButton
+        disabled={state.item == 0}
+        icon="chevron-left"
+        marginLeft={8}
+        onClick={() => state.item--}
+      />
+      <TextInput
+        width={50}
+        type="number"
+        marginLeft={8}
+        marginRight={8}
+        value={state.item + 1}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          (state.item = parseInt(e.currentTarget.value) - 1)
+        }
+      />
+      <Text marginRight={8}>
+        &nbsp;/&nbsp;{running && <Spinner size={16} />} {viableCombinationsCount}
+      </Text>
+      <IconButton
+        icon="chevron-right"
+        onClick={() => state.item++}
+        disabled={state.item == viableCombinations.current.length - 1}
+      />
+      <IconButton
+        icon="double-chevron-right"
+        onClick={() => (state.item = viableCombinations.current.length - 1)}
+        marginLeft={8}
+        disabled={state.item == viableCombinations.current.length - 1}
+      />
+    </Pane>
+  );
+};
+
+const StudyExplorer = observer(({ required, combinationReport }: StudyProps) => {
+  const viableCombinations = React.useRef([]);
   const state = useLocalStore(() => ({
-    item: 0
+    item: -1
   }));
 
-  const study = studies[state.item];
+  const study =
+    state.item >= 0 && viableCombinations.current.length > 0
+      ? viableCombinations.current[state.item]
+      : null;
 
   return (
     <Pane flex={1} elevation={2} marginRight={16} background="tint1" padding={8}>
-      <Pane background="tint2" display="flex" alignItems="center" justifyContent="center">
-        <IconButton
-          disabled={state.item == 0}
-          icon="double-chevron-left"
-          onClick={() => (state.item = 0)}
-        />
-        <IconButton
-          disabled={state.item == 0}
-          icon="chevron-left"
-          marginLeft={8}
-          onClick={() => state.item--}
-        />
-        <TextInput
-          width={50}
-          type="number"
-          marginLeft={8}
-          marginRight={8}
-          value={state.item + 1}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            (state.item = parseInt(e.currentTarget.value) - 1)
-          }
-        />
-        <IconButton
-          icon="chevron-right"
-          onClick={() => state.item++}
-          disabled={state.item == studies.length - 1}
-        />
-        <IconButton
-          icon="double-chevron-right"
-          onClick={() => (state.item = studies.length - 1)}
-          marginLeft={8}
-          disabled={state.item == studies.length - 1}
-        />
-      </Pane>
+      <Pager
+        viableCombinations={viableCombinations}
+        required={required}
+        combinationReport={combinationReport}
+        state={state}
+      />
 
-      <StudyView study={study} />
+      {study && <StudyView study={study} />}
     </Pane>
   );
 });
 
 export const CourseReport = ({ units, course, majors, topics }: Props) => {
-  const [viableCombinationsCount, setViableCombinationsCount] = React.useState(0);
-  const [running, setRunning] = React.useState(true);
-  const viableCombinations = React.useRef([]);
+  const [viableCombinations, setViableCombinations] = React.useState<SearchNode[][]>(null);
+  const [isDebugger, toggleDebugger] = React.useState(!!localStorage.getItem('courseDebugger'));
 
   const finder = React.useMemo(() => {
     const finder = new Finder(topics, units);
@@ -590,33 +558,50 @@ export const CourseReport = ({ units, course, majors, topics }: Props) => {
     totalCombinationCount
   } = React.useMemo(() => {
     const result = finder.combinationReport(maxCombinations);
-    viableCombinations.current = [];
-    const myWorker = new Worker('/worker.js');
-    myWorker.postMessage({
-      requiredUnits: result.required,
-      combinations: result.combinationReport
-    });
-    myWorker.onmessage = function (e) {
-      if (e.data.status === 'Result') {
-        viableCombinations.current = viableCombinations.current.concat([e.data.study]);
-        setViableCombinationsCount(viableCombinations.current.length);
-      }
-      if (e.data.status === 'Finished') {
-        setRunning(false);
-      }
-    };
 
     return result;
   }, [finder]);
 
-  // if (viableCombinations) {
-  //   viableCombinations.sort((a, b) => (calculateCredits(a) < calculateCredits(b) ? -1 : 1));
-  // }
+  //// START
+  React.useEffect(() => {
+    if (isDebugger) {
+      const worker = new ValidationWorker();
+      worker.postMessage({
+        requiredUnits: required,
+        combinations: combinationReport
+      });
+      worker.onmessage = function (e) {
+        setViableCombinations(e.data.result);
+      };
+
+      return () => worker.terminate();
+    }
+  }, [isDebugger]);
+  ///// END
+
+  //// START
+  if (isDebugger && viableCombinations) {
+    viableCombinations.sort((a, b) => (calculateCredits(a) < calculateCredits(b) ? -1 : 1));
+  }
+  //// END
 
   return (
     <div>
       <Heading is="h1" size={600} marginBottom={12}>
         Completion Criteria
+        <Button
+          float="right"
+          onClick={() => {
+            if (isDebugger) {
+              localStorage.removeItem('courseDebugger');
+            } else {
+              localStorage.setItem('courseDebugger', 'true');
+            }
+            toggleDebugger(!isDebugger);
+          }}
+        >
+          Show {isDebugger ? 'Study' : 'Debugger'}
+        </Button>
       </Heading>
       <Heading marginBottom={8} size={500}>
         Completed: {Math.round(completion * 100)}%
@@ -628,18 +613,29 @@ export const CourseReport = ({ units, course, majors, topics }: Props) => {
         </div>
         {/* <div>Available Credits: {available}¢ / 240¢</div> */}
         <Pane display="flex" alignItems="center">
-          Total {totalCombinationCount} combinations with {running && <Spinner size={16} />}{' '}
-          {viableCombinationsCount} viable combinations
+          Calculating validity of {totalCombinationCount} combinations
         </Pane>
       </Text>
 
       <Pane display="flex" marginTop={16}>
-        {viableCombinationsCount && (
+        {isDebugger ? (
+          <>
+            {viableCombinations && viableCombinations.length && (
+              <CombinationExplorer
+                combinations={viableCombinations}
+                required={required}
+                finder={finder}
+              />
+            )}
+          </>
+        ) : (
           <StudyExplorer
             // combinations={viableCombinations}
-            studies={viableCombinations.current}
+            required={required}
+            combinationReport={combinationReport}
           />
         )}
+
         <TopicReport
           profile={profile}
           finder={finder}

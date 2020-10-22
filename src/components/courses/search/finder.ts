@@ -106,6 +106,12 @@ function checkProblematicDependencies(requiredDoing: SearchNode[], optionalDoing
   }
 }
 
+export type CombinationReport = {
+  id: string;
+  combinations: SearchNode[][];
+  missing: number;
+};
+
 export class Finder {
   static log = '';
 
@@ -143,11 +149,7 @@ export class Finder {
   }
 
   combinationReport(maxCombinations) {
-    let combinationReport: Array<{
-      id: string;
-      combinations: SearchNode[][];
-      missing: number;
-    }> = [];
+    let combinationReport: CombinationReport[] = [];
 
     let required = this.requiredDoing.concat(this.requiredDone);
 
