@@ -120,7 +120,8 @@ export function createSearchNodes(db: { units: UnitList[] }) {
           }
         }
         return prev;
-      }, [] as SfiaSkillMapping[])
+      }, [] as SfiaSkillMapping[]),
+      offer: u.offer.indexOf('au') >= 0 ? (u.offer.indexOf('sp') >= 0 ? 2 : 0) : 1
     }));
 
   const blockNodes: SearchNode[] = db.units
@@ -133,6 +134,7 @@ export function createSearchNodes(db: { units: UnitList[] }) {
         unit: u,
         semester: 0,
         dependsOn: [],
+        offer: u.offer.indexOf('au') >= 0 ? (u.offer.indexOf('sp') >= 0 ? 2 : 0) : 1,
         topics: (b.topics || []).map(t => ({
           id: t.id,
           credits: t.ratio * b.credits

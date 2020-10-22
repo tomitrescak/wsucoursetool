@@ -7,8 +7,14 @@ type Props = {
   children: any;
 };
 
+function isExpanded(name: string) {
+  return typeof localStorage == 'undefined'
+    ? false
+    : localStorage.getItem('VerticalPane:' + name) === 'true';
+}
+
 export const VerticalPane = ({ title, children, shrink }: Props) => {
-  const [collapsed, collapse] = React.useState(false);
+  const [collapsed, collapse] = React.useState(isExpanded(title));
 
   function renderButton() {
     return collapsed ? (
@@ -16,7 +22,10 @@ export const VerticalPane = ({ title, children, shrink }: Props) => {
         iconAfter="double-chevron-down"
         transform="rotate(-90deg)"
         transformOrigin="bottom right"
-        onClick={() => collapse(false)}
+        onClick={() => {
+          collapse(false);
+          localStorage.setItem('VerticalPane:' + title, 'false');
+        }}
         marginTop={-30}
         whiteSpace="nowrap"
         position="absolute"
@@ -29,7 +38,10 @@ export const VerticalPane = ({ title, children, shrink }: Props) => {
         icon={'double-chevron-left'}
         marginTop={4}
         marginRight={4}
-        onClick={() => collapse(true)}
+        onClick={() => {
+          localStorage.setItem('VerticalPane:' + title, 'true');
+          collapse(true);
+        }}
         iconSize={12}
         height={20}
         position="absolute"

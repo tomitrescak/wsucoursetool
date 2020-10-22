@@ -14,8 +14,11 @@ import {
   TextInput
 } from 'evergreen-ui';
 import groupByArray, { groupBy } from 'lib/helpers';
+import { action } from 'mobx';
 import { observer, useLocalStore } from 'mobx-react';
 import React from 'react';
+import { Debugger } from './search/debugger';
+import { Explorer, ExplorerNode, Study } from './search/explorer';
 // import { Debugger } from './search/debugger';
 import { calculateCredits, Finder } from './search/finder';
 import {
@@ -94,7 +97,7 @@ const TopicReport = ({ profile, finder, combinationReport, required }: TopicRepo
         >
           {criteria.credits - completed - total > 0 ? (
             <Text>
-              <Icon icon="ban-circle" color="red" /> Missing{' '}
+              <Icon icon="ban-circle" color="red" size={16} /> Missing{' '}
               {round(criteria.credits - completed - total)} credits
             </Text>
           ) : null}
@@ -102,7 +105,7 @@ const TopicReport = ({ profile, finder, combinationReport, required }: TopicRepo
           {criteria.credits - completed - total < 0 ? (
             <Pane marginTop={8} marginBottom={8}>
               <Text>
-                <Icon icon="tick" color="green" /> Available {round(total)} credits
+                <Icon size={16} icon="tick" color="green" /> Available {round(total)} credits
                 {p.completion < 100 && (
                   <span
                     style={{
@@ -161,9 +164,9 @@ const TopicReport = ({ profile, finder, combinationReport, required }: TopicRepo
           {unused.map(n => (
             <Text is="div" key={n.id} title={logSearchNode(n)}>
               {required.some(r => r === n) ? (
-                <Icon icon="crown" color="green" />
+                <Icon size={16} icon="crown" color="green" />
               ) : (
-                <Icon icon="dot" color="default" />
+                <Icon size={16} icon="dot" color="default" />
               )}{' '}
               <span
                 style={{
@@ -285,147 +288,21 @@ type CombinationProps = {
 //   // debugger;
 // }
 
-function inResult(result: Array<SearchNode[]>, node: SearchNode) {
-  for (let i = 0; i < result.length; i++) {
-    // if (node === result[i]) {
-    //   return [i];
-    // }
-    // if (Array.isArray(result[i])) {
-    for (let j = 0; j < (result[i] as SearchNode[]).length; j++) {
-      if (node.id === result[i][j].id) {
-        return [i, j];
-      }
-    }
-  }
-  // }
-  return null;
-}
-
-type TopoConfig = {
-  explored: Set<number>;
-  result: SearchNode[];
-  nodes: SearchNode[];
-};
-
-function addDependency(node: SearchNode, dependency: SearchNode, config: TopoConfig) {
-  if (!config.explored.has(dependency.id)) {
-    // we still have not explored this node
-    expandDependencies(dependency, config, 1);
-  }
-
-  if (dependency.level != null) {
-    // if it it unexplored dependency, we shift it one level up, where dependant nodes reside
-    if (dependency.level === 0) {
-      console.log('Reposition from 0');
-      dependency.level = 1;
-    }
-  } else {
-    // we add dependency to level 1 where dependant nodes reside
-    dependency.level = 1;
-  }
-
-  // if the original node is not there, we add it une level up
-  if (node.level == null) {
-    node.level = dependency.level + 1;
-  } else {
-    // we have the original node, we may need to move it
-    if (node.level <= dependency.level) {
-      node.level = dependency.level + 1;
-    }
-  }
-}
-
-const emptyArray = [];
-
-function expandDependencies(node: SearchNode, config: TopoConfig, index = 0) {
-  config.explored.add(node.id);
-
-  // add unit dependencies
-  for (let dependency of node.dependsOn) {
-    // find if this depdency does not exists in
-    addDependency(node, dependency, config);
-  }
-
-  // add unit block dependencies
-  for (let block of node.blocks || emptyArray) {
-    for (let bd of block.dependsOn.filter(b => b.unit.id !== block.unit.id)) {
-      let blockUnitDependency = config.nodes.find(n => n.unit.id === bd.unit.id && n.block == null);
-      addDependency(node, blockUnitDependency, config);
-    }
-  }
-
-  // try to find if any of the dependencies is in the array
-
-  // this node has not been processed with dependencies, we add it to the no-dependency collection
-  config.result.push(node);
-
-  // if (config.result.length > 1) {
-  //   for (let i = 0; i < config.result.length - 1; i++) {
-  //     for (let node of config.result[i]) {
-  //       for (let j = i + 1; j < config.result.length; j++) {
-  //         if (config.result[j].indexOf(node) !== -1) {
-  //           throw new Error('Not good');
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-}
-
-function topologicalSort(nodes: SearchNode[]) {
-  let config: TopoConfig = { result: [], explored: new Set(), nodes };
-
-  // we will continue until we use all the nodes
-  for (let node of nodes) {
-    if (!config.explored.has(node.id)) {
-      node.level = 0;
-      expandDependencies(node, config);
-    }
-  }
-
-  return groupByArray(config.result, 'level').sort((a, b) => (a.key < b.key ? -1 : 1));
-}
-
-function checkFeasibilityLevel(
-  nodes: Array<{ key: number; value: SearchNode[] }>,
-  autumnCredits: number,
-  springCredits: number,
-  explored: Set<SearchNode>,
-  level: number,
-  maxLevel: number
-) {
-  // we have six semesters so we explore all semesters going from current level till depenedency level
-}
-
-function checkFeasibility(nodes: Array<{ key: number; values: SearchNode[] }>) {
-  const explored = new Set<SearchNode>();
-
-  // for (let group of nodes) {
-  //   for (let node of group.values) {
-  //     if (!explored.has(node)) {
-  //       // check level
-  //     }
-  //   }
-  // }
-
-  // we do this in two steps
-  // 1. we explore all the dependency routes and count the path lengths to the latest nodes
-  // 2. we propagate path lengths
-  // 2. we sort the latest nodes by path lengths and then start positioning from the longest to shortest
-  // 3. we do this for all nodes, checking if we have processed that node
-}
-
-const CombinationExplorer = observer(({ combinations, required, finder }: CombinationProps) => {
+const CombinationExplorer = observer(({ combinations, required }: CombinationProps) => {
+  const [study, setStudy] = React.useState(null);
   const state = useLocalStore(() => ({
     item: 0,
     debuggerShowing: false,
-    study: null,
+    // study: null as Study,
     calculating: true,
     message: null
   }));
-  let combination = [...required, ...(combinations[state.item] || [])];
 
-  let result = topologicalSort(combination);
+  const { combination, explorer } = React.useMemo(() => {
+    let combination = [...required, ...(combinations[state.item] || [])];
+
+    return { combination, explorer: new Explorer(combination) };
+  }, [state.item]);
 
   // finder.requiredDoing.forEach(r => {
   //   r.semesters = [];
@@ -442,15 +319,17 @@ const CombinationExplorer = observer(({ combinations, required, finder }: Combin
   //   state.calculating = true;
   //   state.message = '';
 
-  //   setTimeout(() => {
-  //     let study = finder.fullSearch();
-  //     state.calculating = false;
-  //     if (study) {
-  //       state.study = study;
-  //     } else {
-  //       state.message = 'Could not find placement!';
-  //     }
-  //   }, 10);
+  //   setTimeout(
+  //     action(() => {
+  //       let study = explorer.fullSearch();
+  //       state.calculating = false;
+  //       setStudy(study);
+  //       if (!study) {
+  //         state.message = 'Could not find placement!';
+  //       }
+  //     }),
+  //     10
+  //   );
   // }, [state.item]);
 
   // const result = finder.fullSearch();
@@ -517,7 +396,7 @@ const CombinationExplorer = observer(({ combinations, required, finder }: Combin
           disabled={state.item == combinations.length - 1}
         />
 
-        {/* <Dialog
+        <Dialog
           isShown={state.debuggerShowing}
           onCloseComplete={() => (state.debuggerShowing = false)}
           preventBodyScrolling
@@ -525,12 +404,12 @@ const CombinationExplorer = observer(({ combinations, required, finder }: Combin
           hasHeader={false}
           hasFooter={false}
         >
-          <Debugger finder={finder} />
-        </Dialog> */}
+          <Debugger explorer={explorer} />
+        </Dialog>
 
-        {/* <Button marginLeft={8} iconBefore="wrench" onClick={() => (state.debuggerShowing = true)}>
+        <Button marginLeft={8} iconBefore="wrench" onClick={() => (state.debuggerShowing = true)}>
           Show Debugger
-        </Button> */}
+        </Button>
       </Pane>
       <Text is="div" marginTop={8}>
         Total Credits: {combination.reduce((prev, next) => next.credits + prev, 0)}¢ / Autumn{' '}
@@ -548,8 +427,30 @@ const CombinationExplorer = observer(({ combinations, required, finder }: Combin
         ¢
       </Text>
 
+      {state.calculating && (
+        <Pane marginTop={8} display="flex" alignItems="center">
+          <Spinner size={20} marginRight={8} /> <Text>Calculating Semester Placement ...</Text>{' '}
+        </Pane>
+      )}
+
+      {state.message && <Alert title={state.message} />}
+
+      {study && (
+        <Pane marginBottom={24}>
+          {study.map((s, i) => (
+            <Pane key={i}>
+              <Heading>Semester {i + 1}</Heading>
+              {s.map((c, i) => (
+                <Text is="li" key={i}>
+                  {logSearchNode(c.node)}
+                </Text>
+              ))}
+            </Pane>
+          ))}
+        </Pane>
+      )}
       <div>
-        {result.map((item, ix) => (
+        {explorer.nodes.map((item, ix) => (
           <div key={ix}>
             <Heading>Item {item.key}</Heading>
             <ul>
@@ -560,41 +461,108 @@ const CombinationExplorer = observer(({ combinations, required, finder }: Combin
           </div>
         ))}
       </div>
+    </Pane>
+  );
+});
 
-      {/* {state.calculating && (
-        <Pane marginTop={8} display="flex" alignItems="center">
-          <Spinner size={20} marginRight={8} /> <Text>Calculating Semester Placement ...</Text>{' '}
-        </Pane>
-      )}
+type StudyProps = {
+  studies: Study[];
+};
 
-      {state.message && <Alert title={state.message} />}
+const StudyView = ({ study }) => {
+  if (!study) {
+    return null;
+  }
+  const combination: SearchNode[] = study.flat().map(n => n.node);
+  return (
+    <>
+      <Text is="div" marginTop={8}>
+        Total Credits: {combination.reduce((prev, next) => next.credits + prev, 0)}¢ / Autumn{' '}
+        {combination
+          .filter(d => d.unit.offer.indexOf('sp') === -1)
+          .reduce((prev, next) => next.credits + prev, 0)}
+        ¢ / Spring{' '}
+        {combination
+          .filter(d => d.unit.offer.indexOf('au') === -1)
+          .reduce((prev, next) => next.credits + prev, 0)}
+        ¢ / Rest{' '}
+        {combination
+          .filter(d => d.unit.offer.indexOf('au') >= 0 && d.unit.offer.indexOf('sp') >= 0)
+          .reduce((prev, next) => next.credits + prev, 0)}
+        ¢
+      </Text>
 
-      {state.study ? (
-        <Pane>
-          {state.study.map((s, i) => (
+      {study && (
+        <Pane marginBottom={24}>
+          {study.map((s, i) => (
             <Pane key={i}>
               <Heading>Semester {i + 1}</Heading>
               {s.map((c, i) => (
                 <Text is="li" key={i}>
-                  {logSearchNode(c)}
+                  {logSearchNode(c.node)}
                 </Text>
               ))}
             </Pane>
           ))}
         </Pane>
-      ) : (
-        <ul>
-          {combination.map((c, i) => (
-            <Text is="li">{logSearchNode(c.node)}</Text>
-          ))}
-        </ul>
-      )} */}
+      )}
+    </>
+  );
+};
+
+const StudyExplorer = observer(({ studies }: StudyProps) => {
+  const state = useLocalStore(() => ({
+    item: 0
+  }));
+
+  const study = studies[state.item];
+
+  return (
+    <Pane flex={1} elevation={2} marginRight={16} background="tint1" padding={8}>
+      <Pane background="tint2" display="flex" alignItems="center" justifyContent="center">
+        <IconButton
+          disabled={state.item == 0}
+          icon="double-chevron-left"
+          onClick={() => (state.item = 0)}
+        />
+        <IconButton
+          disabled={state.item == 0}
+          icon="chevron-left"
+          marginLeft={8}
+          onClick={() => state.item--}
+        />
+        <TextInput
+          width={50}
+          type="number"
+          marginLeft={8}
+          marginRight={8}
+          value={state.item + 1}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            (state.item = parseInt(e.currentTarget.value) - 1)
+          }
+        />
+        <IconButton
+          icon="chevron-right"
+          onClick={() => state.item++}
+          disabled={state.item == studies.length - 1}
+        />
+        <IconButton
+          icon="double-chevron-right"
+          onClick={() => (state.item = studies.length - 1)}
+          marginLeft={8}
+          disabled={state.item == studies.length - 1}
+        />
+      </Pane>
+
+      <StudyView study={study} />
     </Pane>
   );
 });
 
 export const CourseReport = ({ units, course, majors, topics }: Props) => {
-  const [viableCombinations, setViableCombinations] = React.useState<SearchNode[][]>(null);
+  const [viableCombinationsCount, setViableCombinationsCount] = React.useState(0);
+  const [running, setRunning] = React.useState(true);
+  const viableCombinations = React.useRef([]);
 
   const finder = React.useMemo(() => {
     const finder = new Finder(topics, units);
@@ -622,22 +590,28 @@ export const CourseReport = ({ units, course, majors, topics }: Props) => {
     totalCombinationCount
   } = React.useMemo(() => {
     const result = finder.combinationReport(maxCombinations);
-
+    viableCombinations.current = [];
     const myWorker = new Worker('/worker.js');
     myWorker.postMessage({
       requiredUnits: result.required,
       combinations: result.combinationReport
     });
     myWorker.onmessage = function (e) {
-      setViableCombinations(e.data.result);
+      if (e.data.status === 'Result') {
+        viableCombinations.current = viableCombinations.current.concat([e.data.study]);
+        setViableCombinationsCount(viableCombinations.current.length);
+      }
+      if (e.data.status === 'Finished') {
+        setRunning(false);
+      }
     };
 
     return result;
   }, [finder]);
 
-  if (viableCombinations) {
-    viableCombinations.sort((a, b) => (calculateCredits(a) < calculateCredits(b) ? -1 : 1));
-  }
+  // if (viableCombinations) {
+  //   viableCombinations.sort((a, b) => (calculateCredits(a) < calculateCredits(b) ? -1 : 1));
+  // }
 
   return (
     <div>
@@ -653,18 +627,17 @@ export const CourseReport = ({ units, course, majors, topics }: Props) => {
           {finder.courseCompletionCriteria.totalCredits}¢
         </div>
         {/* <div>Available Credits: {available}¢ / 240¢</div> */}
-        <div>
-          Total {totalCombinationCount} combinations with{' '}
-          {viableCombinations ? viableCombinations.length : 'Loading ...'} viable combinations
-        </div>
+        <Pane display="flex" alignItems="center">
+          Total {totalCombinationCount} combinations with {running && <Spinner size={16} />}{' '}
+          {viableCombinationsCount} viable combinations
+        </Pane>
       </Text>
 
       <Pane display="flex" marginTop={16}>
-        {viableCombinations && viableCombinations.length && (
-          <CombinationExplorer
-            combinations={viableCombinations}
-            required={required}
-            finder={finder}
+        {viableCombinationsCount && (
+          <StudyExplorer
+            // combinations={viableCombinations}
+            studies={viableCombinations.current}
           />
         )}
         <TopicReport

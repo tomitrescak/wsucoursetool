@@ -1,168 +1,21 @@
-class Validator {
-  maxViableCombinations = 101;
-  combinations;
-  requiredCredits;
+import { groupByArray } from 'lib/helpers';
+import { logSearchNode, SearchNode } from './search_helpers';
 
-  springCredits;
-  autumnCredits;
-
-  foundCombinations = 0;
-  requiredUnits;
-
-  constructor(requiredUnits) {
-    this.requiredUnits = requiredUnits;
-    this.requiredCredits = requiredUnits.reduce((prev, next) => next.credits + prev, 0);
-    this.springCredits = this.getCreditCount(requiredUnits, 'au');
-    this.autumnCredits = this.getCreditCount(requiredUnits, 'sp');
-  }
-
-  getCreditCount(nodes, period) {
-    return nodes
-      .filter(d => d.unit.offer.indexOf(period) === -1)
-      .reduce((prev, next) => next.credits + prev, 0);
-  }
-
-  validate(combinations) {
-    this.combinations = combinations;
-    this.validatePosition(null);
-  }
-
-  validateSolution(parent) {
-    let nodes = [];
-
-    // reconstruct the study
-    while (parent != null) {
-      for (let node of parent.nodes) {
-        // if we have a  unit node, remove all block nodes and keep only a unit node
-        if (node.block == null && nodes.find(n => n.unit.id === node.unit.id)) {
-          nodes = nodes.filter(n => n.unit.id !== node.unit.id);
-        }
-
-        // if we have a block node and we have a unit node already there we do not add it
-        if (
-          node.block != null &&
-          nodes.find(n => n.unit.id === node.unit.id && n.block == null)
-        ) {
-          continue;
-        }
-
-        // add the node
-        if (nodes.every(n => n != node)) {
-          nodes.push(node);
-        }
-
-        // add all dependencies of this node that
-        //  1. are not from required set
-        //  2. [if it is unit or block] do not exist already in the node list
-        //  3. [if it is block] do not exist in
-        for (let dependency of node.dependsOn) {
-          if (
-            !dependency.isRequired &&
-            nodes.every(
-              n =>
-                n != dependency &&
-                (n.unit !== dependency.unit ||
-                  (n.block != null && n.block !== dependency.block))
-            )
-          ) {
-            nodes.push(dependency);
-          }
-        }
-      }
-      parent = parent.parent;
-    }
-
-    // the only validation criteria is that we are under 240 credits in total
-    let totalCredits = nodes.reduce((prev, next) => prev + next.credits, 0);
-    let autumnCredits = this.getCreditCount(nodes, 'sp');
-    let springCredits = this.getCreditCount(nodes, 'au');
-
-    if (
-      totalCredits + this.requiredCredits <= 240.1 &&
-      this.autumnCredits + autumnCredits < 120.1 &&
-      this.springCredits + springCredits < 120.1
-    ) {
-
-      // create study
-      let explorer = new Explorer(nodes.concat(this.requiredUnits));
-      let study = explorer.fullSearch();
-
-      if (study) {
-        this.foundCombinations++;
-        self.postMessage({ status: 'Result', study });
-      }
-    }
-  }
-
-  /** Checks the combinations and filters out those that require more than 240 credits to complete */
-  validatePosition(parent, pos = 0) {
-    if (this.foundCombinations >= this.maxViableCombinations) {
-      return;
-    }
-    // we are at the end
-    if (pos === this.combinations.length) {
-      this.validateSolution(parent);
-      return;
-    }
-
-    // recursively check all combination
-    let item = this.combinations[pos];
-
-    // if this item has no combinations we continue with the next one
-    if (item.combinations.length == 0) {
-      this.validatePosition(parent, pos + 1);
-    } else {
-      // we recursively check each possible combination
-      for (let i = 0; i < item.combinations.length; i++) {
-        if (this.foundCombinations > this.maxViableCombinations) {
-          break;
-        }
-        const node = { parent, nodes: item.combinations[i] || [] };
-        this.validatePosition(node, pos + 1);
-      }
-    }
-  }
-}
-
-// src/workers/my-worker.ts
-self.addEventListener(
-  'message',
-  function (e) {
-    const validator = new Validator(e.data.requiredUnits);
-    validator.validate(e.data.combinations);
-    self.postMessage({ status: 'Finished' });
-  },
-  false
-);
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-
-function logSearchNode(node) {
-  return node.unit.name;
-}
-
-function groupByArray(
-  xs,
-  key
-) {
-  return xs.reduce(function (previous, current) {
-    let v = key instanceof Function ? key(current) : current[key];
-    let el = previous.find(r => r && r.key === v);
-    if (el) {
-      el.values.push(current);
-    } else {
-      previous.push({
-        key: v,
-        values: [current]
-      });
-    }
-    return previous;
-  }, []);
-}
+export type SortedNodes = Array<{ key: number; values: SearchNode[] }>;
+export type ExplorerNode = {
+  node: SearchNode;
+  semesters: number[];
+  semester: number;
+  dependants: ExplorerNode[];
+};
+export type Study = [
+  ExplorerNode[],
+  ExplorerNode[],
+  ExplorerNode[],
+  ExplorerNode[],
+  ExplorerNode[],
+  ExplorerNode[]
+];
 
 let debug = true;
 
@@ -170,7 +23,13 @@ let debug = true;
 // SORT METHODS
 ///////////////////////////////////////////////////////////////////////////
 
-function addDependency(node, dependency, config) {
+type TopoConfig = {
+  explored: Set<number>;
+  result: SearchNode[];
+  nodes: SearchNode[];
+};
+
+function addDependency(node: SearchNode, dependency: SearchNode, config: TopoConfig) {
   if (!config.explored.has(dependency.id)) {
     // we still have not explored this node
     expandDependencies(dependency, config, 1);
@@ -200,7 +59,7 @@ function addDependency(node, dependency, config) {
 
 const emptyArray = [];
 
-function expandDependencies(node, config, index = 0) {
+function expandDependencies(node: SearchNode, config: TopoConfig, index = 0) {
   config.explored.add(node.id);
 
   // add unit dependencies
@@ -235,8 +94,8 @@ function expandDependencies(node, config, index = 0) {
   // }
 }
 
-function topologicalSort(nodes) {
-  let config = { result: [], explored: new Set(), nodes };
+function topologicalSort(nodes: SearchNode[]) {
+  let config: TopoConfig = { result: [], explored: new Set(), nodes };
 
   // we will continue until we use all the nodes
   for (let node of nodes) {
@@ -247,7 +106,7 @@ function topologicalSort(nodes) {
   }
 
   // sort each layer so that assigned nodes nome first
-  let groups = groupByArray(config.result, 'level').sort((a, b) =>
+  let groups = groupByArray<SearchNode, number>(config.result, 'level').sort((a, b) =>
     a.key < b.key ? -1 : 1
   );
 
@@ -256,7 +115,7 @@ function topologicalSort(nodes) {
   return groups;
 }
 
-function findMinimumSemester(node) {
+function findMinimumSemester(node: SearchNode) {
   if (node.dependsOn.length === 0) {
     node.minSemester = 0;
     return;
@@ -287,7 +146,7 @@ function findMinimumSemester(node) {
   }
 }
 
-function assignMinimumSemester(nodes) {
+function assignMinimumSemester(nodes: Array<{ key: number; values: SearchNode[] }>) {
   // we do this in two steps
   // 1. we explore all the dependency routes and count the path lengths to the latest nodes
   // 2. we position nodes from top level to end level
@@ -317,7 +176,7 @@ function assignMinimumSemester(nodes) {
 // HELPER METHODS
 ///////////////////////////////////////////////////////////////////////////
 
-function qLog(message) {
+function qLog(message: string) {
   // console.log(message);
   if (debug) {
     Explorer.log += message + '\n';
@@ -331,7 +190,7 @@ function qLog(message) {
  * @param semester
  * @param node
  */
-function canPlaceInSemester(node, study, semester) {
+export function canPlaceInSemester(node: ExplorerNode, study: Study, semester: number) {
   return (
     study[semester].reduce(
       (prev, next) =>
@@ -347,7 +206,7 @@ function canPlaceInSemester(node, study, semester) {
   );
 }
 
-function calculateCredits(semester) {
+export function calculateCredits(semester: ExplorerNode[]) {
   return semester.reduce(
     (prev, next) =>
       (next.node.block == null ||
@@ -358,7 +217,7 @@ function calculateCredits(semester) {
   );
 }
 
-function addToSemester(node, study, semester, alsoStudy = true) {
+function addToSemester(node: ExplorerNode, study: Study, semester: number, alsoStudy = true) {
   if (alsoStudy) {
     study[semester].push(node);
   }
@@ -367,13 +226,13 @@ function addToSemester(node, study, semester, alsoStudy = true) {
   return true;
 }
 
-function cannotAddToSemester(node, semester) {
+function cannotAddToSemester(node: ExplorerNode, semester: number) {
   node.semesters.push(semester);
   node.semester = null;
   return false;
 }
 
-function removeFromStudy(study, node) {
+function removeFromStudy(study: Study, node: ExplorerNode) {
   for (let s of study) {
     if (s.indexOf(node) >= 0) {
       s.splice(s.indexOf(node), 1);
@@ -387,10 +246,20 @@ function removeFromStudy(study, node) {
 // CLASS
 ///////////////////////////////////////////////////////////////////////////
 
-class Explorer {
-  static log;
-  
-  constructor(combination) {
+export class Explorer {
+  static log = '';
+
+  doing: ExplorerNode[];
+  done: ExplorerNode[];
+  study: Study = [[], [], [], [], [], []];
+
+  autumnCredits: number;
+  springCredits: number;
+
+  nodes: SortedNodes;
+  usePredefinedSemesters: boolean;
+
+  constructor(combination: SearchNode[]) {
     // break into individual semesters
     this.nodes = topologicalSort(combination);
 
@@ -408,7 +277,7 @@ class Explorer {
     this.init(true);
   }
 
-  init(usePredefinedSemesters) {
+  init(usePredefinedSemesters: boolean) {
     this.usePredefinedSemesters = usePredefinedSemesters;
 
     this.doing = [...this.nodes].flatMap(group =>
@@ -434,7 +303,7 @@ class Explorer {
     this.study = [[], [], [], [], [], []];
   }
 
-  checkNodesWithBothSemesters(node, study, semester) {
+  checkNodesWithBothSemesters(node: ExplorerNode, study: Study, semester: number) {
     if (node.node.offer === 2) {
       // get total for given smeester for nodes that can be added to any semster
       let total = study.reduce(
@@ -502,9 +371,9 @@ class Explorer {
   //   return true;
   // }
 
-  findPossibleSemester(node, study) {
+  findPossibleSemester(node: ExplorerNode, study: Study) {
     // this will be the dependant that is in the lowest semester
-    let dependant;
+    let dependant: ExplorerNode;
 
     // adding a block
     // if there is a unit already placed for this block node we add block to the same semester
@@ -623,7 +492,7 @@ class Explorer {
     return false;
   }
 
-  tryPositionNode(current, study) {
+  tryPositionNode(current: ExplorerNode, study: Study) {
     qLog('============================');
     qLog('Positioning: ' + logSearchNode(current.node));
     qLog('============================');
@@ -682,4 +551,3 @@ class Explorer {
     return this.study;
   }
 }
-

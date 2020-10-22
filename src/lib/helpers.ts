@@ -88,10 +88,10 @@ export const groupBy = function (arr, criteria) {
   }, {});
 };
 
-export function groupByArray<T>(
+export function groupByArray<T, U>(
   xs: T[],
   key: string | ((t: T) => boolean)
-): Array<{ key: string; values: T[] }> {
+): Array<{ key: U; values: T[] }> {
   return xs.reduce(function (previous, current) {
     let v = key instanceof Function ? key(current) : current[key];
     let el = previous.find(r => r && r.key === v);

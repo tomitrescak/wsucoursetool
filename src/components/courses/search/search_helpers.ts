@@ -19,6 +19,14 @@ export type SearchNode = {
   credits: number;
   isRequired?: boolean;
   level?: number;
+  minSemester?: number;
+  parent?: SearchNode;
+  /**
+   * 0 - Autumn
+   * 1 - Spring
+   * 2 - Autumn and Spring
+   */
+  offer: 0 | 1 | 2;
 };
 
 // export const db: {
