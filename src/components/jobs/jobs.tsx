@@ -16,7 +16,9 @@ import {
   Select,
   toaster,
   InfoSignIcon,
-  Position
+  Position,
+  TextInput,
+  Checkbox
 } from 'evergreen-ui';
 import { State, Job, AcsKnowledge, Entity } from '../types';
 import { buildForm, findMaxId, url } from 'lib/helpers';
@@ -31,7 +33,8 @@ import {
   useCreateJobMutation,
   useJobQuery,
   useDeleteJobMutation,
-  useSaveConfigMutation
+  useSaveConfigMutation,
+  useSfiaQuery
 } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 import { EntityModel, createJob } from 'components/classes';
@@ -70,12 +73,22 @@ const Details: React.FC<{
   state: State;
   refetch: Function;
 }> = observer(({ item, refetch, state }) => {
-  const localState = useLocalStore(() => ({ isPreview: false, acsId: '', rating: 0, bloom: -1 }));
+  const [skill, setSkill] = React.useState(null);
+  const localState = useLocalStore(() => ({
+    isPreview: false,
+    acsId: '',
+    rating: 0,
+    bloom: -1,
+    sfiaId: null,
+    sfiaRating: 0,
+    isCritical: false
+  }));
   const { loading, error, data } = useJobQuery({
     variables: {
       id: item.id
     }
   });
+
   const [deleteJob] = useDeleteJobMutation({
     onCompleted() {
       toaster.notify('Job deleted. Config saved.');
@@ -94,7 +107,7 @@ const Details: React.FC<{
   });
 
   const job = React.useMemo(() => {
-    console.log('Createing job!');
+    console.log('Creating job!');
     if (data) {
       const job = createJob(data.job);
       state.undoManager = undoMiddleware(job);
@@ -129,132 +142,235 @@ const Details: React.FC<{
       style={{ flex: 1, overflow: 'auto', height: '100%', paddingRight: '8px' }}
       className="scroll1"
     >
-      <Pane background="tint3" borderRadius={6} marginLeft={24}>
-        <Heading size={500} marginBottom={16}>
-          {job.name}
-        </Heading>
+      <Pane display="flex">
+        <Pane background="tint3" borderRadius={6} marginLeft={24}>
+          <Heading size={500} marginBottom={16}>
+            {job.name}
+          </Heading>
 
-        <TextInputField
-          label="Name"
-          placeholder="Name"
-          value={job.name}
-          onChange={form.name}
-          marginBottom={8}
-        />
+          <TextInputField
+            label="Name"
+            placeholder="Name"
+            value={job.name}
+            onChange={form.name}
+            marginBottom={8}
+          />
 
-        <TextEditor field="description" label="Description" owner={job} readonly={false} />
+          <TextEditor field="description" label="Description" owner={job} readonly={false} />
 
-        <Heading size={500} marginBottom={8} marginTop={16}>
-          Skills
-        </Heading>
+          <Pane display="flex" paddingBottom={16}>
+            <Field title="Family">{job.family}</Field>
+            <Field title="Function">{job.familyFunction}</Field>
+            <Field title="Role">{job.familyRole}</Field>
+            {job.aka && <Field title="Aka">{job.aka}</Field>}
+          </Pane>
 
-        {job.skills.map((skill, i) => {
-          //const sfia = sfiaSkills.find(s => s.id === skill.skillId);
-          const acs = acsSkills.find(s => s.id === skill.skillId);
+          <Pane display="flex" paddingBottom={16}>
+            <Field title="APS">{job.aps}</Field>
+            <Field title="Discipline">{job.discipline}</Field>
+            <Field title="Classification">{job.apsClassification}</Field>
+            <Field title="Knowledge">
+              {job.knowledge} ({apsSkills[job.knowledge][0]}, {apsSkills[job.knowledge][1]})
+            </Field>
+          </Pane>
 
-          return (
-            <Pane display="flex" marginBottom={8}>
-              <IconButton
-                marginTop={-4}
-                flex="0 0 40px"
-                icon="trash"
-                intent="danger"
-                appearance="primary"
-                marginRight={16}
-                onClick={() => {
-                  job.removeSkill(i);
-                }}
-              />
-              <Text
-                display="block"
-                // width={140}
-                onMouseOver={() => (localState.bloom = skill.bloomRating - 1)}
-              >
-                <Tooltip
-                  content={
-                    <Paragraph>
-                      <Text
-                        size={300}
-                        dangerouslySetInnerHTML={{
-                          __html: marked(bloom[skill.bloomRating - 1].description)
-                        }}
-                      />
-                    </Paragraph>
-                  }
-                  appearance="card"
-                >
-                  <Text>[{skill.bloomRating}]</Text>
-                </Tooltip>
-                &nbsp;-&nbsp; {/* {' '}
-                - {bloom[skill.bloomRating - 1].title} */}
-              </Text>
-              <Text display="block" flex="1">
-                {acs && acs.name}
-              </Text>
+          {/* SFIA  */}
 
-              {/* <Text display="block" flex="1">
+          <Heading size={500} marginBottom={8} marginTop={16}>
+            SFIA Skills
+          </Heading>
+
+          {job.sfia.map((skill, i) => {
+            //const sfia = sfiaSkills.find(s => s.id === skill.skillId);
+
+            return (
+              <Pane display="flex" marginBottom={8}>
+                <IconButton
+                  marginTop={-4}
+                  flex="0 0 40px"
+                  icon="trash"
+                  intent="danger"
+                  appearance="primary"
+                  marginRight={16}
+                  onClick={() => {
+                    job.removeSfia(i);
+                  }}
+                />
+                <Text is="div" key={i} whiteSpace="nowrap" cursor="pointer">
+                  <Badge
+                    title={skill.critical ? 'Critical' : 'Not Critical'}
+                    color={skill.critical ? 'red' : 'green'}
+                    marginRight={8}
+                    key={i}
+                  >
+                    Level {skill.level}
+                  </Badge>
+
+                  <a onClick={() => setSkill(data.sfia.find(s => s.id === skill.id))}>
+                    {data.sfia.find(s => s.id === skill.id)?.name} ({skill.id})
+                  </a>
+                </Text>
+
+                {/* <Text display="block" flex="1">
                 {sfia.name}
               </Text> */}
-            </Pane>
-          );
-        })}
+              </Pane>
+            );
+          })}
 
-        <Pane display="flex" alignItems="center" marginTop={16}>
-          <Combobox
-            flex="1"
-            width="100%"
-            id="mapping"
-            items={acsSkills}
-            itemToString={item => (item ? item.name : '')}
-            onChange={selected => (localState.acsId = selected.id)}
-          />
+          <Pane display="flex" alignItems="center" marginTop={16}>
+            <Combobox
+              flex="1"
+              width="100%"
+              id="mapping"
+              items={data.sfia}
+              itemToString={item => (item ? `${item.name} (${item.id})` : '')}
+              onChange={selected => (localState.sfiaId = selected.id)}
+            />
 
-          <Select
-            marginLeft={8}
-            marginRight={8}
-            flex="0 0 140px"
-            value={localState.rating ? localState.rating.toString() : ''}
-            onChange={e => (localState.rating = parseInt(e.currentTarget.value))}
-          >
-            <option value="">None</option>
-            <option value="1">1 - Knowledge</option>
-            <option value="2">2 - Comprehension</option>
-            <option value="3">3 - Application</option>
-            <option value="4">4 - Analysis</option>
-            <option value="5">5 - Synthesis</option>
-            <option value="6">6 - Evaluation</option>
-          </Select>
-          <IconButton
-            width={50}
-            icon="plus"
+            <TextInput
+              marginLeft={8}
+              placeholder="Level"
+              type="number"
+              width={80}
+              onChange={e => (localState.sfiaRating = parseInt(e.currentTarget.value))}
+            />
+
+            <Checkbox
+              marginLeft={8}
+              label="Critical"
+              onChange={e => (localState.isCritical = e.currentTarget.checked)}
+            />
+
+            <IconButton
+              marginLeft={8}
+              width={50}
+              icon="plus"
+              appearance="primary"
+              intent="success"
+              onClick={() => {
+                job.addSfia(localState.sfiaId, localState.sfiaRating, localState.isCritical);
+              }}
+            />
+          </Pane>
+
+          <Heading size={500} marginBottom={8} marginTop={16}>
+            ACS Skills
+          </Heading>
+
+          {job.skills.map((skill, i) => {
+            //const sfia = sfiaSkills.find(s => s.id === skill.skillId);
+            const acs = acsSkills.find(s => s.id === skill.skillId);
+
+            return (
+              <Pane display="flex" marginBottom={8}>
+                <IconButton
+                  marginTop={-4}
+                  flex="0 0 40px"
+                  icon="trash"
+                  intent="danger"
+                  appearance="primary"
+                  marginRight={16}
+                  onClick={() => {
+                    job.removeSkill(i);
+                  }}
+                />
+                <Text
+                  display="block"
+                  // width={140}
+                  onMouseOver={() => (localState.bloom = skill.bloomRating - 1)}
+                >
+                  <Tooltip
+                    content={
+                      <Paragraph>
+                        <Text
+                          size={300}
+                          dangerouslySetInnerHTML={{
+                            __html: marked(bloom[skill.bloomRating - 1].description)
+                          }}
+                        />
+                      </Paragraph>
+                    }
+                    appearance="card"
+                  >
+                    <Text>[{skill.bloomRating}]</Text>
+                  </Tooltip>
+                  &nbsp;-&nbsp; {/* {' '}
+                - {bloom[skill.bloomRating - 1].title} */}
+                </Text>
+                <Text display="block" flex="1">
+                  {acs && acs.name}
+                </Text>
+
+                {/* <Text display="block" flex="1">
+                {sfia.name}
+              </Text> */}
+              </Pane>
+            );
+          })}
+
+          <Pane display="flex" alignItems="center" marginTop={16}>
+            <Combobox
+              flex="1"
+              width="100%"
+              id="mapping"
+              items={acsSkills}
+              itemToString={item => (item ? item.name : '')}
+              onChange={selected => (localState.acsId = selected.id)}
+            />
+
+            <Select
+              marginLeft={8}
+              marginRight={8}
+              flex="0 0 140px"
+              value={localState.rating ? localState.rating.toString() : ''}
+              onChange={e => (localState.rating = parseInt(e.currentTarget.value))}
+            >
+              <option value="">None</option>
+              <option value="1">1 - Knowledge</option>
+              <option value="2">2 - Comprehension</option>
+              <option value="3">3 - Application</option>
+              <option value="4">4 - Analysis</option>
+              <option value="5">5 - Synthesis</option>
+              <option value="6">6 - Evaluation</option>
+            </Select>
+            <IconButton
+              width={50}
+              icon="plus"
+              appearance="primary"
+              intent="success"
+              onClick={() => {
+                job.addSkill(localState.acsId, localState.rating);
+              }}
+            />
+          </Pane>
+
+          <Button
+            intent="danger"
+            iconBefore="trash"
             appearance="primary"
-            intent="success"
+            marginTop={8}
             onClick={() => {
-              job.addSkill(localState.acsId, localState.rating);
+              if (confirm('Are You Sure? This action cannot be undone!')) {
+                deleteJob({
+                  variables: {
+                    id: item.id
+                  }
+                }).then(() => {
+                  refetch();
+                  Router.push('/editor/[category]', `/editor/jobs`);
+                });
+              }
             }}
-          />
+          >
+            Delete
+          </Button>
         </Pane>
-
-        <Button
-          intent="danger"
-          iconBefore="trash"
-          appearance="primary"
-          marginTop={8}
-          onClick={() => {
-            if (confirm('Are You Sure? This action cannot be undone!')) {
-              deleteJob({
-                variables: {
-                  id: item.id
-                }
-              }).then(() => {
-                refetch();
-                Router.push('/editor/[category]', `/editor/jobs`);
-              });
-            }
-          }}
-        >
-          Delete
-        </Button>
+        {skill && (
+          <Pane background="tint2" elevation={3} marginLeft={16} paddingTop={16}>
+            <SfiaDetails item={skill} />
+          </Pane>
+        )}
       </Pane>
     </div>
   );
@@ -296,36 +412,36 @@ const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
       style={{ flex: 1, overflow: 'auto', height: '100%', paddingRight: '8px' }}
       className="scroll1"
     >
-      <Pane background="tint3" borderRadius={6} marginLeft={24}>
-        <Heading size={600} marginBottom={16}>
-          {job.name}
-        </Heading>
+      <Pane display="flex">
+        <Pane background="tint3" borderRadius={6} marginLeft={24} flex={1}>
+          <Heading size={600} marginBottom={16}>
+            {job.name}
+          </Heading>
 
-        <Text dangerouslySetInnerHTML={{ __html: marked(job.description || '') }} />
+          <Text dangerouslySetInnerHTML={{ __html: marked(job.description || '') }} />
 
-        <Pane display="flex" paddingBottom={16}>
-          <Field title="Family">{job.family}</Field>
-          <Field title="Function">{job.familyFunction}</Field>
-          <Field title="Role">{job.familyRole}</Field>
-          {job.aka && <Field title="Aka">{job.aka}</Field>}
-        </Pane>
+          <Pane display="flex" paddingBottom={16}>
+            <Field title="Family">{job.family}</Field>
+            <Field title="Function">{job.familyFunction}</Field>
+            <Field title="Role">{job.familyRole}</Field>
+            {job.aka && <Field title="Aka">{job.aka}</Field>}
+          </Pane>
 
-        <Pane display="flex" paddingBottom={16}>
-          <Field title="APS">{job.aps}</Field>
-          <Field title="Discipline">{job.discipline}</Field>
-          <Field title="Classification">{job.apsClassification}</Field>
-          <Field title="Knowledge">
-            {job.knowledge} ({apsSkills[job.knowledge][0]}, {apsSkills[job.knowledge][1]})
-          </Field>
-        </Pane>
+          <Pane display="flex" paddingBottom={16}>
+            <Field title="APS">{job.aps}</Field>
+            <Field title="Discipline">{job.discipline}</Field>
+            <Field title="Classification">{job.apsClassification}</Field>
+            <Field title="Knowledge">
+              {job.knowledge} ({apsSkills[job.knowledge][0]}, {apsSkills[job.knowledge][1]})
+            </Field>
+          </Pane>
 
-        {job.sfia && job.sfia.length ? (
-          <>
-            <Heading size={400} marginBottom={8}>
-              SFIA Skills
-            </Heading>
+          {job.sfia && job.sfia.length ? (
+            <>
+              <Heading size={400} marginBottom={8}>
+                SFIA Skills
+              </Heading>
 
-            <Pane display="flex">
               <Pane>
                 {job.sfia.map((b, i) => (
                   <Text is="div" key={i} whiteSpace="nowrap" cursor="pointer">
@@ -344,35 +460,37 @@ const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
                   </Text>
                 ))}
               </Pane>
-              <Pane background="tint2" elevation={3} marginLeft={16} paddingTop={16}>
-                {skill && <SfiaDetails item={skill} />}
-              </Pane>
-            </Pane>
-          </>
-        ) : null}
+            </>
+          ) : null}
 
-        {job.skills && job.skills.length ? (
-          <>
-            <Heading size={400} marginBottom={8}>
-              ACS Skills
-            </Heading>
+          {job.skills && job.skills.length ? (
+            <>
+              <Heading size={400} marginBottom={8}>
+                ACS Skills
+              </Heading>
 
-            <Pane display="flex">
-              <Pane marginRight={16}>
-                <Pane padding={8} elevation={2} borderRadius={4} background="tint2">
-                  {bloom.map((b, i) => (
-                    <Text is="div" key={i}>
-                      {i + 1} - {b.title}
-                    </Text>
-                  ))}
+              <Pane display="flex">
+                <Pane marginRight={16}>
+                  <Pane padding={8} elevation={2} borderRadius={4} background="tint2">
+                    {bloom.map((b, i) => (
+                      <Text is="div" key={i}>
+                        {i + 1} - {b.title}
+                      </Text>
+                    ))}
+                  </Pane>
+                </Pane>
+                <Pane>
+                  <AcsGraph acs={acs} bars={bars} />
                 </Pane>
               </Pane>
-              <Pane>
-                <AcsGraph acs={acs} bars={bars} />
-              </Pane>
-            </Pane>
-          </>
-        ) : null}
+            </>
+          ) : null}
+        </Pane>
+        {skill && (
+          <Pane background="tint2" elevation={3} marginLeft={16} paddingTop={16} flex={2}>
+            <SfiaDetails item={skill} />
+          </Pane>
+        )}
       </Pane>
     </div>
   );

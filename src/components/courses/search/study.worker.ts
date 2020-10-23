@@ -6,21 +6,7 @@ import { Validator } from './validator';
 self.addEventListener(
   'message',
   function (e) {
-    // check for combination and returns result immediately
-    const checkCombination = (nodes: SearchNode[]) => {
-      // create study
-      let explorer = new Explorer(nodes.concat(e.data.requiredUnits));
-      let study = explorer.fullSearch();
-
-      if (study) {
-        self.postMessage({ status: 'Result', study }, undefined);
-        return true;
-      }
-
-      return false;
-    };
-
-    const validator = new Validator(e.data.requiredUnits, 100, checkCombination);
+    const validator = new Validator(e.data.requiredUnits, 100, Explorer.checkCombination);
     validator.validate(e.data.combinations);
     self.postMessage({ status: 'Finished' }, undefined);
   },

@@ -11,6 +11,7 @@ export const typeDefs = gql`
   type BlockSkill {
     id: String!
     level: Float!
+    max: Int
   }
 
   type Outcome {
@@ -59,10 +60,16 @@ export const typeDefs = gql`
     name: String!
   }
 
+  type SfiaSkillLevel {
+    id: String
+    level: Int
+  }
+
   type JobList {
     id: String!
     name: String!
     invalid: [String!]!
+    sfia: [SfiaSkillLevel!]
   }
 
   type TopicList {

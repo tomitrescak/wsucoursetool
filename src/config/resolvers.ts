@@ -21,6 +21,7 @@ export type BlockTopic = {
 export type BlockSkill = {
   id: Scalars['String'];
   level: Scalars['Float'];
+  max?: Maybe<Scalars['Int']>;
 };
 
 export type Outcome = {
@@ -69,10 +70,16 @@ export type SpecialisationList = {
   name: Scalars['String'];
 };
 
+export type SfiaSkillLevel = {
+  id?: Maybe<Scalars['String']>;
+  level?: Maybe<Scalars['Int']>;
+};
+
 export type JobList = {
   id: Scalars['String'];
   name: Scalars['String'];
   invalid: Array<Scalars['String']>;
+  sfia?: Maybe<Array<SfiaSkillLevel>>;
 };
 
 export type TopicList = {
@@ -360,13 +367,14 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   BlockSkill: ResolverTypeWrapper<BlockSkill>;
-  Outcome: ResolverTypeWrapper<Outcome>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Outcome: ResolverTypeWrapper<Outcome>;
   UnitBlock: ResolverTypeWrapper<UnitBlock>;
   UnitList: ResolverTypeWrapper<UnitList>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Entity: ResolverTypeWrapper<Entity>;
   SpecialisationList: ResolverTypeWrapper<SpecialisationList>;
+  SfiaSkillLevel: ResolverTypeWrapper<SfiaSkillLevel>;
   JobList: ResolverTypeWrapper<JobList>;
   TopicList: ResolverTypeWrapper<TopicList>;
   TopicBlock: ResolverTypeWrapper<TopicBlock>;
@@ -391,13 +399,14 @@ export type ResolversParentTypes = {
   String: Scalars['String'];
   Float: Scalars['Float'];
   BlockSkill: BlockSkill;
-  Outcome: Outcome;
   Int: Scalars['Int'];
+  Outcome: Outcome;
   UnitBlock: UnitBlock;
   UnitList: UnitList;
   Boolean: Scalars['Boolean'];
   Entity: Entity;
   SpecialisationList: SpecialisationList;
+  SfiaSkillLevel: SfiaSkillLevel;
   JobList: JobList;
   TopicList: TopicList;
   TopicBlock: TopicBlock;
@@ -428,6 +437,7 @@ export type BlockTopicResolvers<ContextType = any, ParentType extends ResolversP
 export type BlockSkillResolvers<ContextType = any, ParentType extends ResolversParentTypes['BlockSkill'] = ResolversParentTypes['BlockSkill']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   level?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  max?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -482,10 +492,17 @@ export type SpecialisationListResolvers<ContextType = any, ParentType extends Re
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type SfiaSkillLevelResolvers<ContextType = any, ParentType extends ResolversParentTypes['SfiaSkillLevel'] = ResolversParentTypes['SfiaSkillLevel']> = {
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type JobListResolvers<ContextType = any, ParentType extends ResolversParentTypes['JobList'] = ResolversParentTypes['JobList']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   invalid?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  sfia?: Resolver<Maybe<Array<ResolversTypes['SfiaSkillLevel']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -624,6 +641,7 @@ export type Resolvers<ContextType = any> = {
   UnitList?: UnitListResolvers<ContextType>;
   Entity?: EntityResolvers<ContextType>;
   SpecialisationList?: SpecialisationListResolvers<ContextType>;
+  SfiaSkillLevel?: SfiaSkillLevelResolvers<ContextType>;
   JobList?: JobListResolvers<ContextType>;
   TopicList?: TopicListResolvers<ContextType>;
   TopicBlock?: TopicBlockResolvers<ContextType>;

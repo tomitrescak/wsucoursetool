@@ -114,7 +114,13 @@ export function createSearchNodes(db: { units: UnitList[] }) {
         for (let sfia of next.sfiaSkills || []) {
           let current = prev.find(p => p.id === sfia.id);
           if (current) {
-            current.level += sfia.level;
+            // we only grow to the top level
+            if (current.level < sfia.max) {
+              current.level += sfia.level;
+              if (current.level > sfia.max) {
+                current.level = sfia.max;
+              }
+            }
           } else {
             prev.push({ ...sfia });
           }

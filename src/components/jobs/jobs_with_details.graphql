@@ -1,0 +1,11 @@
+query JobsWithDetails {
+  jobs {
+    id
+    name
+    invalid
+    sfia {
+      id
+      level
+    }
+  }
+}

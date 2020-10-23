@@ -291,6 +291,13 @@ export class SfiaSkillMappingModel extends Model({
   max: prop<number>({ setterAction: true })
 }) {}
 
+@model('Course/SfiaSkillLevelModel')
+export class SfiaSkillLevelModel extends Model({
+  id: prop<string>({ setterAction: true }),
+  level: prop<number>({ setterAction: true }),
+  critical: prop<boolean>({ setterAction: true })
+}) {}
+
 @model('Course/Unit')
 export class UnitModel extends ExtendedModel(EntityModel, {
   approachToLearning: prop<string>({ setterAction: true }),
@@ -711,7 +718,16 @@ class SkillLevelModel extends Model({
 
 @model('Course/JobModel')
 export class JobModel extends ExtendedModel(EntityModel, {
-  skills: prop<SkillLevelModel[]>({ setterAction: true })
+  skills: prop<SkillLevelModel[]>({ setterAction: true }),
+  sfia: prop<SfiaSkillLevelModel[]>({ setterAction: true }),
+  family: prop({ setterAction: true }),
+  familyFunction: prop({ setterAction: true }),
+  familyRole: prop({ setterAction: true }),
+  aka: prop({ setterAction: true }),
+  aps: prop({ setterAction: true }),
+  discipline: prop({ setterAction: true }),
+  apsClassification: prop({ setterAction: true }),
+  knowledge: prop({ setterAction: true })
 }) {
   @modelAction
   removeSkill(ix: number) {
@@ -728,10 +744,28 @@ export class JobModel extends ExtendedModel(EntityModel, {
     );
   }
 
+  @modelAction
+  removeSfia(ix: number) {
+    this.sfia.splice(ix, 1);
+  }
+
+  @modelAction
+  addSfia(id: string, level: number, critical: boolean) {
+    this.sfia.push(
+      new SfiaSkillLevelModel({
+        id,
+        level,
+        critical
+      })
+    );
+  }
+
   toJS() {
     return {
+      ...toJS(this.$),
       ...super.toJS(),
-      skills: this.skills.map(s => s.toJS())
+      skills: this.skills.map(s => s.toJS()),
+      sfia: this.sfia.map(s => toJS(s.$))
     };
   }
 }
@@ -743,7 +777,8 @@ export function createJobs(jobs: Job[]) {
 export function createJob(c: Job) {
   return new JobModel({
     ...c,
-    skills: c.skills.map(s => new SkillLevelModel(s))
+    skills: c.skills.map(s => new SkillLevelModel(s)),
+    sfia: c.sfia.map(s => new SfiaSkillLevelModel(s))
   });
 }
 

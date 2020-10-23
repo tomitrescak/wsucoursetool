@@ -12,7 +12,7 @@ export class Validator {
   private requiredCredits: number;
 
   constructor(
-    requiredUnits: SearchNode[],
+    private requiredUnits: SearchNode[],
     private maxViableCombinations = 100,
     private checkCombination: Checker
   ) {
@@ -71,7 +71,7 @@ export class Validator {
     let totalCredits = nodes.reduce((prev, next) => prev + next.credits, 0);
     if (totalCredits + this.requiredCredits <= 240.1) {
       if (this.checkCombination) {
-        if (this.checkCombination(nodes)) {
+        if (this.checkCombination(nodes.concat(this.requiredUnits))) {
           this.currentCombinations++;
         }
       } else {

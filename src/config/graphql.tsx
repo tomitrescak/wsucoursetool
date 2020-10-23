@@ -22,6 +22,7 @@ export type BlockTopic = {
 export type BlockSkill = {
   id: Scalars['String'];
   level: Scalars['Float'];
+  max?: Maybe<Scalars['Int']>;
 };
 
 export type Outcome = {
@@ -70,10 +71,16 @@ export type SpecialisationList = {
   name: Scalars['String'];
 };
 
+export type SfiaSkillLevel = {
+  id?: Maybe<Scalars['String']>;
+  level?: Maybe<Scalars['Int']>;
+};
+
 export type JobList = {
   id: Scalars['String'];
   name: Scalars['String'];
   invalid: Array<Scalars['String']>;
+  sfia?: Maybe<Array<SfiaSkillLevel>>;
 };
 
 export type TopicList = {
@@ -348,7 +355,7 @@ export type CourseQuery = (
     Pick<UnitList, 'blockCount' | 'id' | 'name' | 'offer' | 'level' | 'credits' | 'dynamic' | 'topics'>
     & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, outcomes?: Maybe<Array<Pick<Outcome, 'acsSkillId' | 'bloomRating'>>>, blocks?: Maybe<Array<(
       Pick<UnitBlock, 'id' | 'name' | 'credits'>
-      & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, topics?: Maybe<Array<Pick<BlockTopic, 'id' | 'ratio'>>>, sfiaSkills?: Maybe<Array<Pick<BlockSkill, 'id' | 'level'>>> }
+      & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, topics?: Maybe<Array<Pick<BlockTopic, 'id' | 'ratio'>>>, sfiaSkills?: Maybe<Array<Pick<BlockSkill, 'id' | 'level' | 'max'>>> }
     )>> }
   )>, topics: Array<Pick<TopicList, 'id' | 'name'>> }
 );
@@ -394,6 +401,14 @@ export type JobsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type JobsQuery = { jobs: Array<Pick<JobList, 'id' | 'name' | 'invalid'>> };
+
+export type JobsWithDetailsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type JobsWithDetailsQuery = { jobs: Array<(
+    Pick<JobList, 'id' | 'name' | 'invalid'>
+    & { sfia?: Maybe<Array<Pick<SfiaSkillLevel, 'id' | 'level'>>> }
+  )> };
 
 export type PrerequisitesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -764,6 +779,7 @@ export const CourseDocument = gql`
       sfiaSkills {
         id
         level
+        max
       }
     }
   }
@@ -1015,6 +1031,44 @@ export function useJobsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpt
 export type JobsQueryHookResult = ReturnType<typeof useJobsQuery>;
 export type JobsLazyQueryHookResult = ReturnType<typeof useJobsLazyQuery>;
 export type JobsQueryResult = ApolloReactCommon.QueryResult<JobsQuery, JobsQueryVariables>;
+export const JobsWithDetailsDocument = gql`
+    query JobsWithDetails {
+  jobs {
+    id
+    name
+    invalid
+    sfia {
+      id
+      level
+    }
+  }
+}
+    `;
+
+/**
+ * __useJobsWithDetailsQuery__
+ *
+ * To run a query within a React component, call `useJobsWithDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useJobsWithDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useJobsWithDetailsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useJobsWithDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<JobsWithDetailsQuery, JobsWithDetailsQueryVariables>) {
+        return ApolloReactHooks.useQuery<JobsWithDetailsQuery, JobsWithDetailsQueryVariables>(JobsWithDetailsDocument, baseOptions);
+      }
+export function useJobsWithDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<JobsWithDetailsQuery, JobsWithDetailsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<JobsWithDetailsQuery, JobsWithDetailsQueryVariables>(JobsWithDetailsDocument, baseOptions);
+        }
+export type JobsWithDetailsQueryHookResult = ReturnType<typeof useJobsWithDetailsQuery>;
+export type JobsWithDetailsLazyQueryHookResult = ReturnType<typeof useJobsWithDetailsLazyQuery>;
+export type JobsWithDetailsQueryResult = ApolloReactCommon.QueryResult<JobsWithDetailsQuery, JobsWithDetailsQueryVariables>;
 export const PrerequisitesDocument = gql`
     query Prerequisites {
   acs

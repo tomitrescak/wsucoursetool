@@ -1,19 +1,22 @@
-import { Course, Major, Topic } from 'components/types';
-import { Entity } from 'config/graphql';
+import { Course, Job, Major, SfiaSkillMapping, Topic } from 'components/types';
+import { Entity, useJobsWithDetailsQuery, useSfiaQuery } from 'config/graphql';
 import { UnitList } from 'config/resolvers';
 import {
   Alert,
+  Badge,
   Button,
   Dialog,
   Heading,
   Icon,
   IconButton,
+  ListItem,
   Pane,
   Spinner,
   Text,
-  TextInput
+  TextInput,
+  UnorderedList
 } from 'evergreen-ui';
-import groupByArray, { groupBy } from 'lib/helpers';
+import groupByArray, { groupBy, url } from 'lib/helpers';
 import { action } from 'mobx';
 import { observer, useLocalStore } from 'mobx-react';
 import React from 'react';
@@ -31,6 +34,9 @@ import {
 
 import ValidationWorker from './search/validation.worker';
 import StudyWorker from './search/study.worker';
+import { ProgressView } from 'components/common/progress_view';
+import { Expander } from 'components/common/expander';
+import Link from 'next/link';
 
 // import ValidationWorker from './search/validation.worker';
 
@@ -194,105 +200,7 @@ type CombinationProps = {
   finder: Finder;
 };
 
-// function topologicalSortHelper(
-//   node: QNode,
-//   explored: Set<QNode>,
-//   s: QNode[],
-//   dependencies: { [index: string]: QNode[] }
-// ) {
-//   explored.add(node);
-//   // Marks this node as visited and goes on to the nodes
-//   // that are dependent on this node, the edge is node ----> n
-//   dependencies[node.node.id].forEach(n => {
-//     if (!explored.has(n)) {
-//       topologicalSortHelper(n, explored, s, dependencies);
-//     }
-//   });
-
-//   // All dependencies are resolved for this node, we can now add
-//   // This to the stack.
-
-//   if (s.every(n => n.node.id !== node.node.id)) {
-//     s.push(node);
-//   }
-// }
-
-// function topologicalSort(nodes: QNode[]) {
-//   // Create a Stack to keep track of all elements in sorted order
-//   // let s: QNode[] = [];
-//   // let explored = new Set<QNode>();
-//   const dependencies = buildDependencyMap(nodes);
-//   // const dependencyArray = Object.keys(dependencies).flatMap(key => dependencies[key]);
-
-//   // // For every unvisited node in our graph, call the helper.
-//   // nodes.forEach(node => {
-//   //   if (!explored.has(node)) {
-//   //     topologicalSortHelper(node, explored, s, dependencies);
-//   //   }
-//   // });
-
-//   let s = nodes;
-
-//   // we have topologically sorted the nodes
-//   // now we sort them so that the nodes with depenencies will always come before those without depenencied
-
-//   let depSorted = [];
-//   // let noSorted = [...s];
-//   s = s.reverse();
-
-//   while (s.length) {
-//     let withDependants = [];
-//     for (let node of s) {
-//       if (s.some(d => dependencies[d.node.id].findIndex(i => i.node.id === node.node.id) >= 0)) {
-//         withDependants.push(node);
-//       } else {
-//         depSorted.push(node);
-//       }
-//     }
-//     s = withDependants;
-//   }
-
-//   // while (s.length) {
-//   //   console.log(logSimpleName(s.pop()));
-//   // }
-//   return depSorted;
-// }
-
-// function buildDependencyMap(nodes: QNode[]) {
-//   let dependencies: { [index: string]: QNode[] } = {};
-//   for (let node of nodes) {
-//     let deps: QNode[] = [];
-
-//     // add unit dependencies
-//     deps.push(...node.dependencies);
-
-//     // add block dependences
-//     for (let block of node.node.blocks) {
-//       dependencies[block.id] = [
-//         ...block.dependsOn.map(b => nodes.find(n => n.node === b)).filter(t => t)
-//       ];
-
-//       for (let bd of block.dependsOn) {
-//         let q = nodes.find(n => n.node.unit.id === bd.unit.id && n.node.block == null);
-//         // we add unit dependencies that are not dependant on the same unit
-//         if (
-//           q &&
-//           node.node.unit.id !== q.node.unit.id &&
-//           deps.findIndex(d => d.node.id === q.node.id) === -1
-//         ) {
-//           // console.log('Adding ' + logSimpleName(node) + ' ---> ' + logSimpleName(q));
-//           deps.push(q);
-//         }
-//       }
-//     }
-//     dependencies[node.node.id] = deps;
-//   }
-//   return dependencies;
-//   // debugger;
-// }
-
 const CombinationExplorer = observer(({ combinations, required }: CombinationProps) => {
-  const [study, setStudy] = React.useState(null);
   const state = useLocalStore(() => ({
     item: 0,
     debuggerShowing: false
@@ -393,11 +301,60 @@ type StudyProps = {
   combinationReport: CombinationReport[];
 };
 
+type SfiaMappingWithName = SfiaSkillMapping & { name: string; unit: string };
+
 const StudyView = ({ study }) => {
+  const { loading, error, data } = useSfiaQuery();
+  const { loading: jobsLoading, error: jobsError, data: jobsData } = useJobsWithDetailsQuery();
+
+  if (loading || error || jobsLoading || jobsError) {
+    return <ProgressView loading={loading || jobsLoading} error={error || jobsError} />;
+  }
+
   if (!study) {
     return null;
   }
   const combination: SearchNode[] = study.flat().map(n => n.node);
+  const sfiaSkills: SfiaMappingWithName[] = [];
+
+  for (let node of combination) {
+    for (let sfia of node.sfiaSkills) {
+      let existing = sfiaSkills.find(s => s.id === sfia.id);
+      if (!existing) {
+        sfiaSkills.push({
+          ...sfia,
+          name: data.sfia.find(s => s.id === sfia.id).name,
+          unit: node.unit.name
+        });
+      } else if (existing.level < sfia.level) {
+        existing.level = sfia.level;
+        existing.unit = node.unit.name;
+      }
+    }
+  }
+
+  sfiaSkills.sort((a, b) => (a.level < b.level ? 1 : -1));
+
+  const jobsCompletion: Array<{ job: { name; id }; completion: number }> = [];
+  for (let job of jobsData.jobs.filter(j => j.sfia.length > 0)) {
+    let requiredTotal = 0;
+    let completedTotal = 0;
+
+    for (let skill of job.sfia) {
+      let existing = sfiaSkills.find(s => s.id === skill.id);
+      if (existing) {
+        completedTotal += existing.level;
+      }
+      requiredTotal += skill.level;
+    }
+
+    jobsCompletion.push({
+      job,
+      completion: round(completedTotal / requiredTotal, 2) * 100
+    });
+  }
+  jobsCompletion.sort((a, b) => (a.completion < b.completion ? 1 : -1));
+
   return (
     <>
       <Text is="div" marginTop={8}>
@@ -416,20 +373,64 @@ const StudyView = ({ study }) => {
         ¢
       </Text>
 
-      {study && (
-        <Pane marginBottom={24}>
+      <Expander title="Study Schedule" id="studySchedule">
+        <Pane>
           {study.map((s, i) => (
             <Pane key={i}>
-              <Heading>Semester {i + 1}</Heading>
+              <Heading marginTop={8}>Semester {i + 1}</Heading>
               {s.map((c, i) => (
-                <Text is="li" key={i}>
+                <Text is="div" key={i}>
                   {logSearchNode(c.node)}
                 </Text>
               ))}
             </Pane>
           ))}
         </Pane>
-      )}
+      </Expander>
+
+      <Expander title="SFIA Skills" id="studySFIA">
+        {sfiaSkills.map(s => (
+          <Text is="div" key={s.id} marginTop={4}>
+            <Badge
+              width={70}
+              marginRight={8}
+              color={
+                s.level > 5 ? 'green' : s.level > 4 ? 'orange' : s.level > 2 ? 'yellow' : 'red'
+              }
+            >
+              Level {round(s.level, 1)}
+            </Badge>{' '}
+            <Link href={`/view/sfia-skills/${url(s.name)}-${s.id}`}>
+              <a>
+                <Text>
+                  {s.name} from {s.unit}
+                </Text>
+              </a>
+            </Link>
+          </Text>
+        ))}
+      </Expander>
+
+      <Expander title="Jobs" id="studyJobs">
+        <UnorderedList icon="tick" iconColor="success">
+          {jobsCompletion.map(s => (
+            <ListItem
+              key={s.job.id}
+              icon={s.completion >= 100 ? 'tick' : 'cross'}
+              iconColor={s.completion > 80 ? 'green' : s.completion > 60 ? 'orange' : 'red'}
+            >
+              <Badge color={s.completion > 80 ? 'green' : s.completion > 60 ? 'orange' : 'red'}>
+                Completed {s.completion > 100 ? 100 : round(s.completion, 1)}%
+              </Badge>{' '}
+              <Link href={`/editor/jobs/${url(s.job.name)}-${s.job.id}`}>
+                <a>
+                  <Text>{s.job.name}</Text>
+                </a>
+              </Link>
+            </ListItem>
+          ))}
+        </UnorderedList>
+      </Expander>
     </>
   );
 };

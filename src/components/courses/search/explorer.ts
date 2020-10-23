@@ -249,6 +249,20 @@ function removeFromStudy(study: Study, node: ExplorerNode) {
 export class Explorer {
   static log = '';
 
+  // check for combination and returns result immediately
+  static checkCombination = (nodes: SearchNode[]) => {
+    // create study
+    let explorer = new Explorer(nodes);
+    let study = explorer.fullSearch();
+
+    if (study) {
+      self.postMessage({ status: 'Result', study }, undefined);
+      return true;
+    }
+
+    return false;
+  };
+
   doing: ExplorerNode[];
   done: ExplorerNode[];
   study: Study = [[], [], [], [], [], []];
