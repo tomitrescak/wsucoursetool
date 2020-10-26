@@ -444,7 +444,12 @@ export const DetailsReadonly: React.FC<{ item: SfiaSkill }> = observer(({ item }
 
         <Pane display="flex">
           <Pane flex={1} textAlign="justify" paddingRight={16}>
-            <Text is="div" dangerouslySetInnerHTML={{ __html: item.description }} />
+            <Text
+              is="div"
+              dangerouslySetInnerHTML={{ __html: item.description }}
+              lineHeight="inherit"
+              id="QQQ"
+            />
           </Pane>
           <Pane flex={1}>
             <Heading size={400} marginBottom={16}>

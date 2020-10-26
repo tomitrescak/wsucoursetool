@@ -46,7 +46,7 @@ const tabs = [
   'Coordinators',
   'Topics',
   // 'Blocks',
-  'Specialisations',
+  // 'Specialisations',
   'Jobs',
   'ACS Skills',
   'SFIA Skills',

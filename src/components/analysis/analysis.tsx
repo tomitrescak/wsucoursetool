@@ -79,7 +79,7 @@ const groupByStrategies: {
       }, []);
     },
     inGroup(block, group, collections) {
-      return block.keywords.some(keyword => keyword === group);
+      return (block.keywords || []).some(keyword => keyword === group);
     }
   },
   topic: {
@@ -95,6 +95,9 @@ const groupByStrategies: {
       }, []);
     },
     inGroup(block, group, collections) {
+      if (group === 'Unknown') {
+        return false;
+      }
       let tp = collections.topics.find(t => t.name === group);
       return block.topics.some(t => t.id === tp.id);
     }
@@ -189,7 +192,7 @@ const Container = () => {
       : null;
 
   let db: Unit[] = data.db;
-  let courseUnits = extractCriteriaUnits(selectedCourse.completionCriteria);
+  let courseUnits = selectedCourse ? extractCriteriaUnits(selectedCourse.completionCriteria) : null;
   let majorUnits = selectedMajor ? extractCriteriaUnits(selectedMajor.completionCriteria) : null;
 
   const filteredUnits = db

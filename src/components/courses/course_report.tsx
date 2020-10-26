@@ -132,7 +132,7 @@ const TopicReport = ({ profile, finder, combinationReport, required }: TopicRepo
                       {report.combinations.length > maxCombinations
                         ? `${maxCombinations}+`
                         : report.combinations.length}{' '}
-                      combination(s) for {report.missing}¢
+                      combination(s) for {round(report.missing, 2)}¢
                     </span>
 
                     {/* <ul style={{ background: 'pink', padding: 8 }}>
@@ -303,7 +303,7 @@ type StudyProps = {
 
 type SfiaMappingWithName = SfiaSkillMapping & { name: string; unit: string };
 
-const StudyView = ({ study }) => {
+const StudyView = ({ study }: { study: Study }) => {
   const { loading, error, data } = useSfiaQuery();
   const { loading: jobsLoading, error: jobsError, data: jobsData } = useJobsWithDetailsQuery();
 
@@ -379,7 +379,18 @@ const StudyView = ({ study }) => {
             <Pane key={i}>
               <Heading marginTop={8}>Semester {i + 1}</Heading>
               {s.map((c, i) => (
-                <Text is="div" key={i}>
+                <Text
+                  is="div"
+                  key={i}
+                  title={c.node.dependsOn.map(d => logSearchNode(d)).join('\n')}
+                >
+                  <Badge
+                    marginRight={8}
+                    color={c.node.level == 0 ? 'green' : c.node.level < 2 ? 'orange' : 'red'}
+                  >
+                    {c.node.offer === 0 ? 'AU' : c.node.offer === 1 ? 'SP' : 'AS'}
+                  </Badge>
+
                   {logSearchNode(c.node)}
                 </Text>
               ))}
@@ -532,6 +543,7 @@ const StudyExplorer = observer(({ required, combinationReport }: StudyProps) => 
 export const CourseReport = ({ units, course, majors, topics }: Props) => {
   const [viableCombinations, setViableCombinations] = React.useState<SearchNode[][]>(null);
   const [isDebugger, toggleDebugger] = React.useState(!!localStorage.getItem('courseDebugger'));
+  const [details, toggleDetails] = React.useState(false);
 
   const finder = React.useMemo(() => {
     const finder = new Finder(topics, units);
@@ -592,6 +604,7 @@ export const CourseReport = ({ units, course, majors, topics }: Props) => {
         Completion Criteria
         <Button
           float="right"
+          marginLeft={8}
           onClick={() => {
             if (isDebugger) {
               localStorage.removeItem('courseDebugger');
@@ -602,6 +615,15 @@ export const CourseReport = ({ units, course, majors, topics }: Props) => {
           }}
         >
           Show {isDebugger ? 'Study' : 'Debugger'}
+        </Button>
+        <Button
+          float="right"
+          marginLeft={8}
+          isActive={details}
+          iconBefore="wrench"
+          onClick={() => toggleDetails(!details)}
+        >
+          Toggle Breakdown
         </Button>
       </Heading>
       <Heading marginBottom={8} size={500}>
@@ -637,12 +659,14 @@ export const CourseReport = ({ units, course, majors, topics }: Props) => {
           />
         )}
 
-        <TopicReport
-          profile={profile}
-          finder={finder}
-          combinationReport={combinationReport}
-          required={required}
-        />
+        {details && (
+          <TopicReport
+            profile={profile}
+            finder={finder}
+            combinationReport={combinationReport}
+            required={required}
+          />
+        )}
       </Pane>
     </div>
   );
