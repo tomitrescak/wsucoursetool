@@ -1,29 +1,21 @@
-import React from 'react';
-import { observer, useLocalStore } from 'mobx-react';
-import {
-  TextInputField,
-  Pane,
-  Tablist,
-  Heading,
-  Button,
-  IconButton,
-  toaster,
-  Badge,
-  Text
-} from 'evergreen-ui';
-import { State, Topic, Entity } from '../types';
-import { buildForm, findMaxId, url } from 'lib/helpers';
-import Link from 'next/link';
-
+import { TopicModel } from 'components/classes';
+import { ProgressView } from 'components/common/progress_view';
 import { SideTab, Tabs, TextField } from 'components/common/tab';
-import marked from 'marked';
-import { useRouter } from 'next/router';
 import { TextEditor } from 'components/common/text_editor';
 import { VerticalPane } from 'components/common/vertical_pane';
-import { model, Model, prop, modelAction, undoMiddleware } from 'mobx-keystone';
-import { TopicModel } from 'components/classes';
-import { useSaveConfigMutation, useTopicsDetailsQuery, TopicDetails } from 'config/graphql';
-import { ProgressView } from 'components/common/progress_view';
+import { TopicDetails, useSaveConfigMutation, useTopicsDetailsQuery } from 'config/graphql';
+import {
+  Badge, Button, Heading, IconButton, Pane, Tablist, Text, TextInputField, toaster
+} from 'evergreen-ui';
+import { buildForm, findMaxId, url } from 'lib/helpers';
+import marked from 'marked';
+import { model, Model, modelAction, prop, undoMiddleware } from 'mobx-keystone';
+import { observer, useLocalStore } from 'mobx-react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+
+import { Entity, State, Topic } from '../types';
 
 @model('Editor/Topics')
 class TopicEditorModel extends Model({
@@ -91,8 +83,8 @@ const RelatedBlocks = ({ item }) => (
     {item.blocks.length === 0 && <Text>This topic is not covered in any block</Text>}
 
     <ul>
-      {item.blocks.map(b => (
-        <li key={b.unitId + '_' + b.blockId}>
+      {item.blocks.map((b, i) => (
+        <li key={b.unitId + '_' + b.blockId + '_' + i}>
           <Link href={`/view/[category]/[item]`} as={`/view/units/${url(b.unitName)}-${b.unitId}`}>
             <a>
               <Text>{b.unitName}</Text>
@@ -165,7 +157,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
   const model = React.useMemo(() => {
     if (data) {
       let model = new TopicEditorModel({
-        items: data.topicsDetails.map(t => new TopicModel(t))
+        items: data.topicsDetails.map(t => new TopicModel(t as any))
       });
       state.undoManager = undoMiddleware(model);
       state.save = () => {

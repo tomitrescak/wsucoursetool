@@ -15,5 +15,7 @@ query Units {
     obsolete
     processed
     proposed
+    contacted
+    fixed
   }
 }

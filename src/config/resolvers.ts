@@ -49,6 +49,8 @@ export type UnitList = {
   outdated?: Maybe<Scalars['Boolean']>;
   processed?: Maybe<Scalars['Boolean']>;
   proposed?: Maybe<Scalars['Boolean']>;
+  contacted?: Maybe<Scalars['Boolean']>;
+  fixed?: Maybe<Scalars['Boolean']>;
   hidden?: Maybe<Scalars['Boolean']>;
   topics?: Maybe<Array<Scalars['String']>>;
   level?: Maybe<Scalars['Int']>;
@@ -468,6 +470,8 @@ export type UnitListResolvers<ContextType = any, ParentType extends ResolversPar
   outdated?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   processed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   proposed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  contacted?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  fixed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   hidden?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   topics?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;

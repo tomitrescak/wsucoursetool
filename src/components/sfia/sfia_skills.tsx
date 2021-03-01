@@ -416,13 +416,17 @@ const Details: React.FC<{
 
 export const DetailsReadonly: React.FC<{ item: SfiaSkill }> = observer(({ item }) => {
   const category = sfiaCategories.find(c => c.id === item.category);
-  const subCategory = category.subcategories.find(c => c.id === item.subCategory);
+  const subCategory = category?.subcategories.find(c => c.id === item.subCategory);
 
   const { loading, error, data } = useSfiaUnitsQuery({
     variables: {
       id: item.id
     }
   });
+
+  if (category == null) {
+    return <Alert>We do not register skill with category: {item.category}</Alert>;
+  }
 
   if (loading || error) {
     return <ProgressView loading={loading} error={error} />;
@@ -436,7 +440,7 @@ export const DetailsReadonly: React.FC<{ item: SfiaSkill }> = observer(({ item }
     <div style={{ flex: 1 }}>
       <Pane background="tint3" borderRadius={6} marginLeft={24}>
         <Heading size={500} marginBottom={16}>
-          {category.name} &gt; {subCategory.name} &gt;{' '}
+          {category.name} &gt; {subCategory?.name} &gt;{' '}
           <a href={item.url}>
             {item.name} ({item.id})
           </a>

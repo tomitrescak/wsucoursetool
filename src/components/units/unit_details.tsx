@@ -1,60 +1,32 @@
-import React from 'react';
-import marked from 'marked';
-import { observer, useLocalStore } from 'mobx-react';
-import {
-  TextInputField,
-  Pane,
-  Heading,
-  Button,
-  Text,
-  TabNavigation,
-  Tab,
-  Checkbox,
-  toaster,
-  Combobox,
-  TextInput,
-  IconButton,
-  Badge,
-  SelectMenu,
-  Label
-} from 'evergreen-ui';
-import { State, AcsKnowledge, Block, Topic, Entity, Prerequisite } from '../types';
-import { buildForm, url } from 'lib/helpers';
-import Link from 'next/link';
-
-import { useRouter } from 'next/router';
-import { KeywordEditor, TopicEditor } from 'components/common/tag_editors';
-import { action } from 'mobx';
-import { Expander } from 'components/common/expander';
-import { PrerequisiteEditor } from '../prerequisites/prerequisite_editor';
-import { ProgressView } from '../common/progress_view';
-import {
-  BlockModel,
-  UnitModel,
-  createBlocks,
-  createUnit,
-  createCompletionCriteria,
-  PrerequisiteModel
-} from '../classes';
-
-import {
-  useUnitQuery,
-  useDeleteUnitMutation,
-  CourseListDocument,
-  useSaveConfigMutation,
-  useUnitDependenciesQuery,
-  useSfiaQuery
-} from 'config/graphql';
-import { model, prop, Model, undoMiddleware } from 'mobx-keystone';
-import { TopicBlockEditor } from 'components/completion_criteria/completion_criteria_editor';
-import { TextEditor } from 'components/common/text_editor';
-import { OutcomeEditor } from 'components/outcomes/outcome_editor';
-import { Dependency } from 'config/utils';
-import { UnitGraph } from './unit_graph';
 import { BlocksEditor } from 'components/blocks/block_editor';
 import { BlockDependencyGraph } from 'components/blocks/block_graph';
-import { UnitDependency } from 'config/resolvers';
+import { Expander } from 'components/common/expander';
+import { TextEditor } from 'components/common/text_editor';
+import { TopicBlockEditor } from 'components/completion_criteria/completion_criteria_editor';
+import { OutcomeEditor } from 'components/outcomes/outcome_editor';
 import { SfiaOwnerEditor } from 'components/sfia/sfia_owner_editor';
+import {
+  CourseListDocument, useDeleteUnitMutation, useSaveConfigMutation, useUnitDependenciesQuery,
+  useUnitQuery
+} from 'config/graphql';
+import { UnitDependency } from 'config/resolvers';
+import { Dependency } from 'config/utils';
+import {
+  Button, Checkbox, Heading, Label, Pane, SelectMenu, Tab, TabNavigation, Text, TextInputField,
+  toaster
+} from 'evergreen-ui';
+import { buildForm, url } from 'lib/helpers';
+import { model, undoMiddleware } from 'mobx-keystone';
+import { observer, useLocalStore } from 'mobx-react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+
+import { createCompletionCriteria, createUnit, UnitModel } from '../classes';
+import { ProgressView } from '../common/progress_view';
+import { PrerequisiteEditor } from '../prerequisites/prerequisite_editor';
+import { AcsKnowledge, Block, Entity, State } from '../types';
+import { UnitGraph } from './unit_graph';
 
 const selfColor = 'rgb(251, 230, 162)';
 
@@ -100,6 +72,14 @@ const nodeClasses = [
     style: {
       backgroundColor: 'purple',
       color: 'black',
+      fontWeight: 'bold'
+    }
+  },
+  {
+    selector: '.resolved',
+    style: {
+      backgroundColor: 'blue',
+      color: 'white',
       fontWeight: 'bold'
     }
   },
@@ -345,7 +325,7 @@ const UnitDetails: React.FC<{
 }> = observer(
   ({ model: unit, keywords, readonly, acs, state, dependencies, readonlyBlocks, topics }) => {
     const form = React.useMemo(
-      () => buildForm(unit, ['name', 'id', 'delivery', 'outcome', 'group']),
+      () => buildForm(unit, ['name', 'id', 'delivery', 'outcome', 'group', 'coordinator']),
       [unit]
     );
     let selectionBlocks = [...unit.blocks];
@@ -493,7 +473,6 @@ const UnitDetails: React.FC<{
                   value={unit.coordinator}
                   id="unitCordinator"
                   onChange={form.coordinator}
-                  disabled={true}
                   margin={0}
                   marginRight={8}
                 />
@@ -615,20 +594,38 @@ const UnitDetails: React.FC<{
                       disabled={readonly}
                     />
 
-                    <Checkbox
+                    {/* <Checkbox
                       margin={0}
                       label="Processed"
                       onChange={e => (unit.processed = e.currentTarget.checked)}
                       checked={unit.processed}
                       disabled={readonly}
                       marginLeft={16}
-                    />
+                    /> */}
 
-                    <Checkbox
+                    {/* <Checkbox
                       margin={0}
                       label="Proposed"
                       onChange={e => (unit.proposed = e.currentTarget.checked)}
                       checked={unit.proposed}
+                      disabled={readonly}
+                      marginLeft={16}
+                    /> */}
+
+                    <Checkbox
+                      margin={0}
+                      label="Contacted"
+                      onChange={e => (unit.contacted = e.currentTarget.checked)}
+                      checked={unit.contacted}
+                      disabled={readonly}
+                      marginLeft={16}
+                    />
+
+                    <Checkbox
+                      margin={0}
+                      label="Fixed"
+                      onChange={e => (unit.fixed = e.currentTarget.checked)}
+                      checked={unit.fixed}
                       disabled={readonly}
                       marginLeft={16}
                     />

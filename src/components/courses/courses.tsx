@@ -1,59 +1,28 @@
-import React from 'react';
-import marked from 'marked';
-import { observer, useLocalStore } from 'mobx-react';
-import {
-  TextInputField,
-  Pane,
-  Tablist,
-  SidebarTab,
-  Alert,
-  Heading,
-  Dialog,
-  Button,
-  Text,
-  Badge,
-  Checkbox,
-  TextInput,
-  IconButton,
-  toaster,
-  Tab,
-  Combobox,
-  SelectMenu
-} from 'evergreen-ui';
-import {
-  Unit,
-  State,
-  Course,
-  AcsKnowledge,
-  CourseCompletionCriteria,
-  UnitCondition
-} from '../types';
-import { url, buildForm, extractCriteriaUnits, groupBy } from 'lib/helpers';
-import Link from 'next/link';
-
-import Router, { useRouter } from 'next/router';
-
-import { skills } from 'components/outcomes/outcome_editor';
-import { VerticalPane } from 'components/common/vertical_pane';
-import { Expander } from 'components/common/expander';
-import {
-  useCourseListQuery,
-  CourseList,
-  useCreateCourseMutation,
-  useCourseQuery,
-  useDeleteCourseMutation,
-  useSaveConfigMutation,
-  useUnitsQuery,
-  UnitList
-} from 'config/graphql';
-import { ProgressView } from 'components/common/progress_view';
-import { CourseModel, CourseUnitModel, createCourse, MajorModel } from 'components/classes';
-import { BlockDependencyGraph } from 'components/blocks/block_graph';
 import { AcsUnitGraph } from 'components/acs/acs_graph';
+import { BlockDependencyGraph } from 'components/blocks/block_graph';
+import { CourseModel, createCourse } from 'components/classes';
+import { Expander } from 'components/common/expander';
+import { ProgressView } from 'components/common/progress_view';
+import { VerticalPane } from 'components/common/vertical_pane';
+import {
+  CourseList, UnitList, useCourseListQuery, useCourseQuery, useCreateCourseMutation,
+  useDeleteCourseMutation, useSaveConfigMutation
+} from 'config/graphql';
+import {
+  Alert, Badge, Button, Checkbox, Dialog, Heading, IconButton, Pane, SelectMenu, SidebarTab, Tab,
+  Tablist, Text, TextInput, TextInputField, toaster
+} from 'evergreen-ui';
+import { buildForm, extractCriteriaUnits, groupBy, url } from 'lib/helpers';
 import { undoMiddleware } from 'mobx-keystone';
+import { observer, useLocalStore } from 'mobx-react';
+import Link from 'next/link';
+import Router, { useRouter } from 'next/router';
+import React from 'react';
+
+import { AcsKnowledge, State, Unit, UnitCondition } from '../types';
+import { CourseCompletionCriteriaRoot } from './course_completion_criteria';
 import { CourseOverview } from './course_overview';
 import { CourseReport } from './course_report';
-import { CourseCompletionCriteriaRoot } from './course_completion_criteria';
 
 const classes = [
   {
@@ -827,7 +796,7 @@ const CourseDetails: React.FC<{
           <UnitsBySemester
             course={course}
             courseUnits={courseUnits}
-            units={data.units}
+            units={data.units as any}
             topics={data.topics}
             localState={localState}
             view={view}
@@ -835,7 +804,7 @@ const CourseDetails: React.FC<{
           <UnitsByTopic
             course={course}
             courseUnits={courseUnits}
-            units={data.units}
+            units={data.units as any}
             topics={data.topics}
             localState={localState}
             view={view}
@@ -867,7 +836,7 @@ const CourseDetails: React.FC<{
           acs={data.acs}
           report={data.courseReport}
           selectedUnits={selectedUnits}
-          allUnits={data.units}
+          allUnits={data.units as any}
           topics={data.topics}
           courseUnits={courseUnits}
           course={course}

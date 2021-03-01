@@ -9,6 +9,8 @@ query CourseList {
     outdated
     processed
     proposed
+    contacted
+    fixed
     hidden
     topics
   }

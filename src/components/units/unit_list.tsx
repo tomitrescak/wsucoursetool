@@ -1,30 +1,17 @@
-import React from 'react';
-import { observer, useLocalStore } from 'mobx-react';
-import {
-  TextInputField,
-  Pane,
-  Tablist,
-  SidebarTab,
-  Alert,
-  Dialog,
-  Button,
-  Badge,
-  Select,
-  TextInput,
-  Text,
-  SelectMenu,
-  Icon,
-  IconButton,
-  Checkbox
-} from 'evergreen-ui';
-import { Unit, State } from '../types';
-import { url, buildForm, extractCriteriaUnits } from 'lib/helpers';
-import Link from 'next/link';
-
-import { useRouter } from 'next/router';
-import { VerticalPane } from 'components/common/vertical_pane';
-import { useCourseListQuery, UnitList, useCreateUnitMutation } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
+import { VerticalPane } from 'components/common/vertical_pane';
+import { UnitList, useCourseListQuery, useCreateUnitMutation } from 'config/graphql';
+import {
+  Alert, Badge, Button, Checkbox, Dialog, Icon, IconButton, Pane, Select, SelectMenu, SidebarTab,
+  Tablist, Text, TextInput, TextInputField
+} from 'evergreen-ui';
+import { buildForm, extractCriteriaUnits, url } from 'lib/helpers';
+import { observer, useLocalStore } from 'mobx-react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+
+import { State } from '../types';
 import { UnitDetailContainer } from './unit_details';
 
 const TopicBadge = ({ children }) => (
@@ -126,6 +113,16 @@ const UnitListItem = ({ unit, view, unitId, topics, selectedCourse }) => {
         {unit.proposed && (
           <Badge color="purple" marginRight={8}>
             Proposed
+          </Badge>
+        )}
+        {unit.contacted && (
+          <Badge color="purple" marginRight={8}>
+            Contacted
+          </Badge>
+        )}
+        {unit.fixed && (
+          <Badge color="blue" marginRight={8}>
+            Fixed
           </Badge>
         )}
         {unit.hidden && (

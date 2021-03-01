@@ -1,29 +1,11 @@
-import { model, Model, prop, ExtendedModel, undoMiddleware, modelAction } from 'mobx-keystone';
-import {
-  Activity,
-  BlockType,
-  PrerequisiteType,
-  Prerequisite,
-  Block,
-  SfiaSkill,
-  AcsKnowledge,
-  Job,
-  Specialisation,
-  CompletionCriteria,
-  CompletionCriteriaType,
-  Major,
-  Course,
-  Unit,
-  Entity,
-  Outcome,
-  SfiaSkillMapping,
-  UnitCondition,
-  CourseCompletionCriteria,
-  TopicCondition,
-  FrameworkCondition,
-  BlockTopic
-} from './types';
 import { toJS } from 'mobx';
+import { ExtendedModel, model, Model, modelAction, prop } from 'mobx-keystone';
+
+import {
+  AcsKnowledge, Activity, Block, BlockTopic, BlockType, CompletionCriteria, CompletionCriteriaType,
+  Course, CourseCompletionCriteria, Entity, FrameworkCondition, Job, Major, Outcome, Prerequisite,
+  PrerequisiteType, SfiaSkill, SfiaSkillMapping, Specialisation, TopicCondition, Unit, UnitCondition
+} from './types';
 
 const removeEmpty = obj => {
   Object.keys(obj).forEach(key => {
@@ -327,6 +309,8 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   duplicate: prop<boolean>({ setterAction: true }),
   proposed: prop<boolean>({ setterAction: true }),
   hidden: prop<boolean>({ setterAction: true }),
+  contacted: prop<boolean>({ setterAction: true }),
+  fixed: prop<boolean>({ setterAction: true }),
   group: prop<string>({ setterAction: true }),
   positions: prop<any>(() => [], { setterAction: true }),
   sfiaSkills: prop<SfiaSkillMappingModel[]>(() => [], { setterAction: true }),
@@ -336,7 +320,7 @@ export class UnitModel extends ExtendedModel(EntityModel, {
     return removeEmpty({
       ...super.toJS(),
       ...toJS(this.$),
-      sfiaSkills: this.sfiaSkills.map(p => toJS(p.$)),
+      sfiaSkills: this.sfiaSkills.filter(s => s.level).map(p => toJS(p.$)),
       positions: this.positions.map(p => toJS(p)),
       blocks: this.blocks.map(b => b.toJS()),
       completionCriteria: this.completionCriteria.toJS(),

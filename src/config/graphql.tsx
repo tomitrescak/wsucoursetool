@@ -50,6 +50,8 @@ export type UnitList = {
   outdated?: Maybe<Scalars['Boolean']>;
   processed?: Maybe<Scalars['Boolean']>;
   proposed?: Maybe<Scalars['Boolean']>;
+  contacted?: Maybe<Scalars['Boolean']>;
+  fixed?: Maybe<Scalars['Boolean']>;
   hidden?: Maybe<Scalars['Boolean']>;
   topics?: Maybe<Array<Scalars['String']>>;
   level?: Maybe<Scalars['Int']>;
@@ -370,7 +372,7 @@ export type CourseUnitsQuery = Pick<Query, 'courseUnits'>;
 export type CourseListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CourseListQuery = { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'level' | 'obsolete' | 'outdated' | 'processed' | 'proposed' | 'hidden' | 'topics'>>, topics: Array<Pick<TopicList, 'id' | 'name'>>, courses: Array<(
+export type CourseListQuery = { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'level' | 'obsolete' | 'outdated' | 'processed' | 'proposed' | 'contacted' | 'fixed' | 'hidden' | 'topics'>>, topics: Array<Pick<TopicList, 'id' | 'name'>>, courses: Array<(
     Pick<CourseList, 'id' | 'name' | 'completionCriteria'>
     & { majors: Array<Pick<MajorList, 'completionCriteria' | 'id' | 'name'>> }
   )> };
@@ -524,7 +526,7 @@ export type UnitDependenciesQuery = { unitDepenendencies: Array<(
 export type UnitsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UnitsQuery = { topics: Array<Pick<TopicList, 'id' | 'name'>>, units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'topics' | 'id' | 'name' | 'level' | 'outdated' | 'obsolete' | 'processed' | 'proposed'>> };
+export type UnitsQuery = { topics: Array<Pick<TopicList, 'id' | 'name'>>, units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'topics' | 'id' | 'name' | 'level' | 'outdated' | 'obsolete' | 'processed' | 'proposed' | 'contacted' | 'fixed'>> };
 
 export const PrerequisiteFragmentDoc = gql`
     fragment Prerequisite on Prerequisite {
@@ -859,6 +861,8 @@ export const CourseListDocument = gql`
     outdated
     processed
     proposed
+    contacted
+    fixed
     hidden
     topics
   }
@@ -1598,6 +1602,8 @@ export const UnitsDocument = gql`
     obsolete
     processed
     proposed
+    contacted
+    fixed
   }
 }
     `;

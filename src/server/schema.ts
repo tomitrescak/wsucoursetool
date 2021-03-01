@@ -39,6 +39,8 @@ export const typeDefs = gql`
     outdated: Boolean
     processed: Boolean
     proposed: Boolean
+    contacted: Boolean
+    fixed: Boolean
     hidden: Boolean
     topics: [String!]
     level: Int

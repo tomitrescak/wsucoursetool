@@ -1,27 +1,16 @@
-import React from 'react';
-import marked from 'marked';
-import { observer, useLocalStore } from 'mobx-react';
-import {
-  TextInputField,
-  Pane,
-  Heading,
-  Button,
-  Text,
-  TabNavigation,
-  Tab,
-  Checkbox,
-  toaster,
-  Combobox,
-  TextInput,
-  IconButton,
-  Badge
-} from 'evergreen-ui';
-import { buildForm } from 'lib/helpers';
-import { ProgressView } from '../common/progress_view';
-import { SfiaSkillMappingModel, SfiaSkillModel, UnitModel } from '../classes';
-
-import { useSfiaQuery } from 'config/graphql';
 import { SfiaSkillMapping } from 'components/types';
+import { useSfiaQuery } from 'config/graphql';
+import {
+  Badge, Button, Checkbox, Combobox, Heading, IconButton, Pane, Text, TextInput
+} from 'evergreen-ui';
+import { buildForm, url } from 'lib/helpers';
+import { action } from 'mobx';
+import { observer, useLocalStore } from 'mobx-react';
+import Link from 'next/link';
+import React from 'react';
+
+import { SfiaSkillMappingModel } from '../classes';
+import { ProgressView } from '../common/progress_view';
 
 const SfiaSkill = observer(({ data, skill, unit, index, readonly, hasMax }) => {
   const selected = data.sfia.find(s => s.id === skill.id);
@@ -29,27 +18,20 @@ const SfiaSkill = observer(({ data, skill, unit, index, readonly, hasMax }) => {
   return (
     <Pane display="flex" marginTop={8}>
       <Pane flex="1" marginRight={8}>
-        {readonly ? (
+        {readonly && (
           <>
             <Badge marginRight={8}>
               Level {skill.level} {skill.max ? `/ ${skill.max}` : ''}
             </Badge>
-            <Text>
-              {selected.name} ({selected.id})
-            </Text>
           </>
-        ) : (
-          // <Combobox
-          //   id="skill"
-          //   width="100%"
-          //   initialSelectedItem={{ label: '' }}
-          //   items={data.sfia}
-          //   itemToString={item => (item ? `${item.name} (${item.id})` : '')}
-          //   selectedItem={selected}
-          //   onChange={selected => (skill.id = selected.id)}
-          // />
-          <TextInput width="100%" disabled={true} value={`${selected.name} (${selected.id})`} />
         )}
+        <Text>
+          <Link href={`/view/sfia-skills/${url(selected.name)}-${selected.id}`}>
+            <a>
+              {selected.name} ({selected.id})
+            </a>
+          </Link>
+        </Text>
       </Pane>
       {!readonly && (
         <TextInput
@@ -99,9 +81,27 @@ export const SfiaOwnerEditor = observer(
     hasMax: boolean;
   }) => {
     const { loading, error, data, refetch } = useSfiaQuery();
+    const [showingAll, showAll] = React.useState(false);
+
     const localState = useLocalStore(() => ({ newSkill: '', max: 0, newLevel: 0, flagged: false }));
     if (loading || error) {
       return <ProgressView loading={loading} error={error} />;
+    }
+
+    if (showingAll) {
+      if (owner.sfiaSkills == null) {
+        owner.sfiaSkills = [];
+      }
+      setTimeout(
+        action(() => {
+          for (let skill of data.sfia) {
+            if (owner.sfiaSkills.every(s => s.id !== skill.id)) {
+              owner.addSfiaSkill({ id: skill.id, level: 0 });
+            }
+          }
+        }),
+        100
+      );
     }
 
     return (
@@ -128,6 +128,7 @@ export const SfiaOwnerEditor = observer(
             const sfiaB = data.sfia.find(s => s.id === b.id);
             return sfiaA.name.localeCompare(sfiaB.name);
           })
+          .filter(f => (showingAll ? true : f.level))
           .map((skill, index) => (
             <SfiaSkill
               key={index + '_' + skill.id}
@@ -183,6 +184,10 @@ export const SfiaOwnerEditor = observer(
             />
           </Pane>
         )}
+
+        <Button isActive={showingAll} onClick={() => showAll(!showingAll)}>
+          Toggle All
+        </Button>
       </>
     );
   }

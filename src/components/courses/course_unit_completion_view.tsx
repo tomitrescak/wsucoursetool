@@ -2,10 +2,9 @@ import { CourseCompletionCriteriaModel, UnitConditionModel } from 'components/cl
 import { ProgressView } from 'components/common/progress_view';
 import { UnitCondition } from 'components/types';
 import { UnitList, useUnitsQuery } from 'config/graphql';
-import { Button, Combobox, Heading, IconButton, Pane, Text } from 'evergreen-ui';
-import groupByArray, { groupBy } from 'lib/helpers';
-import { observer, useLocalStore } from 'mobx-react';
-import Head from 'next/head';
+import { Heading, Pane, Text } from 'evergreen-ui';
+import groupByArray from 'lib/helpers';
+import { observer } from 'mobx-react';
 import React from 'react';
 
 type CriteriaProps = {
@@ -52,7 +51,7 @@ export const CourseCompletionUnitView = observer(({ criteria }: CriteriaProps) =
       <Heading size={500}>Units</Heading>
 
       {groupByArray(criteria.units, 'semester').map(group => (
-        <React.Fragment key={group.key}>
+        <React.Fragment key={group.key as any}>
           <Heading size={400} marginTop={8}>
             Semester {group.key}
           </Heading>
