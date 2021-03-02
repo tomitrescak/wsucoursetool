@@ -4,7 +4,7 @@ import { ProgressView } from 'components/common/progress_view';
 import { SfiaSkillMapping } from 'components/types';
 import { withApollo } from 'config/apollo';
 import { SfiaQuery, useSaveConfigMutation, useSfiaQuery, useUnitQuery } from 'config/graphql';
-import { Button, Icon, Link, Pane, Select, Text, toaster } from 'evergreen-ui';
+import { Button, Heading, Icon, Link, Pane, Select, Text, toaster } from 'evergreen-ui';
 import { url } from 'lib/helpers';
 import { Observer, observer, useLocalStore } from 'mobx-react';
 import Head from 'next/head';
@@ -408,6 +408,9 @@ export const UnitDetailContainer = ({ id }: any) => {
 
   return (
     <div>
+      <Heading margin={16} fontWeight="bold">
+        {model.name} ({model.id})
+      </Heading>
       <Instructions />
       <SfiaOwnerEditor owner={model} />
 
