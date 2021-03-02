@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 const Instructions = () => (
-  <Pane margin={16}>
+  <Pane margin={16} width="50%">
     <Expander title="Instructions" id="sfiaInstructions">
       <Text>
         <p>
@@ -31,7 +31,7 @@ const Instructions = () => (
         <table>
           <thead>
             <tr>
-              <th>Level</th>
+              <th style={{ width: 150 }}>Level</th>
               <th>Autonomy</th>
               <th>Influence</th>
               <th>Complexity</th>
@@ -260,12 +260,16 @@ const Instructions = () => (
 const Description = ({ description }) => {
   const ref = React.useRef(null);
 
-  React.useEffect(() => {
-    ref.current!.style.marginTop = window.scrollY - 100 + 'px';
-  });
-
   return (
-    <Pane marginLeft={16}>
+    <Pane
+      paddingLeft={16}
+      position="fixed"
+      left="calc(50% + 16px)"
+      right={0}
+      top={0}
+      bottom={0}
+      overflow="auto"
+    >
       <div ref={ref} dangerouslySetInnerHTML={{ __html: description || '' }} />
     </Pane>
   );
@@ -346,7 +350,7 @@ export const SfiaOwnerEditor = ({
   }
 
   return (
-    <Pane margin={16}>
+    <Pane margin={16} width="50%">
       <Expander title="SFIA Skills" id="sfiaSkillsUnit">
         <Pane display="flex">
           <div>
