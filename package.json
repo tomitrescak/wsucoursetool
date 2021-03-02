@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "generate": "graphql-codegen",
-    "deploy": "yarn build && pm2 --coursetool start yarn -- start -p 3310"
+    "deploy": "yarn && yarn build && pm2 --name coursetool start yarn -- start -p 3310"
   },
   "dependencies": {
     "@apollo/client": "^3.0.2",
