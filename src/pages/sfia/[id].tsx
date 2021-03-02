@@ -257,6 +257,20 @@ const Instructions = () => (
   </Pane>
 );
 
+const Description = ({ description }) => {
+  const ref = React.useRef(null);
+
+  React.useEffect(() => {
+    ref.current!.style.marginTop = window.scrollY - 100 + 'px';
+  });
+
+  return (
+    <Pane marginLeft={16}>
+      <div ref={ref} dangerouslySetInnerHTML={{ __html: description || '' }} />
+    </Pane>
+  );
+};
+
 const SfiaSkill = observer(
   ({
     data,
@@ -288,9 +302,9 @@ const SfiaSkill = observer(
 
         <Pane flex="1" marginRight={8}>
           <Text>
-            <a onClick={() => select(selected.description)} href="#">
+            <Text cursor="pointer" onClick={() => select(selected.description)} href="#">
               {selected.name} ({selected.id})
-            </a>
+            </Text>
             &nbsp;
             <Link href={`https://sfia-online.org/en/sfia-7/skills/${url(selected.name)}`}>
               <a target="_blank">
@@ -363,14 +377,7 @@ export const SfiaOwnerEditor = ({
             </div>
           </div>
 
-          <Observer>
-            {() => (
-              <Pane
-                marginLeft={16}
-                dangerouslySetInnerHTML={{ __html: state.description || '' }}
-              ></Pane>
-            )}
-          </Observer>
+          <Observer>{() => <Description description={state.description} />}</Observer>
         </Pane>
       </Expander>
     </Pane>
