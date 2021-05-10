@@ -1,16 +1,10 @@
-import fs from 'fs';
-import path from 'path';
-import {
-  CourseConfig,
-  User,
-  Prerequisite,
-  Unit,
-  CompletionCriteria,
-  CourseCompletionCriteria
-} from 'components/types';
+import { CourseConfig, Prerequisite, Unit, User } from 'components/types';
 import { IResolvers, UnitDependency } from 'config/resolvers';
 import { calculateDependencies } from 'config/utils';
+import fs from 'fs';
 import GraphQLJSON from 'graphql-type-json';
+import path from 'path';
+
 import { processReport } from './processors';
 
 function onlyUnique(value, index, self) {
@@ -24,12 +18,12 @@ let id = 0;
 
 function getDb(): CourseConfig {
   if (g.__db == null) {
-    // g.__db = JSON.parse(
-    //   fs.readFileSync(path.resolve('./src/data/db.json'), {
-    //     encoding: 'utf-8'
-    //   })
-    // );
-    g.__db = require('../data/db.json');
+    g.__db = JSON.parse(
+      fs.readFileSync(path.resolve('./src/data/db.json'), {
+        encoding: 'utf-8'
+      })
+    );
+    // g.__db = require('../data/db.json');
     g.__db.units.forEach(u =>
       u.blocks.forEach(b => {
         b.blockId = id++;

@@ -1,17 +1,10 @@
-import React from 'react';
-import {
-  XYPlot,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  HorizontalBarSeries
-} from 'react-vis';
-
 import { skills } from 'components/outcomes/outcome_editor';
-import { Unit, AcsKnowledge } from 'components/types';
-import { Pane, Heading, TextInputField } from 'evergreen-ui';
+import { AcsKnowledge } from 'components/types';
 import { UnitList } from 'config/graphql';
+import { Heading, Pane, TextInputField } from 'evergreen-ui';
+import {
+  HorizontalBarSeries, HorizontalGridLines, VerticalGridLines, XAxis, XYPlot, YAxis
+} from 'react-vis';
 
 type AcsUnitGraphProps = {
   units: UnitList[];
@@ -70,7 +63,7 @@ export const AcsGraph = ({ bars, acs, readonly }: AcsGraphProps) => {
           width={200}
         />
 
-        <HorizontalBarSeries data={bars} barWidth={0.7} />
+        <HorizontalBarSeries data={bars} barWidth={0.8} />
       </XYPlot>
       {!readonly && <TextInputField label="Values" value={bars.map(b => b.x).join('\t')} />}
 
