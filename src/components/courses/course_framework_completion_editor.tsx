@@ -124,35 +124,35 @@ export const CourseCompletionSfiaEditor = observer(({ criteria }: CriteriaProps)
   );
 });
 
-export const CourseCompletionAcsEditor = observer(({ criteria }: CriteriaProps) => {
-  const { loading, error, data } = useAcsQuery();
-  if (loading) {
-    return <ProgressView loading={loading} error={error} />;
-  }
-  const elements = data.acs.flatMap(m => m.items);
-  return (
-    <Expander title="ACS" id="acscc">
-      <Pane paddingTop={8}>
-        {criteria.acs.map((u, i) => (
-          <UnitItemEditor
-            elements={elements}
-            model={u}
-            owner={criteria}
-            key={u.id + i}
-            removeFunction="removeAcs"
-          />
-        ))}
+// export const CourseCompletionAcsEditor = observer(({ criteria }: CriteriaProps) => {
+//   const { loading, error, data } = useAcsQuery();
+//   if (loading) {
+//     return <ProgressView loading={loading} error={error} />;
+//   }
+//   const elements = data.acs.flatMap(m => m.items);
+//   return (
+//     <Expander title="ACS" id="acscc">
+//       <Pane paddingTop={8}>
+//         {criteria.acs.map((u, i) => (
+//           <UnitItemEditor
+//             elements={elements}
+//             model={u}
+//             owner={criteria}
+//             key={u.id + i}
+//             removeFunction="removeAcs"
+//           />
+//         ))}
 
-        <UnitListEditor
-          elements={elements}
-          model={null}
-          owner={criteria}
-          addFunction="addAcs"
-          itemToString={item =>
-            item ? `${data.acs.find(e => e.items.indexOf(item) >= 0).name} > ${item.name}` : ''
-          }
-        />
-      </Pane>
-    </Expander>
-  );
-});
+//         <UnitListEditor
+//           elements={elements}
+//           model={null}
+//           owner={criteria}
+//           addFunction="addAcs"
+//           itemToString={item =>
+//             item ? `${data.acs.find(e => e.items.indexOf(item) >= 0).name} > ${item.name}` : ''
+//           }
+//         />
+//       </Pane>
+//     </Expander>
+//   );
+// });

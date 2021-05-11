@@ -6,7 +6,7 @@ export type User = {
   name: string;
 };
 
-export type PrerequisiteType = 'block' | 'unit' | 'skill' | 'topic' | 'or' | 'and' | 'container';
+export type PrerequisiteType = 'block' | 'unit' | 'sfia' | 'topic' | 'or' | 'and' | 'container';
 
 export type Prerequisite = {
   type: PrerequisiteType;

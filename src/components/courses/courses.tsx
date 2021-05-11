@@ -5,12 +5,31 @@ import { Expander } from 'components/common/expander';
 import { ProgressView } from 'components/common/progress_view';
 import { VerticalPane } from 'components/common/vertical_pane';
 import {
-  CourseList, UnitList, useCourseListQuery, useCourseQuery, useCreateCourseMutation,
-  useDeleteCourseMutation, useSaveConfigMutation
+  CourseList,
+  UnitList,
+  useCourseListQuery,
+  useCourseQuery,
+  useCreateCourseMutation,
+  useDeleteCourseMutation,
+  useSaveConfigMutation
 } from 'config/graphql';
 import {
-  Alert, Badge, Button, Checkbox, Dialog, Heading, IconButton, Pane, SelectMenu, SidebarTab, Tab,
-  Tablist, Text, TextInput, TextInputField, toaster
+  Alert,
+  Badge,
+  Button,
+  Checkbox,
+  Dialog,
+  Heading,
+  IconButton,
+  Pane,
+  SelectMenu,
+  SidebarTab,
+  Tab,
+  Tablist,
+  Text,
+  TextInput,
+  TextInputField,
+  toaster
 } from 'evergreen-ui';
 import { buildForm, extractCriteriaUnits, groupBy, url } from 'lib/helpers';
 import { undoMiddleware } from 'mobx-keystone';

@@ -237,6 +237,7 @@ export type QuerySfiaUnitsArgs = {
 };
 
 export type Mutation = {
+  saveLegacyUnits?: Maybe<Scalars['Boolean']>;
   createUnit: Scalars['JSON'];
   deleteUnit?: Maybe<Scalars['Boolean']>;
   createJob?: Maybe<Scalars['Boolean']>;
@@ -246,6 +247,11 @@ export type Mutation = {
   createCourse?: Maybe<Scalars['Boolean']>;
   deleteCourse?: Maybe<Scalars['Boolean']>;
   save: Scalars['Boolean'];
+};
+
+
+export type MutationSaveLegacyUnitsArgs = {
+  units?: Maybe<Scalars['String']>;
 };
 
 
@@ -625,6 +631,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  saveLegacyUnits?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationSaveLegacyUnitsArgs, never>>;
   createUnit?: Resolver<ResolversTypes['JSON'], ParentType, ContextType, RequireFields<MutationCreateUnitArgs, 'id'>>;
   deleteUnit?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteUnitArgs, 'id'>>;
   createJob?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationCreateJobArgs, 'id'>>;

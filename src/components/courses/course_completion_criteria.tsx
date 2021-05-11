@@ -2,7 +2,7 @@ import { CourseCompletionCriteriaModel } from 'components/classes';
 import { Heading, Pane } from 'evergreen-ui';
 import React from 'react';
 import {
-  CourseCompletionAcsEditor,
+  // CourseCompletionAcsEditor,
   CourseCompletionSfiaEditor
 } from './course_framework_completion_editor';
 import {
@@ -35,7 +35,7 @@ const CourseCompletionCriteriaEditor = ({ criteria }: CriteriaProps) => {
       <CourseCompletionUnitEditor criteria={criteria} />
       <CourseTopicUnitEditor criteria={criteria} />
       <CourseCompletionSfiaEditor criteria={criteria} />
-      <CourseCompletionAcsEditor criteria={criteria} />
+      {/* <CourseCompletionAcsEditor criteria={criteria} /> */}
     </>
   );
 };

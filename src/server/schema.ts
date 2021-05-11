@@ -185,6 +185,8 @@ export const typeDefs = gql`
     db: JSON!
   }
   type Mutation {
+    saveLegacyUnits(units: String): Boolean
+
     createUnit(id: String!, name: String): JSON!
     deleteUnit(id: String!): Boolean
 

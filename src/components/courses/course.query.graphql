@@ -45,8 +45,6 @@ query Course($id: String!) {
     }
   }
 
-  acs
-
   topics {
     id
     name

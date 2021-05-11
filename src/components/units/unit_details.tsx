@@ -6,13 +6,25 @@ import { TopicBlockEditor } from 'components/completion_criteria/completion_crit
 import { OutcomeEditor } from 'components/outcomes/outcome_editor';
 import { SfiaOwnerEditor } from 'components/sfia/sfia_owner_editor';
 import {
-  CourseListDocument, useDeleteUnitMutation, useSaveConfigMutation, useUnitDependenciesQuery,
+  CourseListDocument,
+  useDeleteUnitMutation,
+  useSaveConfigMutation,
+  useUnitDependenciesQuery,
   useUnitQuery
 } from 'config/graphql';
 import { UnitDependency } from 'config/resolvers';
 import { Dependency } from 'config/utils';
 import {
-  Button, Checkbox, Heading, Label, Pane, SelectMenu, Tab, TabNavigation, Text, TextInputField,
+  Button,
+  Checkbox,
+  Heading,
+  Label,
+  Pane,
+  SelectMenu,
+  Tab,
+  TabNavigation,
+  Text,
+  TextInputField,
   toaster
 } from 'evergreen-ui';
 import { buildForm, url } from 'lib/helpers';
@@ -205,7 +217,7 @@ export const UnitDetailContainer = ({ id, readonly, state }: Props) => {
   return (
     <UnitDetails
       model={model}
-      acs={data.acs}
+      acs={[]}
       readonly={readonly}
       keywords={data.keywords}
       state={state}
@@ -677,30 +689,30 @@ const UnitDetails: React.FC<{
             </Expander>
 
             {/* ACS Skills */}
-            <Pane marginTop={16} elevation={2} padding={16} borderRadius={8} background="tint1">
+            {/* <Pane marginTop={16} elevation={2} padding={16} borderRadius={8} background="tint1">
               <OutcomeEditor acss={acs} owner={unit} state={state} readonly={readonly} />
-            </Pane>
+            </Pane> */}
 
             {/* COMPLETION CRITERIA */}
-            <Expander title="Completion Criteria" id="unitCompletionCriteria">
+            {/* <Expander title="Completion Criteria" id="unitCompletionCriteria">
               <TopicBlockEditor
                 block={unit.completionCriteria}
                 items={selectionBlocks}
                 readonly={readonly}
               />
-            </Expander>
+            </Expander> */}
 
             {/* OUTCOME DESCRIPTION */}
-            <Expander title="Description" id="unitDescription">
+            {/* <Expander title="Description" id="unitDescription">
               <TextEditor owner={unit} field="outcome" label="Decription" readonly={readonly} />
-              {/* PASS CRITERIA */}
+             
               <TextEditor
                 owner={unit}
                 field="passCriteria"
                 label="Pass Criteria"
                 readonly={readonly}
               />
-              {/* ASSUMED KNOWLEDGE */}
+             
               {unit.assumedKnowledge && (
                 <TextEditor
                   owner={unit}
@@ -709,7 +721,7 @@ const UnitDetails: React.FC<{
                   readonly={readonly}
                 />
               )}
-              {/* APPROACH TO LEARNING */}
+             
               {unit.approachToLearning && (
                 <TextEditor
                   owner={unit}
@@ -718,7 +730,7 @@ const UnitDetails: React.FC<{
                   readonly={readonly}
                 />
               )}
-            </Expander>
+            </Expander> */}
 
             {/* BLOCK PREREQUISITES */}
             <Pane
@@ -738,7 +750,7 @@ const UnitDetails: React.FC<{
             </Expander>
 
             {/* Prerequisited CRITERIA */}
-            <Expander title="Legacy Dependencies" id="unitConstraints">
+            {/* <Expander title="Legacy Dependencies" id="unitConstraints">
               {unit.unitPrerequisites && (
                 <TextEditor
                   readonly={readonly}
@@ -768,7 +780,7 @@ const UnitDetails: React.FC<{
               )}
 
               <Constraints dependencies={dependencies} unit={unit} />
-            </Expander>
+            </Expander> */}
           </Pane>
         )}
 

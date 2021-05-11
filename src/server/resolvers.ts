@@ -16,15 +16,27 @@ g.__users = {};
 
 let id = 0;
 
+const dbFile = `./src/data/db.jar.json`;
+
 function getDb(): CourseConfig {
-  if (g.__db == null) {
-    g.__db = JSON.parse(
-      fs.readFileSync(path.resolve('./src/data/db.json'), {
+  const key = 'g_db';
+  if (g[key] == null) {
+    g[key] = JSON.parse(
+      fs.readFileSync(path.resolve(dbFile), {
         encoding: 'utf-8'
       })
     );
+
+    // add
+    const newDb = JSON.parse(
+      fs.readFileSync(path.resolve(`./src/data/db.jar.json`), {
+        encoding: 'utf-8'
+      })
+    );
+    g[key].units = newDb.units;
+
     // g.__db = require('../data/db.json');
-    g.__db.units.forEach(u =>
+    g[key].units.forEach(u =>
       u.blocks.forEach(b => {
         b.blockId = id++;
         if (b.credits == null) {
@@ -41,12 +53,13 @@ function getDb(): CourseConfig {
 
     // console.log(Object.keys(g.__db));
   }
-  return g.__db;
+  return g[key];
 }
 
 const maxBackupFiles = 15;
 
 function saveBackup() {
+  const key = 'g_db';
   // remove old files
   const files = fs.readdirSync('./src/data/backup').sort((a, b) => a.localeCompare(b));
   for (let i = 0; i < files.length - maxBackupFiles; i++) {
@@ -56,7 +69,7 @@ function saveBackup() {
 
   fs.writeFileSync(
     path.resolve(`./src/data/backup/db.${Date.now()}.json`),
-    JSON.stringify(g.__db, null, 2),
+    JSON.stringify(g[key], null, 2),
     {
       encoding: 'utf-8'
     }
@@ -64,7 +77,9 @@ function saveBackup() {
 }
 
 function saveDb() {
-  fs.writeFileSync(path.resolve('./src/data/db.json'), JSON.stringify(g.__db, null, 2), {
+  const key = 'g_db';
+
+  fs.writeFileSync(path.resolve(dbFile), JSON.stringify(g[key], null, 2), {
     encoding: 'utf-8'
   });
 }
@@ -146,6 +161,11 @@ function addUnitPrerequisites(db: CourseConfig, list: UnitDependency[], unit: Un
 
 export const resolvers: IResolvers = {
   JSON: GraphQLJSON,
+  UnitBlock: {
+    credits(parent) {
+      return parent.credits || 0;
+    }
+  },
   Mutation: {
     save(_, { id, part, body }) {
       return withDb(db => {
@@ -310,6 +330,12 @@ export const resolvers: IResolvers = {
         );
       });
       return true;
+    },
+    saveLegacyUnits(parent, { units }, context) {
+      fs.writeFileSync(path.resolve('./src/data/db.jar.json'), units, {
+        encoding: 'utf-8'
+      });
+      return true;
     }
   },
   Query: {
@@ -465,6 +491,8 @@ export const resolvers: IResolvers = {
     },
 
     courseReport(_, { id }) {
+      return [];
+
       let db = getDb();
       let course = db.courses.find(f => f.id === id);
       const blocks = db.units.flatMap(u => u.blocks);
@@ -551,7 +579,7 @@ export const resolvers: IResolvers = {
         .sort((a, b) => a.name.localeCompare(b.name));
     },
     legacyUnits(parent, args, context) {
-      return fs.readFileSync(path.resolve('./src/data/units.json'), {
+      return fs.readFileSync(path.resolve('./src/data/db.jar.json'), {
         encoding: 'utf-8'
       });
     },

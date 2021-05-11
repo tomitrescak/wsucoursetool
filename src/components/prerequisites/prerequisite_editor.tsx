@@ -18,8 +18,7 @@ import {
   Menu
 } from 'evergreen-ui';
 
-import { bloom } from '../acs/bloom';
-import { State, Prerequisite, Unit, AcsKnowledge, Activity, Topic, Block } from '../types';
+import { State, Prerequisite, Unit, Activity, Topic, Block, SfiaSkill } from '../types';
 import { usePrerequisitesQuery, BlockList, useUnitsQuery, useUnitBaseQuery } from 'config/graphql';
 import { ProgressView } from '../common/progress_view';
 import { PrerequisiteModel, UnitModel } from 'components/classes';
@@ -41,7 +40,7 @@ export type Props = {
 
 export type LineProps = {
   prerequisite: Prerequisite;
-  acsSkills: AcsKnowledge[];
+  sfiaSkills: SfiaSkill[];
   blocks: BlockList[];
   owner: PrerequisiteOwner;
   activities: Activity[];
@@ -128,7 +127,7 @@ const UnitPrerequisiteLine = ({
 
 const PrerequisiteLine = ({
   prerequisite,
-  acsSkills,
+  sfiaSkills,
   activities,
   blocks,
   topics,
@@ -138,10 +137,10 @@ const PrerequisiteLine = ({
   readonly
 }: LineProps) => (
   <ListItem display="flex">
-    {prerequisite.type === 'skill' && (
+    {prerequisite.type === 'sfia' && (
       <Text flex="1">
-        <Badge color="orange">Skill</Badge> {acsSkills.find(s => s.id === prerequisite.id)?.name} -{' '}
-        {prerequisite.value} [{bloom[prerequisite.value - 1].title}]{' '}
+        <Badge color="orange">SFIA</Badge> {sfiaSkills.find(s => s.id === prerequisite.id)?.name} -{' '}
+        {prerequisite.value}
       </Text>
     )}
     {prerequisite.type === 'block' && (
@@ -178,7 +177,7 @@ const PrerequisiteLine = ({
 
 export type AddPrerequisiteProps = {
   unit: Unit;
-  acsSkills: AcsKnowledge[];
+  sfiaSkills: SfiaSkill[];
   owner: {
     prerequisites?: PrerequisiteModel[];
     addPrerequisite(p: Prerequisite);
@@ -190,7 +189,7 @@ export type AddPrerequisiteProps = {
 
 const AddPrerequisiteInner = ({
   unit,
-  acsSkills,
+  sfiaSkills,
   owner,
   topics,
   activities
@@ -199,7 +198,7 @@ const AddPrerequisiteInner = ({
     type: '',
     topicId: '',
     block: null as Block,
-    acsSkillId: '',
+    sfiaSkillId: '',
     activityId: null,
     rating: -1,
     blockTopicId: '',
@@ -300,9 +299,9 @@ const AddPrerequisiteInner = ({
             flex="1"
             width="100%"
             id="mapping"
-            items={acsSkills}
+            items={sfiaSkills}
             itemToString={item => (item ? item.name : '')}
-            onChange={selected => (localState.acsSkillId = selected.id)}
+            onChange={selected => (localState.sfiaSkillId = selected.id)}
           />
           <Select
             marginLeft={8}
@@ -341,8 +340,8 @@ const AddPrerequisiteInner = ({
             }
             if (localState.type === 'skill') {
               owner.addPrerequisite({
-                id: localState.acsSkillId,
-                type: 'skill',
+                id: localState.sfiaSkillId,
+                type: 'sfia',
                 value: localState.rating,
                 recommended: localState.recommended
               });
@@ -386,7 +385,7 @@ const AddPrerequisite = observer(AddPrerequisiteInner);
 type OrEditorProps = {
   owner: PrerequisiteOwner;
   prerequisite: PrerequisiteModel;
-  acsSkills: AcsKnowledge[];
+  sfiaSkills: SfiaSkill[];
   unit: Unit;
   activities?: Activity[];
   blocks: BlockList[];
@@ -397,7 +396,7 @@ type OrEditorProps = {
 const OrEditorInner = ({
   owner,
   prerequisite,
-  acsSkills,
+  sfiaSkills,
   unit,
   activities,
   blocks,
@@ -428,7 +427,7 @@ const OrEditorInner = ({
         <Pane key={i}>
           <Prerequisites
             owner={p}
-            acsSkills={acsSkills}
+            sfiaSkills={sfiaSkills}
             unit={unit}
             activities={activities}
             blocks={blocks}
@@ -481,7 +480,7 @@ const OrEditorInner = ({
 
 const OrEditor = observer(OrEditorInner);
 
-const PrerequisitesInner = ({ owner, acsSkills, unit, activities, blocks, topics, readonly }) => {
+const PrerequisitesInner = ({ owner, sfiaSkills, unit, activities, blocks, topics, readonly }) => {
   return (
     <Pane>
       <UnorderedList icon="tick" iconColor="success" alignItems="center" margin={0} marginLeft={0}>
@@ -492,7 +491,7 @@ const PrerequisitesInner = ({ owner, acsSkills, unit, activities, blocks, topics
                 key={i}
                 owner={owner}
                 prerequisite={o}
-                acsSkills={acsSkills}
+                sfiaSkills={sfiaSkills}
                 blocks={blocks}
                 topics={topics}
                 unit={unit}
@@ -505,7 +504,7 @@ const PrerequisitesInner = ({ owner, acsSkills, unit, activities, blocks, topics
               key={i}
               activities={activities}
               prerequisite={o}
-              acsSkills={acsSkills}
+              sfiaSkills={sfiaSkills}
               owner={owner}
               blocks={blocks}
               topics={topics}
@@ -519,7 +518,7 @@ const PrerequisitesInner = ({ owner, acsSkills, unit, activities, blocks, topics
       {!readonly && (
         <AddPrerequisite
           activities={activities}
-          acsSkills={acsSkills}
+          sfiaSkills={sfiaSkills}
           owner={owner}
           unit={unit}
           topics={topics}
@@ -546,14 +545,11 @@ const PrerequisiteEditorInner: React.FC<Props> = ({ owner, unit, activities, rea
     //   : state.courseConfig.blocks;
   }, [loading]);
 
-  const acsSkills = React.useMemo(() => {
+  const sfiaSkills = React.useMemo(() => {
     if (loading) {
       return [];
     }
-    return data.acs
-      .map(m => m.items)
-      .flat()
-      .sort((a, b) => a.name.localeCompare(b.name));
+    return [...data.sfia].sort((a, b) => a.name.localeCompare(b.name));
   }, [loading]);
 
   if (loading || error) {
@@ -665,7 +661,7 @@ const PrerequisiteEditorInner: React.FC<Props> = ({ owner, unit, activities, rea
         <Pane marginTop={8}>
           <Prerequisites
             activities={activities}
-            acsSkills={acsSkills}
+            sfiaSkills={sfiaSkills}
             owner={owner}
             unit={unit}
             blocks={blocks}

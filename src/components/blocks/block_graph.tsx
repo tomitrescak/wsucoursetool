@@ -40,6 +40,7 @@ type Props = {
   blockClass: (node: Block) => string;
   buttons?: React.ReactNode;
   height?: number;
+  save?: () => void;
 };
 
 let interval = null;
@@ -104,7 +105,8 @@ export const BlockDependencyGraph: React.FC<Props> = ({
   classes,
   unitClass,
   blockClass,
-  buttons
+  buttons,
+  save
 }) => {
   const ref = React.useRef(null);
   const cy = React.useRef(null);
@@ -192,9 +194,9 @@ export const BlockDependencyGraph: React.FC<Props> = ({
     });
   }
 
-  for (let unit of units) {
-    if (showAllBlocks && unit.processed) {
-      for (let block of unit.blocks) {
+  for (let unit of units || []) {
+    if (showAllBlocks) {
+      for (let block of unit.blocks || []) {
         checkAddBlock(unit.id, block.id);
       }
     }
@@ -272,7 +274,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({
   function addUnitPrerequisites(prerequisites: Prerequisite[], u: UnitDependency) {
     const sourceId = 'u_' + u.id;
 
-    for (let pre of prerequisites) {
+    for (let pre of prerequisites || []) {
       if (pre.prerequisites && pre.prerequisites.length > 0) {
         addUnitPrerequisites(pre.prerequisites, u);
       } else if (pre.type === 'block') {
@@ -365,7 +367,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({
       addUnitPrerequisites(u.prerequisites, u);
     }
     // add block prerequisites
-    for (let b of u.blocks) {
+    for (let b of u.blocks || []) {
       if (b.prerequisites && b.prerequisites.length > 0) {
         addBlockPrerequisites(b.prerequisites, u, b, showAllBlocks);
       }
@@ -498,70 +500,81 @@ export const BlockDependencyGraph: React.FC<Props> = ({
 
   return (
     <>
-      <Pane display="flex" alignItems="center">
-        {buttons}
-        <IconButton
-          icon="zoom-in"
-          onClick={() => {
-            setZoom(zoom + 0.02);
-          }}
-          marginRight={8}
-        >
-          Layout
-        </IconButton>
-        <IconButton
-          icon="zoom-out"
-          onClick={() => {
-            setZoom(zoom - 0.02);
-          }}
-          marginRight={8}
-        >
-          Layout
-        </IconButton>
-        <IconButton
-          icon="undo"
-          onClick={() => {
-            ur.current.undo();
-          }}
-          marginRight={8}
-        >
-          Layout
-        </IconButton>
-        <IconButton
-          icon="redo"
-          onClick={() => {
-            ur.current.redo();
-          }}
-          marginRight={8}
-        >
-          Layout
-        </IconButton>
-        <Button
-          onClick={() => {
-            const layout = cy.current.layout({
-              name: 'fcose'
-            });
-            layout.run();
-          }}
-        >
-          Layout
-        </Button>
-        <Button
-          marginLeft={8}
-          iconBefore="floppy-disk"
-          onClick={() => {
-            saveAs(cy.current.png(), 'graph.png');
-          }}
-        >
-          png
-        </Button>
-        <Checkbox
-          label="All Blocks"
-          margin={0}
-          marginLeft={8}
-          checked={showAllBlocks}
-          onChange={e => toggleAllBlocks(e.currentTarget.checked)}
-        />
+      <Pane position="fixed" padding={4} zIndex={1000} background="white">
+        <Pane display="flex" alignItems="center">
+          {buttons}
+          <IconButton
+            icon="zoom-in"
+            onClick={() => {
+              setZoom(zoom + 0.02);
+            }}
+            marginRight={8}
+          >
+            Layout
+          </IconButton>
+          <IconButton
+            icon="zoom-out"
+            onClick={() => {
+              setZoom(zoom - 0.02);
+            }}
+            marginRight={8}
+          >
+            Layout
+          </IconButton>
+          <IconButton
+            icon="undo"
+            onClick={() => {
+              ur.current.undo();
+            }}
+            marginRight={8}
+          >
+            Layout
+          </IconButton>
+          <IconButton
+            icon="redo"
+            onClick={() => {
+              ur.current.redo();
+            }}
+            marginRight={8}
+          >
+            Layout
+          </IconButton>
+          {save && (
+            <IconButton
+              icon="floppy-disk"
+              onClick={() => {
+                save();
+              }}
+              marginRight={8}
+            ></IconButton>
+          )}
+          <Button
+            onClick={() => {
+              const layout = cy.current.layout({
+                name: 'fcose'
+              });
+              layout.run();
+            }}
+          >
+            Layout
+          </Button>
+          <Button
+            marginLeft={8}
+            iconBefore="floppy-disk"
+            onClick={() => {
+              saveAs(cy.current.png(), 'graph.png');
+            }}
+          >
+            png
+          </Button>
+          <Checkbox
+            label="All Blocks"
+            margin={0}
+            marginLeft={8}
+            checked={showAllBlocks}
+            onChange={e => toggleAllBlocks(e.currentTarget.checked)}
+          />
+        </Pane>
       </Pane>
       <div
         ref={ref}

@@ -238,6 +238,7 @@ export type QuerySfiaUnitsArgs = {
 };
 
 export type Mutation = {
+  saveLegacyUnits?: Maybe<Scalars['Boolean']>;
   createUnit: Scalars['JSON'];
   deleteUnit?: Maybe<Scalars['Boolean']>;
   createJob?: Maybe<Scalars['Boolean']>;
@@ -247,6 +248,11 @@ export type Mutation = {
   createCourse?: Maybe<Scalars['Boolean']>;
   deleteCourse?: Maybe<Scalars['Boolean']>;
   save: Scalars['Boolean'];
+};
+
+
+export type MutationSaveLegacyUnitsArgs = {
+  units?: Maybe<Scalars['String']>;
 };
 
 
@@ -352,7 +358,7 @@ export type CourseQueryVariables = Exact<{
 
 
 export type CourseQuery = (
-  Pick<Query, 'course' | 'courseReport' | 'acs'>
+  Pick<Query, 'course' | 'courseReport'>
   & { units: Array<(
     Pick<UnitList, 'blockCount' | 'id' | 'name' | 'offer' | 'level' | 'credits' | 'dynamic' | 'topics'>
     & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, outcomes?: Maybe<Array<Pick<Outcome, 'acsSkillId' | 'bloomRating'>>>, blocks?: Maybe<Array<(
@@ -416,7 +422,7 @@ export type PrerequisitesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PrerequisitesQuery = (
-  Pick<Query, 'acs'>
+  Pick<Query, 'sfia'>
   & { topics: Array<Pick<TopicList, 'id' | 'name'>>, blocks: Array<Pick<BlockList, 'id' | 'name' | 'unitId'>> }
 );
 
@@ -432,7 +438,7 @@ export type SaveConfigMutation = Pick<Mutation, 'save'>;
 export type SfiaQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SfiaQuery = Pick<Query, 'sfia' | 'acs'>;
+export type SfiaQuery = Pick<Query, 'sfia'>;
 
 export type SfiaUnitsQueryVariables = Exact<{
   id: Scalars['String'];
@@ -489,6 +495,13 @@ export type CreateUnitMutationVariables = Exact<{
 
 export type CreateUnitMutation = Pick<Mutation, 'createUnit'>;
 
+export type SaveLegacyUnitsMutationVariables = Exact<{
+  units: Scalars['String'];
+}>;
+
+
+export type SaveLegacyUnitsMutation = Pick<Mutation, 'saveLegacyUnits'>;
+
 export type UnitBaseQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -509,7 +522,7 @@ export type UnitQueryVariables = Exact<{
 
 
 export type UnitQuery = (
-  Pick<Query, 'unit' | 'acs' | 'keywords'>
+  Pick<Query, 'unit' | 'keywords'>
   & { topics: Array<Pick<TopicList, 'id' | 'name'>> }
 );
 
@@ -785,7 +798,6 @@ export const CourseDocument = gql`
       }
     }
   }
-  acs
   topics {
     id
     name
@@ -1075,7 +1087,7 @@ export type JobsWithDetailsLazyQueryHookResult = ReturnType<typeof useJobsWithDe
 export type JobsWithDetailsQueryResult = ApolloReactCommon.QueryResult<JobsWithDetailsQuery, JobsWithDetailsQueryVariables>;
 export const PrerequisitesDocument = gql`
     query Prerequisites {
-  acs
+  sfia
   topics {
     id
     name
@@ -1147,7 +1159,6 @@ export type SaveConfigMutationOptions = ApolloReactCommon.BaseMutationOptions<Sa
 export const SfiaDocument = gql`
     query Sfia {
   sfia
-  acs
 }
     `;
 
@@ -1443,6 +1454,36 @@ export function useCreateUnitMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type CreateUnitMutationHookResult = ReturnType<typeof useCreateUnitMutation>;
 export type CreateUnitMutationResult = ApolloReactCommon.MutationResult<CreateUnitMutation>;
 export type CreateUnitMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateUnitMutation, CreateUnitMutationVariables>;
+export const SaveLegacyUnitsDocument = gql`
+    mutation SaveLegacyUnits($units: String!) {
+  saveLegacyUnits(units: $units)
+}
+    `;
+export type SaveLegacyUnitsMutationFn = ApolloReactCommon.MutationFunction<SaveLegacyUnitsMutation, SaveLegacyUnitsMutationVariables>;
+
+/**
+ * __useSaveLegacyUnitsMutation__
+ *
+ * To run a mutation, you first call `useSaveLegacyUnitsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSaveLegacyUnitsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [saveLegacyUnitsMutation, { data, loading, error }] = useSaveLegacyUnitsMutation({
+ *   variables: {
+ *      units: // value for 'units'
+ *   },
+ * });
+ */
+export function useSaveLegacyUnitsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SaveLegacyUnitsMutation, SaveLegacyUnitsMutationVariables>) {
+        return ApolloReactHooks.useMutation<SaveLegacyUnitsMutation, SaveLegacyUnitsMutationVariables>(SaveLegacyUnitsDocument, baseOptions);
+      }
+export type SaveLegacyUnitsMutationHookResult = ReturnType<typeof useSaveLegacyUnitsMutation>;
+export type SaveLegacyUnitsMutationResult = ApolloReactCommon.MutationResult<SaveLegacyUnitsMutation>;
+export type SaveLegacyUnitsMutationOptions = ApolloReactCommon.BaseMutationOptions<SaveLegacyUnitsMutation, SaveLegacyUnitsMutationVariables>;
 export const UnitBaseDocument = gql`
     query UnitBase($id: String!) {
   unitBase(id: $id)
@@ -1507,7 +1548,6 @@ export type DeleteUnitMutationOptions = ApolloReactCommon.BaseMutationOptions<De
 export const UnitDocument = gql`
     query Unit($id: String!) {
   unit(id: $id)
-  acs
   keywords
   topics {
     id

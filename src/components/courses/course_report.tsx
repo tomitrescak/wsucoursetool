@@ -32,8 +32,8 @@ import {
   TopicProfile
 } from './search/search_helpers';
 
-import ValidationWorker from './search/validation.worker';
-import StudyWorker from './search/study.worker';
+// import ValidationWorker from './search/validation.worker';
+// import StudyWorker from './search/study.worker';
 import { ProgressView } from 'components/common/progress_view';
 import { Expander } from 'components/common/expander';
 import Link from 'next/link';
@@ -450,29 +450,29 @@ const Pager = ({ required, combinationReport, state, viableCombinations }) => {
   const [viableCombinationsCount, setViableCombinationsCount] = React.useState(0);
   const [running, setRunning] = React.useState(true);
 
-  React.useEffect(() => {
-    viableCombinations.current = [];
-    state.item = -1;
-    const worker = new StudyWorker();
-    worker.postMessage({
-      requiredUnits: required,
-      combinations: combinationReport
-    });
-    worker.onmessage = function (e) {
-      if (e.data.status === 'Result') {
-        viableCombinations.current.push(e.data.study);
-        setViableCombinationsCount(viableCombinations.current.length);
+  // React.useEffect(() => {
+  //   viableCombinations.current = [];
+  //   state.item = -1;
+  //   const worker = new StudyWorker();
+  //   worker.postMessage({
+  //     requiredUnits: required,
+  //     combinations: combinationReport
+  //   });
+  //   worker.onmessage = function (e) {
+  //     if (e.data.status === 'Result') {
+  //       viableCombinations.current.push(e.data.study);
+  //       setViableCombinationsCount(viableCombinations.current.length);
 
-        if (state.item === -1) {
-          state.item = 0;
-        }
-      }
-      if (e.data.status === 'Finished') {
-        setRunning(false);
-      }
-    };
-    return () => worker.terminate();
-  }, [combinationReport]);
+  //       if (state.item === -1) {
+  //         state.item = 0;
+  //       }
+  //     }
+  //     if (e.data.status === 'Finished') {
+  //       setRunning(false);
+  //     }
+  //   };
+  //   return () => worker.terminate();
+  // }, [combinationReport]);
 
   return (
     <Pane background="tint2" display="flex" alignItems="center" justifyContent="center">
@@ -576,20 +576,20 @@ export const CourseReport = ({ units, course, majors, topics }: Props) => {
   }, [finder]);
 
   //// START
-  React.useEffect(() => {
-    if (isDebugger) {
-      const worker = new ValidationWorker();
-      worker.postMessage({
-        requiredUnits: required,
-        combinations: combinationReport
-      });
-      worker.onmessage = function (e) {
-        setViableCombinations(e.data.result);
-      };
+  // React.useEffect(() => {
+  //   if (isDebugger) {
+  //     const worker = new ValidationWorker();
+  //     worker.postMessage({
+  //       requiredUnits: required,
+  //       combinations: combinationReport
+  //     });
+  //     worker.onmessage = function (e) {
+  //       setViableCombinations(e.data.result);
+  //     };
 
-      return () => worker.terminate();
-    }
-  }, [isDebugger]);
+  //     return () => worker.terminate();
+  //   }
+  // }, [isDebugger]);
   ///// END
 
   //// START

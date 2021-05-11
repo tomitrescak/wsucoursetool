@@ -340,7 +340,7 @@ const BlockDetails: React.FC<{
 
         {/* ACTIVITIES */}
 
-        <Pane elevation={1} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
+        {/* <Pane elevation={1} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
           <ActivityEditor
             addActivity={addActivity}
             block={block}
@@ -348,7 +348,7 @@ const BlockDetails: React.FC<{
             readonly={readonly}
             unit={unit}
           />
-        </Pane>
+        </Pane> */}
 
         {/* TOPICS */}
         <BlockTopicsEditor block={block} readonly={readonly} topics={data.topics} />
@@ -372,14 +372,13 @@ const BlockDetails: React.FC<{
 
         {/* ACS Skills */}
 
-        <Pane elevation={1} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
+        {/* <Pane elevation={1} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
           <OutcomeEditor state={state} owner={block} acss={acs} readonly={readonly} />
-          {/* <TextEditor owner={block} field="outcome" label="Outcome Description" /> */}
-        </Pane>
+        </Pane> */}
 
         {/* COMPLETION CRITERIA */}
 
-        <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
+        {/* <Pane elevation={2} padding={16} borderRadius={8} marginBottom={16} marginTop={16}>
           <Heading
             size={500}
             marginBottom={expanded ? 8 : 0}
@@ -398,7 +397,7 @@ const BlockDetails: React.FC<{
                 localStorage.setItem('blockDetails', exp.toString());
               }}
             />
-            {/* <img src="/images/acs_logo_small.png" alt="ACS Logo" /> */}
+           
             Completion Criteria
           </Heading>
 
@@ -409,7 +408,7 @@ const BlockDetails: React.FC<{
               readonly={readonly}
             />
           )}
-        </Pane>
+        </Pane> */}
 
         <Button
           appearance="primary"
@@ -643,6 +642,13 @@ const BlocksEditorView: React.FC<Props> = ({
                         color={block.replacedByBlock ? 'red' : block.proposed ? 'green' : undefined}
                         textDecoration={block.replacedByBlock ? 'line-through' : undefined}
                       >
+                        <IconButton
+                          intent="danger"
+                          icon="trash"
+                          appearance="primary"
+                          iconSize={8}
+                          onClick={() => unit.removeBlock(index)}
+                        />
                         <Badge color={blockColor(block)} marginRight={8}>
                           {index + 1}
                         </Badge>

@@ -42,15 +42,15 @@ const Admin = styled.div`
 
 const tabs = [
   'Units',
-  'Courses',
-  'Coordinators',
-  'Topics',
+  'Courses'
+  //'Coordinators',
+  //'Topics',
   // 'Blocks',
   // 'Specialisations',
-  'Jobs',
-  'ACS Skills',
-  'SFIA Skills',
-  'Analysis'
+  //'Jobs',
+  //'ACS Skills',
+  //'SFIA Skills',
+  //'Analysis'
 ];
 
 let to: any;
@@ -185,6 +185,11 @@ const CourseAdminComponent: React.FC<{ readonly: boolean }> = ({ readonly }) => 
                   </a>
                 </Link>
               ))}
+              <Link href={`/units`}>
+                <a>
+                  <SidebarTab>Graph</SidebarTab>
+                </a>
+              </Link>
             </Tablist>
           </VerticalPane>
         )}
