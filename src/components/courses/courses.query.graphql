@@ -12,7 +12,10 @@ query CourseList {
     contacted
     fixed
     hidden
-    topics
+    topics {
+      id
+      ratio
+    }
   }
 
   topics {
@@ -24,13 +27,12 @@ query CourseList {
     id
     name
     completionCriteria
-    # core {
-    #   id
-    # }
+    core
     majors {
       completionCriteria
       id
       name
+      units
     }
   }
 }

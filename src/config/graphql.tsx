@@ -31,7 +31,7 @@ export type Outcome = {
 };
 
 export type UnitBlock = {
-  blockId: Scalars['Int'];
+  blockId: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];
   prerequisites?: Maybe<Array<Prerequisite>>;
@@ -53,7 +53,7 @@ export type UnitList = {
   contacted?: Maybe<Scalars['Boolean']>;
   fixed?: Maybe<Scalars['Boolean']>;
   hidden?: Maybe<Scalars['Boolean']>;
-  topics?: Maybe<Array<Scalars['String']>>;
+  topics: Array<BlockTopic>;
   level?: Maybe<Scalars['Int']>;
   offer?: Maybe<Array<Scalars['String']>>;
   credits?: Maybe<Scalars['Float']>;
@@ -114,10 +114,15 @@ export type Identifiable = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type CourseCondition = {
+  id?: Maybe<Scalars['String']>;
+};
+
 export type MajorList = {
   id: Scalars['String'];
   name: Scalars['String'];
   completionCriteria: Scalars['JSON'];
+  units: Scalars['JSON'];
 };
 
 export type CourseList = {
@@ -125,6 +130,7 @@ export type CourseList = {
   name: Scalars['String'];
   completionCriteria: Scalars['JSON'];
   majors: Array<MajorList>;
+  core: Scalars['JSON'];
 };
 
 export type Coordinator = {
@@ -332,7 +338,10 @@ export type CoordinatorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CoordinatorsQuery = { coordinators: Array<(
     Pick<Coordinator, 'name'>
-    & { units: Array<Pick<UnitList, 'id' | 'name' | 'level' | 'obsolete' | 'outdated' | 'processed'>> }
+    & { units: Array<(
+      Pick<UnitList, 'id' | 'name' | 'level' | 'obsolete' | 'outdated' | 'processed'>
+      & { topics: Array<Pick<BlockTopic, 'id' | 'ratio'>> }
+    )> }
   )> };
 
 export type CreateCourseMutationVariables = Exact<{
@@ -360,8 +369,8 @@ export type CourseQueryVariables = Exact<{
 export type CourseQuery = (
   Pick<Query, 'course' | 'courseReport'>
   & { units: Array<(
-    Pick<UnitList, 'blockCount' | 'id' | 'name' | 'offer' | 'level' | 'credits' | 'dynamic' | 'topics'>
-    & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, outcomes?: Maybe<Array<Pick<Outcome, 'acsSkillId' | 'bloomRating'>>>, blocks?: Maybe<Array<(
+    Pick<UnitList, 'blockCount' | 'id' | 'name' | 'offer' | 'level' | 'credits' | 'dynamic'>
+    & { topics: Array<Pick<BlockTopic, 'id' | 'ratio'>>, prerequisites?: Maybe<Array<PrerequisiteFragment>>, outcomes?: Maybe<Array<Pick<Outcome, 'acsSkillId' | 'bloomRating'>>>, blocks?: Maybe<Array<(
       Pick<UnitBlock, 'id' | 'name' | 'credits'>
       & { prerequisites?: Maybe<Array<PrerequisiteFragment>>, topics?: Maybe<Array<Pick<BlockTopic, 'id' | 'ratio'>>>, sfiaSkills?: Maybe<Array<Pick<BlockSkill, 'id' | 'level' | 'max'>>> }
     )>> }
@@ -378,9 +387,12 @@ export type CourseUnitsQuery = Pick<Query, 'courseUnits'>;
 export type CourseListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CourseListQuery = { units: Array<Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'level' | 'obsolete' | 'outdated' | 'processed' | 'proposed' | 'contacted' | 'fixed' | 'hidden' | 'topics'>>, topics: Array<Pick<TopicList, 'id' | 'name'>>, courses: Array<(
-    Pick<CourseList, 'id' | 'name' | 'completionCriteria'>
-    & { majors: Array<Pick<MajorList, 'completionCriteria' | 'id' | 'name'>> }
+export type CourseListQuery = { units: Array<(
+    Pick<UnitList, 'blockCount' | 'id' | 'name' | 'dynamic' | 'level' | 'obsolete' | 'outdated' | 'processed' | 'proposed' | 'contacted' | 'fixed' | 'hidden'>
+    & { topics: Array<Pick<BlockTopic, 'id' | 'ratio'>> }
+  )>, topics: Array<Pick<TopicList, 'id' | 'name'>>, courses: Array<(
+    Pick<CourseList, 'id' | 'name' | 'completionCriteria' | 'core'>
+    & { majors: Array<Pick<MajorList, 'completionCriteria' | 'id' | 'name' | 'units'>> }
   )> };
 
 export type CreateJobMutationVariables = Exact<{
@@ -522,7 +534,7 @@ export type UnitQueryVariables = Exact<{
 
 
 export type UnitQuery = (
-  Pick<Query, 'unit' | 'keywords'>
+  Pick<Query, 'unit' | 'keywords' | 'sfia'>
   & { topics: Array<Pick<TopicList, 'id' | 'name'>> }
 );
 
@@ -539,7 +551,10 @@ export type UnitDependenciesQuery = { unitDepenendencies: Array<(
 export type UnitsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UnitsQuery = { topics: Array<Pick<TopicList, 'id' | 'name'>>, units: Array<Pick<UnitList, 'blockCount' | 'dynamic' | 'topics' | 'id' | 'name' | 'level' | 'outdated' | 'obsolete' | 'processed' | 'proposed' | 'contacted' | 'fixed'>> };
+export type UnitsQuery = { topics: Array<Pick<TopicList, 'id' | 'name'>>, units: Array<(
+    Pick<UnitList, 'blockCount' | 'dynamic' | 'id' | 'name' | 'level' | 'outdated' | 'obsolete' | 'processed' | 'proposed' | 'contacted' | 'fixed'>
+    & { topics: Array<Pick<BlockTopic, 'id' | 'ratio'>> }
+  )> };
 
 export const PrerequisiteFragmentDoc = gql`
     fragment Prerequisite on Prerequisite {
@@ -670,6 +685,10 @@ export const CoordinatorsDocument = gql`
       obsolete
       outdated
       processed
+      topics {
+        id
+        ratio
+      }
     }
   }
 }
@@ -772,7 +791,10 @@ export const CourseDocument = gql`
     level
     credits
     dynamic
-    topics
+    topics {
+      id
+      ratio
+    }
     prerequisites {
       ...Prerequisite
     }
@@ -876,7 +898,10 @@ export const CourseListDocument = gql`
     contacted
     fixed
     hidden
-    topics
+    topics {
+      id
+      ratio
+    }
   }
   topics {
     id
@@ -886,10 +911,12 @@ export const CourseListDocument = gql`
     id
     name
     completionCriteria
+    core
     majors {
       completionCriteria
       id
       name
+      units
     }
   }
 }
@@ -1549,6 +1576,7 @@ export const UnitDocument = gql`
     query Unit($id: String!) {
   unit(id: $id)
   keywords
+  sfia
   topics {
     id
     name
@@ -1634,7 +1662,10 @@ export const UnitsDocument = gql`
   units {
     blockCount
     dynamic
-    topics
+    topics {
+      id
+      ratio
+    }
     id
     name
     level

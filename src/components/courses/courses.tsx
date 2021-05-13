@@ -272,12 +272,12 @@ const UnitsByTopic = observer(({ units, topics, localState }: SemesterProps) => 
     let topicSetInitial = unitInfos.flatMap(u => u.topics);
     let topicSet = topicSetInitial
       // .filter((f, i) => topicSetInitial.indexOf(f) === i)
-      .map(id => topics.find(t => t.id === id))
+      .map(tp => topics.find(t => t.id === tp.id))
       .sort((a, b) => a.name.localeCompare(b.name));
     let result = {};
     for (let topic of topicSet) {
       if (topic) {
-        result[topic.name] = unitInfos.filter(u => (u.topics || []).some(t => t === topic.id));
+        result[topic.name] = unitInfos.filter(u => (u.topics || []).some(t => t.id === topic.id));
       }
     }
     return result;
@@ -357,7 +357,6 @@ type Props = {
   allUnits: UnitList[];
   courseUnits: UnitCondition[];
   selectedUnits: UnitCondition[];
-  acs: AcsKnowledge[];
   course: CourseModel;
   topics: SimpleEntity[];
   majorIds: string[];
@@ -367,11 +366,6 @@ type Props = {
     issues: Array<{ type: 'error' | 'info' | 'warning'; info: any; text: string }>;
   }>;
 };
-
-const AcsGraphContainer = observer(({ allUnits, selectedUnits, acs }: Props) => {
-  const units: UnitList[] = selectedUnits.map(cu => allUnits.find(u => u.id === cu.id));
-  return <AcsUnitGraph acs={acs} units={units} />;
-});
 
 const TabHeader = observer(({ tab, children, state }) => {
   return (
@@ -405,7 +399,7 @@ const TabContent = observer(
 );
 
 const CourseTabs = observer(
-  ({ acs, course, majorIds, allUnits, courseUnits, selectedUnits, report, topics }: Props) => {
+  ({ course, majorIds, allUnits, courseUnits, selectedUnits, report, topics }: Props) => {
     const state = useLocalStore(() => ({
       tab: 'over'
     }));
@@ -453,24 +447,14 @@ const CourseTabs = observer(
           <CourseReport
             units={allUnits}
             course={course.toJS()}
-            majors={majorIds.map(id => course.majors.find(m => m.id === id).toJS())}
+            majors={majorIds.map(id => course.majors.find(m => m.id === id).toJS()) as any}
             topics={topics}
           />
         </TabContent>
         <TabContent tab="over" state={state}>
           <CourseOverview report={report} />
         </TabContent>
-        <TabContent tab="acs" state={state}>
-          <AcsGraphContainer
-            acs={acs}
-            courseUnits={courseUnits}
-            allUnits={units}
-            selectedUnits={selectedUnits}
-            course={course}
-            majorIds={majorIds}
-            topics={[]}
-          />
-        </TabContent>
+
         <TabContent tab="dep" state={state}>
           <BlockDependencyGraph
             key={course.id + '_' + majorIds.join('.')}
@@ -710,15 +694,14 @@ const CourseDetails: React.FC<{
                   onConfirm={close => {
                     course.addMajor({
                       completionCriteria: {
-                        acs: [],
                         sfia: [],
                         units: [],
                         topics: [],
                         totalCredits: 0
                       },
                       id: localState.newMajorId,
-                      name: localState.newMajorName
-                      // units: []
+                      name: localState.newMajorName,
+                      units: []
                     });
 
                     router.push(
@@ -852,7 +835,6 @@ const CourseDetails: React.FC<{
       </VerticalPane>
       <VerticalPane shrink={true}>
         <CourseTabs
-          acs={data.acs}
           report={data.courseReport}
           selectedUnits={selectedUnits}
           allUnits={data.units as any}

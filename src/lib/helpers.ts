@@ -58,6 +58,9 @@ function processUnitCondition(u: UnitCondition) {
 }
 
 export function extractCriteriaUnits(criteria: CourseCompletionCriteria): UnitCondition[] {
+  if (criteria.units == null) {
+    return [];
+  }
   return criteria.units.flatMap(u => {
     return processUnitCondition(u);
   });

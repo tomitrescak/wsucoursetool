@@ -26,7 +26,7 @@ export type Outcome = {
 export type Major = {
   name: string;
   id: string;
-  // units: CourseUnit[];
+  units: Array<CourseUnit | CourseUnit[]>;
   completionCriteria: CourseCompletionCriteria;
 };
 
@@ -44,14 +44,19 @@ export type CourseCompletionCriteria = {
   units: UnitCondition[];
   topics: TopicCondition[];
   sfia: FrameworkCondition[];
-  acs: FrameworkCondition[];
   totalCredits: number;
+};
+
+type CourseUnit = {
+  id: string;
+  name: string;
 };
 
 export type Course = {
   name: string;
   id: string;
   majors: Major[];
+  core: Array<CourseUnit | CourseUnit[]>;
   completionCriteria: CourseCompletionCriteria;
 };
 
@@ -94,13 +99,16 @@ export type Unit = {
 
   unitPrerequisites?: string;
   prerequisite?: string[];
-  corequisites?: string;
-  incompatible?: string;
+
   credits?: number;
   level?: number;
   approachToLearning?: string;
 
   prerequisites: Prerequisite[];
+  corequisites?: Prerequisite[];
+  incompatible?: Prerequisite[];
+  equivalent?: Prerequisite[];
+
   sfiaSkills: SfiaSkillMapping[];
   offer: Array<'au' | 'sp' | 'sua' | 'sub'>;
 };
@@ -139,7 +147,7 @@ export type Activity = {
 };
 
 export type Block = {
-  blockId: number;
+  blockId: string;
   id: string;
   unitId?: string;
   name: string;
@@ -148,11 +156,18 @@ export type Block = {
   description: string;
   keywords: string[];
   topics: BlockTopic[];
+  required?: boolean;
+  recommended?: boolean;
+
   prerequisites: Prerequisite[];
+  corequisites?: Prerequisite[];
+  incompatible?: Prerequisite[];
+  equivalent?: Prerequisite[];
+
   completionCriteria: CompletionCriteria;
   activities: Activity[];
   level: string;
-  flagged: boolean;
+  offline: boolean;
   replacedByUnit?: string;
   replacedByBlock?: string;
   length: number;

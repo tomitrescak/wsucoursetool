@@ -2,14 +2,33 @@ import { toJS } from 'mobx';
 import { ExtendedModel, model, Model, modelAction, prop } from 'mobx-keystone';
 
 import {
-  AcsKnowledge, Activity, Block, BlockTopic, BlockType, CompletionCriteria, CompletionCriteriaType,
-  Course, CourseCompletionCriteria, Entity, FrameworkCondition, Job, Major, Outcome, Prerequisite,
-  PrerequisiteType, SfiaSkill, SfiaSkillMapping, Specialisation, TopicCondition, Unit, UnitCondition
+  AcsKnowledge,
+  Activity,
+  Block,
+  BlockTopic,
+  BlockType,
+  CompletionCriteria,
+  CompletionCriteriaType,
+  Course,
+  CourseCompletionCriteria,
+  Entity,
+  FrameworkCondition,
+  Job,
+  Major,
+  Outcome,
+  Prerequisite,
+  PrerequisiteType,
+  SfiaSkill,
+  SfiaSkillMapping,
+  Specialisation,
+  TopicCondition,
+  Unit,
+  UnitCondition
 } from './types';
 
 const removeEmpty = obj => {
   Object.keys(obj).forEach(key => {
-    if (obj[key] == null || obj[key] == '' || obj[key].length === 0) delete obj[key];
+    if (obj[key] == null || obj[key] === '') delete obj[key];
     else if (Array.isArray(obj[key])) {
       obj[key].forEach(o => removeEmpty(o));
     } else if (obj[key] && typeof obj[key] === 'object') {
@@ -171,8 +190,7 @@ function createCourseCompletionCriteriaModel(criteria: CourseCompletionCriteria)
   return new CourseCompletionCriteriaModel({
     units: (criteria.units || []).map(u => createUnitConditionModel(u)),
     topics: (criteria.topics || []).map(u => new TopicConditionModel(u)),
-    sfia: (criteria.sfia || []).map(u => new FrameworkConditionModel(u)),
-    acs: (criteria.acs || []).map(u => new FrameworkConditionModel(u))
+    sfia: (criteria.sfia || []).map(u => new FrameworkConditionModel(u))
   });
 }
 
@@ -188,31 +206,33 @@ export class CourseUnitModel extends Model({
 
 @model('Course/Major')
 export class MajorModel extends ExtendedModel(EntityModel, {
-  // units: prop<CourseUnitModel[]>({ setterAction: true }),
+  units: prop<Array<CourseUnitModel | CourseUnitModel[]>>({ setterAction: true }),
   completionCriteria: prop<CourseCompletionCriteriaModel>()
 }) {
   toJS() {
     return {
       ...super.toJS(),
-      // units: this.units.map(u => u.toJS()),
+      units: this.units.map(u => (Array.isArray(u) ? u.map(v => v.toJS()) : u.toJS())),
       completionCriteria: this.completionCriteria.toJS()
     };
   }
-  // @modelAction
-  // addUnit(unit: CourseUnit) {
-  //   this.units.push(new CourseUnitModel(unit));
-  // }
+  @modelAction
+  addUnit(unit: any) {
+    this.units.push(new CourseUnitModel(unit));
+  }
 
-  // @modelAction
-  // removeUnit(unit: CourseUnitModel) {
-  //   this.units.splice(this.units.indexOf(unit), 1);
-  // }
+  @modelAction
+  removeUnit(unit: CourseUnitModel) {
+    this.units.splice(this.units.indexOf(unit), 1);
+  }
 }
 
 function createMajor(model: Major) {
   return new MajorModel({
     ...model,
-    // units: (model.units || []).map(u => new CourseUnitModel(u)),
+    units: (model.units || []).map(u =>
+      Array.isArray(u) ? u.map(v => new CourseUnitModel(v)) : new CourseUnitModel(u)
+    ),
     completionCriteria: createCourseCompletionCriteriaModel(model.completionCriteria)
   });
 }
@@ -287,12 +307,13 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   blocks: prop<BlockModel[]>(() => [], { setterAction: true }),
   // blockTopics: prop<string[]>({ setterAction: true }),
   completionCriteria: prop<CompletionCriteriaModel>({ setterAction: true }),
-  corequisites: prop<string>({ setterAction: true }),
+  corequisites: prop<PrerequisiteModel[]>(() => [], { setterAction: true }),
   coordinator: prop<string>({ setterAction: true }),
   credits: prop<number>({ setterAction: true }),
   delivery: prop<string>({ setterAction: true }),
   dynamic: prop<boolean>({ setterAction: true }),
-  incompatible: prop<string>({ setterAction: true }),
+  equivalent: prop<PrerequisiteModel[]>(() => [], { setterAction: true }),
+  incompatible: prop<PrerequisiteModel[]>(() => [], { setterAction: true }),
   keywords: prop<string[]>({ setterAction: true }),
   level: prop<number>({ setterAction: true }),
   lgId: prop<string>({ setterAction: true }),
@@ -300,7 +321,7 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   outcomes: prop<OutcomeModel[]>(() => [], { setterAction: true }),
   prerequisite: prop<string[]>(() => [], { setterAction: true }),
   prerequisites: prop<PrerequisiteModel[]>(() => [], { setterAction: true }),
-  topics: prop<string[]>(() => [], { setterAction: true }),
+  topics: prop<BlockTopicModel[]>(() => [], { setterAction: true }),
   unitPrerequisites: prop<string>({ setterAction: true }),
   notes: prop<string>({ setterAction: true }),
   processed: prop<boolean>({ setterAction: true }),
@@ -319,13 +340,17 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   toJS() {
     return removeEmpty({
       ...super.toJS(),
-      ...toJS(this.$),
+      ...toJS(this.$, {}),
       sfiaSkills: this.sfiaSkills.filter(s => s.level).map(p => toJS(p.$)),
       positions: this.positions.map(p => toJS(p)),
       blocks: this.blocks.map(b => b.toJS()),
       completionCriteria: this.completionCriteria.toJS(),
       outcomes: this.outcomes.map(b => b.toJS()),
-      prerequisites: this.prerequisites.map(b => b.toJS())
+      prerequisites: this.prerequisites.map(b => b.toJS()),
+      corerequisites: this.corequisites.map(p => p.toJS()),
+      equivalent: this.equivalent.map(p => p.toJS()),
+      incompatible: this.incompatible.map(p => p.toJS()),
+      topics: this.topics.map(t => t.toJS())
     });
   }
   @modelAction
@@ -338,17 +363,15 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   }
 
   @modelAction
-  addPrerequisite(p: Prerequisite) {
-    this.prerequisites.push(createPrerequisite(p));
+  removeRequisite(key: string, item: Prerequisite) {
+    this[key].splice(this[key].indexOf(item), 1);
   }
+
   @modelAction
-  addPrerequisites(p: Prerequisite[]) {
-    this.prerequisites.push(...createPrerequisites(p));
+  addRequisite(key: string, pre: Prerequisite) {
+    this[key].push(createPrerequisite(pre));
   }
-  @modelAction
-  removePrerequisite(ix: number) {
-    this.prerequisites.splice(ix, 1);
-  }
+
   @modelAction
   addOutcome(o: Outcome) {
     this.outcomes.push(new OutcomeModel(o));
@@ -364,9 +387,9 @@ export class UnitModel extends ExtendedModel(EntityModel, {
     this.keywords.splice(ix, 1);
   }
   @modelAction
-  addTopic(kw: string) {
+  addTopic(kw: BlockTopic) {
     if (kw) {
-      this.topics.push(kw);
+      this.topics.push(new BlockTopicModel(kw));
     }
   }
   @modelAction
@@ -383,6 +406,7 @@ export class UnitModel extends ExtendedModel(EntityModel, {
   removeBlock(ix: number) {
     this.blocks.splice(ix, 1);
   }
+
   @modelAction
   insertBlock(b: BlockModel, ix: number) {
     this.blocks.splice(ix, 0, b);
@@ -418,6 +442,9 @@ export function createUnit(model: Unit) {
     completionCriteria: createCompletionCriteria(model.completionCriteria || {}),
     outcomes: (model.outcomes || []).map(u => new OutcomeModel(u)),
     prerequisites: createPrerequisites(model.prerequisites),
+    corequisites: createPrerequisites(model.corequisites),
+    incompatible: createPrerequisites(model.incompatible),
+    equivalent: createPrerequisites(model.equivalent),
     blocks: createBlocks(model.blocks),
     sfiaSkills: (model.sfiaSkills || []).map(u => new SfiaSkillMappingModel(u))
   });
@@ -501,13 +528,19 @@ export class BlockModel extends ExtendedModel(EntityModel, {
   outcome: prop<string>({ setterAction: true }),
   keywords: prop<string[]>({ setterAction: true }),
   topics: prop<BlockTopicModel[]>(() => [], { setterAction: true }),
-  prerequisites: prop<PrerequisiteModel[]>({ setterAction: true }),
+
+  prerequisites: prop<PrerequisiteModel[]>(() => [], { setterAction: true }),
+  corequisites: prop<PrerequisiteModel[]>(() => [], { setterAction: true }),
+  equivalent: prop<PrerequisiteModel[]>(() => [], { setterAction: true }),
+  incompatible: prop<PrerequisiteModel[]>(() => [], { setterAction: true }),
+
   completionCriteria: prop<CompletionCriteriaModel>({ setterAction: true }),
   activities: prop<ActivityModel[]>({ setterAction: true }),
   level: prop<string>({ setterAction: true }),
   group: prop<string>({ setterAction: true }),
-  flagged: prop<boolean>({ setterAction: true }),
-  proposed: prop<boolean>({ setterAction: true }),
+  offline: prop<boolean>({ setterAction: true }),
+  recommended: prop<boolean>({ setterAction: true }),
+  required: prop<boolean>({ setterAction: true }),
   replacedByUnit: prop<string>({ setterAction: true }),
   replacedByBlock: prop<string>({ setterAction: true }),
   length: prop<number>({ setterAction: true }),
@@ -521,6 +554,9 @@ export class BlockModel extends ExtendedModel(EntityModel, {
       credits: parseFloat(this.credits as any),
       outcomes: this.outcomes.map(o => o.toJS()),
       prerequisites: this.prerequisites.map(p => p.toJS()),
+      corerequisites: this.corequisites.map(p => p.toJS()),
+      equivalent: this.equivalent.map(p => p.toJS()),
+      incompatible: this.incompatible.map(p => p.toJS()),
       completionCriteria: this.completionCriteria.toJS(),
       activities: this.activities.map(a => a.toJS()),
       sfiaSkills: this.sfiaSkills.map(s => toJS(s.$)),
@@ -547,9 +583,15 @@ export class BlockModel extends ExtendedModel(EntityModel, {
   removeTopic(ix: number) {
     this.topics.splice(ix, 1);
   }
+
   @modelAction
-  addPrerequisite(pre: Prerequisite) {
-    this.prerequisites.push(createPrerequisite(pre));
+  removeRequisite(key: string, item: Prerequisite) {
+    this[key].splice(this[key].indexOf(item), 1);
+  }
+
+  @modelAction
+  addRequisite(key: string, pre: Prerequisite) {
+    this[key].push(createPrerequisite(pre));
   }
 
   @modelAction
@@ -557,10 +599,6 @@ export class BlockModel extends ExtendedModel(EntityModel, {
     this.prerequisites.push(...createPrerequisites(pre));
   }
 
-  @modelAction
-  removePrerequisite(ix: number) {
-    this.prerequisites.splice(ix, 1);
-  }
   @modelAction
   addActivities(a: Activity[]) {
     this.activities.push(...createActivities(a));
@@ -600,6 +638,9 @@ export function createBlock(block: Block) {
     keywords: (block.keywords as any) || [],
     topics: (block.topics || []).map(t => new BlockTopicModel(t)),
     prerequisites: createPrerequisites(block.prerequisites || []),
+    corequisites: createPrerequisites(block.corequisites),
+    incompatible: createPrerequisites(block.incompatible),
+    equivalent: createPrerequisites(block.equivalent),
     completionCriteria: createCompletionCriteria(block.completionCriteria || {}),
     activities: createActivities(block.activities || []),
     outcomes: (block.outcomes || []).map(o => new OutcomeModel(o)),

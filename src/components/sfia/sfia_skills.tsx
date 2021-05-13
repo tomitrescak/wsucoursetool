@@ -104,10 +104,9 @@ class SfiaEditorModel extends Model({
 const Details: React.FC<{
   item: SfiaSkillModel;
   owner: SfiaEditorModel;
-  acs: AcsKnowledge[];
   state: State;
   readonly: boolean;
-}> = observer(({ item, owner, acs, readonly, state }) => {
+}> = observer(({ item, owner, readonly, state }) => {
   const localState = useLocalStore(() => ({
     isPreview: false,
     unitId: '',
@@ -131,10 +130,6 @@ const Details: React.FC<{
   });
 
   const form = React.useMemo(() => buildForm(item, ['name', 'description', 'code', 'url']), [item]);
-  const addForm = React.useMemo(() => buildForm(localState, ['unitId', 'level']), [localState]);
-
-  const items = acs.map(m => m.items).flat();
-  const selected = item.acsSkillId ? items.find(i => i.id === item.acsSkillId) : null;
 
   if (loading || error) {
     return <ProgressView loading={loading} error={error} />;
@@ -176,26 +171,6 @@ const Details: React.FC<{
             onChange={form.code}
             margin={0}
           /> */}
-          <Pane flex={1} marginLeft={8}>
-            <Text
-              is="label"
-              htmlFor="description"
-              fontWeight={500}
-              marginBottom={4}
-              display="block"
-            >
-              ACS Mapping
-            </Text>
-            <Combobox
-              id="mapping"
-              width="100%"
-              initialSelectedItem={{ label: '' }}
-              items={items}
-              itemToString={item => (item ? item.name : '')}
-              selectedItem={selected}
-              onChange={selected => (item.acsSkillId = selected.id)}
-            />
-          </Pane>
         </Pane>
 
         <Pane display="flex" marginBottom={8}>
@@ -616,13 +591,7 @@ const EditorView: React.FC<Props> = ({ state, readonly }) => {
           (readonly ? (
             <DetailsReadonly item={selectedItem} />
           ) : (
-            <Details
-              item={selectedItem}
-              owner={model}
-              acs={data.acs}
-              state={state}
-              readonly={readonly}
-            />
+            <Details item={selectedItem} owner={model} state={state} readonly={readonly} />
           ))}
       </VerticalPane>
     </>

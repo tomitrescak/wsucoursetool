@@ -1,8 +1,10 @@
 import { BlocksEditor } from 'components/blocks/block_editor';
 import { BlockDependencyGraph } from 'components/blocks/block_graph';
+import { BlockTopicsEditor } from 'components/blocks/block_topics.editor';
 import { Expander } from 'components/common/expander';
 import { TextEditor } from 'components/common/text_editor';
 import { TopicBlockEditor } from 'components/completion_criteria/completion_criteria_editor';
+import { round } from 'components/courses/search/search_helpers';
 import { OutcomeEditor } from 'components/outcomes/outcome_editor';
 import { SfiaOwnerEditor } from 'components/sfia/sfia_owner_editor';
 import {
@@ -15,8 +17,10 @@ import {
 import { UnitDependency } from 'config/resolvers';
 import { Dependency } from 'config/utils';
 import {
+  Badge,
   Button,
   Checkbox,
+  Dialog,
   Heading,
   Label,
   Pane,
@@ -37,7 +41,7 @@ import React from 'react';
 import { createCompletionCriteria, createUnit, UnitModel } from '../classes';
 import { ProgressView } from '../common/progress_view';
 import { PrerequisiteEditor } from '../prerequisites/prerequisite_editor';
-import { AcsKnowledge, Block, Entity, State } from '../types';
+import { AcsKnowledge, Block, Entity, SfiaSkill, State } from '../types';
 import { UnitGraph } from './unit_graph';
 
 const selfColor = 'rgb(251, 230, 162)';
@@ -217,7 +221,7 @@ export const UnitDetailContainer = ({ id, readonly, state }: Props) => {
   return (
     <UnitDetails
       model={model}
-      acs={[]}
+      sfia={data.sfia}
       readonly={readonly}
       keywords={data.keywords}
       state={state}
@@ -244,7 +248,7 @@ const BlockGraphContainer = observer(({ unit, height }: { unit: UnitModel; heigh
     return <ProgressView loading={loading} error={error} />;
   }
 
-  const filteredUnits = data.unitDepenendencies.filter(d => d.level <= localState.level);
+  const filteredUnits = data.unitDepenendencies; //.filter(d => d.level <= localState.level);
 
   return (
     <Pane marginTop={8}>
@@ -257,26 +261,26 @@ const BlockGraphContainer = observer(({ unit, height }: { unit: UnitModel; heigh
         unitClass={unitClass as any}
         blockClass={blockClass}
         height={500}
-        buttons={
-          <>
-            <Button
-              onClick={() => localState.level++}
-              iconBefore="plus"
-              disabled={data.unitDepenendencies.every(d => d.level <= localState.level)}
-            >
-              Level
-            </Button>
-            <Button
-              onClick={() => localState.level--}
-              marginLeft={8}
-              iconBefore="minus"
-              disabled={localState.level === 1}
-              marginRight={8}
-            >
-              Level
-            </Button>
-          </>
-        }
+        // buttons={
+        //   <>
+        //     <Button
+        //       onClick={() => localState.level++}
+        //       iconBefore="plus"
+        //       disabled={data.unitDepenendencies.every(d => d.level <= localState.level)}
+        //     >
+        //       Level
+        //     </Button>
+        //     <Button
+        //       onClick={() => localState.level--}
+        //       marginLeft={8}
+        //       iconBefore="minus"
+        //       disabled={localState.level === 1}
+        //       marginRight={8}
+        //     >
+        //       Level
+        //     </Button>
+        //   </>
+        // }
       />
     </Pane>
   );
@@ -329,13 +333,13 @@ const UnitDetails: React.FC<{
   model: UnitModel;
   readonly: boolean;
   state: State;
-  acs: AcsKnowledge[];
+  sfia: SfiaSkill[];
   topics: Entity[];
   keywords: string[];
   dependencies: Dependency[];
   readonlyBlocks: Block[];
 }> = observer(
-  ({ model: unit, keywords, readonly, acs, state, dependencies, readonlyBlocks, topics }) => {
+  ({ model: unit, keywords, readonly, sfia, state, dependencies, readonlyBlocks, topics }) => {
     const form = React.useMemo(
       () => buildForm(unit, ['name', 'id', 'delivery', 'outcome', 'group', 'coordinator']),
       [unit]
@@ -371,6 +375,7 @@ const UnitDetails: React.FC<{
     }
     const localState = useLocalStore(() => ({
       tab: selectedBlockId ? 'Blocks' : 'Description',
+      sfia: '',
       isOutcomePreview: false
     }));
 
@@ -382,12 +387,21 @@ const UnitDetails: React.FC<{
 
     return (
       <div style={{ flex: 1 }}>
+        {/* <Dialog
+          isShown={!!localState.sfia}
+          title="Dialog title"
+          onCloseComplete={() => (localState.sfia = '')}
+          confirmLabel="Custom Label"
+        >
+          <iframe src={localState.sfia} style={{ width: '100%', height: '100%' }}></iframe>
+        </Dialog> */}
+
         <Pane background="tint1" elevation={1} padding={16} borderRadius={6}>
           <Pane marginBottom={16} display="flex" alignItems="center">
             <Heading size={500} marginRight={16}>
               {unit.name}
             </Heading>
-            <TabNavigation flex="1">
+            {/* <TabNavigation flex="1">
               {['Description', 'Blocks'].map((tab, index) => (
                 <Tab
                   onSelect={() => {
@@ -425,99 +439,99 @@ const UnitDetails: React.FC<{
               >
                 Activities
               </Tab>
-            </TabNavigation>
+            </TabNavigation> */}
           </Pane>
 
-          {localState.tab === 'Description' && (
-            <Pane>
-              <Pane display="flex" marginBottom={8} alignItems="flex-end">
-                <TextInputField
-                  label="Code"
-                  value={unit.id}
-                  id="unitCode"
-                  onChange={form.id}
-                  disabled={true}
-                  margin={0}
-                  marginRight={8}
-                  width={60}
-                />
-                <TextInputField
-                  flex="1"
-                  label="Name"
-                  id="unitName"
-                  placeholder="Unit Name"
-                  value={unit.name}
-                  disabled={readonly}
-                  margin={0}
-                  marginRight={8}
-                  onChange={form.name}
-                />
-                <Pane marginRight={8}>
-                  <Label size={400} margin={0} marginBottom={4} is="div">
-                    Offer
-                  </Label>
-                  <SelectMenu
-                    isMultiSelect={true}
-                    title="Select Semester Offer"
-                    options={offers}
-                    selected={unit.offer}
-                    hasFilter={false}
-                    hasTitle={false}
-                    onSelect={item => unit.addOffer(item.value as string)}
-                    onDeselect={item => unit.removeOffer(item.value as string)}
-                  >
-                    <Button disabled={readonly}>
-                      {unit.offer.map(o => offers.find(l => l.value === o).label).join(', ')}
-                    </Button>
-                  </SelectMenu>
-                </Pane>
-                <TextInputField
-                  label={
-                    <Link
-                      href={`/${view}/[category]/[item]`}
-                      as={`/${view}/coordinators/${url(unit.coordinator)}`}
-                    >
-                      <a>
-                        <Text fontWeight={500}>Coordinator</Text>
-                      </a>
-                    </Link>
-                  }
-                  value={unit.coordinator}
-                  id="unitCordinator"
-                  onChange={form.coordinator}
-                  margin={0}
-                  marginRight={8}
-                />
-                <TextInputField
-                  label="Level"
-                  flex="0 0 50px"
-                  value={unit.level}
-                  onChange={e => (unit.level = parseInt(e.currentTarget.value))}
-                  id="level"
-                  disabled={readonly}
-                  type="number"
-                  margin={0}
-                  marginRight={8}
-                />
-                <TextInputField
-                  label="Cred."
-                  flex="0 0 50px"
-                  value={unit.credits}
-                  id="credit"
-                  disabled={true}
-                  margin={0}
-                  marginRight={8}
-                />
-                <TextInputField
-                  label="LG"
-                  flex="0 0 60px"
-                  value={unit.lgId}
-                  id="lgId"
-                  disabled={true}
-                  margin={0}
-                  marginRight={8}
-                />
-                {/* <SelectField
+          <Pane>
+            <Pane display="flex" marginBottom={8} alignItems="flex-end">
+              <TextInputField
+                label="Code"
+                value={unit.id}
+                id="unitCode"
+                onChange={form.id}
+                disabled={true}
+                margin={0}
+                marginRight={8}
+                width={60}
+              />
+              <TextInputField
+                flex="1"
+                label="Name"
+                id="unitName"
+                placeholder="Unit Name"
+                value={unit.name}
+                disabled={readonly}
+                margin={0}
+                marginRight={8}
+                onChange={form.name}
+              />
+              <Pane marginRight={8}>
+                <Label size={400} margin={0} marginBottom={4} is="div">
+                  Offer
+                </Label>
+                <SelectMenu
+                  isMultiSelect={true}
+                  title="Select Semester Offer"
+                  options={offers}
+                  selected={unit.offer}
+                  hasFilter={false}
+                  hasTitle={false}
+                  onSelect={item => unit.addOffer(item.value as string)}
+                  onDeselect={item => unit.removeOffer(item.value as string)}
+                >
+                  <Button disabled={readonly}>
+                    {unit.offer.map(o => offers.find(l => l.value === o).label).join(', ')}
+                  </Button>
+                </SelectMenu>
+              </Pane>
+
+              {/* <TextInputField
+              label={
+                <Link
+                  href={`/${view}/[category]/[item]`}
+                  as={`/${view}/coordinators/${url(unit.coordinator)}`}
+                >
+                  <a>
+                    <Text fontWeight={500}>Coordinator</Text>
+                  </a>
+                </Link>
+              }
+              value={unit.coordinator}
+              id="unitCordinator"
+              onChange={form.coordinator}
+              margin={0}
+              marginRight={8}
+            /> */}
+              <TextInputField
+                label="Level"
+                flex="0 0 50px"
+                value={unit.level}
+                onChange={e => (unit.level = parseInt(e.currentTarget.value))}
+                id="level"
+                disabled={readonly}
+                type="number"
+                margin={0}
+                marginRight={8}
+              />
+              {/* <TextInputField
+                label="Cred."
+                flex="0 0 50px"
+                value={unit.credits}
+                id="credit"
+                disabled={true}
+                margin={0}
+                marginRight={8}
+              />
+              <TextInputField
+                label="LG"
+                flex="0 0 60px"
+                value={unit.lgId}
+                id="lgId"
+                disabled={true}
+                margin={0}
+                marginRight={8}
+              /> */}
+              {/* <SelectField
                 value={unit.delivery}
                 label="Delivery"
                 id="unitDelivery"
@@ -530,9 +544,11 @@ const UnitDetails: React.FC<{
                 <option value="2">2 semesters</option>
                 <option value="3">3 semesters</option>
               </SelectField> */}
-              </Pane>
-              <Pane display="flex">
-                {/* TOPICS */}
+            </Pane>
+
+            <Pane display="flex">
+              {/* TOPICS */}
+              {unit.blocks.length > 0 && (
                 <Pane flex={1}>
                   <Text id="div" fontWeight={500} marginBottom={8} display="block">
                     Topics
@@ -542,27 +558,28 @@ const UnitDetails: React.FC<{
                       new Set(
                         unit.blocks
                           .flatMap(b => b.topics)
-                          .map(t => topics.find(tp => tp.id === t.id).name)
+                          .map(t => topics.find(tp => tp.id === t.id)?.name)
                       )
                     ).join(', ')}
                   </Text>
                 </Pane>
+              )}
 
-                {/* KEYWORDS */}
-                <Pane flex={1}>
-                  <Text fontWeight={500} marginBottom={8} display="block">
-                    Keywords
-                  </Text>
-                  <Text size={300}>
-                    {Array.from(new Set(unit.blocks.flatMap(b => b.keywords))).join(', ')}
-                  </Text>
-                </Pane>
+              {/* KEYWORDS */}
+              <Pane flex={1}>
+                <Text fontWeight={500} marginBottom={8} display="block">
+                  Keywords
+                </Text>
+                <Text size={300}>
+                  {Array.from(new Set(unit.blocks.flatMap(b => b.keywords))).join(', ')}
+                </Text>
+              </Pane>
 
-                <Pane flex={1}>
-                  <Text fontWeight={500} marginBottom={8} display="block">
-                    Flags
-                  </Text>
-                  <Pane display="flex">
+              <Pane flex={1}>
+                <Text fontWeight={500} marginBottom={8} display="block">
+                  Flags
+                </Text>
+                {/* <Pane display="flex">
                     <Checkbox
                       margin={0}
                       label="Dynamic"
@@ -596,33 +613,33 @@ const UnitDetails: React.FC<{
                       disabled={readonly}
                       marginLeft={16}
                     />
-                  </Pane>
-                  <Pane display="flex" marginTop={4}>
-                    <Checkbox
+                  </Pane> */}
+                <Pane display="flex" marginTop={4}>
+                  {/* <Checkbox
                       margin={0}
                       label="Duplicate"
                       onChange={e => (unit.duplicate = e.currentTarget.checked)}
                       checked={unit.duplicate}
                       disabled={readonly}
-                    />
+                    /> 
 
-                    {/* <Checkbox
+                   <Checkbox
                       margin={0}
                       label="Processed"
                       onChange={e => (unit.processed = e.currentTarget.checked)}
                       checked={unit.processed}
                       disabled={readonly}
                       marginLeft={16}
-                    /> */}
-
-                    {/* <Checkbox
+                    /> 
+                    
+                     <Checkbox
                       margin={0}
                       label="Proposed"
                       onChange={e => (unit.proposed = e.currentTarget.checked)}
                       checked={unit.proposed}
                       disabled={readonly}
                       marginLeft={16}
-                    /> */}
+                    /> 
 
                     <Checkbox
                       margin={0}
@@ -632,42 +649,24 @@ const UnitDetails: React.FC<{
                       disabled={readonly}
                       marginLeft={16}
                     />
+                    */}
 
-                    <Checkbox
-                      margin={0}
-                      label="Fixed"
-                      onChange={e => (unit.fixed = e.currentTarget.checked)}
-                      checked={unit.fixed}
-                      disabled={readonly}
-                      marginLeft={16}
-                    />
-                  </Pane>
+                  <Checkbox
+                    margin={0}
+                    label="Fixed"
+                    onChange={e => (unit.fixed = e.currentTarget.checked)}
+                    checked={unit.fixed}
+                    disabled={readonly}
+                  />
                 </Pane>
               </Pane>
-
-              <TextEditor owner={unit} field="notes" label="Notes" readonly={readonly} />
             </Pane>
-          )}
-          {localState.tab === 'Blocks' && (
-            <BlocksEditor
-              readonly={readonly}
-              blocks={unit.blocks}
-              readonlyBlocks={readonlyBlocks}
-              selectedBlockId={selectedBlockId}
-              state={state}
-              unit={unit}
-              title="Blocks"
-              acs={acs}
-              keywords={keywords}
-              url={block =>
-                `/${view}/units/${url(unit.name)}-${unit.id}--${url(block.name)}-${block.id}`
-              }
-            />
-          )}
+
+            {/* <TextEditor owner={unit} field="notes" label="Notes" readonly={readonly} /> */}
+          </Pane>
         </Pane>
-        {localState.tab === 'Description' && (
-          <Pane>
-            {/* <Text is="label" htmlFor="topic" fontWeight={500} marginBottom={8} display="block">
+
+        {/* <Text is="label" htmlFor="topic" fontWeight={500} marginBottom={8} display="block">
                 Mapped Topic
               </Text>
               <Combobox
@@ -683,18 +682,75 @@ const UnitDetails: React.FC<{
                 marginBottom={8}
               /> */}
 
-            {/* SFIA SKills */}
-            <Expander title="SFIA Skills" id="sfiaSkillsUnit">
-              <SfiaOwnerEditor owner={unit} readonly={readonly} hasMax={false} />
-            </Expander>
+        <Expander title={`Blocks`} id="blocks">
+          <BlocksEditor
+            readonly={readonly}
+            blocks={unit.blocks}
+            readonlyBlocks={readonlyBlocks}
+            selectedBlockId={selectedBlockId}
+            state={state}
+            unit={unit}
+            title="Blocks"
+            keywords={keywords}
+            url={block =>
+              `/${view}/units/${url(unit.name)}-${unit.id}--${url(block.name)}-${block.id}`
+            }
+          />
+        </Expander>
 
-            {/* ACS Skills */}
-            {/* <Pane marginTop={16} elevation={2} padding={16} borderRadius={8} background="tint1">
+        {/* Block CRITERIA */}
+        {unit.blocks.length === 0 && (
+          <BlockTopicsEditor block={unit} readonly={readonly} topics={topics} />
+        )}
+
+        {/* SFIA SKills */}
+        <Expander
+          title={`SFIA Skills ${unit.blocks.length ? '(🤷‍♂️ WILL BE HIDDEN)' : ''}`}
+          id="sfiaSkillsUnit"
+        >
+          <SfiaOwnerEditor owner={unit} readonly={readonly} hasMax={false} />
+        </Expander>
+
+        {/* Calculated SFIA */}
+        <Expander title="Calculated SFIA" id="sfiaSkillsUnit">
+          {unit.blocks
+            .flatMap(u => u.sfiaSkills)
+            .reduce((p, n) => {
+              let existing = p.find(l => l.id === n.id);
+              if (!existing) {
+                p.push({
+                  id: n.id,
+                  level: n.level
+                });
+              } else if (existing.level < n.level) {
+                existing.level = n.level;
+              }
+              return p;
+            }, [])
+            .map(item => {
+              let s = sfia.find(s => s.id === item.id);
+              item.name = s?.name;
+              item.url = s?.url;
+              return item;
+            })
+            .sort((a, b) => (a.name || '').localeCompare(b.name))
+            .map((item, idx) => (
+              <Text is="div" marginTop={4} key={item.id}>
+                <Badge>Level {round(item.level, 2)}</Badge>{' '}
+                <a href={item.url} target="__blank" style={{ cursor: 'pointer' }}>
+                  {item.name} ({item.id})
+                </a>
+              </Text>
+            ))}
+        </Expander>
+
+        {/* ACS Skills */}
+        {/* <Pane marginTop={16} elevation={2} padding={16} borderRadius={8} background="tint1">
               <OutcomeEditor acss={acs} owner={unit} state={state} readonly={readonly} />
             </Pane> */}
 
-            {/* COMPLETION CRITERIA */}
-            {/* <Expander title="Completion Criteria" id="unitCompletionCriteria">
+        {/* COMPLETION CRITERIA */}
+        {/* <Expander title="Completion Criteria" id="unitCompletionCriteria">
               <TopicBlockEditor
                 block={unit.completionCriteria}
                 items={selectionBlocks}
@@ -702,8 +758,8 @@ const UnitDetails: React.FC<{
               />
             </Expander> */}
 
-            {/* OUTCOME DESCRIPTION */}
-            {/* <Expander title="Description" id="unitDescription">
+        {/* OUTCOME DESCRIPTION */}
+        {/* <Expander title="Description" id="unitDescription">
               <TextEditor owner={unit} field="outcome" label="Decription" readonly={readonly} />
              
               <TextEditor
@@ -732,25 +788,31 @@ const UnitDetails: React.FC<{
               )}
             </Expander> */}
 
-            {/* BLOCK PREREQUISITES */}
-            <Pane
-              elevation={1}
-              background="tint1"
-              padding={16}
-              borderRadius={8}
-              marginBottom={16}
-              marginTop={16}
-            >
-              <PrerequisiteEditor owner={unit} unit={unit} state={state} readonly={readonly} />
-            </Pane>
+        {/* BLOCK PREREQUISITES */}
+        <Pane
+          elevation={1}
+          background="tint1"
+          padding={16}
+          borderRadius={8}
+          marginBottom={16}
+          marginTop={16}
+        >
+          <PrerequisiteEditor
+            owner={unit}
+            unit={unit}
+            state={state}
+            readonly={readonly}
+            id="unitPrerequisites"
+          />
+        </Pane>
 
-            {/* Block CRITERIA */}
-            <Expander title="Block Dependencies" id="blockConstraints">
-              <BlockGraphContainer unit={unit} height={400} />
-            </Expander>
+        {/* Block CRITERIA */}
+        <Expander title="Dependency Graph" id="blockConstraints">
+          <BlockGraphContainer unit={unit} height={400} />
+        </Expander>
 
-            {/* Prerequisited CRITERIA */}
-            {/* <Expander title="Legacy Dependencies" id="unitConstraints">
+        {/* Prerequisited CRITERIA */}
+        {/* <Expander title="Legacy Dependencies" id="unitConstraints">
               {unit.unitPrerequisites && (
                 <TextEditor
                   readonly={readonly}
@@ -781,8 +843,6 @@ const UnitDetails: React.FC<{
 
               <Constraints dependencies={dependencies} unit={unit} />
             </Expander> */}
-          </Pane>
-        )}
 
         <Button
           intent="danger"

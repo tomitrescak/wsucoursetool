@@ -28,7 +28,7 @@ export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
         onConfirm={close => {
           const newBlock: Block = {
             id: findMaxId(unit.blocks),
-            blockId: Date.now(),
+            blockId: Date.now().toString(),
             name: localState.name,
             prerequisites: [],
             completionCriteria: {},
@@ -39,7 +39,7 @@ export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
             activities: [],
             topics: [],
             level: '',
-            flagged: false,
+            offline: false,
             length: 0,
             credits: 0,
             sfiaSkills: []

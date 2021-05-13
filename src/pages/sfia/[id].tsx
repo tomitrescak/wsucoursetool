@@ -354,7 +354,7 @@ export const SfiaOwnerEditor = ({
       <Expander title="SFIA Skills" id="sfiaSkillsUnit">
         <Pane display="flex">
           <div>
-            <Pane display="flex" marinBottom={4} marginTop={8}>
+            <Pane display="flex" marginBottom={4} marginTop={8}>
               <Text is="div" width={100} marginRight={16}>
                 Level
               </Text>

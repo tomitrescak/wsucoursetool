@@ -8,6 +8,10 @@ query Coordinators {
       obsolete
       outdated
       processed
+      topics {
+        id
+        ratio
+      }
     }
   }
 }

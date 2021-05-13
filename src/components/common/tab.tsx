@@ -9,8 +9,9 @@ import styled from '@emotion/styled';
 export const SideTab = styled(Text)`
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
-  margin-top: 4px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  margin-left: 2px;
 
   > * {
     margin-right: 8px;
@@ -21,7 +22,7 @@ export const SideTab = styled(Text)`
     padding: 4px !important;
     height: 20px;
     width: 20px;
-    margin: 0px 8px !important;
+    margin: 0px 8px 0px 4px !important;
   }
 `;
 

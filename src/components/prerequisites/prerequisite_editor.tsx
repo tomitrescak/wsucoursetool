@@ -23,19 +23,20 @@ import { usePrerequisitesQuery, BlockList, useUnitsQuery, useUnitBaseQuery } fro
 import { ProgressView } from '../common/progress_view';
 import { PrerequisiteModel, UnitModel } from 'components/classes';
 
-type PrerequisiteOwner = {
-  prerequisites?: ReadonlyArray<Prerequisite>;
-  addPrerequisite(p: Prerequisite);
-  addPrerequisites(ps: Prerequisite[]);
-  removePrerequisite(ix: number);
+export type PrerequisiteOwner = {
+  requisites?: ReadonlyArray<Prerequisite>;
+  addRequisite(key: string, p: Prerequisite);
+  // addRequisites(ps: Prerequisite[]);
+  // removeRequisiteByIndex(ix: number);
+  removeRequisite(key: string, p: Prerequisite);
 };
 
 export type Props = {
   state: State;
   owner: PrerequisiteOwner;
   unit: UnitModel;
-  activities?: Activity[];
   readonly: boolean;
+  id: string;
 };
 
 export type LineProps = {
@@ -43,21 +44,19 @@ export type LineProps = {
   sfiaSkills: SfiaSkill[];
   blocks: BlockList[];
   owner: PrerequisiteOwner;
-  activities: Activity[];
   topics: Topic[];
   i: number;
+  field: string;
   unit: Unit;
   readonly: boolean;
 };
 
 const BlockPrerequisiteLine = ({
   prerequisite,
-  unit,
-  activities
+  unit
 }: {
   prerequisite: Prerequisite;
   unit: Unit;
-  activities: Activity[];
 }) => {
   const { loading, error, data } = useUnitBaseQuery({
     variables: {
@@ -83,13 +82,6 @@ const BlockPrerequisiteLine = ({
   const block = data.unitBase.blocks.find(s => s.id === prerequisite.id);
   return (
     <Text flex="1">
-      {prerequisite.activityId != null && prerequisite.activityId != '' && (
-        <>
-          <Badge color="green">A</Badge>{' '}
-          {activities.find(a => a.id === prerequisite.activityId)?.name}
-          &nbsp;<b>&#x27a4;</b>&nbsp;
-        </>
-      )}
       <Badge color="blue">Block</Badge> {data.unitBase.name} &nbsp;&#x27a4;&nbsp;
       {block.name}
     </Text>
@@ -98,12 +90,10 @@ const BlockPrerequisiteLine = ({
 
 const UnitPrerequisiteLine = ({
   prerequisite,
-  unit,
-  activities
+  unit
 }: {
   prerequisite: Prerequisite;
   unit: Unit;
-  activities: Activity[];
 }) => {
   const { loading, error, data } = useUnitBaseQuery({
     variables: {
@@ -128,8 +118,8 @@ const UnitPrerequisiteLine = ({
 const PrerequisiteLine = ({
   prerequisite,
   sfiaSkills,
-  activities,
   blocks,
+  field,
   topics,
   owner,
   i,
@@ -144,10 +134,10 @@ const PrerequisiteLine = ({
       </Text>
     )}
     {prerequisite.type === 'block' && (
-      <BlockPrerequisiteLine activities={activities} prerequisite={prerequisite} unit={unit} />
+      <BlockPrerequisiteLine prerequisite={prerequisite} unit={unit} />
     )}
     {prerequisite.type === 'unit' && (
-      <UnitPrerequisiteLine activities={activities} prerequisite={prerequisite} unit={unit} />
+      <UnitPrerequisiteLine prerequisite={prerequisite} unit={unit} />
     )}
     {prerequisite.type === 'topic' && (
       <Text flex="1">
@@ -155,9 +145,12 @@ const PrerequisiteLine = ({
       </Text>
     )}
 
-    <Badge marginRight={16} marginLeft={8} color={prerequisite.recommended ? 'green' : 'red'}>
-      {prerequisite.recommended ? 'Recommended' : 'Required'}
-    </Badge>
+    {prerequisite.recommended === true ||
+      (prerequisite.recommended === false && (
+        <Badge marginRight={16} marginLeft={8} color={prerequisite.recommended ? 'green' : 'red'}>
+          {prerequisite.recommended ? 'Recommended' : 'Required'}
+        </Badge>
+      ))}
 
     {!readonly && (
       <IconButton
@@ -168,7 +161,7 @@ const PrerequisiteLine = ({
         appearance="primary"
         marginRight={16}
         onClick={() => {
-          owner.removePrerequisite(i);
+          owner.removeRequisite(field, prerequisite);
         }}
       />
     )}
@@ -178,22 +171,12 @@ const PrerequisiteLine = ({
 export type AddPrerequisiteProps = {
   unit: Unit;
   sfiaSkills: SfiaSkill[];
-  owner: {
-    prerequisites?: PrerequisiteModel[];
-    addPrerequisite(p: Prerequisite);
-    removePrerequise(ix: number);
-  };
-  activities: Activity[];
+  owner: PrerequisiteOwner;
   topics: Topic[];
+  field: string;
 };
 
-const AddPrerequisiteInner = ({
-  unit,
-  sfiaSkills,
-  owner,
-  topics,
-  activities
-}: AddPrerequisiteProps) => {
+const AddPrerequisiteInner = ({ unit, sfiaSkills, owner, topics, field }: AddPrerequisiteProps) => {
   const localState = useLocalStore(() => ({
     type: '',
     topicId: '',
@@ -202,8 +185,8 @@ const AddPrerequisiteInner = ({
     activityId: null,
     rating: -1,
     blockTopicId: '',
-    recommended: false,
-    selectedUnitId: unit ? unit.id : '-1'
+    recommended: field === 'prerequisites' ? false : undefined,
+    selectedUnitId: unit ? unit?.id : '-1'
   }));
 
   const { loading, error, data } = useUnitsQuery();
@@ -241,10 +224,10 @@ const AddPrerequisiteInner = ({
               flex="1"
               width="100%"
               id="block"
-              selectedItem={data.units.find(u => u.id === localState.selectedUnitId)}
+              selectedItem={data.units.find(u => u?.id === localState.selectedUnitId)}
               items={data.units}
-              itemToString={item => (item ? item.name : '')}
-              onChange={selected => (localState.selectedUnitId = selected.id)}
+              itemToString={item => item?.name || ''}
+              onChange={selected => (localState.selectedUnitId = selected?.id)}
             />
           </Pane>
 
@@ -255,21 +238,8 @@ const AddPrerequisiteInner = ({
                 width="100%"
                 id="block"
                 items={unitData.unitBase.blocks}
-                itemToString={item => (item ? item.name : '')}
+                itemToString={item => item?.name || ''}
                 onChange={selected => (localState.block = selected)}
-              />
-            </Pane>
-          )}
-
-          {localState.type === 'block' && activities && (
-            <Pane marginLeft={8} flex="1">
-              <Combobox
-                flex="1"
-                width="100%"
-                id="activities"
-                items={activities}
-                itemToString={item => (item ? item.name : '')}
-                onChange={selected => (localState.activityId = selected.id)}
               />
             </Pane>
           )}
@@ -321,32 +291,35 @@ const AddPrerequisiteInner = ({
         </Pane>
       )}
 
-      <Checkbox
-        margin={0}
-        checked={localState.recommended}
-        onChange={e => (localState.recommended = e.currentTarget.checked)}
-      />
-      <Text display="block" marginLeft={8} marginRight={8}>
-        Rec.
-      </Text>
-
+      {field === 'prerequisites' && (
+        <>
+          <Checkbox
+            margin={0}
+            checked={localState.recommended}
+            onChange={e => (localState.recommended = e.currentTarget.checked)}
+          />
+          <Text display="block" marginLeft={8} marginRight={8}>
+            Rec.
+          </Text>
+        </>
+      )}
       {localState.type && (
         <Button
           iconBefore="plus"
           appearance="primary"
           onClick={() => {
-            if (!owner.prerequisites) {
-              owner.prerequisites = [];
+            if (!owner.requisites) {
+              owner.requisites = [];
             }
             if (localState.type === 'skill') {
-              owner.addPrerequisite({
+              owner.addRequisite(field, {
                 id: localState.sfiaSkillId,
                 type: 'sfia',
                 value: localState.rating,
                 recommended: localState.recommended
               });
             } else if (localState.type === 'block') {
-              owner.addPrerequisite({
+              owner.addRequisite(field, {
                 id: localState.block.id,
                 unitId: localState.selectedUnitId,
                 type: 'block',
@@ -354,19 +327,19 @@ const AddPrerequisiteInner = ({
                 activityId: localState.activityId
               });
             } else if (localState.type === 'unit') {
-              owner.addPrerequisite({
+              owner.addRequisite(field, {
                 id: localState.selectedUnitId,
                 type: 'unit',
                 recommended: localState.recommended
               });
             } else if (localState.type === 'topic') {
-              owner.addPrerequisite({
+              owner.addRequisite(field, {
                 id: localState.topicId,
                 type: 'topic',
                 recommended: localState.recommended
               });
             } else if (localState.type === 'or') {
-              owner.addPrerequisite({
+              owner.addRequisite(field, {
                 type: 'or',
                 prerequisites: []
               });
@@ -387,10 +360,10 @@ type OrEditorProps = {
   prerequisite: PrerequisiteModel;
   sfiaSkills: SfiaSkill[];
   unit: Unit;
-  activities?: Activity[];
   blocks: BlockList[];
   topics: Topic[];
   readonly: boolean;
+  field: string;
 };
 
 const OrEditorInner = ({
@@ -398,10 +371,10 @@ const OrEditorInner = ({
   prerequisite,
   sfiaSkills,
   unit,
-  activities,
   blocks,
   topics,
-  readonly
+  readonly,
+  field
 }: OrEditorProps) => (
   <Pane display="flex" marginBottom={8}>
     <IconButton
@@ -410,7 +383,7 @@ const OrEditorInner = ({
       intent="danger"
       marginRight={4}
       onClick={() => {
-        owner.removePrerequisite(owner.prerequisites.indexOf(prerequisite));
+        owner.removeRequisite(field, prerequisite);
       }}
     />
     <IconButton
@@ -426,10 +399,11 @@ const OrEditorInner = ({
       {prerequisite.prerequisites.map((p, i) => (
         <Pane key={i}>
           <Prerequisites
+            title={null}
             owner={p}
+            field={field}
             sfiaSkills={sfiaSkills}
             unit={unit}
-            activities={activities}
             blocks={blocks}
             topics={topics}
             readonly={readonly}
@@ -480,11 +454,28 @@ const OrEditorInner = ({
 
 const OrEditor = observer(OrEditorInner);
 
-const PrerequisitesInner = ({ owner, sfiaSkills, unit, activities, blocks, topics, readonly }) => {
+const PrerequisitesInner = ({
+  owner,
+  sfiaSkills,
+  unit,
+  blocks,
+  topics,
+  readonly,
+  field,
+  title
+}) => {
+  if (readonly && (owner[field] == null || owner[field].length == 0)) {
+    return null;
+  }
   return (
     <Pane>
+      {title && (
+        <Heading marginTop={8} marginBottom={8}>
+          {title} ({owner[field].length})
+        </Heading>
+      )}
       <UnorderedList icon="tick" iconColor="success" alignItems="center" margin={0} marginLeft={0}>
-        {(owner.prerequisites || []).map((o, i) => {
+        {(owner[field] || []).map((o, i) => {
           if (o.type === 'or') {
             return (
               <OrEditor
@@ -495,6 +486,7 @@ const PrerequisitesInner = ({ owner, sfiaSkills, unit, activities, blocks, topic
                 blocks={blocks}
                 topics={topics}
                 unit={unit}
+                field={field}
                 readonly={readonly}
               />
             );
@@ -502,7 +494,7 @@ const PrerequisitesInner = ({ owner, sfiaSkills, unit, activities, blocks, topic
           return (
             <PrerequisiteLine
               key={i}
-              activities={activities}
+              field={field}
               prerequisite={o}
               sfiaSkills={sfiaSkills}
               owner={owner}
@@ -517,11 +509,11 @@ const PrerequisitesInner = ({ owner, sfiaSkills, unit, activities, blocks, topic
       </UnorderedList>
       {!readonly && (
         <AddPrerequisite
-          activities={activities}
           sfiaSkills={sfiaSkills}
           owner={owner}
           unit={unit}
           topics={topics}
+          field={field}
         />
       )}
     </Pane>
@@ -530,8 +522,8 @@ const PrerequisitesInner = ({ owner, sfiaSkills, unit, activities, blocks, topic
 
 const Prerequisites = observer(PrerequisitesInner);
 
-const PrerequisiteEditorInner: React.FC<Props> = ({ owner, unit, activities, readonly }) => {
-  const [expanded, setExpanded] = React.useState(localStorage.getItem('prerequisites') === 'true');
+const PrerequisiteEditorInner: React.FC<Props> = ({ owner, unit, readonly, id }) => {
+  const [expanded, setExpanded] = React.useState(localStorage.getItem(id) === 'true');
 
   const { loading, error, data } = usePrerequisitesQuery();
 
@@ -575,99 +567,58 @@ const PrerequisiteEditorInner: React.FC<Props> = ({ owner, unit, activities, rea
           onClick={() => {
             const exp = !expanded;
             setExpanded(exp);
-            localStorage.setItem('prerequisites', exp.toString());
+            localStorage.setItem(id, exp.toString());
           }}
         />
-        Prerequisites and Recommendations
-        {!readonly && (
-          <Pane flex="1" display="flex" justifyItems="flex-end">
-            <Popover
-              position={Position.BOTTOM_LEFT}
-              content={
-                <Menu>
-                  <Menu.Group title="Import">
-                    <Menu.Item
-                      onSelect={() => {
-                        owner.addPrerequisites(
-                          unit.blocks.map(
-                            b =>
-                              ({
-                                id: b.id,
-                                unitId: unit.id,
-                                type: 'block',
-                                recommended: true
-                              } as Prerequisite)
-                          )
-                        );
-                      }}
-                    >
-                      All Blocks
-                    </Menu.Item>
-                    {/* <Menu.Item
-                      onSelect={() => {
-                        owner.prerequisites.push(
-                          ...unit.blocks
-                            .filter(b =>
-                              state.courseConfig.blocks
-                                .find(t => t.id === b)
-                                .activities.some(a => a.type === 'assignment')
-                            )
-                            .map(
-                              b =>
-                                ({
-                                  id: b,
-                                  type: 'block',
-                                  recommended: true
-                                } as Prerequisite)
-                            )
-                        );
-                      }}
-                    >
-                      Practicals
-                    </Menu.Item>
-                    <Menu.Item
-                      onSelect={() => {
-                        owner.prerequisites.push(
-                          ...unit.blocks
-                            .filter(b =>
-                              state.courseConfig.blocks
-                                .find(t => t.id === b)
-                                .activities.some(a => a.type === 'exam')
-                            )
-                            .map(
-                              b =>
-                                ({
-                                  id: b,
-                                  type: 'block',
-                                  recommended: true
-                                } as Prerequisite)
-                            )
-                        );
-                      }}
-                    >
-                      Exams
-                    </Menu.Item> */}
-                  </Menu.Group>
-                </Menu>
-              }
-            >
-              <IconButton icon="chevron-down" marginLeft={16} appearance="minimal" />
-            </Popover>
-          </Pane>
-        )}
+        {/* Prerequisites and Recommendations */}
+        Relations
       </Heading>
 
       {expanded && (
         <Pane marginTop={8}>
           <Prerequisites
-            activities={activities}
             sfiaSkills={sfiaSkills}
             owner={owner}
             unit={unit}
+            field="prerequisites"
+            title="Prerequisites"
             blocks={blocks}
             topics={topics}
             readonly={readonly}
-          />{' '}
+          />
+
+          <Prerequisites
+            sfiaSkills={sfiaSkills}
+            owner={owner}
+            unit={unit}
+            field="corequisites"
+            title="Corerequisites"
+            blocks={blocks}
+            topics={topics}
+            readonly={readonly}
+          />
+
+          <Prerequisites
+            sfiaSkills={sfiaSkills}
+            owner={owner}
+            unit={unit}
+            field="equivalent"
+            title="Equivalent"
+            blocks={blocks}
+            topics={topics}
+            readonly={readonly}
+          />
+
+          <Prerequisites
+            sfiaSkills={sfiaSkills}
+            owner={owner}
+            unit={unit}
+            field="incompatible"
+            title="Incompatible"
+            blocks={blocks}
+            topics={topics}
+            readonly={readonly}
+          />
         </Pane>
       )}
     </Pane>

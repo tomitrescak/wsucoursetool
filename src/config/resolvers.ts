@@ -30,7 +30,7 @@ export type Outcome = {
 };
 
 export type UnitBlock = {
-  blockId: Scalars['Int'];
+  blockId: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];
   prerequisites?: Maybe<Array<Prerequisite>>;
@@ -52,7 +52,7 @@ export type UnitList = {
   contacted?: Maybe<Scalars['Boolean']>;
   fixed?: Maybe<Scalars['Boolean']>;
   hidden?: Maybe<Scalars['Boolean']>;
-  topics?: Maybe<Array<Scalars['String']>>;
+  topics: Array<BlockTopic>;
   level?: Maybe<Scalars['Int']>;
   offer?: Maybe<Array<Scalars['String']>>;
   credits?: Maybe<Scalars['Float']>;
@@ -113,10 +113,15 @@ export type Identifiable = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type CourseCondition = {
+  id?: Maybe<Scalars['String']>;
+};
+
 export type MajorList = {
   id: Scalars['String'];
   name: Scalars['String'];
   completionCriteria: Scalars['JSON'];
+  units: Scalars['JSON'];
 };
 
 export type CourseList = {
@@ -124,6 +129,7 @@ export type CourseList = {
   name: Scalars['String'];
   completionCriteria: Scalars['JSON'];
   majors: Array<MajorList>;
+  core: Scalars['JSON'];
 };
 
 export type Coordinator = {
@@ -389,6 +395,7 @@ export type ResolversTypes = {
   TopicDetails: ResolverTypeWrapper<TopicDetails>;
   BlockList: ResolverTypeWrapper<BlockList>;
   Identifiable: ResolverTypeWrapper<Identifiable>;
+  CourseCondition: ResolverTypeWrapper<CourseCondition>;
   MajorList: ResolverTypeWrapper<MajorList>;
   CourseList: ResolverTypeWrapper<CourseList>;
   Coordinator: ResolverTypeWrapper<Coordinator>;
@@ -421,6 +428,7 @@ export type ResolversParentTypes = {
   TopicDetails: TopicDetails;
   BlockList: BlockList;
   Identifiable: Identifiable;
+  CourseCondition: CourseCondition;
   MajorList: MajorList;
   CourseList: CourseList;
   Coordinator: Coordinator;
@@ -456,7 +464,7 @@ export type OutcomeResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type UnitBlockResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnitBlock'] = ResolversParentTypes['UnitBlock']> = {
-  blockId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  blockId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   prerequisites?: Resolver<Maybe<Array<ResolversTypes['Prerequisite']>>, ParentType, ContextType>;
@@ -479,7 +487,7 @@ export type UnitListResolvers<ContextType = any, ParentType extends ResolversPar
   contacted?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   fixed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   hidden?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  topics?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  topics?: Resolver<Array<ResolversTypes['BlockTopic']>, ParentType, ContextType>;
   level?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   offer?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   credits?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
@@ -550,10 +558,16 @@ export type IdentifiableResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type CourseConditionResolvers<ContextType = any, ParentType extends ResolversParentTypes['CourseCondition'] = ResolversParentTypes['CourseCondition']> = {
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type MajorListResolvers<ContextType = any, ParentType extends ResolversParentTypes['MajorList'] = ResolversParentTypes['MajorList']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   completionCriteria?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
+  units?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -562,6 +576,7 @@ export type CourseListResolvers<ContextType = any, ParentType extends ResolversP
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   completionCriteria?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   majors?: Resolver<Array<ResolversTypes['MajorList']>, ParentType, ContextType>;
+  core?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -659,6 +674,7 @@ export type Resolvers<ContextType = any> = {
   TopicDetails?: TopicDetailsResolvers<ContextType>;
   BlockList?: BlockListResolvers<ContextType>;
   Identifiable?: IdentifiableResolvers<ContextType>;
+  CourseCondition?: CourseConditionResolvers<ContextType>;
   MajorList?: MajorListResolvers<ContextType>;
   CourseList?: CourseListResolvers<ContextType>;
   Coordinator?: CoordinatorResolvers<ContextType>;

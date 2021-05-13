@@ -20,7 +20,7 @@ export const typeDefs = gql`
   }
 
   type UnitBlock {
-    blockId: Int!
+    blockId: String!
     id: String!
     name: String!
     prerequisites: [Prerequisite!]
@@ -42,7 +42,7 @@ export const typeDefs = gql`
     contacted: Boolean
     fixed: Boolean
     hidden: Boolean
-    topics: [String!]
+    topics: [BlockTopic!]!
     level: Int
     offer: [String!]
     credits: Float
@@ -103,11 +103,15 @@ export const typeDefs = gql`
     id: String
   }
 
+  type CourseCondition {
+    id: String
+  }
+
   type MajorList {
     id: String!
     name: String!
     completionCriteria: JSON!
-    # units: [Identifiable!]!
+    units: JSON!
   }
 
   type CourseList {
@@ -115,7 +119,7 @@ export const typeDefs = gql`
     name: String!
     completionCriteria: JSON!
     majors: [MajorList!]!
-    # core: [Identifiable!]!
+    core: JSON!
   }
 
   type Coordinator {

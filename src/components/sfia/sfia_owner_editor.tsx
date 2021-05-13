@@ -1,16 +1,39 @@
+import styled from '@emotion/styled';
 import { SfiaSkillMapping } from 'components/types';
 import { useSfiaQuery } from 'config/graphql';
 import {
-  Badge, Button, Checkbox, Combobox, Heading, IconButton, Pane, Text, TextInput
+  Badge,
+  Button,
+  Checkbox,
+  Combobox,
+  Heading,
+  IconButton,
+  Pane,
+  Text,
+  TextInput
 } from 'evergreen-ui';
 import { buildForm, url } from 'lib/helpers';
 import { action } from 'mobx';
 import { observer, useLocalStore } from 'mobx-react';
 import Link from 'next/link';
+import units from 'pages/units';
 import React from 'react';
 
 import { SfiaSkillMappingModel } from '../classes';
 import { ProgressView } from '../common/progress_view';
+import { SfiaSelect } from './sfia_select';
+
+const Stripes = styled.div`
+  > div {
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    padding-left: 4px;
+  }
+  div:nth-child(even) {
+    background: #f0f0f0;
+  }
+`;
 
 const SfiaSkill = observer(({ data, skill, unit, index, readonly, hasMax }) => {
   const selected = data.sfia.find(s => s.id === skill.id);
@@ -26,24 +49,21 @@ const SfiaSkill = observer(({ data, skill, unit, index, readonly, hasMax }) => {
           </>
         )}
         <Text>
-          <Link href={`/view/sfia-skills/${url(selected.name)}-${selected.id}`}>
-            <a>
-              {selected.name} ({selected.id})
-            </a>
-          </Link>
+          <a href={selected.url} target="__blank">
+            {selected.name} ({selected.id})
+          </a>
         </Text>
       </Pane>
       {!readonly && (
-        <TextInput
-          width={60}
+        <SfiaSelect
+          skill={skill}
+          width={100}
+          flex="0 0 100px"
           placeholder="Level"
-          value={skill.level}
-          type="number"
-          onChange={form.level}
           marginRight={8}
         />
       )}
-      {!readonly && hasMax && (
+      {/* {!readonly && hasMax && (
         <TextInput
           width={60}
           placeholder="Max"
@@ -53,11 +73,11 @@ const SfiaSkill = observer(({ data, skill, unit, index, readonly, hasMax }) => {
           onChange={form.max}
           marginRight={8}
         />
-      )}
+      )} */}
       {!readonly && (
         <IconButton
           icon="trash"
-          onClick={() => unit.removeSfiaSkill(index)}
+          onClick={() => unit.removeSfiaSkill(unit.sfiaSkills.indexOf(skill))}
           intent="danger"
           appearance="primary"
         />
@@ -81,32 +101,15 @@ export const SfiaOwnerEditor = observer(
     hasMax: boolean;
   }) => {
     const { loading, error, data, refetch } = useSfiaQuery();
-    const [showingAll, showAll] = React.useState(false);
 
-    const localState = useLocalStore(() => ({ newSkill: '', max: 0, newLevel: 0, flagged: false }));
+    const localState = useLocalStore(() => ({ newSkill: '', max: 0, level: 0 }));
     if (loading || error) {
       return <ProgressView loading={loading} error={error} />;
     }
 
-    if (showingAll) {
-      if (owner.sfiaSkills == null) {
-        owner.sfiaSkills = [];
-      }
-      setTimeout(
-        action(() => {
-          for (let skill of data.sfia) {
-            if (owner.sfiaSkills.every(s => s.id !== skill.id)) {
-              owner.addSfiaSkill({ id: skill.id, level: 0 });
-            }
-          }
-        }),
-        100
-      );
-    }
-
     return (
       <>
-        <Pane display="flex" marinBottom={4} marginTop={8}>
+        <Pane display="flex" marginBottom={4} marginTop={8}>
           <Text is="div" flex="1" marginRight={8}>
             Name
           </Text>
@@ -115,31 +118,33 @@ export const SfiaOwnerEditor = observer(
               Level
             </Text>
           )}
-          {!readonly && hasMax && (
+          {/* {!readonly && hasMax && (
             <Text is="div" width={60} marginRight={8}>
               Max
             </Text>
-          )}
+          )} */}
           {!readonly && <Pane width={30}></Pane>}
         </Pane>
-        {owner.sfiaSkills
-          .sort((a, b) => {
-            const sfiaA = data.sfia.find(s => s.id === a.id);
-            const sfiaB = data.sfia.find(s => s.id === b.id);
-            return sfiaA.name.localeCompare(sfiaB.name);
-          })
-          .filter(f => (showingAll ? true : f.level))
-          .map((skill, index) => (
-            <SfiaSkill
-              key={index + '_' + skill.id}
-              data={data}
-              index={index}
-              skill={skill}
-              unit={owner}
-              readonly={readonly}
-              hasMax={hasMax}
-            />
-          ))}
+
+        <Stripes>
+          {owner.sfiaSkills
+            .sort((a, b) => {
+              const sfiaA = data.sfia.find(s => s.id === a.id);
+              const sfiaB = data.sfia.find(s => s.id === b.id);
+              return sfiaA.name.localeCompare(sfiaB.name);
+            })
+            .map((skill, index) => (
+              <SfiaSkill
+                key={index + '_' + skill.id}
+                data={data}
+                index={index}
+                skill={skill}
+                unit={owner}
+                readonly={readonly}
+                hasMax={hasMax}
+              />
+            ))}
+        </Stripes>
 
         {!readonly && (
           <Pane display="flex" alignItems="center" marginTop={16}>
@@ -149,25 +154,27 @@ export const SfiaOwnerEditor = observer(
                 id="skill"
                 placeholder={'SFIA Skill'}
                 width="100%"
-                initialSelectedItem={{ label: '' }}
                 items={data.sfia}
-                itemToString={item => (item ? item.name : '')}
-                onChange={selected =>
-                  selected ? (localState.newSkill = selected.id) : (localState.newSkill = '')
+                itemToString={item => item?.name || ''}
+                selectedItem={
+                  localState.newSkill
+                    ? data.sfia.find(s => s.id === localState.newSkill)
+                    : { name: '' }
                 }
+                onChange={selected => {
+                  if (selected) {
+                    localState.newSkill = selected.id;
+                  } else {
+                    localState.newSkill = '';
+                  }
+                }}
               />
             </Pane>
-            <TextInput
-              width={80}
+            <SfiaSelect
+              skill={localState}
+              width={100}
+              flex="0 0 100px"
               placeholder="Level"
-              value={localState.newLevel}
-              type="number"
-              onChange={e => (localState.newLevel = parseInt(e.currentTarget.value))}
-              marginRight={8}
-            />
-            <Checkbox
-              checked={localState.flagged}
-              onChange={e => (localState.flagged = e.currentTarget.checked)}
               marginRight={8}
             />
             <IconButton
@@ -175,7 +182,7 @@ export const SfiaOwnerEditor = observer(
               onClick={() =>
                 owner.addSfiaSkill({
                   id: localState.newSkill,
-                  level: localState.newLevel,
+                  level: localState.level,
                   max: localState.max
                 })
               }
@@ -184,10 +191,6 @@ export const SfiaOwnerEditor = observer(
             />
           </Pane>
         )}
-
-        <Button isActive={showingAll} onClick={() => showAll(!showingAll)}>
-          Toggle All
-        </Button>
       </>
     );
   }

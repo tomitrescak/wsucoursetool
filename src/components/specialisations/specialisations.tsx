@@ -104,10 +104,10 @@ const Details: React.FC<{
           readonly={false}
         />
 
-        <Pane display="flex" background="tint2" marginTop={16} padding={16} borderRadius={6}>
-          {/* PREREQUSTIES */}
+        {/* <Pane display="flex" background="tint2" marginTop={16} padding={16} borderRadius={6}>
+          
           <PrerequisiteEditor state={state} owner={specialisation} unit={null} readonly={false} />
-        </Pane>
+        </Pane> */}
 
         <Button
           intent="danger"

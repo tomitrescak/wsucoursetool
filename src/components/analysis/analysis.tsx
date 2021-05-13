@@ -106,8 +106,8 @@ const groupByStrategies: {
     groups(unit, collections) {
       return unit.blocks.reduce((groups, block) => {
         groups.push(
-          block.flagged
-            ? 'Flagged'
+          block.offline
+            ? 'Offline'
             : unit.outdated
             ? 'Outdated'
             : unit.obsolete
@@ -474,7 +474,7 @@ const Container = () => {
                                   }
                                   return (
                                     <BlockView
-                                      level={tp.flagged ? 'Flagged' : tp.level}
+                                      level={tp.offline ? 'Offline' : tp.level}
                                       key={tp.id}
                                       title={tp.name}
                                     >

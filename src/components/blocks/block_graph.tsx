@@ -41,6 +41,7 @@ type Props = {
   buttons?: React.ReactNode;
   height?: number;
   save?: () => void;
+  menuPosition?: string;
 };
 
 let interval = null;
@@ -103,6 +104,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({
   allBlocks,
   byLevel,
   classes,
+  menuPosition,
   unitClass,
   blockClass,
   buttons,
@@ -163,7 +165,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({
 
     elements.push({
       position,
-      // classes: 'level' + unit.level,
+      classes: 'level' + level,
       data: {
         id,
         backgroundColor: '#dedede', // nodeColor(block),
@@ -241,7 +243,10 @@ export const BlockDependencyGraph: React.FC<Props> = ({
     const newBlockId = 'n_' + unit.id + '_' + block.id;
     elements.push({
       position,
-      classes: blockClass(block),
+      classes:
+        blockClass(block) +
+        ' ' +
+        (block.required === true ? 'required' : block.recommended === true ? 'recommended' : ''),
       data: {
         id: newBlockId,
         parent: 'u_' + unit.id,
@@ -402,6 +407,18 @@ export const BlockDependencyGraph: React.FC<Props> = ({
           }
         },
         {
+          selector: '.required',
+          style: {
+            backgroundColor: 'salmon'
+          }
+        },
+        {
+          selector: '.recommended',
+          style: {
+            backgroundColor: 'lightGreen'
+          }
+        },
+        {
           selector: ':parent',
           style: {
             'text-valign': 'top',
@@ -500,7 +517,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({
 
   return (
     <>
-      <Pane position="fixed" padding={4} zIndex={1000} background="white">
+      <Pane position={menuPosition} padding={4} zIndex={1000} background="white">
         <Pane display="flex" alignItems="center">
           {buttons}
           <IconButton

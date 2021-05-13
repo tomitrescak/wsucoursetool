@@ -1,4 +1,4 @@
-import { CourseConfig, Prerequisite, Unit, User } from 'components/types';
+import { Block, CourseConfig, Prerequisite, Unit, User } from 'components/types';
 import { IResolvers, UnitDependency } from 'config/resolvers';
 import { calculateDependencies } from 'config/utils';
 import fs from 'fs';
@@ -27,30 +27,6 @@ function getDb(): CourseConfig {
       })
     );
 
-    // add
-    const newDb = JSON.parse(
-      fs.readFileSync(path.resolve(`./src/data/db.jar.json`), {
-        encoding: 'utf-8'
-      })
-    );
-    g[key].units = newDb.units;
-
-    // g.__db = require('../data/db.json');
-    g[key].units.forEach(u =>
-      u.blocks.forEach(b => {
-        b.blockId = id++;
-        if (b.credits == null) {
-          b.credits = 0;
-        }
-        if (b.prerequisites == null) {
-          b.prerequisites = [];
-        }
-        if (b.name == null) {
-          b.name = 'Empty';
-        }
-      })
-    );
-
     // console.log(Object.keys(g.__db));
   }
   return g[key];
@@ -76,10 +52,50 @@ function saveBackup() {
   );
 }
 
+export function clone<T>(item: T): T {
+  return JSON.parse(JSON.stringify(item));
+}
+
 function saveDb() {
   const key = 'g_db';
 
+  const db = g[key];
+
+  // process records
+  const c: { units: Unit[] } = clone(db);
+
+  for (let unit of c.units) {
+    // handle topics
+    unit.topics = unitTopics(unit).map(t => ({ ...t, credits: 10 * t.ratio }));
+
+    for (let block of unit.blocks as Block[]) {
+      // topics
+      block.topics = (block.topics || []).map(t => ({ ...t, credits: block.credits * t.ratio }));
+
+      // recommended or required
+      if (block.recommended || block.required) {
+        for (let b of unit.blocks) {
+          if (block === b) continue;
+          if (b.prerequisites == null) {
+            b.prerequisites = [];
+          }
+          if (b.prerequisites.some(p => p.id === block.id)) {
+            continue;
+          }
+          b.prerequisites.push({
+            type: 'block',
+            id: block.blockId,
+            recommended: block.recommended
+          });
+        }
+      }
+    }
+  }
+
   fs.writeFileSync(path.resolve(dbFile), JSON.stringify(g[key], null, 2), {
+    encoding: 'utf-8'
+  });
+  fs.writeFileSync(path.resolve('./src/data/db.processed.json'), JSON.stringify(c, null, 2), {
     encoding: 'utf-8'
   });
 }
@@ -91,6 +107,28 @@ function getUser(id): User {
     });
   }
   return g.__users[id];
+}
+
+function unitTopics(u: Unit) {
+  return (u.blocks || []).length == 0
+    ? u.topics
+    : (u.blocks || [])
+        .flatMap(
+          f =>
+            (f.topics || []).map(ft => ({
+              id: ft.id,
+              ratio: (f.credits / 10) * ft.ratio
+            })) || []
+        )
+        .reduce((p, n) => {
+          let existing = p.find(r => r.id === n.id);
+          if (!existing) {
+            p.push(n);
+          } else {
+            existing.ratio += n.ratio;
+          }
+          return p;
+        }, []);
 }
 
 function withDb<T>(action: (db: CourseConfig) => T): T {
@@ -109,7 +147,9 @@ function addUnit(list: UnitDependency[], value: Unit, level: number) {
     blocks: value.blocks.map(b => ({
       id: b.id,
       name: b.name,
-      prerequisites: b.prerequisites || []
+      prerequisites: b.prerequisites || [],
+      required: b.required,
+      recommended: b.recommended
     })),
     level
   });
@@ -233,10 +273,9 @@ export const resolvers: IResolvers = {
         db.courses.push({
           id,
           name,
-          // core: [],
+          core: [],
           majors: [],
           completionCriteria: {
-            acs: [],
             sfia: [],
             topics: [],
             units: [],
@@ -528,36 +567,9 @@ export const resolvers: IResolvers = {
     unitDepenendencies(_, { id }) {
       let db = getDb();
       let unit = db.units.find(u => u.id === id);
-
-      function filterSingle(p: Prerequisite) {
-        return p.id === unit.id || p.unitId === unit.id;
-      }
-
-      function filterPrerequisites(p: Prerequisite[]) {
-        return (
-          p &&
-          p.length > 0 &&
-          p.some(one => filterSingle(one) || filterPrerequisites(one.prerequisites))
-        );
-      }
-
-      let dependencies = db.units.filter(
-        u =>
-          filterPrerequisites(u.prerequisites) ||
-          (u.blocks || []).some(b => filterPrerequisites(b.prerequisites))
-      );
-
       let neededUnits = [];
 
-      for (let dep of dependencies) {
-        if (dep.id !== id) {
-          addUnit(neededUnits, dep, -1);
-        }
-      }
-
       addUnique(db, neededUnits, unit, 0);
-
-      console.log(neededUnits);
 
       return neededUnits;
     },
@@ -571,10 +583,7 @@ export const resolvers: IResolvers = {
           prerequisites: u.prerequisites || [],
           dynamic: !!u.dynamic,
           blockCount: (u.blocks || []).length,
-          topics: (u.blocks || [])
-            .flatMap(f => f.topics || [])
-            .map(t => t.id)
-            .filter(onlyUnique)
+          topics: unitTopics(u)
         }))
         .sort((a, b) => a.name.localeCompare(b.name));
     },
@@ -589,12 +598,12 @@ export const resolvers: IResolvers = {
         id: c.id,
         name: c.name,
         completionCriteria: c.completionCriteria,
-        // core: c.core.map(o => ({ id: o.id, name: '' })),
+        core: c.core,
         majors: c.majors.map(m => ({
           id: m.id,
           name: m.name,
-          completionCriteria: m.completionCriteria
-          // units: (m.units || []).map(u => ({ id: u.id }))
+          completionCriteria: m.completionCriteria,
+          units: m.units
         }))
       }));
     }

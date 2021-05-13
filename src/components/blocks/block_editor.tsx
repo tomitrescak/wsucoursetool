@@ -17,6 +17,8 @@ import {
   Checkbox,
   Combobox
 } from 'evergreen-ui';
+import { Range, createSliderWithTooltip } from 'rc-slider';
+
 import Router from 'next/router';
 import { State, Block, BlockType as ActivityType, Activity, Unit, AcsKnowledge } from '../types';
 import { buildForm, findMaxId, findNumericMaxId } from 'lib/helpers';
@@ -25,7 +27,7 @@ import Link from 'next/link';
 import { AddBlockModal } from './add_block_modal';
 import { SideTab, Tabs } from '../common/tab';
 import { OutcomeEditor } from '../outcomes/outcome_editor';
-import { PrerequisiteEditor } from '../prerequisites/prerequisite_editor';
+import { PrerequisiteEditor, PrerequisiteOwner } from '../prerequisites/prerequisite_editor';
 import { TopicBlockEditor } from '../completion_criteria/completion_criteria_editor';
 import { TextEditor } from '../common/text_editor';
 import { KeywordEditor, TopicEditor } from 'components/common/tag_editors';
@@ -39,6 +41,10 @@ import { useUnitsQuery, useUnitBaseQuery } from 'config/graphql';
 import { ProgressView } from 'components/common/progress_view';
 import { SfiaOwnerEditor } from 'components/sfia/sfia_owner_editor';
 import { BlockTopicsEditor } from './block_topics.editor';
+import { round } from 'components/courses/search/search_helpers';
+import build from 'next/dist/build';
+
+const TooltipRange = createSliderWithTooltip(Range);
 
 function blockCredits(block: Block) {
   if (block.completionCriteria && block.completionCriteria.credit) {
@@ -51,16 +57,12 @@ const BlockDetails: React.FC<{
   state: State;
   unit: UnitModel;
   keywords: string[];
-  acs: AcsKnowledge[];
   readonly: boolean;
-}> = observer(({ block, state, unit, keywords, acs, readonly }) => {
+}> = observer(({ block, state, unit, keywords, readonly }) => {
   const form = React.useMemo(
     () => buildForm(block, ['name', 'description', 'outcome', 'credits']),
     [block]
   );
-  const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'activity' }), []);
-
-  const [expanded, setExpanded] = React.useState(localStorage.getItem('blockDetails') === 'true');
 
   const { loading, error, data } = useUnitsQuery();
   const { loading: unitLoading, data: unitData } = useUnitBaseQuery({
@@ -77,7 +79,7 @@ const BlockDetails: React.FC<{
   function addBlock(name = '<New Block>') {
     const newBlock: Block = {
       id: findMaxId(unit.blocks),
-      blockId: Date.now(),
+      blockId: Date.now().toString(),
       name,
       prerequisites: [
         {
@@ -95,7 +97,7 @@ const BlockDetails: React.FC<{
       // credits: 0,
       activities: [],
       level: '',
-      flagged: false,
+      offline: false,
       length: 0,
       credits: 0,
       sfiaSkills: []
@@ -125,6 +127,11 @@ const BlockDetails: React.FC<{
     block.addActivity(newActivity);
     state.delaySave();
   }
+
+  const creditSum = round(
+    unit.blocks.reduce((p, n) => parseFloat(n.credits as any) + p, 0),
+    2
+  );
 
   return (
     <div style={{ flex: 1 }} key={block.id}>
@@ -183,24 +190,49 @@ const BlockDetails: React.FC<{
         {/* DETAILS */}
         <Expander id="blockDetails" title="Details">
           {!readonly && (
-            <TextInputField
-              flex="1"
-              label="Name"
-              placeholder="Block Name"
-              value={block.name}
-              onChange={form.name}
-              marginBottom={8}
-              marginTop={8}
-            />
+            <Pane display="flex" alignItems="center">
+              <TextInputField
+                flex="1"
+                label="Name"
+                placeholder="Block Name"
+                value={block.name}
+                onChange={form.name}
+                marginBottom={8}
+              />
+            </Pane>
           )}
 
-          <TextEditor owner={block} field="outcome" label="Description" readonly={readonly} />
+          <Pane display="flex" marginBottom={8}>
+            <Checkbox
+              margin={0}
+              label="Unit Only"
+              onChange={e => (block.offline = e.currentTarget.checked)}
+              checked={block.offline}
+              disabled={readonly}
+            />
+            <Checkbox
+              margin={0}
+              marginLeft={16}
+              label="Recommended"
+              onChange={e => (block.recommended = e.currentTarget.checked)}
+              checked={block.recommended}
+              disabled={readonly}
+            />
+            <Checkbox
+              margin={0}
+              marginLeft={16}
+              label="Required"
+              onChange={e => (block.required = e.currentTarget.checked)}
+              checked={block.required}
+              disabled={readonly}
+            />
+          </Pane>
+
+          {/* <TextEditor owner={block} field="outcome" label="Description" readonly={readonly} /> */}
 
           <Pane display="flex">
             {/* TOPICS */}
             {/* <TopicEditor owner={block} readonly={readonly} /> */}
-            {/* KEYWORDS */}
-            <KeywordEditor owner={block} keywords={keywords} readonly={readonly} />
 
             <TextInputField
               width={60}
@@ -213,11 +245,14 @@ const BlockDetails: React.FC<{
               margin={0}
               marginBottom={8}
               marginTop={4}
-              marginLeft={8}
+              marginRight={8}
               disabled={readonly}
             />
 
-            <TextInputField
+            {/* KEYWORDS */}
+            <KeywordEditor owner={block} keywords={keywords} readonly={readonly} />
+
+            {/* <TextInputField
               width={50}
               label="Length"
               placeholder="Length"
@@ -229,10 +264,14 @@ const BlockDetails: React.FC<{
               marginTop={4}
               marginLeft={8}
               disabled={readonly}
-            />
+            /> */}
           </Pane>
 
-          <Pane display="flex" marginBottom={8}>
+          {creditSum != 10 ? (
+            <Alert intent="danger" title={`The sum of credits is ${creditSum} and not 10`}></Alert>
+          ) : null}
+
+          {/* <Pane display="flex" marginBottom={8}>
             {(!readonly || block.replacedByUnit) && (
               <Pane flex={1} marginRight={8}>
                 <Text fontWeight={500} display="block">
@@ -277,11 +316,11 @@ const BlockDetails: React.FC<{
                 )}
               </Pane>
             )}
-          </Pane>
+          </Pane> */}
 
           <Pane display="flex">
             {/* LEVEL */}
-            <SelectField
+            {/* <SelectField
               label="Level"
               value={block.level}
               id="level"
@@ -295,44 +334,76 @@ const BlockDetails: React.FC<{
               <option value="Intermediate">Intermediate</option>
               <option value="Advanced">Advanced</option>
               <option value="Applied">Applied</option>
-            </SelectField>
+            </SelectField> */}
 
-            <Checkbox
-              margin={0}
-              marginTop={30}
-              label="Flagged"
-              onChange={e => (block.flagged = e.currentTarget.checked)}
-              checked={block.flagged}
-              disabled={readonly}
-            />
-            <Checkbox
-              flex={1}
-              margin={0}
-              marginTop={30}
-              marginLeft={16}
-              label="Proposed"
-              onChange={e => (block.proposed = e.currentTarget.checked)}
-              checked={block.proposed}
-              disabled={readonly}
-            />
             {!readonly && (
               <Button
+                iconBefore="duplicate"
                 onClick={action(() => {
-                  for (let ob of unit.blocks) {
-                    if (ob.topics.length === 0) {
-                      block.topics.forEach(t => ob.addTopic(t));
+                  let blockIndex = unit.blocks.indexOf(block);
+                  let b1 = unit.blocks[blockIndex];
+                  for (let i = blockIndex + 1; i < unit.blocks.length; i++) {
+                    let b2 = unit.blocks[i];
+                    for (let j = b2.topics.length; j >= 0; j--) {
+                      b2.removeTopic(j);
                     }
-                    if (ob.keywords.length === 0) {
-                      block.keywords.forEach(t => ob.addKeyword(t));
-                    }
-                    if (ob.level == null) {
-                      ob.level = block.level;
+                    for (let j = 0; j < b1.topics.length; j++) {
+                      b2.addTopic(b1.topics[j].toJS());
                     }
                   }
                 })}
                 marginTop={20}
               >
-                Copy To Other Blocks
+                Copy Topics
+              </Button>
+            )}
+            {!readonly && (
+              <Button
+                marginLeft={8}
+                iconBefore="duplicate"
+                onClick={action(() => {
+                  let blockIndex = unit.blocks.indexOf(block);
+                  let b1 = unit.blocks[blockIndex];
+                  for (let i = blockIndex + 1; i < unit.blocks.length; i++) {
+                    let b2 = unit.blocks[i];
+                    for (let j = b2.sfiaSkills.length; j >= 0; j--) {
+                      b2.removeSfiaSkill(j);
+                    }
+                    for (let j = 0; j < b1.sfiaSkills.length; j++) {
+                      b2.addSfiaSkill({
+                        id: b1.sfiaSkills[j].id,
+                        level: b1.sfiaSkills[j].level
+                      });
+                    }
+                  }
+                })}
+                marginTop={20}
+              >
+                Copy SFIA
+              </Button>
+            )}
+            {!readonly && (
+              <Button
+                marginLeft={8}
+                iconBefore="duplicate"
+                onClick={action(() => {
+                  let blockIndex = unit.blocks.indexOf(block);
+                  let b1 = unit.blocks[blockIndex];
+                  for (let i = blockIndex + 1; i < unit.blocks.length; i++) {
+                    let b2 = unit.blocks[i];
+
+                    for (let j = b2.keywords.length; j >= 0; j--) {
+                      b2.removeKeyword(j);
+                    }
+
+                    for (let j = 0; j < b1.keywords.length; j++) {
+                      b2.addKeyword(b1.keywords[j]);
+                    }
+                  }
+                })}
+                marginTop={20}
+              >
+                Copy Keywords
               </Button>
             )}
           </Pane>
@@ -359,8 +430,8 @@ const BlockDetails: React.FC<{
             state={state}
             owner={block}
             unit={unit}
-            activities={block.activities}
             readonly={readonly}
+            id="blockPrerequisites"
           />
         </Pane>
 
@@ -417,6 +488,7 @@ const BlockDetails: React.FC<{
             unit.removeBlock(unit.blocks.indexOf(block));
           }}
           iconBefore="trash"
+          marginTop={8}
         >
           Delete
         </Button>
@@ -426,7 +498,6 @@ const BlockDetails: React.FC<{
 });
 
 type Props = {
-  acs: AcsKnowledge[];
   state: State;
   blocks: BlockModel[];
   readonlyBlocks: Block[];
@@ -483,14 +554,8 @@ function requisiteRanges(blocks: Block[], block: Block, recommended: boolean) {
 }
 
 function blockColor(block: Block) {
-  if (!block.activities || block.activities.length === 0) {
-    return undefined;
-  }
-  if (block.activities.some(a => a.type === 'exam')) {
-    return 'red';
-  }
-  if (block.activities.some(a => a.type === 'assignment')) {
-    return 'yellow';
+  if (block.offline) {
+    return 'orange';
   }
   return undefined;
 }
@@ -502,7 +567,6 @@ const BlocksEditorView: React.FC<Props> = ({
   unit,
   title,
   keywords,
-  acs,
   readonly,
   readonlyBlocks
 }) => {
@@ -566,7 +630,7 @@ const BlocksEditorView: React.FC<Props> = ({
         new Set([...currentBlock.keywords, ...nextBlock.keywords])
       );
 
-      // aggregate exisitng
+      // aggregate existing
       for (let sfia of currentBlock.sfiaSkills) {
         let existing = nextBlock.sfiaSkills.find(s => s.id === sfia.id);
         if (existing) {
@@ -596,12 +660,12 @@ const BlocksEditorView: React.FC<Props> = ({
   );
 
   return (
-    <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8}>
+    <Pane display="flex" flex={1} alignItems="flex-start" paddingRight={8} marginTop={8}>
       <Tablist flexBasis={300} width={200} marginRight={8}>
         <Pane display="flex">
           {title && (
             <Heading size={500} marginBottom={16} flex="1">
-              {title}
+              {/* {title} */}
             </Heading>
           )}
           {!readonly && (
@@ -639,8 +703,26 @@ const BlocksEditorView: React.FC<Props> = ({
                         aria-controls={`panel-${block.name}`}
                         display="flex"
                         alignItems="center"
-                        color={block.replacedByBlock ? 'red' : block.proposed ? 'green' : undefined}
-                        textDecoration={block.replacedByBlock ? 'line-through' : undefined}
+                        backgroundColor={
+                          selectedBlock && block.id === selectedBlock.id ? '#f0f0f0' : undefined
+                        }
+                        outline={
+                          selectedBlock && block.id === selectedBlock.id
+                            ? 'solid 1px #d0d0d0'
+                            : undefined
+                        }
+                        padding={2}
+                        borderRadius={3}
+                        color={
+                          block.required
+                            ? 'salmon'
+                            : block.offline
+                            ? 'orange'
+                            : block.recommended
+                            ? 'green'
+                            : undefined
+                        }
+                        // textDecoration={block.replacedByBlock ? 'line-through' : undefined}
                       >
                         <IconButton
                           intent="danger"
@@ -649,8 +731,8 @@ const BlocksEditorView: React.FC<Props> = ({
                           iconSize={8}
                           onClick={() => unit.removeBlock(index)}
                         />
-                        <Badge color={blockColor(block)} marginRight={8}>
-                          {index + 1}
+                        <Badge color={blockColor(block) as any} marginRight={8}>
+                          {block.credits}¢
                         </Badge>
 
                         {block.name}
@@ -682,7 +764,47 @@ const BlocksEditorView: React.FC<Props> = ({
               </Pane>
             ))}
           </DragContainer>
-          {readonlyBlocks && (
+
+          {/* <Heading size={400}>Credits</Heading> */}
+
+          {/* <Pane paddingTop={8} paddingBottom={20}>
+            <TooltipRange
+              value={unit.blocks.slice(0, unit.blocks.length - 1).map((t, i) => {
+                let val = 0;
+                for (let j = 0; j < i; j++) {
+                  val += unit.blocks[j].credits;
+                }
+                return t.credits + val;
+              })}
+              tipFormatter={value => value}
+              min={0}
+              max={10}
+              step={0.5}
+              marks={unit.blocks.reduce((p, n, i) => {
+                let credits = 0;
+                for (let j = 0; j <= i; j++) {
+                  credits += unit.blocks[j].credits;
+                }
+                p[credits] = n.credits;
+
+                return p;
+              }, {} as any)}
+              onChange={e => {
+                for (let i = 0; i < e.length; i++) {
+                  let val = 0;
+                  for (let j = 0; j < i; j++) {
+                    val += unit.blocks[j].credits;
+                  }
+                  unit.blocks[i].credits = e[i] - val;
+                }
+                unit.blocks[unit.blocks.length - 1].credits = 10 - e[e.length - 1];
+              }}
+              dots={true}
+              pushable={true}
+            />
+          </Pane> */}
+
+          {/* {readonlyBlocks && (
             <>
               <Heading size={400}>Imported Blocks</Heading>
               {readonlyBlocks.map((b, i) => {
@@ -710,7 +832,7 @@ const BlocksEditorView: React.FC<Props> = ({
                 );
               })}
             </>
-          )}
+          )} */}
         </Tabs>
         {!readonly && (
           <Pane marginTop={16}>
@@ -718,14 +840,13 @@ const BlocksEditorView: React.FC<Props> = ({
           </Pane>
         )}
       </Tablist>
-      {unit.blocks.length === 0 && <Alert flex={1}>There are no units defined</Alert>}
+      {unit.blocks.length === 0 && <Alert flex={1}>This unit has no blocks</Alert>}
       {selectedBlock && (
         <BlockDetails
           keywords={keywords}
           block={selectedBlock}
           unit={unit}
           state={state}
-          acs={acs}
           readonly={readonly}
         />
       )}

@@ -1,9 +1,23 @@
 import { ProgressView } from 'components/common/progress_view';
 import { VerticalPane } from 'components/common/vertical_pane';
+import { round } from 'components/courses/search/search_helpers';
 import { UnitList, useCourseListQuery, useCreateUnitMutation } from 'config/graphql';
 import {
-  Alert, Badge, Button, Checkbox, Dialog, Icon, IconButton, Pane, Select, SelectMenu, SidebarTab,
-  Tablist, Text, TextInput, TextInputField
+  Alert,
+  Badge,
+  Button,
+  Checkbox,
+  Dialog,
+  Icon,
+  IconButton,
+  Pane,
+  Select,
+  SelectMenu,
+  SidebarTab,
+  Tablist,
+  Text,
+  TextInput,
+  TextInputField
 } from 'evergreen-ui';
 import { buildForm, extractCriteriaUnits, url } from 'lib/helpers';
 import { observer, useLocalStore } from 'mobx-react';
@@ -14,11 +28,11 @@ import React from 'react';
 import { State } from '../types';
 import { UnitDetailContainer } from './unit_details';
 
-const TopicBadge = ({ children }) => (
+const TopicBadge = ({ children, color }) => (
   <Text
     marginRight={4}
     size={300}
-    background="#E4E7EB"
+    background={color || '#E4E7EB'}
     paddingLeft={4}
     paddingRight={4}
     borderRadius={3}
@@ -46,7 +60,7 @@ function exportToCsv(rows: string[][]) {
   link.click();
 }
 
-const UnitListItem = ({ unit, view, unitId, topics, selectedCourse }) => {
+const UnitListItem = observer(({ unit, view, unitId, topics, selectedCourse }) => {
   return (
     <Pane key={unit.id}>
       <Link href={`/${view}/[category]/[item]`} as={`/${view}/units/${url(unit.name)}-${unit.id}`}>
@@ -85,6 +99,9 @@ const UnitListItem = ({ unit, view, unitId, topics, selectedCourse }) => {
                 C
               </Badge>
             )}
+
+            {unit.fixed && <span role="">✔&nbsp;</span>}
+
             {unit.name}
 
             <Badge color={unit.blockCount > 0 ? 'green' : 'neutral'} marginLeft={8}>
@@ -120,23 +137,29 @@ const UnitListItem = ({ unit, view, unitId, topics, selectedCourse }) => {
             Contacted
           </Badge>
         )}
-        {unit.fixed && (
-          <Badge color="blue" marginRight={8}>
-            Fixed
-          </Badge>
-        )}
+
         {unit.hidden && (
           <Badge color="red" marginRight={8}>
             Hidden
           </Badge>
         )}
-        {(unit.topics || []).map(t => (
-          <TopicBadge key={t}>{topics.find(p => p.id === t).name.replace(/ /g, '\xa0')}</TopicBadge>
+        {(unit.topics || []).map((t, i) => (
+          <TopicBadge
+            key={i}
+            color={
+              Math.round(unit.topics.reduce((p, n) => p + n.ratio, 0) * 100) / 100 != 1
+                ? 'red'
+                : undefined
+            }
+          >
+            {topics.find(p => p.id === t.id)?.name.replace(/ /g, '\xa0') || 'None'}
+            &nbsp; [{round(t.ratio * 10, 2)}¢]
+          </TopicBadge>
         ))}
       </Pane>
     </Pane>
   );
-};
+});
 
 const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state, readonly }) => {
   const view = readonly ? 'view' : 'editor';
@@ -313,14 +336,14 @@ const UnitsEditorView: React.FC<{ state: State; readonly: boolean }> = ({ state,
                 )
               }
             />
-            <Checkbox
+            {/* <Checkbox
               marginTop={8}
               label="Show Hidden"
               checked={localState.showHidden}
               onChange={e => {
                 localState.showHidden = !localState.showHidden;
               }}
-            />
+            /> */}
           </Pane>
 
           <Tablist>

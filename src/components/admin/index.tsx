@@ -42,12 +42,12 @@ const Admin = styled.div`
 
 const tabs = [
   'Units',
-  'Courses'
+  'Courses',
   //'Coordinators',
   //'Topics',
   // 'Blocks',
   // 'Specialisations',
-  //'Jobs',
+  'Jobs'
   //'ACS Skills',
   //'SFIA Skills',
   //'Analysis'

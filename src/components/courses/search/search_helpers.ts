@@ -95,7 +95,7 @@ export type TopicProfile = {
 };
 
 export function round(num: number, dec = 1) {
-  return Math.round(num * 10 * dec) / (dec * 10);
+  return Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
 }
 
 export function logSearchNode(node: SearchNode, id = false) {

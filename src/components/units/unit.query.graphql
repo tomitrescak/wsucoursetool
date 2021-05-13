@@ -3,6 +3,8 @@ query Unit($id: String!) {
 
   keywords
 
+  sfia
+
   topics {
     id
     name

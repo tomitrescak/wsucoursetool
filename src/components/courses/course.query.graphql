@@ -18,7 +18,10 @@ query Course($id: String!) {
     level
     credits
     dynamic
-    topics
+    topics {
+      id
+      ratio
+    }
     prerequisites {
       ...Prerequisite
     }
