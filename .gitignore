@@ -42,3 +42,5 @@ block-edges.csv
 sorted-blocks.csv
 sorted-units.csv
 unit-edges.csv
+
+db.processed.json

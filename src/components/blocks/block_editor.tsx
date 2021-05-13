@@ -79,7 +79,6 @@ const BlockDetails: React.FC<{
   function addBlock(name = '<New Block>') {
     const newBlock: Block = {
       id: findMaxId(unit.blocks),
-      blockId: Date.now().toString(),
       name,
       prerequisites: [
         {

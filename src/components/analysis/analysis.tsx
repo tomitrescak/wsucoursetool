@@ -468,9 +468,9 @@ const Container = () => {
                                       strategy.inGroup(b, u.key, collections))
                                 )
                                 .map(tp => {
-                                  const blockId = unit.id + '-' + tp.id;
-                                  if (t.count.indexOf(blockId) === -1) {
-                                    t.count.push(blockId);
+                                  const id = unit.id + '-' + tp.id;
+                                  if (t.count.indexOf(id) === -1) {
+                                    t.count.push(id);
                                   }
                                   return (
                                     <BlockView

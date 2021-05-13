@@ -44,7 +44,7 @@ import { PrerequisiteEditor } from '../prerequisites/prerequisite_editor';
 import { AcsKnowledge, Block, Entity, SfiaSkill, State } from '../types';
 import { UnitGraph } from './unit_graph';
 
-const selfColor = 'rgb(251, 230, 162)';
+const selfColor = 'orange';
 
 function unitClass(unit: UnitDependency) {
   return 'level' + unit.level;
@@ -102,7 +102,7 @@ const nodeClasses = [
   {
     selector: '.level0',
     style: {
-      backgroundColor: 'rgb(251, 230, 162)'
+      backgroundColor: 'rgb(255, 249, 230)'
     }
   },
   {

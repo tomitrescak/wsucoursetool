@@ -47,7 +47,9 @@ let id = 0;
 // }));
 
 data.units.forEach(u => {
-  u.blocks.forEach(b => (b.id = b.blockId));
+  u.blocks.forEach((b, i) => {
+    delete b.blockId;
+  });
 });
 
 // data.units.forEach(u => {

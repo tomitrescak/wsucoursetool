@@ -237,9 +237,25 @@ export const BlockDependencyGraph: React.FC<Props> = ({
     }
 
     const block: Block = unit.blocks.find(b => b.id === blockId);
+
     if (owner) {
       var position = toJS(owner.positions.find(n => n.id === id));
     }
+
+    if (block == null) {
+      elements.push({
+        position,
+        classes: 'missing',
+        data: {
+          id: 'missing' + blockId,
+          parent: 'u_' + unit.id,
+          backgroundColor: 'red', // nodeColor(block),
+          label: blockId
+        }
+      });
+      return;
+    }
+
     const newBlockId = 'n_' + unit.id + '_' + block.id;
     elements.push({
       position,
@@ -255,25 +271,6 @@ export const BlockDependencyGraph: React.FC<Props> = ({
         label: block.name
       }
     });
-
-    // if block is replaced add replacement connection
-
-    if (block.replacedByUnit) {
-      // checkAddUnit(block.replacedByUnit);
-      checkAddBlock(block.replacedByUnit, block.replacedByBlock);
-
-      elements.push({
-        classes: ['replaced'],
-        data: {
-          id: 'lr_' + block.id + '_' + block.replacedByUnit + '_' + block.replacedByBlock,
-          source: newBlockId,
-          target:
-            'n_' + block.replacedByUnit + (block.replacedByBlock ? '_' + block.replacedByBlock : '')
-          // cyedgebendeditingWeights: [1],
-          // cyedgebendeditingDistances: [175]
-        }
-      });
-    }
   }
 
   function addUnitPrerequisites(prerequisites: Prerequisite[], u: UnitDependency) {
@@ -397,7 +394,7 @@ export const BlockDependencyGraph: React.FC<Props> = ({
             width: '200px',
             height: 'label',
             padding: '8px',
-            // 'background-color': '#666',
+            'background-color': '#666',
             'text-valign': 'center',
             'text-wrap': 'wrap',
             'text-max-width': '180px',

@@ -30,7 +30,6 @@ export type Outcome = {
 };
 
 export type UnitBlock = {
-  blockId: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];
   prerequisites?: Maybe<Array<Prerequisite>>;
@@ -92,7 +91,7 @@ export type TopicList = {
 export type TopicBlock = {
   unitId: Scalars['String'];
   unitName: Scalars['String'];
-  blockId: Scalars['String'];
+  id: Scalars['String'];
   blockName: Scalars['String'];
 };
 
@@ -464,7 +463,6 @@ export type OutcomeResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type UnitBlockResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnitBlock'] = ResolversParentTypes['UnitBlock']> = {
-  blockId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   prerequisites?: Resolver<Maybe<Array<ResolversTypes['Prerequisite']>>, ParentType, ContextType>;
@@ -533,7 +531,7 @@ export type TopicListResolvers<ContextType = any, ParentType extends ResolversPa
 export type TopicBlockResolvers<ContextType = any, ParentType extends ResolversParentTypes['TopicBlock'] = ResolversParentTypes['TopicBlock']> = {
   unitId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   unitName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  blockId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   blockName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };

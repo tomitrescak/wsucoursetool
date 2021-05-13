@@ -31,7 +31,6 @@ export type Outcome = {
 };
 
 export type UnitBlock = {
-  blockId: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];
   prerequisites?: Maybe<Array<Prerequisite>>;
@@ -93,7 +92,7 @@ export type TopicList = {
 export type TopicBlock = {
   unitId: Scalars['String'];
   unitName: Scalars['String'];
-  blockId: Scalars['String'];
+  id: Scalars['String'];
   blockName: Scalars['String'];
 };
 

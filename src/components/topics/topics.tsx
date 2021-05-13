@@ -5,7 +5,15 @@ import { TextEditor } from 'components/common/text_editor';
 import { VerticalPane } from 'components/common/vertical_pane';
 import { TopicDetails, useSaveConfigMutation, useTopicsDetailsQuery } from 'config/graphql';
 import {
-  Badge, Button, Heading, IconButton, Pane, Tablist, Text, TextInputField, toaster
+  Badge,
+  Button,
+  Heading,
+  IconButton,
+  Pane,
+  Tablist,
+  Text,
+  TextInputField,
+  toaster
 } from 'evergreen-ui';
 import { buildForm, findMaxId, url } from 'lib/helpers';
 import marked from 'marked';
@@ -84,7 +92,7 @@ const RelatedBlocks = ({ item }) => (
 
     <ul>
       {item.blocks.map((b, i) => (
-        <li key={b.unitId + '_' + b.blockId + '_' + i}>
+        <li key={b.unitId + '_' + b.id + '_' + i}>
           <Link href={`/view/[category]/[item]`} as={`/view/units/${url(b.unitName)}-${b.unitId}`}>
             <a>
               <Text>{b.unitName}</Text>
@@ -93,7 +101,7 @@ const RelatedBlocks = ({ item }) => (
           {' > '}
           <Link
             href={`/view/[category]/[item]`}
-            as={`/view/units/${url(b.unitName)}-${b.unitId}--${url(b.blockName)}-${b.blockId}`}
+            as={`/view/units/${url(b.unitName)}-${b.unitId}--${url(b.blockName)}-${b.id}`}
           >
             <a>
               <Text>{b.blockName}</Text>

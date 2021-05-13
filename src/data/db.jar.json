@@ -8244,120 +8244,6 @@
   ],
   "units": [
     {
-      "id": "200001",
-      "name": "Fundamentals of Mathematics",
-      "blocks": [
-        {
-          "id": "0",
-          "name": "Arithmetics",
-          "credits": 1.6,
-          "blockId": "200001-0",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "1",
-          "name": "Algebra",
-          "credits": 1.6,
-          "blockId": "200001-1",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "2",
-          "name": "Series",
-          "credits": 1.6,
-          "blockId": "200001-2",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "3",
-          "name": "Probability",
-          "credits": 1.6,
-          "blockId": "200001-3",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "4",
-          "name": "Graphical Skills and Functions",
-          "credits": 1.4,
-          "blockId": "200001-4",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "5",
-          "name": "Solving Equations",
-          "credits": 1.4,
-          "blockId": "200001-5",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "6",
-          "name": "Differential Calculus",
-          "credits": 0.8,
-          "blockId": "200001-6",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "7",
-          "name": "Integral Calculus",
-          "credits": 0,
-          "blockId": "200001-7",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 1
-            }
-          ]
-        }
-      ],
-      "level": 1,
-      "offer": [],
-      "topics": [],
-      "credits": 10
-    },
-    {
       "id": "100483",
       "name": "Principles of Professional Communication 1",
       "blocks": [
@@ -14059,7 +13945,6 @@
             }
           ],
           "blockId": "300115-206",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
@@ -14069,71 +13954,72 @@
               "id": "22",
               "ratio": 0.5
             }
-          ]
+          ],
+          "completionCriteria": {},
+          "recommended": true
         },
         {
           "id": "1",
-          "name": "Protocols, UDP",
-          "credits": 0.8,
+          "name": "TCP / UDP / Name Services",
+          "credits": 1.5,
           "sfiaSkills": [
             {
               "id": "TECH",
-              "level": 0.4,
+              "level": 1.2000000000000002,
               "max": 5
             },
             {
               "id": "INOV",
-              "level": 0.4,
+              "level": 1.2000000000000002,
               "max": 5
             },
             {
               "id": "RSCH",
-              "level": 0.24,
+              "level": 0.72,
               "max": 3
             },
             {
               "id": "STPL",
-              "level": 0.4,
+              "level": 1.2000000000000002,
               "max": 5
             },
             {
               "id": "EMRG",
-              "level": 0.32,
+              "level": 0.96,
               "max": 4
             },
             {
               "id": "PROG",
-              "level": 0.4,
+              "level": 1.2000000000000002,
               "max": 5
             },
             {
               "id": "DBDS",
-              "level": 0.32,
+              "level": 0.96,
               "max": 4
             },
             {
               "id": "TEST",
-              "level": 0.32,
+              "level": 0.96,
               "max": 4
             },
             {
               "id": "SINT",
-              "level": 0.32,
+              "level": 0.96,
               "max": 4
             },
             {
               "id": "SYSP",
-              "level": 0.32,
+              "level": 0.96,
               "max": 4
             },
             {
               "id": "DBAD",
-              "level": 0.32,
+              "level": 0.96,
               "max": 4
             }
           ],
           "blockId": "300115-207",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
@@ -14142,309 +14028,14 @@
             {
               "id": "22",
               "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "2",
-          "name": "Written Tutorial Exercises 1.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0,
-              "max": 4
             }
           ],
-          "blockId": "300115-208",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "3",
-          "name": "Server Types, TCP",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0.32,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-209",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "4",
-          "name": "Naming, Name services",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0.32,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-210",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "5",
-          "name": "Written Tutorial Exercises 2.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-211",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
+          "completionCriteria": {}
         },
         {
           "id": "6",
           "name": "Data Encoding, RPC",
-          "credits": 0.8,
+          "credits": 0.5,
           "sfiaSkills": [
             {
               "id": "TECH",
@@ -14503,7 +14094,6 @@
             }
           ],
           "blockId": "300115-212",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
@@ -14513,12 +14103,13 @@
               "id": "22",
               "ratio": 0.5
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "7",
           "name": "Caching NFS",
-          "credits": 0.8,
+          "credits": 0.5,
           "sfiaSkills": [
             {
               "id": "TECH",
@@ -14577,7 +14168,6 @@
             }
           ],
           "blockId": "300115-213",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
@@ -14586,235 +14176,14 @@
             {
               "id": "22",
               "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "8",
-          "name": "Written Tutorial Exercises 3.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0,
-              "max": 4
             }
           ],
-          "blockId": "300115-214",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "9",
-          "name": "First Quiz",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0.32,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-215",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "10",
-          "name": "Two Quizzes 1.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-216",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
+          "completionCriteria": {}
         },
         {
           "id": "11",
           "name": "Middleware, GDS",
-          "credits": 0.8,
+          "credits": 0.5,
           "sfiaSkills": [
             {
               "id": "TECH",
@@ -14873,7 +14242,6 @@
             }
           ],
           "blockId": "300115-217",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
@@ -14882,220 +14250,72 @@
             {
               "id": "22",
               "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "12",
-          "name": "Written Tutorial Exercises 4.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0,
-              "max": 4
             }
           ],
-          "blockId": "300115-218",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "13",
-          "name": "Intra-Session Break, no activities this week",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0.32,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-219",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
+          "completionCriteria": {}
         },
         {
           "id": "14",
-          "name": "Distributed objects, Web Services",
-          "credits": 0.8,
+          "name": "Distributed objects, services, transactions",
+          "credits": 2,
           "sfiaSkills": [
             {
               "id": "TECH",
-              "level": 0.4,
+              "level": 1.1,
               "max": 5
             },
             {
               "id": "INOV",
-              "level": 0.4,
+              "level": 1.1,
               "max": 5
             },
             {
               "id": "RSCH",
-              "level": 0.24,
+              "level": 0.6599999999999999,
               "max": 3
             },
             {
               "id": "STPL",
-              "level": 0.4,
+              "level": 1.1,
               "max": 5
             },
             {
               "id": "EMRG",
-              "level": 0.32,
+              "level": 0.88,
               "max": 4
             },
             {
               "id": "PROG",
-              "level": 0.4,
+              "level": 1.1,
               "max": 5
             },
             {
               "id": "DBDS",
-              "level": 0.32,
+              "level": 0.88,
               "max": 4
             },
             {
               "id": "TEST",
-              "level": 0.32,
+              "level": 0.88,
               "max": 4
             },
             {
               "id": "SINT",
-              "level": 0.32,
+              "level": 0.88,
               "max": 4
             },
             {
               "id": "SYSP",
-              "level": 0.32,
+              "level": 0.88,
               "max": 4
             },
             {
               "id": "DBAD",
-              "level": 0.32,
+              "level": 0.88,
               "max": 4
             }
           ],
           "blockId": "300115-220",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
@@ -15105,663 +14325,16 @@
               "id": "22",
               "ratio": 0.5
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "15",
-          "name": "The web as a distributed Platform",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0.32,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-221",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "16",
-          "name": "Written Tutorial Exercises 5.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-222",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "17",
-          "name": "Labour Day, No lecture this week.",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0.32,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-223",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "18",
-          "name": "Distributed Transactions",
-          "credits": 0.6,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.18,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0.24,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-224",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "19",
-          "name": "Written Tutorial Exercises 6.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-225",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "20",
-          "name": "Second Quiz",
-          "credits": 0.6,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.18,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0.24,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-226",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "21",
-          "name": "Two Quizzes 2.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-227",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "22",
-          "name": "Written Tutorial Exercises",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-228",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.5
-            },
-            {
-              "id": "22",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "23",
-          "name": "Two Quizzes",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "DBDS",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SINT",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DBAD",
-              "level": 0,
-              "max": 4
-            }
-          ],
-          "blockId": "300115-229",
-          "prerequisites": [],
+          "name": "Exam",
+          "completionCriteria": {},
+          "offline": true,
+          "length": 0,
+          "credits": 5,
           "topics": [
             {
               "id": "5",
@@ -15797,7 +14370,143 @@
           "level": 3
         }
       ],
-      "topics": []
+      "completionCriteria": {},
+      "positions": [
+        {
+          "id": "u_300115",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_1",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_2",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_3",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_4",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_5",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_6",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_7",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_8",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_9",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_10",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_11",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_12",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_13",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_14",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_15",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_16",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_17",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_18",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_19",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_20",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_21",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_22",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300115_23",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "config",
+          "pan": {
+            "x": 638.5,
+            "y": 277.4978134110787
+          },
+          "zoom": 1
+        }
+      ],
+      "fixed": true
     },
     {
       "id": "300128",
@@ -28612,1102 +27321,290 @@
         {
           "id": "0",
           "name": "Introduction to Formal Software Engineering",
-          "credits": 0.8,
+          "credits": 0.5,
           "sfiaSkills": [
             {
               "id": "TECH",
-              "level": 0.4,
+              "level": 2,
               "max": 5
             },
             {
               "id": "METL",
-              "level": 0.32,
+              "level": 2,
               "max": 4
             },
             {
               "id": "DESN",
-              "level": 0.24,
+              "level": 2,
               "max": 3
             },
             {
               "id": "PROG",
-              "level": 0.32,
+              "level": 2,
               "max": 4
             },
             {
               "id": "TEST",
-              "level": 0.24,
+              "level": 2,
               "max": 3
             },
             {
               "id": "SYSP",
-              "level": 0.32,
+              "level": 2,
               "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
             }
           ],
           "blockId": "300404-382",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
-              "ratio": 0.3333333333333333
+              "ratio": 0.5
             },
             {
               "id": "23",
-              "ratio": 0.3333333333333333
+              "ratio": 0.4
             },
             {
               "id": "29",
-              "ratio": 0.3333333333333333
+              "ratio": 0.09999999999999998
             }
-          ]
+          ],
+          "completionCriteria": {},
+          "recommended": true
         },
         {
           "id": "1",
-          "name": "Modeling Concurrent Systems (I)",
-          "credits": 0.8,
+          "name": "Modeling Concurrent Systems",
+          "credits": 0.5,
           "sfiaSkills": [
             {
               "id": "TECH",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "METL",
-              "level": 0.32,
-              "max": 4
+              "level": 4
             },
             {
               "id": "DESN",
-              "level": 0.24,
-              "max": 3
+              "level": 2
             },
             {
               "id": "PROG",
-              "level": 0.32,
-              "max": 4
+              "level": 2
             },
             {
               "id": "TEST",
-              "level": 0.24,
-              "max": 3
+              "level": 2
             },
             {
               "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
+              "level": 3
             }
           ],
           "blockId": "300404-383",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
-              "ratio": 0.3333333333333333
+              "ratio": 0.5
             },
             {
               "id": "23",
-              "ratio": 0.3333333333333333
+              "ratio": 0.4
             },
             {
               "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "2",
-          "name": "Modeling Concurrent Systems (II)",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
+              "ratio": 0.09999999999999998
             }
           ],
-          "blockId": "300404-384",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
+          "completionCriteria": {}
         },
         {
           "id": "3",
-          "name": "Linear Temporal Logic (LTL) (I)",
-          "credits": 0.8,
+          "name": "Linear Temporal Logic (LTL)",
+          "credits": 1.5,
           "sfiaSkills": [
             {
               "id": "TECH",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "METL",
-              "level": 0.32,
-              "max": 4
+              "level": 4
             },
             {
               "id": "DESN",
-              "level": 0.24,
-              "max": 3
+              "level": 2
             },
             {
               "id": "PROG",
-              "level": 0.32,
-              "max": 4
+              "level": 2
             },
             {
               "id": "TEST",
-              "level": 0.24,
-              "max": 3
+              "level": 2
             },
             {
               "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
+              "level": 3
             }
           ],
           "blockId": "300404-385",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
-              "ratio": 0.3333333333333333
+              "ratio": 0.5
             },
             {
               "id": "23",
-              "ratio": 0.3333333333333333
+              "ratio": 0.4
             },
             {
               "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "4",
-          "name": "Linear Temporal Logic (LTL) (II)",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
+              "ratio": 0.09999999999999998
             }
           ],
-          "blockId": "300404-386",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "5",
-          "name": "Review of Transition Systems, Concurrency, and LTL",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-387",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "6",
-          "name": "4 x tutorial and lab tasks",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-388",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "7",
-          "name": "Unit Test One",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-389",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "8",
-          "name": "2 x compulsory unit tests (one at the mid-semester and the other one is at the end of semester) 1.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-390",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
+          "completionCriteria": {}
         },
         {
           "id": "9",
-          "name": "Computation Tree Logic (I)",
-          "credits": 0.8,
+          "name": "Computation Tree Logic",
+          "credits": 1.5,
           "sfiaSkills": [
             {
               "id": "TECH",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "METL",
-              "level": 0.32,
-              "max": 4
+              "level": 4
             },
             {
               "id": "DESN",
-              "level": 0.24,
-              "max": 3
+              "level": 2
             },
             {
               "id": "PROG",
-              "level": 0.32,
-              "max": 4
+              "level": 2
             },
             {
               "id": "TEST",
-              "level": 0.24,
-              "max": 3
+              "level": 2
             },
             {
               "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
+              "level": 3
             }
           ],
           "blockId": "300404-391",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
-              "ratio": 0.3333333333333333
+              "ratio": 0.5
             },
             {
               "id": "23",
-              "ratio": 0.3333333333333333
+              "ratio": 0.4
             },
             {
               "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "10",
-          "name": "Empty",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0,
-              "max": 3
+              "ratio": 0.09999999999999998
             }
           ],
-          "blockId": "300404-392",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "11",
-          "name": "Computation Tree Logic (II)",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-393",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "12",
-          "name": "Computation Tree Logic (III)",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-394",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
+          "completionCriteria": {}
         },
         {
           "id": "13",
           "name": "Case Studies of Spin Model Checking",
-          "credits": 0.8,
+          "credits": 1,
           "sfiaSkills": [
             {
               "id": "TECH",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "METL",
-              "level": 0.32,
-              "max": 4
+              "level": 4
             },
             {
               "id": "DESN",
-              "level": 0.24,
-              "max": 3
+              "level": 2
             },
             {
               "id": "PROG",
-              "level": 0.32,
-              "max": 4
+              "level": 2
             },
             {
               "id": "TEST",
-              "level": 0.24,
-              "max": 3
+              "level": 2
             },
             {
               "id": "SYSP",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.24,
-              "max": 3
+              "level": 3
             }
           ],
           "blockId": "300404-395",
-          "prerequisites": [],
           "topics": [
             {
               "id": "5",
-              "ratio": 0.3333333333333333
+              "ratio": 0.5
             },
             {
               "id": "23",
-              "ratio": 0.3333333333333333
+              "ratio": 0.4
             },
             {
               "id": "29",
-              "ratio": 0.3333333333333333
+              "ratio": 0.09999999999999998
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "14",
-          "name": "Review of Principle of Model Checking, LTL, CTL and PROMELA programming based on Spin Model Checker",
-          "credits": 0.6,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0.18,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.18,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.18,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-396",
-          "prerequisites": [],
+          "name": "Exam",
+          "completionCriteria": {},
+          "offline": true,
+          "length": 0,
+          "credits": 5,
           "topics": [
             {
               "id": "5",
-              "ratio": 0.3333333333333333
+              "ratio": 0.5
             },
             {
               "id": "23",
-              "ratio": 0.3333333333333333
+              "ratio": 0.4
             },
             {
               "id": "29",
-              "ratio": 0.3333333333333333
+              "ratio": 0.09999999999999998
             }
-          ]
-        },
-        {
-          "id": "15",
-          "name": "2 x compulsory unit tests (one at the mid-semester and the other one is at the end of semester) 2.",
-          "credits": 0,
+          ],
           "sfiaSkills": [
             {
               "id": "TECH",
-              "level": 0,
-              "max": 5
+              "level": 2
             },
             {
               "id": "METL",
-              "level": 0,
-              "max": 4
+              "level": 4
             },
             {
               "id": "DESN",
-              "level": 0,
-              "max": 3
+              "level": 2
             },
             {
               "id": "PROG",
-              "level": 0,
-              "max": 4
+              "level": 2
             },
             {
               "id": "TEST",
-              "level": 0,
-              "max": 3
+              "level": 2
             },
             {
               "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-397",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "16",
-          "name": "Unit Test 2",
-          "credits": 0.6,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0.18,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0.18,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0.18,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-398",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "17",
-          "name": "2 x compulsory unit tests (one at the mid-semester and the other one is at the end of semester) 3.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-399",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
-            }
-          ]
-        },
-        {
-          "id": "18",
-          "name": "2 x compulsory unit tests (one at the mid-semester and the other one is at the end of semester)",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "TECH",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "DESN",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "PROG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "TEST",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "SYSP",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "LEDA",
-              "level": 0,
-              "max": 3
-            }
-          ],
-          "blockId": "300404-400",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "5",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "23",
-              "ratio": 0.3333333333333333
-            },
-            {
-              "id": "29",
-              "ratio": 0.3333333333333333
+              "level": 3
             }
           ]
         }
@@ -29717,21 +27614,118 @@
       "offer": [
         "sp"
       ],
-      "sfiaSkills": [
+      "completionCriteria": {},
+      "positions": [
         {
-          "id": "PROG",
-          "level": 2
+          "id": "u_300404",
+          "x": 0,
+          "y": 0
         },
         {
-          "id": "SWDN",
-          "level": 3
+          "id": "n_300404_0",
+          "x": 0,
+          "y": 0
         },
         {
-          "id": "METL",
-          "level": 4
+          "id": "n_300404_1",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_2",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_3",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_4",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_5",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_6",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_7",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_8",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_9",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_10",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_11",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_12",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_13",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_14",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_15",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_16",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_17",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300404_18",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "config",
+          "pan": {
+            "x": 638.5,
+            "y": 275.7358490566038
+          },
+          "zoom": 1
         }
       ],
-      "topics": []
+      "fixed": true
     },
     {
       "id": "300491",
@@ -29740,765 +27734,192 @@
         {
           "id": "0",
           "name": "Introduction to Game Design",
-          "credits": 2.4,
+          "credits": 1,
           "sfiaSkills": [
             {
-              "id": "INAN",
-              "level": 0.72,
-              "max": 3
-            },
-            {
-              "id": "ICPM",
-              "level": 0.48,
-              "max": 2
-            },
-            {
-              "id": "RSCH",
-              "level": 0.72,
-              "max": 3
-            },
-            {
-              "id": "DATM",
-              "level": 0.48,
-              "max": 2
-            },
-            {
-              "id": "REQM",
-              "level": 0.48,
-              "max": 2
-            },
-            {
-              "id": "BSMO",
-              "level": 0.48,
-              "max": 2
-            },
-            {
-              "id": "DTAN",
-              "level": 0.48,
-              "max": 2
-            },
-            {
               "id": "DESN",
-              "level": 0.48,
+              "level": 1,
               "max": 2
-            },
-            {
-              "id": "INCA",
-              "level": 0.48,
-              "max": 2
-            },
-            {
-              "id": "UNAN",
-              "level": 0.72,
-              "max": 3
             },
             {
               "id": "HCEV",
-              "level": 0.48,
+              "level": 1,
               "max": 2
             },
             {
-              "id": "USEV",
-              "level": 0.48,
-              "max": 2
+              "id": "ADEV",
+              "level": 2,
+              "max": 0
             },
             {
-              "id": "ASUP",
-              "level": 0.48,
-              "max": 2
-            },
-            {
-              "id": "PBMG",
-              "level": 0.72,
-              "max": 3
+              "id": "METL",
+              "level": 3,
+              "max": 0
             }
           ],
           "blockId": "300491-401",
-          "prerequisites": [],
           "topics": [
             {
               "id": "20",
               "ratio": 1
             }
-          ]
+          ],
+          "completionCriteria": {},
+          "required": true
         },
         {
           "id": "4",
-          "name": "Understanding the machines & monetizing your game.",
-          "credits": 1.2,
+          "name": "Game Engines and Monetisation",
+          "credits": 0.5,
           "sfiaSkills": [
             {
-              "id": "INAN",
-              "level": 0.36,
-              "max": 3
-            },
-            {
-              "id": "ICPM",
-              "level": 0.24,
-              "max": 2
-            },
-            {
-              "id": "RSCH",
-              "level": 0.36,
-              "max": 3
-            },
-            {
-              "id": "DATM",
-              "level": 0.24,
-              "max": 2
-            },
-            {
-              "id": "REQM",
-              "level": 0.24,
-              "max": 2
-            },
-            {
-              "id": "BSMO",
-              "level": 0.24,
-              "max": 2
-            },
-            {
-              "id": "DTAN",
-              "level": 0.24,
-              "max": 2
-            },
-            {
               "id": "DESN",
-              "level": 0.24,
-              "max": 2
-            },
-            {
-              "id": "INCA",
-              "level": 0.24,
-              "max": 2
-            },
-            {
-              "id": "UNAN",
-              "level": 0.36,
-              "max": 3
+              "level": 1
             },
             {
               "id": "HCEV",
-              "level": 0.24,
-              "max": 2
+              "level": 1
             },
             {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 2
+              "id": "ADEV",
+              "level": 2
             },
             {
-              "id": "ASUP",
-              "level": 0.24,
-              "max": 2
-            },
-            {
-              "id": "PBMG",
-              "level": 0.36,
-              "max": 3
+              "id": "METL",
+              "level": 3
             }
           ],
           "blockId": "300491-402",
-          "prerequisites": [],
           "topics": [
             {
               "id": "20",
               "ratio": 1
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "6",
-          "name": "Game concepts & Game Worlds.",
-          "credits": 0.8,
+          "name": "Narratives and Storytelling",
+          "credits": 2,
           "sfiaSkills": [
             {
-              "id": "INAN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "ICPM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "DATM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "REQM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "BSMO",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "DTAN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
               "id": "DESN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "INCA",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "UNAN",
-              "level": 0.24,
-              "max": 3
+              "level": 1
             },
             {
               "id": "HCEV",
-              "level": 0.16,
-              "max": 2
+              "level": 1
             },
             {
-              "id": "USEV",
-              "level": 0.16,
-              "max": 2
+              "id": "ADEV",
+              "level": 2
             },
             {
-              "id": "ASUP",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "PBMG",
-              "level": 0.24,
-              "max": 3
+              "id": "METL",
+              "level": 3
             }
           ],
           "blockId": "300491-403",
-          "prerequisites": [],
           "topics": [
             {
               "id": "20",
               "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "8",
-          "name": "Creative & Expressive play & character development.",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "INAN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "ICPM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "DATM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "REQM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "BSMO",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "DTAN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "DESN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "INCA",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "UNAN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "HCEV",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "USEV",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "ASUP",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "PBMG",
-              "level": 0.24,
-              "max": 3
             }
           ],
-          "blockId": "300491-404",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "20",
-              "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "10",
-          "name": "Storytelling",
-          "credits": 1.6,
-          "sfiaSkills": [
-            {
-              "id": "INAN",
-              "level": 0.48,
-              "max": 3
-            },
-            {
-              "id": "ICPM",
-              "level": 0.32,
-              "max": 2
-            },
-            {
-              "id": "RSCH",
-              "level": 0.48,
-              "max": 3
-            },
-            {
-              "id": "DATM",
-              "level": 0.32,
-              "max": 2
-            },
-            {
-              "id": "REQM",
-              "level": 0.32,
-              "max": 2
-            },
-            {
-              "id": "BSMO",
-              "level": 0.32,
-              "max": 2
-            },
-            {
-              "id": "DTAN",
-              "level": 0.32,
-              "max": 2
-            },
-            {
-              "id": "DESN",
-              "level": 0.32,
-              "max": 2
-            },
-            {
-              "id": "INCA",
-              "level": 0.32,
-              "max": 2
-            },
-            {
-              "id": "UNAN",
-              "level": 0.48,
-              "max": 3
-            },
-            {
-              "id": "HCEV",
-              "level": 0.32,
-              "max": 2
-            },
-            {
-              "id": "USEV",
-              "level": 0.32,
-              "max": 2
-            },
-            {
-              "id": "ASUP",
-              "level": 0.32,
-              "max": 2
-            },
-            {
-              "id": "PBMG",
-              "level": 0.48,
-              "max": 3
-            }
-          ],
-          "blockId": "300491-405",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "20",
-              "ratio": 1
-            }
-          ]
+          "completionCriteria": {}
         },
         {
           "id": "14",
-          "name": "Creating the user experience.",
-          "credits": 0.8,
+          "name": "User experience and Game Mechanics",
+          "credits": 1,
           "sfiaSkills": [
             {
-              "id": "INAN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "ICPM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "DATM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "REQM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "BSMO",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "DTAN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
               "id": "DESN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "INCA",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "UNAN",
-              "level": 0.24,
-              "max": 3
+              "level": 1
             },
             {
               "id": "HCEV",
-              "level": 0.16,
-              "max": 2
+              "level": 1
             },
             {
-              "id": "USEV",
-              "level": 0.16,
-              "max": 2
+              "id": "ADEV",
+              "level": 2
             },
             {
-              "id": "ASUP",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "PBMG",
-              "level": 0.24,
-              "max": 3
+              "id": "METL",
+              "level": 3
             }
           ],
           "blockId": "300491-406",
-          "prerequisites": [],
           "topics": [
             {
               "id": "20",
               "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "16",
-          "name": "Gameplay and core mechanics.",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "INAN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "ICPM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "DATM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "REQM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "BSMO",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "DTAN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "DESN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "INCA",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "UNAN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "HCEV",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "USEV",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "ASUP",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "PBMG",
-              "level": 0.24,
-              "max": 3
             }
           ],
-          "blockId": "300491-407",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "20",
-              "ratio": 1
-            }
-          ]
-        },
-        {
-          "id": "18",
-          "name": "Game balancing & General principles of level design.",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "INAN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "ICPM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "DATM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "REQM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "BSMO",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "DTAN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "DESN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "INCA",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "UNAN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "HCEV",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "USEV",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "ASUP",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "PBMG",
-              "level": 0.24,
-              "max": 3
-            }
-          ],
-          "blockId": "300491-408",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "20",
-              "ratio": 1
-            }
-          ]
+          "completionCriteria": {}
         },
         {
           "id": "20",
-          "name": "Design Considerations for online and mobile gaming.",
-          "credits": 0.8,
+          "name": "Online and Mobile Gaming",
+          "credits": 0.5,
           "sfiaSkills": [
             {
-              "id": "INAN",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "ICPM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "DATM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "REQM",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "BSMO",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "DTAN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
               "id": "DESN",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "INCA",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "UNAN",
-              "level": 0.24,
-              "max": 3
+              "level": 1
             },
             {
               "id": "HCEV",
-              "level": 0.16,
-              "max": 2
+              "level": 1
             },
             {
-              "id": "USEV",
-              "level": 0.16,
-              "max": 2
+              "id": "ADEV",
+              "level": 2
             },
             {
-              "id": "ASUP",
-              "level": 0.16,
-              "max": 2
-            },
-            {
-              "id": "PBMG",
-              "level": 0.24,
-              "max": 3
+              "id": "METL",
+              "level": 3
             }
           ],
           "blockId": "300491-409",
-          "prerequisites": [],
           "topics": [
             {
               "id": "20",
               "ratio": 1
+            }
+          ],
+          "completionCriteria": {}
+        },
+        {
+          "id": "21",
+          "name": "Exams",
+          "completionCriteria": {},
+          "topics": [
+            {
+              "id": "20",
+              "ratio": 1
+            }
+          ],
+          "offline": true,
+          "length": 0,
+          "credits": 5,
+          "sfiaSkills": [
+            {
+              "id": "DESN",
+              "level": 1
+            },
+            {
+              "id": "HCEV",
+              "level": 1
+            },
+            {
+              "id": "ADEV",
+              "level": 2
+            },
+            {
+              "id": "METL",
+              "level": 3
             }
           ]
         }
@@ -30508,13 +27929,67 @@
       "offer": [
         "au"
       ],
-      "sfiaSkills": [
+      "completionCriteria": {},
+      "positions": [
         {
-          "id": "METL",
-          "level": 3
+          "id": "u_300491",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300491_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300491_4",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300491_6",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300491_8",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300491_10",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300491_14",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300491_16",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300491_18",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300491_20",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "config",
+          "pan": {
+            "x": 638.5,
+            "y": 283.9303482587065
+          },
+          "zoom": 1
         }
-      ],
-      "topics": []
+      ]
     },
     {
       "id": "300565",
@@ -32424,11 +29899,9 @@
               "id": "2",
               "unitId": "300565",
               "type": "block",
-              "recommended": true,
-              "prerequisites": []
+              "recommended": true
             }
           ],
-          "sfiaSkills": [],
           "blockId": "300569-434",
           "topics": [
             {
@@ -32436,17 +29909,8 @@
               "ratio": 1
             }
           ],
-          "keywords": [],
-          "corequisites": [],
-          "incompatible": [],
-          "equivalent": [],
-          "completionCriteria": {
-            "criteria": []
-          },
-          "activities": [],
-          "outcomes": [],
-          "recommended": true,
-          "corerequisites": []
+          "completionCriteria": {},
+          "recommended": true
         },
         {
           "id": "4",
@@ -32465,7 +29929,6 @@
             }
           ],
           "blockId": "300569-435",
-          "prerequisites": [],
           "topics": [
             {
               "id": "12",
@@ -32476,16 +29939,7 @@
               "ratio": 0.30000000000000004
             }
           ],
-          "keywords": [],
-          "corequisites": [],
-          "incompatible": [],
-          "equivalent": [],
-          "completionCriteria": {
-            "criteria": []
-          },
-          "activities": [],
-          "outcomes": [],
-          "corerequisites": []
+          "completionCriteria": {}
         },
         {
           "id": "6",
@@ -32513,7 +29967,6 @@
             }
           ],
           "blockId": "300569-436",
-          "prerequisites": [],
           "topics": [
             {
               "id": "12",
@@ -32524,16 +29977,7 @@
               "ratio": 0.4
             }
           ],
-          "keywords": [],
-          "corequisites": [],
-          "incompatible": [],
-          "equivalent": [],
-          "completionCriteria": {
-            "criteria": []
-          },
-          "activities": [],
-          "outcomes": [],
-          "corerequisites": []
+          "completionCriteria": {}
         },
         {
           "id": "10",
@@ -32551,23 +29995,13 @@
             }
           ],
           "blockId": "300569-438",
-          "prerequisites": [],
           "topics": [
             {
               "id": "12",
               "ratio": 1
             }
           ],
-          "keywords": [],
-          "corequisites": [],
-          "incompatible": [],
-          "equivalent": [],
-          "completionCriteria": {
-            "criteria": []
-          },
-          "activities": [],
-          "outcomes": [],
-          "corerequisites": []
+          "completionCriteria": {}
         },
         {
           "id": "12",
@@ -32585,7 +30019,6 @@
             }
           ],
           "blockId": "300569-439",
-          "prerequisites": [],
           "topics": [
             {
               "id": "12",
@@ -32596,16 +30029,7 @@
               "ratio": 0.4
             }
           ],
-          "keywords": [],
-          "corequisites": [],
-          "incompatible": [],
-          "equivalent": [],
-          "completionCriteria": {
-            "criteria": []
-          },
-          "activities": [],
-          "outcomes": [],
-          "corerequisites": []
+          "completionCriteria": {}
         },
         {
           "id": "17",
@@ -32616,8 +30040,7 @@
               "id": "2",
               "unitId": "300582",
               "type": "block",
-              "recommended": true,
-              "prerequisites": []
+              "recommended": true
             }
           ],
           "sfiaSkills": [
@@ -32643,16 +30066,7 @@
               "ratio": 1
             }
           ],
-          "keywords": [],
-          "corequisites": [],
-          "incompatible": [],
-          "equivalent": [],
-          "completionCriteria": {
-            "criteria": []
-          },
-          "activities": [],
-          "outcomes": [],
-          "corerequisites": []
+          "completionCriteria": {}
         },
         {
           "id": "19",
@@ -32675,23 +30089,13 @@
             }
           ],
           "blockId": "300569-441",
-          "prerequisites": [],
           "topics": [
             {
               "id": "12",
               "ratio": 1
             }
           ],
-          "keywords": [],
-          "corequisites": [],
-          "incompatible": [],
-          "equivalent": [],
-          "completionCriteria": {
-            "criteria": []
-          },
-          "activities": [],
-          "outcomes": [],
-          "corerequisites": []
+          "completionCriteria": {}
         },
         {
           "id": "24",
@@ -32709,35 +30113,19 @@
             }
           ],
           "blockId": "300569-442",
-          "prerequisites": [],
           "topics": [
             {
               "id": "12",
               "ratio": 1
             }
           ],
-          "keywords": [],
-          "corequisites": [],
-          "incompatible": [],
-          "equivalent": [],
-          "completionCriteria": {
-            "criteria": []
-          },
-          "activities": [],
-          "outcomes": [],
-          "corerequisites": []
+          "completionCriteria": {}
         },
         {
           "id": "25",
           "blockId": 1620886214266,
           "name": "Exam",
-          "prerequisites": [],
-          "completionCriteria": {
-            "criteria": []
-          },
-          "keywords": [],
-          "outcomes": [],
-          "activities": [],
+          "completionCriteria": {},
           "topics": [
             {
               "id": "12",
@@ -32752,11 +30140,7 @@
               "id": "METL",
               "level": 2
             }
-          ],
-          "corequisites": [],
-          "incompatible": [],
-          "equivalent": [],
-          "corerequisites": []
+          ]
         }
       ],
       "credits": 10,
@@ -32764,17 +30148,7 @@
       "offer": [
         "sp"
       ],
-      "sfiaSkills": [],
-      "topics": [],
-      "prerequisite": [],
-      "completionCriteria": {
-        "criteria": []
-      },
-      "outcomes": [],
-      "prerequisites": [],
-      "corequisites": [],
-      "incompatible": [],
-      "equivalent": [],
+      "completionCriteria": {},
       "positions": [
         {
           "id": "u_300569",
@@ -32817,11 +30191,6 @@
           "y": 0
         },
         {
-          "id": "n_300569_8",
-          "x": 0,
-          "y": 0
-        },
-        {
           "id": "n_300569_10",
           "x": 0,
           "y": 0
@@ -32843,6 +30212,11 @@
         },
         {
           "id": "n_300569_24",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300569_25",
           "x": 0,
           "y": 0
         },
@@ -32913,9 +30287,13 @@
             "y": 279.2703862660944
           },
           "zoom": 1
+        },
+        {
+          "id": "n_300569_8",
+          "x": 0,
+          "y": 0
         }
       ],
-      "corerequisites": [],
       "fixed": true
     },
     {
@@ -42420,1981 +39798,316 @@
       "blocks": [
         {
           "id": "0",
-          "name": "Unit info and overview",
-          "credits": 0.8,
+          "name": "Introduction to Emerging Trends in Information Systems",
+          "credits": 0,
           "sfiaSkills": [
             {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
               "id": "ISCO",
-              "level": 0.48,
+              "level": 2,
               "max": 6
             },
             {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
               "id": "BPRE",
-              "level": 0.48,
+              "level": 1,
               "max": 6
             },
             {
               "id": "STPL",
-              "level": 0.4,
+              "level": 2,
               "max": 5
             },
             {
               "id": "EMRG",
-              "level": 0.4,
+              "level": 2,
               "max": 5
             },
             {
               "id": "BUAN",
-              "level": 0.32,
+              "level": 1,
               "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
             },
             {
               "id": "CSMG",
-              "level": 0.32,
+              "level": 1,
               "max": 4
             },
             {
               "id": "CIPM",
-              "level": 0.4,
+              "level": 1,
               "max": 5
+            },
+            {
+              "id": "DESN",
+              "level": 2,
+              "max": 0
             }
           ],
           "blockId": "300584-532",
-          "prerequisites": [],
           "topics": [
             {
-              "id": "6",
+              "id": "25",
               "ratio": 0.5
             },
             {
-              "id": "29",
+              "id": "23",
               "ratio": 0.5
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "1",
-          "name": "Emerging Information Systems - Where are you now and where are you headed in your career",
-          "credits": 0.8,
+          "name": "Where are you now and where are you headed in your career",
+          "credits": 1,
           "sfiaSkills": [
             {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
               "id": "ISCO",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "BPRE",
-              "level": 0.48,
-              "max": 6
+              "level": 1
             },
             {
               "id": "STPL",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "EMRG",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "BUAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
+              "level": 1
             },
             {
               "id": "CSMG",
-              "level": 0.32,
-              "max": 4
+              "level": 1
             },
             {
               "id": "CIPM",
-              "level": 0.4,
-              "max": 5
+              "level": 1
+            },
+            {
+              "id": "DESN",
+              "level": 2
             }
           ],
           "blockId": "300584-533",
-          "prerequisites": [],
           "topics": [
             {
-              "id": "6",
+              "id": "25",
               "ratio": 0.5
             },
             {
-              "id": "29",
+              "id": "23",
               "ratio": 0.5
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "2",
-          "name": "Existing and upcomming technology trends\n- eTransformation, eCollaboration, Social Computing",
-          "credits": 0.8,
+          "name": "Existing and upcomming technology trends - eTransformation, eCollaboration, Social Computing",
+          "credits": 2,
           "sfiaSkills": [
             {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
               "id": "ISCO",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "BPRE",
-              "level": 0.48,
-              "max": 6
+              "level": 1
             },
             {
               "id": "STPL",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "EMRG",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "BUAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
+              "level": 1
             },
             {
               "id": "CSMG",
-              "level": 0.32,
-              "max": 4
+              "level": 1
             },
             {
               "id": "CIPM",
-              "level": 0.4,
-              "max": 5
+              "level": 1
+            },
+            {
+              "id": "DESN",
+              "level": 2
             }
           ],
           "blockId": "300584-534",
-          "prerequisites": [],
           "topics": [
             {
-              "id": "6",
+              "id": "25",
               "ratio": 0.5
             },
             {
-              "id": "29",
+              "id": "23",
               "ratio": 0.5
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "3",
-          "name": "Emerging Technologies and Markets - current roles and responsibilities",
-          "credits": 0.8,
+          "name": "Emerging Technologies and Markets - current and future roles and responsibilities",
+          "credits": 1,
           "sfiaSkills": [
             {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
               "id": "ISCO",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "BPRE",
-              "level": 0.48,
-              "max": 6
+              "level": 1
             },
             {
               "id": "STPL",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "EMRG",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "BUAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
+              "level": 1
             },
             {
               "id": "CSMG",
-              "level": 0.32,
-              "max": 4
+              "level": 1
             },
             {
               "id": "CIPM",
-              "level": 0.4,
-              "max": 5
+              "level": 1
+            },
+            {
+              "id": "DESN",
+              "level": 2
             }
           ],
           "blockId": "300584-535",
-          "prerequisites": [],
           "topics": [
             {
-              "id": "6",
+              "id": "25",
               "ratio": 0.5
             },
             {
-              "id": "29",
+              "id": "23",
               "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "4",
-          "name": "Online study and data gathering",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0.4,
-              "max": 5
             }
           ],
-          "blockId": "300584-536",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "5",
-          "name": "Emerging Technologies and Markets -future roles and responsibilities",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0.4,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-537",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "6",
-          "name": "Assignment 1",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0.4,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-538",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
+          "completionCriteria": {}
         },
         {
           "id": "7",
           "name": "Power of social media, data mining, IoT, big data",
-          "credits": 0.8,
+          "credits": 1,
           "sfiaSkills": [
             {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
               "id": "ISCO",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "BPRE",
-              "level": 0.48,
-              "max": 6
+              "level": 1
             },
             {
               "id": "STPL",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "EMRG",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "BUAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
+              "level": 1
             },
             {
               "id": "CSMG",
-              "level": 0.32,
-              "max": 4
+              "level": 1
             },
             {
               "id": "CIPM",
-              "level": 0.4,
-              "max": 5
+              "level": 1
+            },
+            {
+              "id": "DESN",
+              "level": 2
             }
           ],
           "blockId": "300584-539",
-          "prerequisites": [],
           "topics": [
             {
-              "id": "6",
+              "id": "25",
               "ratio": 0.5
             },
             {
-              "id": "29",
+              "id": "23",
               "ratio": 0.5
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "8",
-          "name": "Assignment 1 Feedback\n\nRequirements for the Assignments 2 and 3 will be discussed.\n\nInformation Systems: Legal, ethics, social and regulatory trends.",
-          "credits": 0.8,
+          "name": "Project",
+          "completionCriteria": {},
+          "offline": true,
+          "length": 0,
+          "credits": 5,
+          "topics": [
+            {
+              "id": "25",
+              "ratio": 0.5
+            },
+            {
+              "id": "23",
+              "ratio": 0.5
+            }
+          ],
           "sfiaSkills": [
             {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
               "id": "ISCO",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "BPRE",
-              "level": 0.48,
-              "max": 6
+              "level": 1
             },
             {
               "id": "STPL",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "EMRG",
-              "level": 0.4,
-              "max": 5
+              "level": 2
             },
             {
               "id": "BUAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
+              "level": 1
             },
             {
               "id": "CSMG",
-              "level": 0.32,
-              "max": 4
+              "level": 1
             },
             {
               "id": "CIPM",
-              "level": 0.4,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-540",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "9",
-          "name": "Break Week ",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0.4,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-541",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "10",
-          "name": "TBA",
-          "credits": 0.8,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0.48,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.24,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.4,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0.32,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0.4,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-542",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "11",
-          "name": "Assignment 2 Presentations and discussions</p>",
-          "credits": 0.6,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0.36,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0.36,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.18,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0.3,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-543",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "12",
-          "name": "Assignment 2 1.",
-          "credits": 0.6,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0.36,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0.36,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0.18,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0.3,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0.24,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0.3,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-544",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "13",
-          "name": "Assignment 2 Presentations and discussions</p>",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-545",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "14",
-          "name": "Assignment 2 2.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-546",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "15",
-          "name": "Assignment 2 Presentations and discussions</p>",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-547",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "16",
-          "name": "Assignment 2 3.",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-548",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "17",
-          "name": "Feedback and unit review",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-549",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "18",
-          "name": "Assignment 3",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-550",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
-            },
-            {
-              "id": "29",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "19",
-          "name": "Assignment 2",
-          "credits": 0,
-          "sfiaSkills": [
-            {
-              "id": "GOVN",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "ISCO",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "ICPM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "INOV",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BPRE",
-              "level": 0,
-              "max": 6
-            },
-            {
-              "id": "STPL",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "EMRG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BUAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "ORDI",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "BENM",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "UNAN",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "USEV",
-              "level": 0,
-              "max": 3
-            },
-            {
-              "id": "CHMG",
-              "level": 0,
-              "max": 5
-            },
-            {
-              "id": "CSMG",
-              "level": 0,
-              "max": 4
-            },
-            {
-              "id": "CIPM",
-              "level": 0,
-              "max": 5
-            }
-          ],
-          "blockId": "300584-551",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "6",
-              "ratio": 0.5
+              "level": 1
             },
             {
-              "id": "29",
-              "ratio": 0.5
+              "id": "DESN",
+              "level": 2
             }
           ]
         }
@@ -44422,7 +40135,123 @@
           "level": 3
         }
       ],
-      "topics": []
+      "completionCriteria": {},
+      "positions": [
+        {
+          "id": "u_300584",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_1",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_2",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_3",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_4",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_5",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_6",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_7",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_8",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_9",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_10",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_11",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_12",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_13",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_14",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_15",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_16",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_17",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_18",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300584_19",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "config",
+          "pan": {
+            "x": 638.5,
+            "y": 267.35368956743
+          },
+          "zoom": 1
+        }
+      ],
+      "fixed": true
     },
     {
       "id": "300585",
@@ -57023,7 +52852,6 @@
           "name": "Environmental Data and Sampling; Data Summaries and Graphs",
           "credits": 0.8,
           "blockId": "301035-821",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57033,14 +52861,33 @@
               "id": "13",
               "ratio": 0.5
             }
-          ]
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
+            {
+              "id": "INAN",
+              "level": 3,
+              "max": 0
+            },
+            {
+              "id": "METL",
+              "level": 3,
+              "max": 0
+            },
+            {
+              "id": "VISL",
+              "level": 2,
+              "max": 0
+            }
+          ],
+          "recommended": false,
+          "required": true
         },
         {
           "id": "1",
           "name": "Parameter Estimation and Hypothesis Testing",
           "credits": 0.8,
           "blockId": "301035-822",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57049,6 +52896,21 @@
             {
               "id": "13",
               "ratio": 0.5
+            }
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
+            {
+              "id": "INAN",
+              "level": 3
+            },
+            {
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57057,7 +52919,6 @@
           "name": "Prediction Intervals, Tolerance Intervals and Control Charts",
           "credits": 0.8,
           "blockId": "301035-823",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57066,6 +52927,21 @@
             {
               "id": "13",
               "ratio": 0.5
+            }
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
+            {
+              "id": "INAN",
+              "level": 3
+            },
+            {
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57074,7 +52950,6 @@
           "name": "Correlation and Simple Linear Regression",
           "credits": 0.8,
           "blockId": "301035-824",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57084,22 +52959,20 @@
               "id": "13",
               "ratio": 0.5
             }
-          ]
-        },
-        {
-          "id": "4",
-          "name": "Quizzes 1.",
-          "credits": 0,
-          "blockId": "301035-825",
-          "prerequisites": [],
-          "topics": [
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
             {
-              "id": "7",
-              "ratio": 0.5
+              "id": "INAN",
+              "level": 3
             },
             {
-              "id": "13",
-              "ratio": 0.5
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57108,7 +52981,6 @@
           "name": "Multiple Linear Regression, Diagnostics and Prediction",
           "credits": 0.8,
           "blockId": "301035-826",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57118,22 +52990,20 @@
               "id": "13",
               "ratio": 0.5
             }
-          ]
-        },
-        {
-          "id": "6",
-          "name": "Quizzes 2.",
-          "credits": 0,
-          "blockId": "301035-827",
-          "prerequisites": [],
-          "topics": [
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
             {
-              "id": "7",
-              "ratio": 0.5
+              "id": "INAN",
+              "level": 3
             },
             {
-              "id": "13",
-              "ratio": 0.5
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57142,7 +53012,6 @@
           "name": "Time Series and Autocorrelation",
           "credits": 0.8,
           "blockId": "301035-828",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57151,6 +53020,21 @@
             {
               "id": "13",
               "ratio": 0.5
+            }
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
+            {
+              "id": "INAN",
+              "level": 3
+            },
+            {
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57159,7 +53043,6 @@
           "name": "Trend Estimation, Modeling and \nResidual Analysis",
           "credits": 0.8,
           "blockId": "301035-829",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57169,22 +53052,20 @@
               "id": "13",
               "ratio": 0.5
             }
-          ]
-        },
-        {
-          "id": "9",
-          "name": "Quizzes 3.",
-          "credits": 0,
-          "blockId": "301035-830",
-          "prerequisites": [],
-          "topics": [
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
             {
-              "id": "7",
-              "ratio": 0.5
+              "id": "INAN",
+              "level": 3
             },
             {
-              "id": "13",
-              "ratio": 0.5
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57193,7 +53074,6 @@
           "name": "Autoregressive and Moving Average Models",
           "credits": 0.8,
           "blockId": "301035-831",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57203,22 +53083,20 @@
               "id": "13",
               "ratio": 0.5
             }
-          ]
-        },
-        {
-          "id": "11",
-          "name": " <latex> {\\ \\vglue -3.5pt\\large\\bf Intra Session Break}</latex>",
-          "credits": 0,
-          "blockId": "301035-832",
-          "prerequisites": [],
-          "topics": [
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
             {
-              "id": "7",
-              "ratio": 0.5
+              "id": "INAN",
+              "level": 3
             },
             {
-              "id": "13",
-              "ratio": 0.5
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57227,7 +53105,6 @@
           "name": "Model Specification and Forecasts",
           "credits": 0.8,
           "blockId": "301035-833",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57236,6 +53113,21 @@
             {
               "id": "13",
               "ratio": 0.5
+            }
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
+            {
+              "id": "INAN",
+              "level": 3
+            },
+            {
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57244,7 +53136,6 @@
           "name": "Types of Spatial Data and Models for Geostatistical Data",
           "credits": 0.8,
           "blockId": "301035-834",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57254,22 +53145,20 @@
               "id": "13",
               "ratio": 0.5
             }
-          ]
-        },
-        {
-          "id": "14",
-          "name": "Quizzes 4.",
-          "credits": 0,
-          "blockId": "301035-835",
-          "prerequisites": [],
-          "topics": [
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
             {
-              "id": "7",
-              "ratio": 0.5
+              "id": "INAN",
+              "level": 3
             },
             {
-              "id": "13",
-              "ratio": 0.5
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57278,7 +53167,6 @@
           "name": "Spatial Correlation, Variogram and Models",
           "credits": 0.8,
           "blockId": "301035-836",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57288,22 +53176,20 @@
               "id": "13",
               "ratio": 0.5
             }
-          ]
-        },
-        {
-          "id": "16",
-          "name": "Quizzes 5.",
-          "credits": 0,
-          "blockId": "301035-837",
-          "prerequisites": [],
-          "topics": [
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
             {
-              "id": "7",
-              "ratio": 0.5
+              "id": "INAN",
+              "level": 3
             },
             {
-              "id": "13",
-              "ratio": 0.5
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57312,7 +53198,6 @@
           "name": "Prediction for Geostatistical Data; Case Study",
           "credits": 0.6,
           "blockId": "301035-838",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57322,22 +53207,20 @@
               "id": "13",
               "ratio": 0.5
             }
-          ]
-        },
-        {
-          "id": "18",
-          "name": "Computer based Assignment - Data Analysis task",
-          "credits": 0,
-          "blockId": "301035-839",
-          "prerequisites": [],
-          "topics": [
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
             {
-              "id": "7",
-              "ratio": 0.5
+              "id": "INAN",
+              "level": 3
             },
             {
-              "id": "13",
-              "ratio": 0.5
+              "id": "METL",
+              "level": 3
+            },
+            {
+              "id": "VISL",
+              "level": 2
             }
           ]
         },
@@ -57346,7 +53229,6 @@
           "name": "Spatio-Temporal Models",
           "credits": 0.6,
           "blockId": "301035-840",
-          "prerequisites": [],
           "topics": [
             {
               "id": "7",
@@ -57356,73 +53238,20 @@
               "id": "13",
               "ratio": 0.5
             }
-          ]
-        },
-        {
-          "id": "20",
-          "name": "Quizzes",
-          "credits": 0,
-          "blockId": "301035-841",
-          "prerequisites": [],
-          "topics": [
+          ],
+          "completionCriteria": {},
+          "sfiaSkills": [
             {
-              "id": "7",
-              "ratio": 0.5
+              "id": "INAN",
+              "level": 3
             },
             {
-              "id": "13",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "21",
-          "name": "Lab based exam",
-          "credits": 0,
-          "blockId": "301035-842",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 0.5
+              "id": "METL",
+              "level": 3
             },
             {
-              "id": "13",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "22",
-          "name": "Lab based exam 1.",
-          "credits": 0,
-          "blockId": "301035-843",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 0.5
-            },
-            {
-              "id": "13",
-              "ratio": 0.5
-            }
-          ]
-        },
-        {
-          "id": "23",
-          "name": "Lab based exam 2.",
-          "credits": 0,
-          "blockId": "301035-844",
-          "prerequisites": [],
-          "topics": [
-            {
-              "id": "7",
-              "ratio": 0.5
-            },
-            {
-              "id": "13",
-              "ratio": 0.5
+              "id": "VISL",
+              "level": 2
             }
           ]
         }
@@ -57446,7 +53275,345 @@
           "level": 2
         }
       ],
-      "topics": []
+      "completionCriteria": {},
+      "positions": [
+        {
+          "id": "u_301035",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "u_300700",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "u_200263",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "u_200032",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_1",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_2",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_3",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_5",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_7",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_8",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_10",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_12",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_13",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_15",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_17",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_19",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300700_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300700_2",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300700_14",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200263_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200263_1",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200263_2",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200263_4",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200263_5",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200263_10",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200263_12",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200263_15",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_1",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_2",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_3",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_4",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_5",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_6",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_7",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_8",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_9",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_10",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_11",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_12",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_13",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_14",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_15",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_16",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_17",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_200032_18",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "config",
+          "pan": {
+            "x": 638.5,
+            "y": 283.9303482587065
+          },
+          "zoom": 1
+        },
+        {
+          "id": "n_301035_4",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_6",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_9",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_11",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_14",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_16",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_18",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_20",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_21",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_22",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301035_23",
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "prerequisites": [
+        {
+          "type": "or",
+          "prerequisites": [
+            {
+              "prerequisites": [
+                {
+                  "id": "300700",
+                  "type": "unit",
+                  "recommended": false
+                }
+              ],
+              "type": "container"
+            },
+            {
+              "prerequisites": [
+                {
+                  "id": "200263",
+                  "type": "unit",
+                  "recommended": false
+                }
+              ],
+              "type": "container"
+            },
+            {
+              "prerequisites": [
+                {
+                  "id": "200032",
+                  "type": "unit",
+                  "recommended": false
+                }
+              ],
+              "type": "container"
+            }
+          ]
+        }
+      ],
+      "fixed": true
     },
     {
       "id": "301107",
@@ -57480,7 +53647,11 @@
           "keywords": [],
           "prerequisites": [],
           "activities": [],
-          "outcomes": []
+          "outcomes": [],
+          "corequisites": [],
+          "incompatible": [],
+          "equivalent": [],
+          "corerequisites": []
         },
         {
           "id": "11",
@@ -57546,7 +53717,11 @@
           ],
           "keywords": [],
           "activities": [],
-          "outcomes": []
+          "outcomes": [],
+          "corequisites": [],
+          "incompatible": [],
+          "equivalent": [],
+          "corerequisites": []
         }
       ],
       "credits": 10,
@@ -57564,12 +53739,30 @@
       "prerequisites": [],
       "positions": [
         {
-          "id": "u_301110",
-          "x": 0,
-          "y": 0
+          "id": "u_301107",
+          "x": 266,
+          "y": -57.00000000000002
         },
         {
-          "id": "u_301107",
+          "id": "n_301107_0",
+          "x": 266,
+          "y": -99.70223549831917
+        },
+        {
+          "id": "n_301107_11",
+          "x": 266,
+          "y": 1.7022354983191263
+        },
+        {
+          "id": "config",
+          "pan": {
+            "x": 8.929342701949167,
+            "y": 403.2507521054466
+          },
+          "zoom": 2.3668069823234994
+        },
+        {
+          "id": "u_301110",
           "x": 0,
           "y": 0
         },
@@ -57602,27 +53795,13 @@
           "id": "n_301110_12",
           "x": 0,
           "y": 0
-        },
-        {
-          "id": "n_301107_0",
-          "x": 0,
-          "y": 0
-        },
-        {
-          "id": "n_301107_11",
-          "x": 0,
-          "y": 0
-        },
-        {
-          "id": "config",
-          "pan": {
-            "x": 669,
-            "y": 283.9303482587065
-          },
-          "zoom": 1
         }
       ],
-      "fixed": true
+      "fixed": true,
+      "corequisites": [],
+      "incompatible": [],
+      "equivalent": [],
+      "corerequisites": []
     },
     {
       "id": "301108",
@@ -62463,576 +58642,185 @@
         {
           "id": "0",
           "name": "Reconnaisance and Scanning",
-          "credits": 3.2,
+          "credits": 1.5,
           "sfiaSkills": [
             {
-              "id": "GOVN",
-              "level": 1.92,
-              "max": 6
-            },
-            {
-              "id": "ITSP",
-              "level": 1.92,
-              "max": 6
-            },
-            {
-              "id": "IRMG",
-              "level": 1.92,
-              "max": 6
-            },
-            {
-              "id": "ISCO",
-              "level": 1.92,
-              "max": 6
-            },
-            {
-              "id": "SCTY",
-              "level": 1.92,
-              "max": 6
-            },
-            {
-              "id": "INAS",
-              "level": 1.92,
-              "max": 6
-            },
-            {
-              "id": "INAN",
-              "level": 1.92,
-              "max": 6
-            },
-            {
-              "id": "CNSL",
-              "level": 1.92,
-              "max": 6
-            },
-            {
-              "id": "TECH",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "ITMG",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "STPL",
-              "level": 1.92,
-              "max": 6
-            },
-            {
-              "id": "EMRG",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "NTPL",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "DATM",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "PROG",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "NTDS",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "HSIN",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "SYSP",
-              "level": 1.6,
-              "max": 5
+              "id": "PENT",
+              "level": 3,
+              "max": 0
             },
             {
               "id": "SCAD",
-              "level": 1.6,
-              "max": 5
+              "level": 3,
+              "max": 0
+            },
+            {
+              "id": "VULR",
+              "level": 2,
+              "max": 0
             },
             {
               "id": "NTAS",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "DGFS",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "CFMG",
-              "level": 1.6,
-              "max": 5
-            },
-            {
-              "id": "PENT",
-              "level": 1.6,
-              "max": 5
+              "level": 3,
+              "max": 0
             }
           ],
           "blockId": "301124-937",
-          "prerequisites": [],
           "topics": [
             {
               "id": "12",
-              "ratio": 0.5
+              "ratio": 0.6
             },
             {
               "id": "8",
-              "ratio": 0.5
+              "ratio": 0.4
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "10",
           "name": "Exploitation and Metasploit",
-          "credits": 2,
+          "credits": 0.5,
           "sfiaSkills": [
             {
-              "id": "GOVN",
-              "level": 1.2,
-              "max": 6
-            },
-            {
-              "id": "ITSP",
-              "level": 1.2,
-              "max": 6
-            },
-            {
-              "id": "IRMG",
-              "level": 1.2,
-              "max": 6
-            },
-            {
-              "id": "ISCO",
-              "level": 1.2,
-              "max": 6
-            },
-            {
-              "id": "SCTY",
-              "level": 1.2,
-              "max": 6
-            },
-            {
-              "id": "INAS",
-              "level": 1.2,
-              "max": 6
-            },
-            {
-              "id": "INAN",
-              "level": 1.2,
-              "max": 6
-            },
-            {
-              "id": "CNSL",
-              "level": 1.2,
-              "max": 6
-            },
-            {
-              "id": "TECH",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "ITMG",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "STPL",
-              "level": 1.2,
-              "max": 6
-            },
-            {
-              "id": "EMRG",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "NTPL",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "DATM",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "PROG",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "NTDS",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "HSIN",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "SYSP",
-              "level": 1,
-              "max": 5
+              "id": "PENT",
+              "level": 3
             },
             {
               "id": "SCAD",
-              "level": 1,
-              "max": 5
+              "level": 3
+            },
+            {
+              "id": "VULR",
+              "level": 2
             },
             {
               "id": "NTAS",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "DGFS",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "CFMG",
-              "level": 1,
-              "max": 5
-            },
-            {
-              "id": "PENT",
-              "level": 1,
-              "max": 5
+              "level": 3
             }
           ],
           "blockId": "301124-938",
-          "prerequisites": [],
           "topics": [
             {
               "id": "12",
-              "ratio": 0.5
+              "ratio": 0.6
             },
             {
               "id": "8",
-              "ratio": 0.5
+              "ratio": 0.4
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "17",
           "name": "Client Side and Post Exploitation",
-          "credits": 2.4,
+          "credits": 1.5,
           "sfiaSkills": [
             {
-              "id": "GOVN",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "ITSP",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "IRMG",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "ISCO",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "SCTY",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "INAS",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "INAN",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "CNSL",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "TECH",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "ITMG",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "STPL",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "EMRG",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "NTPL",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "DATM",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "PROG",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "NTDS",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "HSIN",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "SYSP",
-              "level": 1.2,
-              "max": 5
+              "id": "PENT",
+              "level": 3
             },
             {
               "id": "SCAD",
-              "level": 1.2,
-              "max": 5
+              "level": 3
+            },
+            {
+              "id": "VULR",
+              "level": 2
             },
             {
               "id": "NTAS",
-              "level": 1.2,
-              "max": 5
+              "level": 3
             },
             {
-              "id": "DGFS",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "CFMG",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "PENT",
-              "level": 1.2,
-              "max": 5
+              "id": "PROG",
+              "level": 2,
+              "max": 0
             }
           ],
           "blockId": "301124-939",
-          "prerequisites": [],
           "topics": [
             {
               "id": "12",
-              "ratio": 0.5
+              "ratio": 0.6
             },
             {
               "id": "8",
-              "ratio": 0.5
+              "ratio": 0.4
             }
-          ]
+          ],
+          "completionCriteria": {}
         },
         {
           "id": "26",
           "name": "Web Penetration Testing",
-          "credits": 2.4,
+          "credits": 1.5,
           "sfiaSkills": [
             {
-              "id": "GOVN",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "ITSP",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "IRMG",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "ISCO",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "SCTY",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "INAS",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "INAN",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "CNSL",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "TECH",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "ITMG",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "RSCH",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "STPL",
-              "level": 1.44,
-              "max": 6
-            },
-            {
-              "id": "EMRG",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "NTPL",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "DATM",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "METL",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "PROG",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "NTDS",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "HSIN",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "SYSP",
-              "level": 1.2,
-              "max": 5
+              "id": "PENT",
+              "level": 3
             },
             {
               "id": "SCAD",
-              "level": 1.2,
-              "max": 5
+              "level": 3
+            },
+            {
+              "id": "VULR",
+              "level": 2
             },
             {
               "id": "NTAS",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "DGFS",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "CFMG",
-              "level": 1.2,
-              "max": 5
-            },
-            {
-              "id": "PENT",
-              "level": 1.2,
-              "max": 5
+              "level": 3
             }
           ],
           "blockId": "301124-940",
-          "prerequisites": [],
           "topics": [
             {
               "id": "12",
-              "ratio": 0.5
+              "ratio": 0.6
             },
             {
               "id": "8",
-              "ratio": 0.5
+              "ratio": 0.4
+            }
+          ],
+          "completionCriteria": {}
+        },
+        {
+          "id": "27",
+          "name": "Exam",
+          "completionCriteria": {},
+          "offline": true,
+          "length": 0,
+          "credits": 5,
+          "topics": [
+            {
+              "id": "12",
+              "ratio": 0.6
+            },
+            {
+              "id": "8",
+              "ratio": 0.4
+            }
+          ],
+          "sfiaSkills": [
+            {
+              "id": "PENT",
+              "level": 3
+            },
+            {
+              "id": "SCAD",
+              "level": 3
+            },
+            {
+              "id": "VULR",
+              "level": 2
+            },
+            {
+              "id": "NTAS",
+              "level": 3
             }
           ]
         }
@@ -63062,7 +58850,128 @@
           "level": 3
         }
       ],
-      "topics": []
+      "completionCriteria": {},
+      "positions": [
+        {
+          "id": "u_301124",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "u_300565",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "u_300582",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "u_300581",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "u_300580",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301124_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301124_10",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301124_17",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301124_26",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_301124_27",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300565_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300565_2",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300565_13",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300582_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300582_1",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300582_2",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300582_6",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300582_12",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300582_14",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300582_15",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300581_0",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "n_300581_1",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "config",
+          "pan": {
+            "x": 638.5,
+            "y": 277.1808357348703
+          },
+          "zoom": 1
+        }
+      ],
+      "fixed": true
     },
     {
       "id": "301164",

@@ -20,7 +20,6 @@ export const typeDefs = gql`
   }
 
   type UnitBlock {
-    blockId: String!
     id: String!
     name: String!
     prerequisites: [Prerequisite!]
@@ -82,7 +81,7 @@ export const typeDefs = gql`
   type TopicBlock {
     unitId: String!
     unitName: String!
-    blockId: String!
+    id: String!
     blockName: String!
   }
 

@@ -147,7 +147,6 @@ export type Activity = {
 };
 
 export type Block = {
-  blockId: string;
   id: string;
   unitId?: string;
   name: string;

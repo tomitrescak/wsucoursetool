@@ -112,37 +112,6 @@ const UnitListItem = observer(({ unit, view, unitId, topics, selectedCourse }) =
       </Link>
 
       <Pane marginLeft={65} marginTop={-10} marginBottom={8} maxWidth={300}>
-        {unit.outdated && (
-          <Badge color="red" marginRight={8}>
-            Outdated
-          </Badge>
-        )}
-        {unit.obsolete && (
-          <Badge color="red" marginRight={8}>
-            Obsolete
-          </Badge>
-        )}
-        {unit.processed && (
-          <Badge color="green" marginRight={8}>
-            Processed
-          </Badge>
-        )}
-        {unit.proposed && (
-          <Badge color="purple" marginRight={8}>
-            Proposed
-          </Badge>
-        )}
-        {unit.contacted && (
-          <Badge color="purple" marginRight={8}>
-            Contacted
-          </Badge>
-        )}
-
-        {unit.hidden && (
-          <Badge color="red" marginRight={8}>
-            Hidden
-          </Badge>
-        )}
         {(unit.topics || []).map((t, i) => (
           <TopicBadge
             key={i}

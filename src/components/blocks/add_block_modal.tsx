@@ -28,7 +28,6 @@ export const AddBlockModalView: React.FC<Props> = ({ unit, state }) => {
         onConfirm={close => {
           const newBlock: Block = {
             id: findMaxId(unit.blocks),
-            blockId: Date.now().toString(),
             name: localState.name,
             prerequisites: [],
             completionCriteria: {},

@@ -28,7 +28,7 @@ import {
 
 const removeEmpty = obj => {
   Object.keys(obj).forEach(key => {
-    if (obj[key] == null || obj[key] === '') delete obj[key];
+    if (obj[key] == null || obj[key] === '' || obj[key].length === 0) delete obj[key];
     else if (Array.isArray(obj[key])) {
       obj[key].forEach(o => removeEmpty(o));
     } else if (obj[key] && typeof obj[key] === 'object') {
@@ -239,7 +239,7 @@ function createMajor(model: Major) {
 
 @model('Course/Course')
 export class CourseModel extends ExtendedModel(EntityModel, {
-  // core: prop<CourseUnitModel[]>({ setterAction: true }),
+  core: prop<Array<CourseUnitModel | CourseUnitModel[]>>({ setterAction: true }),
   majors: prop<MajorModel[]>({ setterAction: true }),
   positions: prop<any>(() => [], { setterAction: true }),
   completionCriteria: prop<CourseCompletionCriteriaModel>()
@@ -279,7 +279,9 @@ export class CourseModel extends ExtendedModel(EntityModel, {
 export function createCourse(model: Course) {
   return new CourseModel({
     ...model,
-    // core: (model.core || []).map(u => new CourseUnitModel(u)),
+    core: (model.core || []).map(u =>
+      Array.isArray(u) ? u.map(v => new CourseUnitModel(v)) : new CourseUnitModel(u)
+    ),
     majors: (model.majors || []).map(u => createMajor(u)),
     completionCriteria: createCourseCompletionCriteriaModel(model.completionCriteria)
   });
@@ -484,7 +486,7 @@ export function createCompletionCriteria(model: CompletionCriteria) {
 }
 
 type TypeBlock = {
-  blockId: string;
+  id: string;
   blockName: string;
   unitId: string;
   unitName: string;
@@ -523,7 +525,6 @@ function createActivities(activities?: ReadonlyArray<Activity>) {
 
 @model('Course/Block')
 export class BlockModel extends ExtendedModel(EntityModel, {
-  blockId: prop(),
   outcomes: prop<OutcomeModel[]>({ setterAction: true }),
   outcome: prop<string>({ setterAction: true }),
   keywords: prop<string[]>({ setterAction: true }),
@@ -662,6 +663,16 @@ export class PrerequisiteModel extends Model({
   recommended: prop<boolean>({ setterAction: true }),
   prerequisites: prop<PrerequisiteModel[]>({ setterAction: true })
 }) {
+  @modelAction
+  addRequisite(_key: string, pre: Prerequisite) {
+    this.prerequisites.push(createPrerequisite(pre));
+  }
+
+  @modelAction
+  removeRequisite(_key: string, item: Prerequisite) {
+    this.prerequisites.splice(this.prerequisites.indexOf(item), 1);
+  }
+
   @modelAction
   addPrerequisite(pre: Prerequisite) {
     this.prerequisites.push(createPrerequisite(pre));

@@ -68,6 +68,27 @@ function saveDb() {
     // handle topics
     unit.topics = unitTopics(unit).map(t => ({ ...t, credits: 10 * t.ratio }));
 
+    // handle sfia
+    if (unit.blocks.length > 0) {
+      unit.sfiaSkills = unit.blocks
+        .flatMap(u => u.sfiaSkills)
+        .reduce((p, n) => {
+          if (!n) {
+            return p;
+          }
+          let existing = p.find(l => l.id === n.id);
+          if (!existing) {
+            p.push({
+              id: n.id,
+              level: n.level
+            });
+          } else if (existing.level < n.level) {
+            existing.level = n.level;
+          }
+          return p;
+        }, []);
+    }
+
     for (let block of unit.blocks as Block[]) {
       // topics
       block.topics = (block.topics || []).map(t => ({ ...t, credits: block.credits * t.ratio }));
@@ -84,12 +105,16 @@ function saveDb() {
           }
           b.prerequisites.push({
             type: 'block',
-            id: block.blockId,
+            id: block.id,
+            unitId: unit.id,
             recommended: block.recommended
           });
         }
       }
     }
+
+    // remove unit only blocks
+    unit.blocks = unit.blocks.filter(b => !b.offline);
   }
 
   fs.writeFileSync(path.resolve(dbFile), JSON.stringify(g[key], null, 2), {
@@ -471,7 +496,7 @@ export const resolvers: IResolvers = {
           let topicalBlocks = u.blocks.filter(b => (b.topics || []).some(bt => bt.id === t.id));
           for (let b of topicalBlocks) {
             blocks.push({
-              blockId: b.id,
+              id: b.id,
               blockName: b.name,
               unitId: u.id,
               unitName: u.name
