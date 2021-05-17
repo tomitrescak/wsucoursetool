@@ -63,6 +63,7 @@ const BlockDetails: React.FC<{
     () => buildForm(block, ['name', 'description', 'outcome', 'credits']),
     [block]
   );
+  const dnd = React.useMemo(() => new Dnd({ splitColor: 'transparent', id: 'activity' }), []);
 
   const { loading, error, data } = useUnitsQuery();
   const { loading: unitLoading, data: unitData } = useUnitBaseQuery({
@@ -667,7 +668,7 @@ const BlocksEditorView: React.FC<Props> = ({
               {/* {title} */}
             </Heading>
           )}
-          {!readonly && (
+          {!readonly && unit.blocks.length > 1 && (
             <>
               <IconButton
                 icon="symbol-triangle-up"

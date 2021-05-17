@@ -69,9 +69,9 @@ function saveDb() {
     unit.topics = unitTopics(unit).map(t => ({ ...t, credits: 10 * t.ratio }));
 
     // handle sfia
-    if (unit.blocks.length > 0) {
+    if ((unit.blocks || []).length > 0) {
       unit.sfiaSkills = unit.blocks
-        .flatMap(u => u.sfiaSkills)
+        .flatMap(u => u.sfiaSkills || [])
         .reduce((p, n) => {
           if (!n) {
             return p;
@@ -89,11 +89,27 @@ function saveDb() {
         }, []);
     }
 
-    for (let block of unit.blocks as Block[]) {
+    // credits and global recommendations
+    for (let block of (unit.blocks || []) as Block[]) {
       // topics
       block.topics = (block.topics || []).map(t => ({ ...t, credits: block.credits * t.ratio }));
 
-      // recommended or required
+      // unit recommended
+      if (unit.prerequisites?.length) {
+        // copy all unit prerequisites to each of the blocks
+        if (block.prerequisites == null) {
+          block.prerequisites = [];
+        }
+        block.prerequisites.push(
+          ...unit.prerequisites.filter(b =>
+            block.prerequisites.every(
+              p => p.type !== b.type || p.unitId !== b.unitId || p.id !== b.id
+            )
+          )
+        );
+      }
+
+      // global recommended or required
       if (block.recommended || block.required) {
         for (let b of unit.blocks) {
           if (block === b) continue;
@@ -114,7 +130,7 @@ function saveDb() {
     }
 
     // remove unit only blocks
-    unit.blocks = unit.blocks.filter(b => !b.offline);
+    unit.blocks = (unit.blocks || []).filter(b => !b.offline);
   }
 
   fs.writeFileSync(path.resolve(dbFile), JSON.stringify(g[key], null, 2), {
@@ -169,7 +185,7 @@ function addUnit(list: UnitDependency[], value: Unit, level: number) {
     id: value.id,
     name: value.name,
     prerequisites: value.prerequisites || [],
-    blocks: value.blocks.map(b => ({
+    blocks: (value.blocks || []).map(b => ({
       id: b.id,
       name: b.name,
       prerequisites: b.prerequisites || [],
@@ -217,7 +233,7 @@ function addUnitPrerequisites(db: CourseConfig, list: UnitDependency[], unit: Un
   if (unit.prerequisites && unit.prerequisites.length) {
     addPrerequisites(db, list, unit.prerequisites, level);
   }
-  for (let block of unit.blocks) {
+  for (let block of unit.blocks || []) {
     if (block.prerequisites && block.prerequisites.length) {
       addPrerequisites(db, list, block.prerequisites, level);
     }
@@ -229,6 +245,11 @@ export const resolvers: IResolvers = {
   UnitBlock: {
     credits(parent) {
       return parent.credits || 0;
+    }
+  },
+  UnitList: {
+    topics(parent) {
+      return parent.topics || [];
     }
   },
   Mutation: {

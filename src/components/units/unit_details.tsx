@@ -704,45 +704,46 @@ const UnitDetails: React.FC<{
         )}
 
         {/* SFIA SKills */}
-        <Expander
-          title={`SFIA Skills ${unit.blocks.length ? '(🤷‍♂️ WILL BE HIDDEN)' : ''}`}
-          id="sfiaSkillsUnit"
-        >
-          <SfiaOwnerEditor owner={unit} readonly={readonly} hasMax={false} />
-        </Expander>
-
-        {/* Calculated SFIA */}
-        <Expander title="Calculated SFIA" id="sfiaSkillsUnit">
-          {unit.blocks
-            .flatMap(u => u.sfiaSkills)
-            .reduce((p, n) => {
-              let existing = p.find(l => l.id === n.id);
-              if (!existing) {
-                p.push({
-                  id: n.id,
-                  level: n.level
-                });
-              } else if (existing.level < n.level) {
-                existing.level = n.level;
-              }
-              return p;
-            }, [])
-            .map(item => {
-              let s = sfia.find(s => s.id === item.id);
-              item.name = s?.name;
-              item.url = s?.url;
-              return item;
-            })
-            .sort((a, b) => (a.name || '').localeCompare(b.name))
-            .map((item, idx) => (
-              <Text is="div" marginTop={4} key={item.id}>
-                <Badge>Level {round(item.level, 2)}</Badge>{' '}
-                <a href={item.url} target="__blank" style={{ cursor: 'pointer' }}>
-                  {item.name} ({item.id})
-                </a>
-              </Text>
-            ))}
-        </Expander>
+        {unit.blocks.length ? (
+          <Expander title="Calculated SFIA" id="sfiaSkillsUnit">
+            {unit.blocks
+              .flatMap(u => u.sfiaSkills)
+              .reduce((p, n) => {
+                let existing = p.find(l => l.id === n.id);
+                if (!existing) {
+                  p.push({
+                    id: n.id,
+                    level: n.level
+                  });
+                } else if (existing.level < n.level) {
+                  existing.level = n.level;
+                }
+                return p;
+              }, [])
+              .map(item => {
+                let s = sfia.find(s => s.id === item.id);
+                item.name = s?.name;
+                item.url = s?.url;
+                return item;
+              })
+              .sort((a, b) => (a.name || '').localeCompare(b.name))
+              .map((item, idx) => (
+                <Text is="div" marginTop={4} key={item.id}>
+                  <Badge>Level {round(item.level, 2)}</Badge>{' '}
+                  <a href={item.url} target="__blank" style={{ cursor: 'pointer' }}>
+                    {item.name} ({item.id})
+                  </a>
+                </Text>
+              ))}
+          </Expander>
+        ) : (
+          <Expander
+            title={`SFIA Skills ${unit.blocks.length ? '(🤷‍♂️ WILL BE HIDDEN)' : ''}`}
+            id="sfiaSkillsUnit"
+          >
+            <SfiaOwnerEditor owner={unit} readonly={readonly} hasMax={false} />
+          </Expander>
+        )}
 
         {/* ACS Skills */}
         {/* <Pane marginTop={16} elevation={2} padding={16} borderRadius={8} background="tint1">

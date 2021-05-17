@@ -128,6 +128,7 @@ export const SfiaOwnerEditor = observer(
 
         <Stripes>
           {owner.sfiaSkills
+            .slice()
             .sort((a, b) => {
               const sfiaA = data.sfia.find(s => s.id === a.id);
               const sfiaB = data.sfia.find(s => s.id === b.id);

@@ -69,7 +69,7 @@ const BlockPrerequisiteLine = ({
   }
 
   if (data.unitBase == null) {
-    const fallbackBlock = unit?.blocks.find(b => b.id === prerequisite.id);
+    const fallbackBlock = (unit?.blocks || []).find(b => b.id === prerequisite.id);
     const fallbackActivity = fallbackBlock?.activities.find(a => a.id === prerequisite.activityId)
       ?.name;
 
@@ -79,11 +79,11 @@ const BlockPrerequisiteLine = ({
       </Text>
     );
   }
-  const block = data.unitBase.blocks.find(s => s.id === prerequisite.id);
+  const block = (data.unitBase.blocks || []).find(s => s.id === prerequisite.id);
   return (
     <Text flex="1">
       <Badge color="blue">Block</Badge> {data.unitBase.name} &nbsp;&#x27a4;&nbsp;
-      {block.name}
+      {block?.name || 'NOT FOUND'}
     </Text>
   );
 };

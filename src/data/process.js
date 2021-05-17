@@ -46,10 +46,25 @@ let id = 0;
 //   url: s.url
 // }));
 
+const removeEmpty = obj => {
+  Object.keys(obj).forEach(key => {
+    if (obj[key] == null || obj[key] === '' || obj[key].length === 0) delete obj[key];
+    else if (Array.isArray(obj[key])) {
+      obj[key].forEach(o => removeEmpty(o));
+    } else if (obj[key] && typeof obj[key] === 'object') {
+      removeEmpty(obj[key]);
+    }
+    // delete
+    // recurse
+  });
+  return obj;
+};
+
 data.units.forEach(u => {
   u.blocks.forEach((b, i) => {
     delete b.blockId;
   });
+  removeEmpty(u);
 });
 
 // data.units.forEach(u => {

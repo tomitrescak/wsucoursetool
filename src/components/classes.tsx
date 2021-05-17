@@ -352,7 +352,7 @@ export class UnitModel extends ExtendedModel(EntityModel, {
       corerequisites: this.corequisites.map(p => p.toJS()),
       equivalent: this.equivalent.map(p => p.toJS()),
       incompatible: this.incompatible.map(p => p.toJS()),
-      topics: this.topics.map(t => t.toJS())
+      topics: this.topics.map(t => (t.toJS ? t.toJS() : toJS(t)))
     });
   }
   @modelAction
@@ -669,7 +669,7 @@ export class PrerequisiteModel extends Model({
   }
 
   @modelAction
-  removeRequisite(_key: string, item: Prerequisite) {
+  removeRequisite(_key: string, item: PrerequisiteModel) {
     this.prerequisites.splice(this.prerequisites.indexOf(item), 1);
   }
 
