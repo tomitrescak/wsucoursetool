@@ -1,7 +1,4 @@
 query Job($id: String!) {
   job(id: $id)
-
-  acs
-
   sfia
 }

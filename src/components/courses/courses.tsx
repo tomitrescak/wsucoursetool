@@ -439,9 +439,9 @@ const CourseTabs = observer(
           <TabHeader tab="dep" state={state}>
             Dependencies
           </TabHeader>
-          <TabHeader tab="acs" state={state}>
+          {/* <TabHeader tab="acs" state={state}>
             ACS CBOK
-          </TabHeader>
+          </TabHeader> */}
         </Tablist>
         <TabContent tab="rep" state={state}>
           <CourseReport

@@ -130,10 +130,10 @@ const Details: React.FC<{
     return <ProgressView loading={loading} error={error} />;
   }
 
-  const acsSkills: AcsKnowledge[] = data.acs
-    .map(m => m.items)
-    .flat()
-    .sort((a, b) => a.name.localeCompare(b.name));
+  // const acsSkills: AcsKnowledge[] = data.acs
+  //   .map(m => m.items)
+  //   .flat()
+  //   .sort((a, b) => a.name.localeCompare(b.name));
 
   // const sfiaSkills = state.courseConfig.sfiaSkills;
 
@@ -254,13 +254,13 @@ const Details: React.FC<{
             />
           </Pane>
 
-          <Heading size={500} marginBottom={8} marginTop={16}>
+          {/* <Heading size={500} marginBottom={8} marginTop={16}>
             ACS Skills
           </Heading>
 
           {job.skills.map((skill, i) => {
             //const sfia = sfiaSkills.find(s => s.id === skill.skillId);
-            const acs = acsSkills.find(s => s.id === skill.skillId);
+            // const acs = acsSkills.find(s => s.id === skill.skillId);
 
             return (
               <Pane display="flex" marginBottom={8}>
@@ -295,21 +295,18 @@ const Details: React.FC<{
                   >
                     <Text>[{skill.bloomRating}]</Text>
                   </Tooltip>
-                  &nbsp;-&nbsp; {/* {' '}
-                - {bloom[skill.bloomRating - 1].title} */}
+                  &nbsp;-&nbsp;
                 </Text>
                 <Text display="block" flex="1">
                   {acs && acs.name}
                 </Text>
 
-                {/* <Text display="block" flex="1">
-                {sfia.name}
-              </Text> */}
+                
               </Pane>
             );
-          })}
+          })} */}
 
-          <Pane display="flex" alignItems="center" marginTop={16}>
+          {/* <Pane display="flex" alignItems="center" marginTop={16}>
             <Combobox
               flex="1"
               width="100%"
@@ -343,7 +340,7 @@ const Details: React.FC<{
                 job.addSkill(localState.acsId, localState.rating);
               }}
             />
-          </Pane>
+          </Pane> */}
 
           <Button
             intent="danger"
@@ -398,8 +395,8 @@ const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
     return <ProgressView loading={loading} error={error} />;
   }
   const job: Job = data.job;
-  const acs: AcsKnowledge[] = data.acs;
-  const acsItems = acs.flatMap(m => m.items);
+  // const acs: AcsKnowledge[] = data.acs;
+  // const acsItems = acs.flatMap(m => m.items);
 
   let bars = skills.map((s, i) => {
     return {
@@ -463,7 +460,7 @@ const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
             </>
           ) : null}
 
-          {job.skills && job.skills.length ? (
+          {/* {job.skills && job.skills.length ? (
             <>
               <Heading size={400} marginBottom={8}>
                 ACS Skills
@@ -484,7 +481,7 @@ const DetailsReadonly: React.FC<{ item: Entity }> = observer(({ item }) => {
                 </Pane>
               </Pane>
             </>
-          ) : null}
+          ) : null} */}
         </Pane>
         {skill && (
           <Pane background="tint2" elevation={3} marginLeft={16} paddingTop={16} flex={2}>

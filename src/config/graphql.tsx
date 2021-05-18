@@ -414,7 +414,7 @@ export type JobQueryVariables = Exact<{
 }>;
 
 
-export type JobQuery = Pick<Query, 'job' | 'acs' | 'sfia'>;
+export type JobQuery = Pick<Query, 'job' | 'sfia'>;
 
 export type JobsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1009,7 +1009,6 @@ export type DeleteJobMutationOptions = ApolloReactCommon.BaseMutationOptions<Del
 export const JobDocument = gql`
     query Job($id: String!) {
   job(id: $id)
-  acs
   sfia
 }
     `;

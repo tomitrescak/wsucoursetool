@@ -31,6 +31,9 @@ const UnitItemView = observer(
       );
     }
     const u = units.find(u => u.id === unit.id);
+    if (!u) {
+      return <Pane>Not found: {unit.id}</Pane>;
+    }
     return (
       <Pane display="flex" marginBottom={4} alignItems="center">
         <Text>

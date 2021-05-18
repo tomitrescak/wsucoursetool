@@ -94,12 +94,12 @@ export function createSearchNodes(db: { units: UnitList[] }) {
         level: u.level || 0,
         blocks: u.blocks || [],
         prerequisites: u.prerequisites || [],
-        credits: u.blocks.reduce((prev, next) => next.credits + prev, 0)
+        credits: (u.blocks || []).reduce((prev, next) => next.credits + prev, 0)
       },
       dependsOn: [],
       semester: 0,
       credits: parseFloat(u.credits as any),
-      topics: u.blocks.reduce((prev, next) => {
+      topics: (u.blocks || []).reduce((prev, next) => {
         for (let topic of next.topics || []) {
           let current = prev.find(p => p.id === topic.id);
           if (current) {
@@ -110,7 +110,7 @@ export function createSearchNodes(db: { units: UnitList[] }) {
         }
         return prev;
       }, [] as TopicSummary[]),
-      sfiaSkills: u.blocks.reduce((prev, next) => {
+      sfiaSkills: (u.blocks || []).reduce((prev, next) => {
         for (let sfia of next.sfiaSkills || []) {
           let current = prev.find(p => p.id === sfia.id);
           if (current) {
@@ -133,7 +133,7 @@ export function createSearchNodes(db: { units: UnitList[] }) {
   const blockNodes: SearchNode[] = db.units
     .filter(u => u.level < 7)
     .flatMap(u =>
-      u.blocks.map(b => ({
+      (u.blocks || []).map(b => ({
         id: searchBlockId++,
         block: b,
         credits: parseFloat(b.credits as any),

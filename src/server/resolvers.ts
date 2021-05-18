@@ -417,9 +417,14 @@ export const resolvers: IResolvers = {
       return true;
     },
     saveLegacyUnits(parent, { units }, context) {
-      fs.writeFileSync(path.resolve('./src/data/db.jar.json'), units, {
-        encoding: 'utf-8'
+      console.log('Saving legacy units ...');
+      withDb(db => {
+        let newDb = JSON.parse(units);
+        Object.keys(newDb).forEach(key => (db[key] = newDb[key]));
       });
+      // fs.writeFileSync(path.resolve('./src/data/db.jar.json'), units, {
+      //   encoding: 'utf-8'
+      // });
       return true;
     }
   },
